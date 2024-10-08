@@ -13,7 +13,7 @@
 具体位置：
 ![](Finews_pics/IM_2.jpeg)
 实现结果：
-![](Finews_pics/IM_3.png)
+![](Finews_pics/IM_3.PNG)
 
 <br>
 
