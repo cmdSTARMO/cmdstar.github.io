@@ -1,0 +1,174 @@
+@import "./styles.css";
+
+
+:root{
+    --h-title-color:#3948d2;
+}
+
+.header {
+    border-bottom: solid 2px;
+    border-image: linear-gradient(to right, #3533cc, black) 1;
+    z-index: 10000;
+}
+
+.bg-bottom {
+    background-color: var(--h-title-color);
+}
+
+.top-section {
+    position: relative;
+    padding: 10rem 0;
+    background-position: center;
+    background-size: cover;
+    height: 25rem;
+}
+
+.top-section h2 {
+    font-weight: 400;
+}
+
+.top-section .top-section-content {
+    position: relative;
+    z-index: 1;
+}
+
+.top-section:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+section header h2{
+    font-family: "Kanit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+    color: var(--h-title-color);
+    font-size: 2.3rem;
+    line-height: 4rem;
+}
+
+section .main-body{
+    font-size: 1.3rem;
+    font-weight: 200;
+    line-height: 2.4rem;
+}
+
+
+.bg-gradient-primary-to-secondary-light {
+    background: linear-gradient(45deg, #fcfcfc, #ffffff) !important;
+}
+
+.bg-gradient-primary-to-secondary-gray {
+    background: linear-gradient(45deg, #f0f0f0, #f1f1f1) !important;
+}
+
+
+
+.on-top {
+    position: relative;
+    z-index: 10000;
+}
+
+.top-bg {
+    background-position: center;
+    background-size: fill;
+    width: 100%;
+    height: 100%;
+}
+
+.top-bg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.gradient-border-btn {
+    position: relative;
+    background-color: black;
+    color: white;
+    border: none; /* 移除默认边框 */
+    border-radius: 20px; /* 圆角 */
+    padding: 10px 20px;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.gradient-border-btn::before {
+    content: '';
+    position: absolute;
+    top: -1px;  /* 调整以使边框更细 */
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    background: linear-gradient(45deg, #5170ff, #ff66c4);
+    z-index: -1;
+    border-radius: 20px; /* 同样的圆角 */
+}
+
+.gradient-border-btn::after {
+    content: '';
+    position: absolute;
+    top: 2px;  /* 调整以使内部黑色背景稍微增大 */
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    background-color: black; /* 内部黑色背景 */
+    z-index: -1;
+    border-radius: 18px; /* 圆角稍小一点，避免覆盖渐变边框 */
+}
+
+.navbar-toggler:focus {
+    outline: none; /* 移除默认点击后的边框 */
+    box-shadow: none; /* 也移除任何可能的阴影 */
+}
+
+.home-card {
+    background-color: white; /* 背景为白色 */
+    border-radius: 15px; /* 圆角 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影，使其看起来像浮动的小卡片 */
+    padding: 20px; /* 内边距，让内容更美观 */
+    margin-top: 20px; /* 顶部间距 */
+}
+
+.home-card .card-header {
+    border-bottom: 1px solid #ddd; /* 卡片顶部的分割线 */
+    padding-bottom: 10px; /* 顶部内边距 */
+    margin-bottom: 15px; /* 使标题与内容之间有间距 */
+}
+
+.home-card .card-body {
+    padding: 10px 0; /* 调整卡片主体的内边距 */
+}
+
+.main-body {
+    max-width: 100%; /* 确保容器宽度也支持响应式 */
+}
+
+#avatar {
+    position: relative;
+    height: 0;
+    top:min(-65px,max(-100px,calc(-1*100vw/12)));
+    max-width: 55em;
+    margin: 0 1.5rem 0 0;
+    float: right;
+    z-index: 9000;
+}
+
+#avatar img {
+    height: max(130px,min(200px,calc(100vw/6)));
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+@media screen and (max-width: 991px) {
+    #avatar {
+        margin: 0;
+    }
+}
+
+
