@@ -2,7 +2,7 @@
 [//]: # (# 从0开始！如何整出自己的飞书财经新闻小助手)
 <br>
 
-![](Finews_pics/im_1.png)
+![](Finews_pics/IM_1.png)
 
 > ⚠️ 本教程仅作学习分享用途，该案例中使用爬虫工具抓取了东方财富网的部分页面与信息，仅为单次爬取供演示，实际实践中请注意请求频率，谨慎使用`while`与`for`循环，建议保持**3秒/次**的访问速率。
 
@@ -11,9 +11,9 @@
 链接：[东方财富-证券聚焦-网友点击排行榜](https://finance.eastmoney.com/a/czqyw.html)
 
 具体位置：
-![](Finews_pics/im_2.png)
+![](Finews_pics/IM_2.jpeg)
 实现结果：
-![](Finews_pics/im_3.png)
+![](Finews_pics/IM_3.png)
 
 <br>
 
@@ -51,7 +51,7 @@
   ```commandline
   https://finance.eastmoney.com/a/czqyw.html
   ```
-![](Finews_pics/im_2.png)
+![](Finews_pics/IM_2.png)
 点击键盘上的 `F12` ，查看是否跳出如下窗口，若未跳出可能是未开启Fn锁，则需要按住键盘上的 `Fn + F12` 以打开该窗口。<br>
 _（~~你可能不经意间打开过还觉得很高级~~）_
 ![](Finews_pics/img_1.png)
