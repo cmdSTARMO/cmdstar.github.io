@@ -1,6 +1,6 @@
 
 
-const content_dir = '../../contents/'
+const content_dir = '../contents/'
 const config_file = 'config_ccpage.yml'
 const section_names = ['curveway-confluence-page']
 
