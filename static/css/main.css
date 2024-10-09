@@ -150,6 +150,81 @@ section .main-body{
     max-width: 100%; /* 确保容器宽度也支持响应式 */
 }
 
+.Topic_Topic__Arnzh {
+   position: relative;
+   flex: 1 1;
+   aspect-ratio: 35/38;
+   border: 0;
+}
+
+.Topic_Card___KIuP {
+   position: relative;
+   display: flex;
+   width: 100%;
+   height: 100%;
+   align-items: flex-start;
+   padding: var(--base-size-24);
+   overflow: hidden;
+   text-align: left;
+   cursor: pointer;
+   background-color: var(--brand-color-canvas-default);
+   border: 1px solid hsla(0,0%,100%,15);
+   border-radius: var(--base-size-24);
+}
+
+.Topic_Card-overlay__Bg4_A {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-repeat: no-repeat;
+   background-position: 50%;
+   background-size: cover;
+   border-radius: inherit;
+   transition: transform var(--brand-animation-duration-default) cubic-bezier(.22,56,23,89);
+}
+
+.Topic_Topic-title__5Yi6D {
+   position: relative;
+   font-size: 24px;
+   line-height: 1.2;
+}
+
+.Topic_Topic-plus__HcbZy {
+   position: absolute;
+   right: var(--base-size-28);
+   bottom: var(--base-size-28);
+   display: inline-flex;
+   height: var(--base-size-36);
+   padding: var(--base-size-8) var(--base-size-16);
+   background: hsla(0,0%,100%,12);
+   border-radius: var(--base-size-80);
+   justify-content: center;
+   align-items: center;
+   gap: var(--base-size-8);
+}
+
+.Primer_Brand__Text-module__Text___pecHN {
+   font-family: "Mona Sans", sans-serif;
+}
+
+.Primer_Brand__Text-module__Text-font--mona-sans___GpzSG {
+   font-family: "Mona Sans";
+}
+
+.Primer_Brand__Text-module__Text--default___DChoE {
+   font-size: 1rem;
+}
+
+.Primer_Brand__Text-module__Text--400___y7m4l {
+   font-weight: 400;
+}
+
+.Primer_Brand__Text-module__Text--weight-semibold___Ns19j {
+   font-weight: 600;
+}
+
 #avatar {
     position: relative;
     height: 0;
