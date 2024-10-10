@@ -10,9 +10,9 @@
 
 链接：[东方财富-证券聚焦-网友点击排行榜](https://finance.eastmoney.com/a/czqyw.html)
 
-具体位置：
-![](Finews_pics/IM_2.png)
-实现结果：
+具体位置：<br>
+![](Finews_pics/IM_2.jpeg)
+实现结果：<br>
 ![](Finews_pics/IM_3.PNG)
 
 <br>
