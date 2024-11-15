@@ -240,9 +240,73 @@ section .main-body{
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
 
-@media screen and (max-width: 991px) {
-    #avatar {
+@media (max-width: 768px) {
+    .files_a_card {
+        height: 350px;
+        width: 600px;
+        min-width: 400px;
+        padding: 1.5rem;
+        border-radius: 16px;
+        background: #f9f9f9; /* 浅灰背景色 */
+        box-shadow: -1rem 0 3rem rgba(0, 0, 0, 0.1); /* 调整阴影颜色 */
+        display: flex;
+        flex-direction: row;
+        transition: .2s;
         margin: 0;
+        scroll-snap-align: start;
+        clear: both;
+        position: relative;
+    }
+    .files_a_card-list {
+        flex-direction: row;    /* 改为垂直布局，避免横向滚动 */
+        padding: 1rem;             /* 减少内边距，适应小屏幕 */
+        overflow-x: hidden;        /* 隐藏水平滚动条 */
+    }
+
+    .files_a_card {
+        width: 90%;               /* 在小屏幕上占父容器的 90% 宽度 */
+        margin: 10px auto;        /* 卡片居中 */
+    }
+
+    .files_a_card-header h2 {
+        font-size: 18px;          /* 调整标题字体大小 */
+        line-height: 1.4;         /* 减少行间距 */
+    }
+
+    .files_a_card-header p {
+        font-size: 12px;          /* 调整描述文字大小 */
+        margin-bottom: 0.5rem;    /* 缩小描述文字的外边距 */
+    }
+
+    .files_a_tags a {
+        font-size: 0.5rem;        /* 缩小标签字体 */
+        padding: 0.1rem 0.5rem;   /* 减少标签的内边距 */
+    }
+
+    .files_a_author-avatar img {
+        width: 30px;              /* 缩小头像大小 */
+        height: 30px;
+    }
+
+    .files_a_author-name-prefix {
+        font-size: 0.8rem;        /* 缩小作者名称的前缀字体大小 */
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;         /* 小屏幕上稍小的字体 */
+        line-height: 1.4;        /* 减少行间距 */
+    }
+
+    section header h2 {
+        font-size: 1.8rem;       /* 调整大标题的字体大小 */
+        line-height: 1.2;        /* 减少行间距 */
+    }
+
+    .main-body {
+        font-size: 1rem;         /* 调整正文内容的字体大小 */
+        line-height: 1.5;        /* 合适的行间距 */
     }
 }
 
@@ -313,17 +377,19 @@ a {
 .files_a_card-list {
     display: flex;
     padding: 3rem;
-    overflow-x: scroll;
+    overflow-x: auto;
     background: #f7f7f7; /* 浅灰色背景 */
+    scrollbar-width: thin;       /* 调整滚动条宽度（Firefox） */
+    -webkit-overflow-scrolling: touch; /* 为移动设备启用平滑滚动 */
 }
 
 .files_a_card-list::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    height: 6px;                 /* 更窄的滚动条适配移动设备 */
 }
 
 .files_a_card-list::-webkit-scrollbar-thumb {
-    background: #ccc; /* 滚动条颜色变浅 */
+    background: #ccc;            /* 浅色滚动条 */
+    border-radius: 3px;
 }
 
 .files_a_card-list::-webkit-scrollbar-track {
