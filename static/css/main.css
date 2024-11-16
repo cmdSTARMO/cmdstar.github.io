@@ -1,6 +1,5 @@
 @import "./styles.css";
 
-
 :root{
     --h-title-color:#2a5989;
 }
@@ -55,7 +54,6 @@ section .main-body{
     line-height: 2.4rem;
 }
 
-
 .bg-gradient-primary-to-secondary-light {
     background: linear-gradient(45deg, #fcfcfc, #ffffff) !important;
 }
@@ -63,8 +61,6 @@ section .main-body{
 .bg-gradient-primary-to-secondary-gray {
     background: linear-gradient(45deg, #f0f0f0, #f1f1f1) !important;
 }
-
-
 
 .on-top {
     position: relative;
@@ -331,6 +327,26 @@ section .main-body{
     animation: breathing 1.5s ease-in-out infinite; /* 呼吸灯动画 */
 }
 
+@keyframes fadeGray {
+    0%, 100% {
+        background-color: #808080; /* 初始灰色 */
+        opacity: 0.8; /* 半透明 */
+    }
+    50% {
+        background-color: #b0b0b0; /* 更浅的灰色 */
+        opacity: 0.2; /* 更透明 */
+    }
+}
+
+.past-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #808080; /* 初始灰色 */
+    animation: fadeGray 2s infinite; /* 2秒循环渐变动画 */
+}
+
 @keyframes smoothColorChange {
     0% { background-color: #000000; }
     12.5% { background-color: #3533cd; }
@@ -353,15 +369,6 @@ section .main-body{
     transition: background-color 1s ease-in-out; /* 添加平滑过渡 */
 }
 
-.past-dot {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #808080; /* 灰色 */
-    opacity: 0.8; /* 半透明，弱化视觉 */
-}
-
 .circular-image {
     border-radius: 50%; /* 使图片变成圆形 */
     width: 60px;        /* 控制图片宽度 */
@@ -369,7 +376,7 @@ section .main-body{
     object-fit: cover;  /* 保证图片内容在圆形内完整显示 */
 }
 
-/*for files cards here*/
+/* 文件卡片样式 */
 a {
     text-decoration: none;
 }
@@ -397,7 +404,7 @@ a {
 }
 
 .files_a_card {
-    height: 350px;
+    height: 220px;
     width: 600px;
     min-width: 400px;
     padding: 1.5rem;
@@ -411,6 +418,39 @@ a {
     scroll-snap-align: start;
     clear: both;
     position: relative;
+    overflow: hidden; /* 添加，隐藏溢出内容 */
+    z-index: 1; /* 设置默认层级 */
+}
+
+/* 背景图片样式 */
+.files_a_card-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+/* 添加半透明毛玻璃效果的覆盖层 */
+.files_a_card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(128, 128, 128, 0); /* 初始透明 */
+    z-index: 2;
+    transition: background 0.3s, backdrop-filter 0.3s;
+}
+
+.files_a_card:hover::before {
+    background: rgba(128, 128, 128, 0.5); /* 灰色半透明 */
+    backdrop-filter: blur(5px); /* 毛玻璃效果 */
+    -webkit-backdrop-filter: blur(5px); /* 兼容Safari */
 }
 
 .files_a_card:focus-within~.files_a_card, .files_a_card:hover~.files_a_card {
@@ -418,7 +458,39 @@ a {
 }
 
 .files_a_card:hover {
-    transform: translateY(-1rem);
+    transform: translateY(-1rem) scale(1.1);
+    z-index: 3; /* 提高层级，确保在最上层 */
+}
+
+/* 确保其他卡片的层级低于当前卡片 */
+.files_a_card:hover ~ .files_a_card {
+    z-index: 1;
+}
+
+/* 卡片内容 */
+.files_a_card-header,
+.files_a_tags {
+    position: relative;
+    z-index: 3; /* 确保内容在覆盖层之上 */
+    opacity: 0; /* 初始隐藏内容 */
+    transition: opacity 0.3s;
+}
+
+.files_a_card:hover .files_a_card-header,
+.files_a_card:hover .files_a_tags {
+    opacity: 1; /* 悬停时显示内容 */
+}
+
+/* 调整文字和链接的样式，确保在灰色背景上清晰可见 */
+.files_a_card-header h2,
+.files_a_card-header p,
+.files_a_tags a {
+    color: #fff; /* 白色文字 */
+}
+
+/* 链接悬停效果（可选） */
+.files_a_tags a:hover {
+    text-decoration: underline;
 }
 
 .files_a_card:not(:first-child) {
@@ -428,36 +500,17 @@ a {
 .files_a_card-header {
     margin-bottom: auto;
 }
-/*
+
 .files_a_card-header p {
     font-size: 14px;
     margin: 0 0 1rem;
-    color: #7a7a8c;
 }
 
 .files_a_card-header h2 {
     font-size: 20px;
     margin: .25rem 0 auto;
     text-decoration: none;
-    color: inherit;
-    border: 0;
-    display: inline-block;
-    cursor: pointer;
-}
-*/
-
-.files_a_card-header p {
-    font-size: 14px;
-    margin: 0 0 1rem;
-    color: #666; /* 浅灰色字体 */
-}
-
-.files_a_card-header h2 {
-    font-size: 20px;        /* 控制字体大小 */
-    margin: .25rem 0 auto; /* 调整上下外边距 */
-    text-decoration: none; /* 去掉下划线 */
-    color: #333;           /* 设置字体颜色 */
-    line-height: 1.2;      /* 设置行高，1.2 表示 120% 的行距 */
+    line-height: 1.2;
 }
 
 .files_a_card-header h2:hover {
@@ -467,56 +520,6 @@ a {
     -webkit-background-clip: text;
     background-clip: text;
 }
-/*
-.files_a_card-author {
-    margin: 3rem 0 0;
-    display: grid;
-    grid-template-columns: 75px 1fr;
-    align-items: center;
-    position: relative;
-}
-
-.files_a_author-avatar {
-    grid-area: auto;
-    align-self: start;
-    position: relative;
-    box-sizing: border-box;
-}
-*/
-
-.files_a_author-avatar img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    filter: grayscale(100%);
-    display: block;
-    overflow: hidden;
-    margin: 16px 10px;
-}
-
-.files_a_author-name {
-    grid-area: auto;
-    box-sizing: border-box;
-}
-
-.files_a_author-name-prefix {
-    font-style: normal;
-    font-weight: 700;
-    color: #7a7a8c;
-}
-
-.files_a_half-circle {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 60px;
-    height: 48px;
-    fill: none;
-    stroke: #ff8a00;
-    stroke-width: 8;
-    stroke-linecap: round;
-    pointer-events: none;
-}
 
 .files_a_tags {
     margin: 1rem 0 2rem;
@@ -524,48 +527,22 @@ a {
     line-height: 2;
     margin-bottom: 0;
 }
-/*
-.files_a_tags a {
-    font-style: normal;
-    font-weight: 700;
-    font-size: .5rem;
-    color: #7a7a8c;
-    text-transform: uppercase;
-    font-size: .66rem;
-    border: 3px solid #28242f;
-    border-radius: 2rem;
-    padding: .2rem .85rem .25rem;
-    position: relative;
-}
-
-.files_a_tags a:hover {
-    background: linear-gradient(90deg,#ff8a00,#e52e71);
-    text-shadow: none;
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
-    -webkit-box-decoration-break: clone;
-    background-clip: text;
-    border-color: white;
-}
-*/
 
 .files_a_tags a {
     font-style: normal;
     font-weight: 700;
     font-size: .66rem;
-    color: #666; /* 标签字体浅灰色 */
+    color: #fff; /* 白色字体 */
     text-transform: uppercase;
     border: 2px solid #ddd; /* 浅灰色边框 */
     border-radius: 2rem;
     padding: .2rem .85rem .25rem;
     position: relative;
-    background: #f5f5f5; /* 浅灰色背景 */
+    background: rgba(255, 255, 255, 0.2); /* 半透明背景 */
 }
 
 .files_a_tags a:hover {
-    background: linear-gradient(90deg, #e3e3e3, #f0f0f0); /* 悬停时灰色渐变背景 */
+    background: rgba(255, 255, 255, 0.4); /* 悬停时背景加深 */
     border-color: #ccc; /* 悬停时浅灰边框 */
-    color: #333; /* 深灰色字体 */
+    color: #fff; /* 白色字体 */
 }
-
-/*end for files cards here*/

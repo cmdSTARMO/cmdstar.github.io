@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="cn">
+<iframe src="../../../g_static.html" style="display: none;"></iframe>
 
 <head>
     <meta charset="utf-8" />
@@ -105,36 +106,17 @@
 <!--    </nav>-->
 <body id="page-top">
     <!-- Navigation-->
-    <nav class="header navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); box-shadow: none;">
-        <div class="container px-5">
-            <a id="page-top-title" class="navbar-brand fw-bold text-white" href="#page-top"></a> <!-- 将文字变为白色 -->
-            <!-- <a href="#page-top"><img src="static/assets/img/CUMT_LOGO.svg" style="width: 11rem;"></a> -->
-            <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" style="outline: none">
-                <b>菜单</b>
-                <i class="bi-list"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link me-lg-3 text-white" href="../../../index.html">主页</a> <!-- 文字颜色改为白色 -->
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link me-lg-3 text-white" href="python-feishu-finance-pusher.html">文章</a> <!-- 文字颜色改为白色 -->
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link me-lg-3 text-white" href="/">传送门</a> <!-- 文字颜色改为白色 -->
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link me-lg-3 text-white" href="../../../contents/curveway-confluence-page.html">曲径共融</a> <!-- 文字颜色改为白色 -->
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div id="navbar"></div>
+    <script>
+        fetch('../../../navbar.html') // 指向上一级目录
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+    </script>
     <!-- Top Section -->
-    <section class="top-section" style="background-image: url('../../../static/assets/img/background.png');">
+    <section class="top-section" style="background-image: url('Finews_pics/IM_2.jpeg');">
         <div class="top-section-content">
             <div class="container px-5">
                 <h2 id="top-section-bg-text" class="text-white display-3 lh-1 font-alt"></h2>
