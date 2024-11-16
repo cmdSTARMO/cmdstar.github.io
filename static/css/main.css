@@ -119,10 +119,19 @@ section .main-body{
     border-radius: 18px; /* 圆角稍小一点，避免覆盖渐变边框 */
 }
 
+.navbar-toggler: hover {
+    background: linear-gradient(90deg,#ff8a00,#e52e71);
+    text-shadow: none;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
 .navbar-toggler:focus {
     outline: none; /* 移除默认点击后的边框 */
     box-shadow: none; /* 也移除任何可能的阴影 */
 }
+
 
 .home-card {
     background-color: white; /* 背景为白色 */
@@ -442,13 +451,13 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(128, 128, 128, 0); /* 初始透明 */
+    background: rgba(0, 0, 0, 0); /* 初始透明 */
     z-index: 2;
     transition: background 0.3s, backdrop-filter 0.3s;
 }
 
 .files_a_card:hover::before {
-    background: rgba(128, 128, 128, 0.5); /* 灰色半透明 */
+    background: rgba(0, 0, 0, 0.5); /* 灰色半透明 */
     backdrop-filter: blur(5px); /* 毛玻璃效果 */
     -webkit-backdrop-filter: blur(5px); /* 兼容Safari */
 }
@@ -482,7 +491,14 @@ a {
 }
 
 /* 调整文字和链接的样式，确保在灰色背景上清晰可见 */
+/*
 .files_a_card-header h2,
+.files_a_card-header p,
+.files_a_tags a {
+    color: #fff; / 白色文字 /
+}
+*/
+
 .files_a_card-header p,
 .files_a_tags a {
     color: #fff; /* 白色文字 */
@@ -513,7 +529,16 @@ a {
     line-height: 1.2;
 }
 
+/*
 .files_a_card-header h2:hover {
+    background: linear-gradient(90deg,#ff8a00,#e52e71);
+    text-shadow: none;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+*/
+.files_a_card-header h2 {
     background: linear-gradient(90deg,#ff8a00,#e52e71);
     text-shadow: none;
     -webkit-text-fill-color: transparent;
@@ -545,4 +570,10 @@ a {
     background: rgba(255, 255, 255, 0.4); /* 悬停时背景加深 */
     border-color: #ccc; /* 悬停时浅灰边框 */
     color: #fff; /* 白色字体 */
+}
+
+.custom-divider {
+    border: 0;
+    padding-top: 1px;
+    background: linear-gradient(to right, transparent, #d0d0d5, transparent);
 }

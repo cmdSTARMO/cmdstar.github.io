@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="cn">
 <iframe src="g_static.html" style="display: none;"></iframe>
+<!-- 卡片样式 -->
+<style>
+    .experience-card {
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .experience-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+    }
+</style>
+
 
 <head>
     <meta charset="utf-8" />
@@ -140,25 +156,81 @@
                 <h2 id="home-subtitle"> </h2>
                 <!-- <span class="bi bi-list"></span> -->
             </header>
-            <div class="main-body" id="home-md"></div>
+<!--            <div class="main-body" id="home-md"></div>-->
+            <div class="experience-card" style="background-color: #f8f9fa;">
+                <!-- 自我介绍 -->
+                <h4 class="fw-bold" style="position: relative; top: 5px;">
+                    Intro
+                </h4>
+                <p>
+                    I'm currently pursuing a Master's Degree in Financial Mathematics, at Miami Herbert Business School, University of Miami in Miami, Florida.<br><br>
+                    Results-oriented quantitative analyst with a solid foundation in time series analysis and quantitative finance. Possesses a strong understanding of agricultural and precious metals markets, gained through extensive industry research. Proficient in utilizing programming languages and databases for data mining and analysis, and skilled in creating insightful data visualizations using Tableau. Has contributed to multiple investment-related projects, developing practical experience in the field.
+                </p>
+                <!-- 分割线 -->
+                <br>
+                <div class="custom-divider"></div>
+                <br>
+
+                <h4 class="fw-bold" style="position: relative; top: 5px;">
+                    Education
+                </h4>
+                <br>
+
+                <!-- 学校部分，保留logo位置 -->
+                <div class="d-flex align-items-center mb-2">
+                    <img src="static/assets/img/um_logo.png" alt="University Logo" class="me-3 circular-image">
+                    <div>
+                        <h5 class="fw-bold" style="position: relative; top: 5px;">
+                            University of Miami Herbert Business School
+                        </h5>
+                    </div>
+                </div>
+                <br>
+                <h6 class="fw-bold">M.Sc. in Financial Mathematics&nbsp;&nbsp;<span class="online-dot"></span></h6>
+                <p class="text-muted">
+                    Aug. 2024 - May 2025 (expected)<br>
+                    Miami, Florida, United States
+                </p>
+                <div class="d-flex align-items-center mb-2">
+                    <img src="static/assets/img/gdufe_logo.png" alt="University Logo" class="me-3 circular-image">
+                    <div>
+                        <h5 class="fw-bold" style="position: relative; top: 5px;">
+                            Guangdong University of Finance and Economics
+                        </h5>
+                    </div>
+                </div>
+                <br>
+                <h6 class="fw-bold">B.Sc. in Financial Engineering&nbsp;&nbsp;<span class="past-dot"></span></h6>
+                <p class="text-muted">
+                    Sep. 2020 – Jun. 2024<br>
+                    Guangzhou, Guangdong, China
+                </p>
+
+                <br>
+                <!-- 分割线 -->
+                <div class="custom-divider"></div>
+                <br>
+
+                <!-- 联系方式 -->
+                <h4 class="fw-bold" style="position: relative; top: 5px;">
+                    Emails
+                </h4>
+                <p>huangdapao@huangdapao.com<br>xxh497@miami.edu</p>
+
+                <br>
+                <!-- 分割线 -->
+                <div class="custom-divider"></div>
+                <br>
+
+                <!-- 个人兴趣关键字 -->
+                <h4 class="fw-bold" style="position: relative; top: 5px;">
+                    Personal Interests Keywords
+                </h4>
+                <p>Python, Excel VBA, Stata, Matlab, Tableau, Commodities...</p>
+            </div>
         </div>
     </section>
     <!-- Home -->
-<!--    &lt;!&ndash; Home &ndash;&gt;-->
-<!--    <section class="bg-gradient-primary-to-secondary-light mt-5 md-5" id="home">-->
-<!--        <div class="container px-5">-->
-<!--            <div class="card home-card"> &lt;!&ndash; 添加 card 类来显示为卡片 &ndash;&gt;-->
-<!--                <header class="card-header">-->
-<!--                    <h2 id="home-subtitle">标题</h2>-->
-<!--                    &lt;!&ndash; <span class="bi bi-list"></span> &ndash;&gt;-->
-<!--                </header>-->
-<!--                <div class="card-body" id="home-md">-->
-<!--                    &lt;!&ndash; 在此处放入你的内容 &ndash;&gt;-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </section>-->
-<!--    &lt;!&ndash; Home &ndash;&gt;-->
 
     <!-- experiences -->
     <section class="bg-gradient-primary-to-secondary-gray mt5 md5" id="experiences">
@@ -167,21 +239,6 @@
                 <h2 id="experiences-subtitle"><i class="bi bi-pencil-fill"></i>&nbsp;EXPERIENCES</h2>
             </header>
 
-            <!-- 卡片样式 -->
-            <style>
-                .experience-card {
-                    padding: 20px;
-                    border-radius: 8px;
-                    margin-bottom: 20px;
-                    transition: transform 0.3s ease, box-shadow 0.3s ease;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                }
-                .experience-card:hover {
-                    transform: translateY(-8px);
-                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-                    cursor: pointer;
-                }
-            </style>
 
             <!-- University of Miami Herbert Business School Experience -->
             <div class="experience-card" style="background-color: #f8f9fa;">
@@ -398,11 +455,113 @@
             <header>
                 <h2 id="awards-subtitle"><i class="bi bi-award-fill"></i>&nbsp;AWARDS</h2>
             </header>
-            <div class="main-body" id="awards-md"></div>
+<!--            <div class="main-body" id="awards-md"></div>-->
 
+            <!-- Card 6: Mathematical Contest in Modeling -->
+            <div class="experience-card" style="background-color: #f8f9fa;">
+                <h5 class="fw-bold">2022 Contemporary Undergraduate Mathematical Contest in Modeling | Captain&nbsp;&nbsp;<span class="past-dot"></span></h5>
+                <p class="text-muted">Jul 2022 - Sep 2022</p>
+                <p><strong>Selected Prompt:</strong> Compositional Analysis and Identification of Glass Artifacts</p>
+                <ul>
+                    <li>Analyzed the correlation between surface weathering of glass artifacts and several traits of glass.</li>
+                    <li>Studied correlations and differences between chemical components and various types of glass artifacts.</li>
+                    <li>Utilized independent sample t-tests to identify patterns in the chemical content of weathered and non-weathered samples based on glass type.</li>
+                    <li>Established, evaluated, and applied a machine learning classification model to predict pre-weathering chemical composition based on weathering point detection data.</li>
+                </ul>
+            </div>
+
+<!--            &lt;!&ndash; Card 7: Case Study Association &ndash;&gt;-->
+<!--            <div class="experience-card" style="background-color: #f8f9fa;">-->
+<!--                <h5 class="fw-bold">Case Study Association | Leader of Operation Department&nbsp;&nbsp;<span class="past-dot"></span></h5>-->
+<!--                <p class="text-muted">Oct 2020 - Jun 2022</p>-->
+<!--                <ul>-->
+<!--                    <li>Organized membership recruitment activities and payment mechanisms, recruiting 76 new members, an increase of 230.4% compared to the previous term.</li>-->
+<!--                    <li>Collected, collated, and analyzed a library of business case studies for various events, including three lectures and five seminars, attracting over 500 participants.</li>-->
+<!--                </ul>-->
+<!--            </div>-->
+
+            <!-- Card 8: "Ruihua Insurance Cup" Competition -->
+            <div class="experience-card" style="background-color: #f8f9fa;">
+                <h5 class="fw-bold">"Ruihua Insurance Cup" Internet Insurance Product Design Competition - Third Prize&nbsp;&nbsp;<span class="past-dot"></span></h5>
+                <p class="text-muted">Jun 2022 - Jun 2022</p>
+                <p>Ranked 4th out of 20 teams.</p>
+            </div>
+
+            <!-- Card 9: 1st Case Analysis Competition -->
+            <div class="experience-card" style="background-color: #f8f9fa;">
+                <h5 class="fw-bold">Second Prize in the 1st Case Analysis Competition at Guangdong University of Finance and Economics&nbsp;&nbsp;<span class="past-dot"></span></h5>
+                <p class="text-muted">Jun 2021 - Jun 2021</p>
+                <p>Ranked 2nd out of 136 teams.</p>
+            </div>
+
+            <!-- Card 10: "Chuangyi China · Meiling Cup" -->
+            <div class="experience-card" style="background-color: #f8f9fa;">
+                <h5 class="fw-bold">Semi-finalist in "Chuangyi China · Meiling Cup"&nbsp;&nbsp;<span class="past-dot"></span></h5>
+                <p class="text-muted">Jun 2021 - Sep 2021</p>
+                <p>Ranked within the top 50 out of 277 teams.</p>
+            </div>
+
+            <!-- Card 11: 2021 Liby Innovation Challenge -->
+            <div class="experience-card" style="background-color: #f8f9fa;">
+                <h5 class="fw-bold">Third Prize in the 2021 Liby Innovation Challenge&nbsp;&nbsp;<span class="past-dot"></span></h5>
+                <p class="text-muted">Jun 2021 - Sep 2021</p>
+                <p>Ranked 3rd out of 246 teams.</p>
+            </div>
         </div>
     </section>
     <!-- Awards -->
+
+    <!-- Projects -->
+    <section class="bg-gradient-primary-to-secondary-white mt5 md5" id="projects">
+        <div class="container px-5">
+            <header>
+                <h2 id="projects-subtitle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-motherboard-fill" viewBox="0 0 16 16">
+                      <path d="M5 7h3V4H5z"/>
+                      <path d="M1 2a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-2H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 9H1V8H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6H1V5H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 2zm11 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zm2 0a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zM3.5 10a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1zM4 4h-.5a.5.5 0 0 0 0 1H4v1h-.5a.5.5 0 0 0 0 1H4a1 1 0 0 0 1 1v.5a.5.5 0 0 0 1 0V8h1v.5a.5.5 0 0 0 1 0V8a1 1 0 0 0 1-1h.5a.5.5 0 0 0 0-1H9V5h.5a.5.5 0 0 0 0-1H9a1 1 0 0 0-1-1v-.5a.5.5 0 0 0-1 0V3H6v-.5a.5.5 0 0 0-1 0V3a1 1 0 0 0-1 1m7 7.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5"/>
+                    </svg>
+                    &nbsp;PROJECTS</h2>
+            </header>
+
+            <!-- Card 2: Dynamic Risk Management Portfolio System -->
+            <div class="experience-card" style="background-color: #f8f9fa;">
+                <h5 class="fw-bold">Dynamic Risk Management Portfolio System&nbsp;&nbsp;<span class="online-dot"></span></h5>
+                <p class="text-muted">Sep 2024 - Present</p>
+                <p>
+                    The system selects the top 30 stocks in each sector using multiple risk assessment indicators and various scoring methods to build portfolios. Data is updated every third weekend of each month, portfolio performance is evaluated, new portfolios are constructed, and continuous improvements are made.
+                </p>
+            </div>
+
+            <!-- Card 3: Global Market Insights and Smart Stock Recommendation -->
+            <div class="experience-card" style="background-color: #f8f9fa;">
+                <h5 class="fw-bold">Global Market Insights and Smart Stock Recommendation&nbsp;&nbsp;<span class="online-dot"></span></h5>
+                <p class="text-muted">Jan 2024 - Present</p>
+                <p>
+                    This Python-based system leverages real-time data ingestion, feature engineering, and machine learning models to generate personalized stock recommendations. It processes market trends, historical data, and user profiles, delivering daily global market reports and recommendations via automated email.
+                </p>
+            </div>
+
+            <!-- Card 4: Ensemble Learning for Quantitative Investment -->
+            <div class="experience-card" style="background-color: #f8f9fa;">
+                <h5 class="fw-bold">Ensemble Learning for Quantitative Investment&nbsp;&nbsp;<span class="past-dot"></span></h5>
+                <p class="text-muted">Dec 2023 - Jun 2024</p>
+                <p>
+                    Utilized deep learning models such as LSTM, RNN, and Transformer for ensemble learning to optimize quantitative investment strategies with enhanced accuracy and efficiency.
+                </p>
+            </div>
+
+
+            <!-- Card 5: Research on Hog Futures and Spot Hog Prices -->
+            <div class="experience-card" style="background-color: #f8f9fa;">
+                <h5 class="fw-bold">Research on Hog Futures and Spot Hog Prices&nbsp;&nbsp;<span class="past-dot"></span></h5>
+                <p class="text-muted">Dec 2023 - May 2024</p>
+                <p>
+                    Selected appropriate variables and constructed a VAR model based on collected weekly average data. Employed cointegration tests, Granger causality tests, and impulse response analysis to investigate the short-term volatility patterns of hog futures on spot hog prices in China, and conducted risk measurement.
+                </p>
+            </div>
+        </div>
+    </section>
+    <!-- Projects -->
 
 
     <!-- Footer-->
