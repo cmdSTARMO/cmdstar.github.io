@@ -157,16 +157,48 @@
                 <!-- <span class="bi bi-list"></span> -->
             </header>
 <!--            <div class="main-body" id="home-md"></div>-->
-            <div class="experience-card" style="background-color: #f8f9fa;">
-                <h4 class="fw-bold" style="position: relative; top: 5px;">
-                    Update <span class="online-dot"></span>
+            <div class="experience-card" style="background-color: #f8f9fa; padding: 16px; border-radius: 8px;">
+                <h4 class="fw-bold" style="margin: 0; position: relative; top: 5px;">
+                    Update <span class="online-dot" style="display: inline-block; width: 8px; height: 8px; background-color: green; border-radius: 50%; margin-left: 8px;"></span>
                 </h4>
-                <p>Time left until the website update plan begins:</p>
-                <iframe id="online-alarm-kur-iframe" src="https://embed-countdown.onlinealarmkur.com/zh-cn/#2024-12-09T19:00:00@America%2FNew_York" width="360" height="80" style="display: block; margin: 0px auto; border: 0px;"></iframe>
-                <br>
-                <p>Time left until the Chinese New Year:</p>
-                <iframe id="online-alarm-kur-iframe" src="https://embed-countdown.onlinealarmkur.com/zh-cn/#2025-01-29T00:00:00@Asia%2FShanghai" width="360" height="80" style="display: block; margin: 0px auto; border: 0px;"></iframe>
+                <div style="margin-top: 16px;">
+                    <p style="margin: 0; font-weight: 600;">Time left until the website update plan begins:</p>
+                <div style="position: relative; width: 100%; aspect-ratio: 4.5 / 1; overflow: hidden; margin: 16px 0;">
+                    <iframe
+                        id="website-update-countdown"
+                        src="https://embed-countdown.onlinealarmkur.com/zh-cn/#2024-12-09T19:00:00@America%2FNew_York"
+                        style="
+                            transform: scale(0.75); /* 根据需要调整比例 */
+                            transform-origin: top left;
+                            position: absolute;
+                            width: 133.33%; /* 1 / 0.75 */
+                            height: 133.33%; /* 保持与 scale 相同的比例 */
+                            top: 0;
+                            left: 0;
+                            border: none;">
+                    </iframe>
+                </div>
+                </div>
+                <div>
+                    <p style="margin: 0; font-weight: 600;">Time left until the Chinese New Year:</p>
+                    <div style="position: relative; width: 100%; aspect-ratio: 4.5 / 1; margin: 16px 0;">
+                        <iframe
+                          id="chinese-new-year-countdown"
+                            src="https://embed-countdown.onlinealarmkur.com/zh-cn/#2025-01-29T00:00:00@Asia%2FShanghai"
+                        style="
+                            transform: scale(0.75); /* 根据需要调整比例 */
+                            transform-origin: top left;
+                            position: absolute;
+                            width: 133.33%; /* 1 / 0.75 */
+                            height: 133.33%; /* 保持与 scale 相同的比例 */
+                            top: 0;
+                            left: 0;
+                            border: none;">
+                        </iframe>
+                    </div>
+                </div>
             </div>
+
 
             <div class="experience-card" style="background-color: #f8f9fa;">
                 <!-- 自我介绍 -->
