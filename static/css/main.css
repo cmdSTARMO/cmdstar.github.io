@@ -246,57 +246,13 @@ section .main-body{
 }
 
 @media (max-width: 768px) {
-    .files_a_card {
-        height: 350px;
-        width: 600px;
-        min-width: 400px;
-        padding: 1.5rem;
-        border-radius: 16px;
-        background: #f9f9f9; /* 浅灰背景色 */
-        box-shadow: -1rem 0 3rem rgba(0, 0, 0, 0.1); /* 调整阴影颜色 */
-        display: flex;
-        flex-direction: row;
-        transition: .2s;
-        margin: 0;
-        scroll-snap-align: start;
-        clear: both;
-        position: relative;
-    }
     .files_a_card-list {
-        flex-direction: row;    /* 改为垂直布局，避免横向滚动 */
-        padding: 1rem;             /* 减少内边距，适应小屏幕 */
-        overflow-x: hidden;        /* 隐藏水平滚动条 */
-    }
-
-    .files_a_card {
-        width: 90%;               /* 在小屏幕上占父容器的 90% 宽度 */
-        margin: 10px auto;        /* 卡片居中 */
-    }
-
-    .files_a_card-header h2 {
-        font-size: 18px;          /* 调整标题字体大小 */
-        line-height: 1.4;         /* 减少行间距 */
-    }
-
-    .files_a_card-header p {
-        font-size: 12px;          /* 调整描述文字大小 */
-        margin-bottom: 0.5rem;    /* 缩小描述文字的外边距 */
-    }
-
-    .files_a_tags a {
-        font-size: 0.5rem;        /* 缩小标签字体 */
-        padding: 0.1rem 0.5rem;   /* 减少标签的内边距 */
-    }
-
-    .files_a_author-avatar img {
-        width: 30px;              /* 缩小头像大小 */
-        height: 30px;
-    }
-
-    .files_a_author-name-prefix {
-        font-size: 0.8rem;        /* 缩小作者名称的前缀字体大小 */
+        transform: scale(0.9);       /* 等比例缩小 */
+        transform-origin: top center; /* 缩小的基点（从顶部中央开始） */
+        width: 100%;                /* 保持宽度自适应 */
     }
 }
+
 
 @media (max-width: 768px) {
     body {
