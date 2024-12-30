@@ -246,15 +246,6 @@ section .main-body{
 }
 
 @media (max-width: 768px) {
-    .files_a_card-list {
-        transform: scale(0.9);       /* 等比例缩小 */
-        transform-origin: top center; /* 缩小的基点（从顶部中央开始） */
-        width: 100%;                /* 保持宽度自适应 */
-    }
-}
-
-
-@media (max-width: 768px) {
     body {
         font-size: 14px;         /* 小屏幕上稍小的字体 */
         line-height: 1.4;        /* 减少行间距 */
@@ -348,9 +339,9 @@ a {
 
 .files_a_card-list {
     display: flex;
-    padding: 3rem;
+    padding: 2rem;
     overflow-x: auto;
-    background: #f7f7f7; /* 浅灰色背景 */
+    background: #ffffff; /* 浅灰色背景 */
     scrollbar-width: thin;       /* 调整滚动条宽度（Firefox） */
     -webkit-overflow-scrolling: touch; /* 为移动设备启用平滑滚动 */
 }
@@ -386,6 +377,7 @@ a {
     overflow: hidden; /* 添加，隐藏溢出内容 */
     z-index: 1; /* 设置默认层级 */
 }
+
 
 /* 背景图片样式 */
 .files_a_card-background {

@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><style type="text/css">.CtxtMenu_InfoClose {  top:.2em; right:.2em;}
+.CtxtMenu_InfoContent {  overflow:auto; text-align:left; font-size:80%;  padding:.4em .6em; border:1px inset; margin:1em 0px;  max-height:20em; max-width:30em; background-color:#EEEEEE;  white-space:normal;}
+.CtxtMenu_Info.CtxtMenu_MousePost {outline:none;}
+.CtxtMenu_Info {  position:fixed; left:50%; width:auto; text-align:center;  border:3px outset; padding:1em 2em; background-color:#DDDDDD;  color:black;  cursor:default; font-family:message-box; font-size:120%;  font-style:normal; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 15px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius:15px;               /* Safari and Chrome */  -moz-border-radius:15px;                  /* Firefox */  -khtml-border-radius:15px;                /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */  filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color="gray", Positive="true"); /* IE */}
+</style><style type="text/css">.CtxtMenu_MenuClose {  position:absolute;  cursor:pointer;  display:inline-block;  border:2px solid #AAA;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  font-family: "Courier New", Courier;  font-size:24px;  color:#F0F0F0}
+.CtxtMenu_MenuClose span {  display:block; background-color:#AAA; border:1.5px solid;  border-radius:18px;  -webkit-border-radius: 18px;             /* Safari and Chrome */  -moz-border-radius: 18px;                /* Firefox */  -khtml-border-radius: 18px;              /* Konqueror */  line-height:0;  padding:8px 0 6px     /* may need to be browser-specific */}
+.CtxtMenu_MenuClose:hover {  color:white!important;  border:2px solid #CCC!important}
+.CtxtMenu_MenuClose:hover span {  background-color:#CCC!important}
+.CtxtMenu_MenuClose:hover:focus {  outline:none}
+</style><style type="text/css">.CtxtMenu_Menu {  position:absolute;  background-color:white;  color:black;  width:auto; padding:5px 0px;  border:1px solid #CCCCCC; margin:0; cursor:default;  font: menu; text-align:left; text-indent:0; text-transform:none;  line-height:normal; letter-spacing:normal; word-spacing:normal;  word-wrap:normal; white-space:nowrap; float:none; z-index:201;  border-radius: 5px;                     /* Opera 10.5 and IE9 */  -webkit-border-radius: 5px;             /* Safari and Chrome */  -moz-border-radius: 5px;                /* Firefox */  -khtml-border-radius: 5px;              /* Konqueror */  box-shadow:0px 10px 20px #808080;         /* Opera 10.5 and IE9 */  -webkit-box-shadow:0px 10px 20px #808080; /* Safari 3 & Chrome */  -moz-box-shadow:0px 10px 20px #808080;    /* Forefox 3.5 */  -khtml-box-shadow:0px 10px 20px #808080;  /* Konqueror */}
+.CtxtMenu_MenuItem {  padding: 1px 2em;  background:transparent;}
+.CtxtMenu_MenuArrow {  position:absolute; right:.5em; padding-top:.25em; color:#666666;  font-family: null; font-size: .75em}
+.CtxtMenu_MenuActive .CtxtMenu_MenuArrow {color:white}
+.CtxtMenu_MenuArrow.CtxtMenu_RTL {left:.5em; right:auto}
+.CtxtMenu_MenuCheck {  position:absolute; left:.7em;  font-family: null}
+.CtxtMenu_MenuCheck.CtxtMenu_RTL { right:.7em; left:auto }
+.CtxtMenu_MenuRadioCheck {  position:absolute; left: .7em;}
+.CtxtMenu_MenuRadioCheck.CtxtMenu_RTL {  right: .7em; left:auto}
+.CtxtMenu_MenuInputBox {  padding-left: 1em; right:.5em; color:#666666;  font-family: null;}
+.CtxtMenu_MenuInputBox.CtxtMenu_RTL {  left: .1em;}
+.CtxtMenu_MenuComboBox {  left:.1em; padding-bottom:.5em;}
+.CtxtMenu_MenuSlider {  left: .1em;}
+.CtxtMenu_SliderValue {  position:absolute; right:.1em; padding-top:.25em; color:#333333;  font-size: .75em}
+.CtxtMenu_SliderBar {  outline: none; background: #d3d3d3}
+.CtxtMenu_MenuLabel {  padding: 1px 2em 3px 1.33em;  font-style:italic}
+.CtxtMenu_MenuRule {  border-top: 1px solid #DDDDDD;  margin: 4px 3px;}
+.CtxtMenu_MenuDisabled {  color:GrayText}
+.CtxtMenu_MenuActive {  background-color: #606872;  color: white;}
+.CtxtMenu_MenuDisabled:focus {  background-color: #E8E8E8}
+.CtxtMenu_MenuLabel:focus {  background-color: #E8E8E8}
+.CtxtMenu_ContextMenu:focus {  outline:none}
+.CtxtMenu_ContextMenu .CtxtMenu_MenuItem:focus {  outline:none}
+.CtxtMenu_SelectionMenu {  position:relative; float:left;  border-bottom: none; -webkit-box-shadow:none; -webkit-border-radius:0px; }
+.CtxtMenu_SelectionItem {  padding-right: 1em;}
+.CtxtMenu_Selection {  right: 40%; width:50%; }
+.CtxtMenu_SelectionBox {  padding: 0em; max-height:20em; max-width: none;  background-color:#FFFFFF;}
+.CtxtMenu_SelectionDivider {  clear: both; border-top: 2px solid #000000;}
+.CtxtMenu_Menu .CtxtMenu_MenuClose {  top:-10px; left:-10px}
+</style><style id="MJX-SVG-styles">
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+</style></head>
+<body id="page-top"><iframe src="../../../g_static.html" style="display: none;"></iframe>
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Academic Webpage">
+    <meta name="author" content="hdp">
+    <title id="title">从0开始！如何整出自己的飞书财经新闻小助手</title>
+
+    <!-- Icon -->
+    <link rel="icon" type="image/x-icon" href="../../../static/assets/icon.png">
+
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Google fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet">
+
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link type="text/css" href="../../../static/css/styles.css" rel="stylesheet">
+    <link type="text/css" href="../../../static/css/main.css" rel="stylesheet">
+
+    <!-- Bootstrap core JS-->
+    <script type="text/javascript" src="../../../static/js/bootstrap.bundle.min.js"></script>
+
+    <!-- For Compatability -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!-- Markdown -->
+    <script type="text/javascript" src="../../../static/js/marked.min.js"></script>
+
+    <!-- Mathematics -->
+    <script>
+        // See https://docs.mathjax.org/en/latest/index.html for more details.
+        MathJax = {
+            tex: {
+                packages: {},              // extensions to use
+                inlineMath: [              // start/end delimiter pairs for in-line math
+                    ['$', '$'],
+                    ['\\(', '\\)']
+                ],
+                displayMath: [             // start/end delimiter pairs for display math
+                    ['$$', '$$'],
+                    ['\\[', '\\]']
+                ],
+                processEscapes: false,      // use \$ to produce a literal dollar sign
+                processEnvironments: true, // process \begin{xxx}...\end{xxx} outside math mode
+                processRefs: true,         // process \ref{...} outside of math mode
+                digits: /^(?:[0-9]+(?:\{,\}[0-9]{3})*(?:\.[0-9]*)?|\.[0-9]+)/,    // pattern for recognizing numbers
+                tags: 'all',              // or 'ams' or 'all'
+                tagSide: 'right',          // side for \tag macros
+                tagIndent: '0.8em',        // amount to indent tags
+                useLabelIds: true,         // use label name rather than tag for ids
+                maxMacros: 10000,          // maximum number of macro substitutions per expression
+                maxBuffer: 5 * 1024,       // maximum size for the internal TeX string (5K)
+                // baseURL:                   // URL for use with links to tags (when there is a <base> tag in effect)
+                // (document.getElementsByTagName('base').length === 0) ? '' : String(document.location).replace(/#.*$/, ''),
+                formatError:               // function called when TeX syntax errors occur
+                    (jax, err) => jax.formatError(err)
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    <script type="text/javascript" id="MathJax-script" async="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Core JS-->
+    <script type="text/javascript" src="../../../static/js/scripts_blog.js"></script>
+    <script type="text/javascript" src="../../../static/js/js-yaml.min.js"></script>
+
+
+
+<!--<body id="page-top">-->
+<!--    &lt;!&ndash; Navigation&ndash;&gt;-->
+<!--    <nav class="header navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); box-shadow: none;">-->
+<!--        <div class="container px-5">-->
+<!--            <a id="page-top-title" class="navbar-brand fw-bold text-white" href="#page-top"></a> &lt;!&ndash; 将文字变为白色 &ndash;&gt;-->
+<!--            &lt;!&ndash; <a href="#page-top"><img src="static/assets/img/CUMT_LOGO.svg" style="width: 11rem;"></a> &ndash;&gt;-->
+<!--            <button class="navbar-toggler text-white d-lg-none gradient-border-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"-->
+<!--                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                <b>菜单</b>-->
+<!--                <i class="bi-list"></i>-->
+<!--            </button>-->
+<!--            <div class="collapse navbar-collapse" id="navbarResponsive">-->
+<!--                <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link me-lg-3 text-white" href="#page-top">主页</a> &lt;!&ndash; 文字颜色改为白色 &ndash;&gt;-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link me-lg-3 text-white" href="#publications">文章</a> &lt;!&ndash; 文字颜色改为白色 &ndash;&gt;-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link me-lg-3 text-white" href="#awards">奖励</a> &lt;!&ndash; 文字颜色改为白色 &ndash;&gt;-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </nav>-->
+
+    <!-- Navigation-->
+    <div id="navbar"><!-- navbar.html -->
+<!--<nav class="header navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); box-shadow: none;">-->
+<nav class="header navbar navbar-light fixed-top" id="mainNav" style="background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); box-shadow: none;">
+    <div class="container px-5">
+        <a id="page-top-title" class="navbar-brand fw-bold text-white" href="#page-top">Blogs | 博客</a> <!-- 将文字变为白色 -->
+        <div>
+            <span class="smooth-color-changing-dot"></span>
+        </div>
+        <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
+            <b>Menu | 菜单</b>
+            <i class="bi-list"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link me-lg-3 text-white" href="/">Main Page | 主页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link me-lg-3 text-white" href="/contents/blogs/blog-folder/python-feishu-finance-pusher.html">Articles | 文章</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link me-lg-3 text-white" href="/">Other links | 传送门</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link me-lg-3 text-white" href="/contents/curveway-confluence-page.html">Curveway Confluence | 曲径共融</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</div>
+    <script>
+        fetch('../../../navbar.html') // 指向上一级目录
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+    </script>
+    <!-- Top Section -->
+    <section class="top-section" style="background-image: url('Finews_pics/IM_2.jpeg');">
+        <div class="top-section-content">
+            <div class="container px-5">
+                <h2 id="top-section-bg-text" class="text-white display-3 lh-1 font-alt"><b>从0开始！如何整出自己的飞书财经新闻小助手</b></h2>
+            </div>
+        </div>
+    </section>
+    <!-- Top Section -->
+
+
+<!--    &lt;!&ndash; Home &ndash;&gt;-->
+<!--    <div class="container px-5">-->
+<!--        <header class="mt-5 mb-3"> &lt;!&ndash; Bootstrap 间距类 &ndash;&gt;-->
+<!--            <h2>测试文章</h2>-->
+<!--            &lt;!&ndash; <span class="bi bi-list"></span> &ndash;&gt;-->
+<!--        </header>-->
+<!--        <div class="main-body" id="home-md"></div>-->
+<!--    </div>-->
+
+    <!-- Article -->
+    <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="article">
+        <div class="container">
+            <header>
+                <h2><i class="bi bi-file-text-fill"></i>Article</h2>
+            </header>
+            <div class="main-body" id="Finews-md"><br>
+
+<p><img src="Finews_pics/IM_1.png" alt=""></p>
+<blockquote>
+<p>⚠️ 本教程仅作学习分享用途，该案例中使用爬虫工具抓取了东方财富网的部分页面与信息，仅为单次爬取供演示，实际实践中请注意请求频率，谨慎使用<code>while</code>与<code>for</code>循环，建议保持<strong>3秒/次</strong>的访问速率。</p>
+</blockquote>
+<p>本示例介绍了如何将飞书BOT与Python爬虫(Requests)结合，在打包<code>.py</code>程序为<code>.exe</code>可执行文件后通过Windows定时执行功能，实现飞书机器人能在飞书群聊中定时发送<strong>东方财富-证券聚焦-网友点击排行榜</strong>最新的10条新闻。</p>
+<p>链接：<a href="https://finance.eastmoney.com/a/czqyw.html">东方财富-证券聚焦-网友点击排行榜</a></p>
+<p>具体位置：<br>
+<img src="Finews_pics/IM_2.jpeg" alt="">
+实现结果：<br>
+<img src="Finews_pics/IM_3.PNG" alt=""></p>
+<br>
+
+<hr>
+<br>
+
+<h2>运行环境</h2>
+<ul>
+<li>Python 3 / Pycharm / Anaconda 3</li>
+<li>Edge / Chrome</li>
+</ul>
+<br>
+
+<hr>
+<br>
+
+<h2>涉及语言</h2>
+<ul>
+<li><strong>Python</strong> (编写涉及)</li>
+<li><strong>Html</strong>  (数据涉及)</li>
+<li><strong>Json</strong>  (数据涉及)</li>
+</ul>
+<br>
+
+<hr>
+<p>&nbsp;</p>
+<h2>开发流程</h2>
+<br>
+
+<h3>① 钻研数据来源、做好爬虫准备</h3>
+<p>首先打开我们的浏览器，点击输入框，来到我们亲爱的 <a href="https://finance.eastmoney.com/a/czqyw.html">东方财富-证券聚焦-网友点击排行榜</a> 页面。</p>
+<pre><code class="language-commandline">https://finance.eastmoney.com/a/czqyw.html
+</code></pre>
+<p><img src="Finews_pics/IM_2.png" alt="">
+点击键盘上的 <code>F12</code> ，查看是否跳出如下窗口，若未跳出可能是未开启Fn锁，则需要按住键盘上的 <code>Fn + F12</code> 以打开该窗口。<br>
+<em>（<del>你可能不经意间打开过还觉得很高级</del>）</em>
+<img src="Finews_pics/img_1.png" alt=""></p>
+<p>随后让我们把目光聚焦到上半部分，花花绿绿的这些能通过上述方法打开的英文字母合集，我们称之为<strong>html语言</strong>。这些个html代码就是对应这个网页上所有的内容，根据这个关系，我们就可以通过连连看的方法找到我们所需要的东西了，点击箭头所指：<img src="Finews_pics/img_2.png" alt=""><br>
+没错！就是他 <img src="Finews_pics/img_3.png" alt=""><br>
+此时我们将视角转回网页区域，看看咱想爬取哪一部分的数据？是了，是咱的<strong>网友点击排行榜</strong>，将鼠标移动到箭头所指位置，并单击一次鼠标左键：</p>
+<p><em><del>（因为除了这个是静态的之外其他都不能直接用上边的url去爬，以后有机会讲讲动态怎么结合着整）</del></em></p>
+<p><img src="Finews_pics/img_4.png" alt="">
+我去！好神奇！<strong>右边</strong>的代码居然跟着动了。没错，这个就是<strong>网页元素检查</strong>，如果你将鼠标在右侧代码上移动，可能你会发现页面中的某一部分被蓝色半透明矩形所覆盖，而这就是一个个元素，网页中的<strong>文字、图片、横线</strong>都是元素，右边这些html代码被显示为一个个元素，合在一起便组成了整个网页。
+<img src="Finews_pics/img_5.png" alt=""></p>
+<br>
+
+<h3>② 基底代码与原理以及元素选取</h3>
+<p>现在你发现了我们究竟是在寻找什么，让我们暂停一下浏览器这边的进程，打开Pycharm：<br>
+<img src="Finews_pics/img_6.png" alt="">
+然后新建一个<code>Daily_News.py</code>文件，最好是在一个<strong>船新的路径</strong>下，无需额外更改或设置。（你要不会新建最好<a href="https://www.baidu.com">百度</a>一下）</p>
+<p>面对着如此空的代码页，我建议你先写下：</p>
+<pre><code class="language-text">a = 1 + 1
+print(a)
+</code></pre>
+<p>好了不打岔。为了能获取到辣个网站的信息，我们首先需要引入我们的<code>requests</code>库，通常我们会使用<code>import（库的名称）</code>来让当前代码可以调用到该库的相关功能。</p>
+<ul>
+<li><code>import</code>是<strong>导入</strong>的意思、<code>requests</code>是<strong>请求</strong>的意思。</li>
+<li>如果你在运行途中发现某个库你没有安装，可以使用<code>pip install ***</code>来安装对应的包，文末会给出代码，可以学习完后去文末附录中复制！</li>
+</ul>
+<p>正如你所想的一样！我们在实际中通过浏览器访问网址是通过我们的电脑像那个网址请求目标网址给我们发信息，浏览器就像一个编译器，将html语言翻译成<strong>文字、图片、横线</strong>，让大家都能看得懂。而在Python中使用<code>requests</code>库则是实现同样的过程，但是Python并不会直接将其编译出来，如下所示：</p>
+<pre><code class="language-text">import requests
+
+# 所要请求的网址
+url = 'https://finance.eastmoney.com/a/czqyw.html' # 为url赋值(str字符串格式)
+
+# 处理请求部分
+requests_respond = requests.get(url) #执行requests库中的get函数，获取该网址信息，再赋值给requests_respond
+print(requests_respond) # 打印请求所获取到的信息
+</code></pre>
+<p>哦豁！怎么输出个：</p>
+<pre><code class="language-text">&lt;Response [200]&gt;
+</code></pre>
+<p>我们来更改一下代码，看看为啥输出个这个玩意儿。<code>type()</code>函数是Python中众多无需引入额外库可直接写入代码的函数之一，其功能主要为返回<code>()</code>中的所属类型。</p>
+<pre><code class="language-text">import requests
+
+# 所要请求的网址
+url = 'https://finance.eastmoney.com/a/czqyw.html' # 为url赋值(str字符串格式)
+
+# 处理请求部分
+requests_respond = requests.get(url) #执行requests库中的get函数，获取该网址信息，再返回给requests_respond
+print(requests_respond) # 打印请求所获取到的信息是个啥东西
+</code></pre>
+<p>这次代码输出：</p>
+<pre><code class="language-text">&lt;class 'requests.models.Response'&gt;
+</code></pre>
+<ul>
+<li><code>Response</code>是<strong>回应、响应</strong>的意思。</li>
+</ul>
+<p>可能大家都见过404，知道404是怎么个事儿。与404相同，这个属于响应类型的<code>&lt;Response [200]&gt;</code>是指此次网络请求返回HTTP状态码（例如<code>403</code>、<code>404</code>、<code>500</code>、<code>502</code>），而200则意味着<strong>连接成功</strong>。</p>
+<p><em>想了解更多网络请求返回HTTP状态码请移步CSDN的<a href="https://blog.csdn.net/wy971744839/article/details/130490738">相关文章</a>。</em></p>
+<p>那既然请求成功了，咱的html代码给请到哪里去了？？？这时就要请出来我们的<code>.text</code>了，使用它将请求的内容（text）整出来。</p>
+<pre><code class="language-text">import requests
+
+# 所要请求的网址
+url = 'https://finance.eastmoney.com/a/czqyw.html' # 为url赋值(str字符串格式)
+
+# 处理请求部分
+requests_respond = requests.get(url) #执行requests库中的get函数，获取该网址信息，再返回给requests_respond
+requests_respond_text = requests_respond.text
+</code></pre>
+<p>oi!输出老长一段：</p>
+<pre><code class="language-text">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;!--published at 2023/11/18 2:27:56 by finance.eastmoney.com ZP NEWS 156--&gt;
+&lt;html lang="en"&gt;
+
+...此处省略703行代码...
+
+&lt;script type="text/javascript" src="//emcharts.dfcfw.com/usercollect/usercollect.min.js" charset="utf-8"&gt;&lt;/script&gt;
+</code></pre>
+<p>遇事先不急，反手掏出<code>type()</code>验他身份，</p>
+<pre><code class="language-text">&lt;class 'str'&gt;
+</code></pre>
+<p>我的妈，这么大一串居然是一整个<code>str</code>类型的字符串，那我们该如何在这一串代码中寻找到我们所需要的网友点击排行榜呢？让我们把目光放回到浏览器中，在我们依据之前的操作选中网友点击排行榜的第一条新闻后，发现他处在如下一个<strong>元素结构</strong>中：</p>
+<pre><code class="language-text">&lt;div class="tabList pt5 pb5 bg_sblue clearfix"&gt;
+          &lt;ul class="h28 fn"&gt;
+                          &lt;li&gt;&lt;span class="no"&gt;1&lt;/span&gt; &lt;a target="_blank" href="https://finance.eastmoney.com/a/202311172907424344.html"&gt;半导体设备制造商正被调查&lt;/a&gt;&lt;/li&gt;
+                          &lt;li&gt;&lt;span class="no"&gt;2&lt;/span&gt; &lt;a target="_blank" href="https://finance.eastmoney.com/a/202311172907300654.html"&gt;智能网联汽车大消息 准入试点工作开启 概念股名单揭晓&lt;/a&gt;&lt;/li&gt;
+                          &lt;li&gt;&lt;span class="no"&gt;3&lt;/span&gt; &lt;a target="_blank" href="https://finance.eastmoney.com/a/202311172907514416.html"&gt;深圳正威最大产业园停产 员工放假两个月&lt;/a&gt;&lt;/li&gt;
+                          &lt;li&gt;&lt;span class="no"&gt;4&lt;/span&gt; &lt;a target="_blank" href="https://finance.eastmoney.com/a/202311172907411955.html"&gt;全球首款！基于开源鸿蒙的人形机器人发布 相关A股机器人概念股午后异动&lt;/a&gt;&lt;/li&gt;
+                          &lt;li&gt;&lt;span class="no"&gt;5&lt;/span&gt; &lt;a target="_blank" href="https://finance.eastmoney.com/a/202311172907407885.html"&gt;A股三大指数小幅收涨 汽车产业链集体走强&lt;/a&gt;&lt;/li&gt;
+                          &lt;li&gt;&lt;span class="no"&gt;6&lt;/span&gt; &lt;a target="_blank" href="https://finance.eastmoney.com/a/202311172907412259.html"&gt;HBM概念火了！多家巨头加码入场 一图梳理概念股&lt;/a&gt;&lt;/li&gt;
+                          &lt;li&gt;&lt;span class="no"&gt;7&lt;/span&gt; &lt;a target="_blank" href="https://finance.eastmoney.com/a/202311172907438635.html"&gt;100分钟预订1万辆！李想“跳楼款”新车开售：60万以内 充电12分钟续航500公里&lt;/a&gt;&lt;/li&gt;
+                          &lt;li&gt;&lt;span class="no"&gt;8&lt;/span&gt; &lt;a target="_blank" href="https://finance.eastmoney.com/a/202311172907464385.html"&gt;一则大消息 医药股狂飙！盘面多点开花 医药相关板块表现亮眼&lt;/a&gt;&lt;/li&gt;
+                          &lt;li&gt;&lt;span class="no"&gt;9&lt;/span&gt; &lt;a target="_blank" href="https://finance.eastmoney.com/a/202311172907303835.html"&gt;抖音概念指数领涨两市 多家公司回应相关合作！&lt;/a&gt;&lt;/li&gt;
+                          &lt;li&gt;&lt;span class="no"&gt;10&lt;/span&gt; &lt;a target="_blank" href="https://finance.eastmoney.com/a/202311172907387340.html"&gt;举行会谈&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+          &lt;div class="clear"&gt;&lt;/div&gt;
+      &lt;/div&gt;
+  &lt;/div&gt;
+</code></pre>
+<p>现在就很明朗了，不难看出，这段html代码中，<code>&lt;li&gt;&lt;span class="no"&gt;textcontent&lt;/li&gt;</code>这种形式中的<code>textcontent</code>就是我们苦苦寻找的网友点击排行榜内容。</p>
+<p>你可能一脸懵b，想提问是怎么确定出这一段代码的呢？不急，演示一波。<br>
+<img src="Finews_pics/img_7.png" alt=""></p>
+<ul>
+<li><p>如图所示，我们将鼠标向上移动，去寻找元素的合集，寻找是谁框住了我们的十条新闻。</p>
+</li>
+<li><p>鼠标移动，我们不难发现包裹住我们想要爬取的整个部分的元素框框叫做<code>&lt;ul class="h28 fn"&gt;</code>。但是！可能你的鼠标灵敏度太高，手一滑滑上了一点，一不小心滑到了上边的<code>&lt;div class="tabList pt5 pb5 bg_sblue clearfix"&gt;</code>处。</p>
+</li>
+</ul>
+<p><img src="Finews_pics/img_8.png" alt=""></p>
+<ul>
+<li>你会发现，欸？明明这个元素也可以整出个蓝框框框住网友点击排行榜的嘞，为啥不用他？相信聪明的人已经发现了，是的，<code>&lt;div class="tabList pt5 pb5 bg_sblue clearfix"&gt;</code>相对于<code>&lt;ul class="h28 fn"&gt;</code>来说，他所包含的信息多了一层，也就是<code>&lt;ul class="h28 fn"&gt;</code>也被<code>&lt;div class="tabList pt5 pb5 bg_sblue clearfix"&gt;</code>包裹在其中，这就会造成你在单独拎出来一段元素后还得再抽丝剥茧一次，而选择<code>&lt;ul class="h28 fn"&gt;</code>，这个作为<code>&lt;li&gt;</code>最后一层保护壳的元素则会使得我们的步骤减少到两步。可能还有人不懂，我画个<strong>抽象图</strong>解释一下：</li>
+</ul>
+<p><img src="Finews_pics/img_9.png" alt=""></p>
+<ul>
+<li>如果你理解了，恭喜你！我们现在可以将目光转到<strong>Python</strong>上了。</li>
+</ul>
+<br>
+
+<h3>③ 爬！</h3>
+<p>现在我们知道我们要找的是<code>&lt;ul class="h28 fn"&gt;</code>与<code>&lt;li&gt;</code>了，那么我们该如何把他从一大坨代码中找出来呢？妹错！我们要使用到<code>.找()</code>函数了，sorry，是<code>.find()</code>函数，开打开打：</p>
+<ul>
+<li>强干蛮牛，It's important to underline that 有俩类型的<code>.find()</code>函数：</li>
+<li>一个是<code>.find()</code>本体，从头到尾不管有多少个相同的目标寻找元素，只返回最先找到的那一个。</li>
+<li>而另外一个是<code>.find_all()</code>函数，他是个啥呢？他能将全文中所有目标寻找元素全部返回，就相当于查看全部搜索和仅查看单个搜索结果的区别。</li>
+</ul>
+<p>好嘞，了解完这些，我们开始<strong>Python大业</strong>：</p>
+<p>给前文的<code>requests_respond_text</code>上个<code>.find()</code>嘴脸：</p>
+<pre><code class="language-text"># 寻寻觅觅我的ul和class="h28 fn"
+first_attempt = requests_respond_text.find('ul', class_ = 'h28 fn')
+</code></pre>
+<p>果不其然，<strong>报错了</strong>，为啥捏？</p>
+<pre><code class="language-text">Traceback (most recent call last):
+  File "D:\Feishubot\python\test.py", line 9, in &lt;module&gt;
+    first_attempt = requests_respond_text.find('ul',class_ = 'h28 fn')
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: str.find() takes no keyword arguments
+</code></pre>
+<p>需要注意的是，<code>str</code>是一个大整体，直接用<code>.find</code>去找肯定是不能找的，<strong>他就一个，你还找啥？</strong></p>
+<ul>
+<li>这个时候就要请出我们的整理大师<code>BeautifulSoup</code>美丽的汤了！其为Python中<code>bs4</code>库中的一个<strong>格式整理</strong>函数：</li>
+<li>它可以让<code>&lt;li&gt;</code>、<code>&lt;ul&gt;</code>、<code>&lt;div&gt;</code>等等拖家带口，让其后面的内容与其绑定，再从一个<strong>巨无霸</strong>，变成一条条单独的<strong>元素</strong>，这样当我们用<code>.find</code>去寻找<code>&lt;li&gt;</code>的时候，我们就可以直接把他后边的新闻直接拉出来啦~</li>
+</ul>
+<pre><code class="language-text">from bs4 import BeautifulSoup
+
+requests_respond_text_ordered = BeautifulSoup(requests_respond.text,"html.parser")
+</code></pre>
+<p>上述代码中，<code>"html.parser"</code>意味着我们告诉这个函数，咱要他整理的是html语言，这样他就能正确的整理好咱的巨无霸。</p>
+<p>现在来看看代码全览：</p>
+<pre><code class="language-text">import requests
+from bs4 import BeautifulSoup
+
+# 所要请求的网址
+url = 'https://finance.eastmoney.com/a/czqyw.html' # 为url赋值(str字符串格式)
+
+# 处理请求部分
+requests_respond = requests.get(url) # 执行requests库中的get函数，获取该网址信息，再返回给requests_respond
+requests_respond_text = requests_respond.text # 取他文本！
+requests_respond_text_ordered = BeautifulSoup(requests_respond.text,"html.parser")
+first_attempt = requests_respond_text_ordered.find('ul', class_ = 'h28 fn')
+print(first_attempt) # 输出出来看看是不是整成功拉？
+print(type(first_attempt)) # 验一下身份
+</code></pre>
+<p>返回：</p>
+<pre><code class="language-text">&lt;ul class="h28 fn"&gt;
+&lt;li&gt;&lt;span class="no"&gt;1&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907424344.html" target="_blank"&gt;半导体设备制造商正被调查&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="no"&gt;2&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907300654.html" target="_blank"&gt;智能网联汽车大消息 准入试点工作开启 概念股名单揭晓&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="no"&gt;3&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907514416.html" target="_blank"&gt;深圳正威最大产业园停产 员工放假两个月&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="no"&gt;4&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907411955.html" target="_blank"&gt;全球首款！基于开源鸿蒙的人形机器人发布 相关A股机器人概念股午后异动&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="no"&gt;5&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907407885.html" target="_blank"&gt;A股三大指数小幅收涨 汽车产业链集体走强&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="no"&gt;6&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907412259.html" target="_blank"&gt;HBM概念火了！多家巨头加码入场 一图梳理概念股&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="no"&gt;7&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907438635.html" target="_blank"&gt;100分钟预订1万辆！李想“跳楼款”新车开售：60万以内 充电12分钟续航500公里&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="no"&gt;8&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907464385.html" target="_blank"&gt;一则大消息 医药股狂飙！盘面多点开花 医药相关板块表现亮眼&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="no"&gt;9&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907303835.html" target="_blank"&gt;抖音概念指数领涨两市 多家公司回应相关合作！&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="no"&gt;10&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907387340.html" target="_blank"&gt;举行会谈&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;class 'bs4.element.Tag'&gt;
+</code></pre>
+<p>上半部分<code>&lt;ul&gt;textcontent&lt;/ul&gt;</code>就是咱找出来的网友点击排行榜的内容，而下边的<code>&lt;class 'bs4.element.Tag'&gt;</code>就说明上边一大坨是啥，obviously，是<code>bs4</code>中的一种<strong>元素文本合集</strong>类型。</p>
+<ul>
+<li><em>由于这段数据量较小，我们在此就不提及<code>.find_all()</code>的用法，有兴趣的UU可以私me</em></li>
+</ul>
+<p>对于这段不知道怎么操作的文本类型，我们直接采用str大法，将其<strong>字符串</strong>化，<code>str()</code>，启动！</p>
+<pre><code class="language-text">rough_text = str(first_attempt)
+print(rough_text)
+</code></pre>
+<p>输出如下结果：</p>
+<pre><code class="language-text">&lt;ul class="h28 fn"&gt;
+&lt;li&gt;&lt;span class="no"&gt;1&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907424344.html" target="_blank"&gt;半导体设备制造商正被调查&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="no"&gt;2&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907514416.html" target="_blank"&gt;深圳正威最大产业园停产 员工放假两个月&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="no"&gt;3&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907411955.html" target="_blank"&gt;全球首款！基于开源鸿蒙的人形机器人发布 相关A股机器人概念股午后异动&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="no"&gt;4&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907407885.html" target="_blank"&gt;A股三大指数小幅收涨 汽车产业链集体走强&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="no"&gt;5&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907412259.html" target="_blank"&gt;HBM概念火了！多家巨头加码入场 一图梳理概念股&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="no"&gt;6&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907438635.html" target="_blank"&gt;100分钟预订1万辆！李想“跳楼款”新车开售：60万以内 充电12分钟续航500公里&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="no"&gt;7&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907464385.html" target="_blank"&gt;一则大消息 医药股狂飙！盘面多点开花 医药相关板块表现亮眼&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="no"&gt;8&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907387340.html" target="_blank"&gt;举行会谈&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="no"&gt;9&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907602732.html" target="_blank"&gt;证监会：严厉打击以衍生品为“通道”规避证券期货市场监管的行为&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="no"&gt;10&lt;/span&gt; &lt;a href="https://finance.eastmoney.com/a/202311172907596212.html" target="_blank"&gt;三部门：一视同仁满足不同所有制房地产企业合理融资需求&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<p>虽然和上面一模一样，但是他现在已经是一个平平无奇的文本拉！随后我们要引入一个船新的函数<code>.split()</code>。</p>
+<ul>
+<li><code>split</code>是<strong>分割</strong>的意思。</li>
+</ul>
+<p>正如这个意思一般，<code>.split</code>可以通过识别<code>()</code>中内容并将其作为裁剪点，我们将这段话作为示例。</p>
+<pre><code class="language-text">test_text = '正如这个意思一般，.split可以通过识别()中内容并将其作为裁剪点，我们将这段话作为示例。'
+print(test_text.split('，'))
+</code></pre>
+<p>输出：</p>
+<pre><code class="language-text">['正如这个意思一般', '.split可以通过识别()中内容并将其作为裁剪点', '我们将这段话作为示例。']
+</code></pre>
+<p>由上述代码以及结果可见，<code>.split()</code>通过识别<code>test_text</code>中<code>()</code>内的<code>'，'</code>，将句子按照逗号分割开了，同时，作为裁剪点的<code>'，'</code>并没有再次出现。</p>
+<p>回到我们的<code>rough_text</code>中，现在你知道了，我们可以通过将其中的<code>&lt;a href="</code>作为裁剪点，要注意的是，现在<code>rough_text</code>已经是一个纯文本了，其中的<code>"</code>已经不再具有特殊意义以及其他作用，所以在分割时也需带上这一部分。</p>
+<ul>
+<li>同时，当裁剪点含有<code>"</code>时，我们可以使用单引号<code>''</code>来包裹他。反之，当裁剪点含有<code>'</code>时，我们可以使用双引号<code>""</code>来包裹他。裁剪点中有什么，包裹的引号就<strong>不能</strong>用什么，不然会引发错误，这条规则在其他Python函数中同样适用。</li>
+</ul>
+<p><img src="Finews_pics/img_10.png" alt="">
+裁剪过程：</p>
+<pre><code class="language-text">first_split_result = rough_text.split('&lt;a href="')
+print(f'这个数列有{len(first_split_result)}个元素。')
+</code></pre>
+<p>输出：</p>
+<pre><code class="language-text">['&lt;ul class="h28 fn"&gt;\n&lt;li&gt;&lt;span class="no"&gt;1&lt;/span&gt; ', 'https://finance.eastmoney.com/a/202311172907424344.html" target="_blank"&gt;半导体设备制造商正被调查&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;span class="no"&gt;2&lt;/span&gt; ', 'https://finance.eastmoney.com/a/202311172907514416.html" target="_blank"&gt;深圳正威最大产业园停产 员工放假两个月&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;span class="no"&gt;3&lt;/span&gt; ', 'https://finance.eastmoney.com/a/202311172907411955.html" target="_blank"&gt;全球首款！基于开源鸿蒙的人形机器人发布 相关A股机器人概念股午后异动&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;span class="no"&gt;4&lt;/span&gt; ', 'https://finance.eastmoney.com/a/202311172907407885.html" target="_blank"&gt;A股三大指数小幅收涨 汽车产业链集体走强&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;span class="no"&gt;5&lt;/span&gt; ', 'https://finance.eastmoney.com/a/202311172907412259.html" target="_blank"&gt;HBM概念火了！多家巨头加码入场 一图梳理概念股&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;span class="no"&gt;6&lt;/span&gt; ', 'https://finance.eastmoney.com/a/202311172907438635.html" target="_blank"&gt;100分钟预订1万辆！李想“跳楼款”新车开售：60万以内 充电12分钟续航500公里&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;span class="no"&gt;7&lt;/span&gt; ', 'https://finance.eastmoney.com/a/202311172907464385.html" target="_blank"&gt;一则大消息 医药股狂飙！盘面多点开花 医药相关板块表现亮眼&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;span class="no"&gt;8&lt;/span&gt; ', 'https://finance.eastmoney.com/a/202311172907387340.html" target="_blank"&gt;举行会谈&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;span class="no"&gt;9&lt;/span&gt; ', 'https://finance.eastmoney.com/a/202311172907602732.html" target="_blank"&gt;证监会：严厉打击以衍生品为“通道”规避证券期货市场监管的行为&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;span class="no"&gt;10&lt;/span&gt; ', 'https://finance.eastmoney.com/a/202311172907596212.html" target="_blank"&gt;三部门：一视同仁满足不同所有制房地产企业合理融资需求&lt;/a&gt;&lt;/li&gt;\n&lt;/ul&gt;']
+这个数列有11个元素。
+</code></pre>
+<p>毕竟是新闻，光凭标题肯定了解不到太多，所以我们需要一并展示网址。</p>
+<p>在上文进行分割后，我们可以非常容易看出，在这个数列Array中，除第一个元素外前边半部分就是网址，而每个网址与新闻标题中间隔着的是<code>" target="_blank"&gt;</code>。但是他总共有<strong>10条新闻</strong>！一个个搞是不可能的，永远都不可能的，so此时，除了要继续使用<code>.split()</code>外，我们需要引入<code>for循环</code>的概念。</p>
+<ul>
+<li><code>for循环</code>，伟大的作品。</li>
+</ul>
+<p>我们先来看一下Python中循环最基本的思想与注意事项：</p>
+<pre><code class="language-text">for i in range(10):  # 结尾要加冒号 range()指输出的次数是多少，为了与示例相同，我们选择与新闻数相同的10
+    print(f'This is 第{i+1}次输出，此时i值为{i}')
+</code></pre>
+<p>输出：</p>
+<pre><code class="language-text">This is 第1次输出，此时i值为0
+This is 第2次输出，此时i值为1
+This is 第3次输出，此时i值为2
+This is 第4次输出，此时i值为3
+This is 第5次输出，此时i值为4
+This is 第6次输出，此时i值为5
+This is 第7次输出，此时i值为6
+This is 第8次输出，此时i值为7
+This is 第9次输出，此时i值为8
+This is 第10次输出，此时i值为9
+</code></pre>
+<p>显而易见，Python的数数是从<code>0</code>开始算的，也就是说数<code>10</code>次后，<code>i</code>为<code>9</code>，再举个例子，选取数列中第一个也是用Array[0]实现：</p>
+<pre><code class="language-text">print(first_split_result[0])
+</code></pre>
+<p>输出：</p>
+<pre><code class="language-text">&lt;ul class="h28 fn"&gt;\n&lt;li&gt;&lt;span class="no"&gt;1&lt;/span&gt;
+</code></pre>
+<p>所以依据这个原理，我们可以借助<code>for循环</code>依次读取<code>first_split_result</code>11个元素中的那第2~11的真正含有有效信息的元素。</p>
+<p>因为其实<code>first_split_result[1]~first_split_result[10]</code>（也就是第2~11个元素）的形式都一模一样，我们先对单个进行分析：</p>
+<pre><code class="language-text"># 第二条内容
+single_news = 'https://finance.eastmoney.com/a/202311172907424344.html" target="_blank"&gt;半导体设备制造商正被调查&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;span class="no"&gt;2&lt;/span&gt; '
+</code></pre>
+<p>我们不难发现两个裁剪点，新闻网址和新闻标题之间的<code>" target="_blank"&gt;</code>与新闻标题和无内容的尾巴之间的<code>&lt;/a&gt;</code>。</p>
+<p>统合上文的<code>Array[0]</code>与<code>.split()</code>方法，我们写出如下代码：</p>
+<pre><code class="language-text">single_news = 'https://finance.eastmoney.com/a/202311172907424344.html" target="_blank"&gt;半导体设备制造商正被调查&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;span class="no"&gt;2&lt;/span&gt; '
+
+# 第一次分割" target="_blank"&gt;，得到含有单独的新闻链接+新闻标题和小尾巴的长度为2的数列。
+single_news_split_results = single_news.split('" target="_blank"&gt;')
+
+# 新闻链接赋值 single_news_split_results中的第一个元素就是新闻url
+single_news_url = single_news_split_results[0]
+
+# 拆分标题与小尾巴 从single_news_split_results中的第二个元素就是新闻标题加小尾巴 将&lt;/a&gt;作为裁剪点 得出的结果数列中第一个就是新闻标题
+rough_header = single_news_split_results[1].split('&lt;/a&gt;')
+single_news_header = rough_header[0]
+
+# 预览上述结果
+print(single_news_split_results)
+print(single_news_url)
+print(rough_header)
+print(single_news_header)
+</code></pre>
+<p>输出：</p>
+<pre><code class="language-text">['https://finance.eastmoney.com/a/202311172907424344.html', '半导体设备制造商正被调查&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;span class="no"&gt;2&lt;/span&gt; ']
+https://finance.eastmoney.com/a/202311172907424344.html
+['半导体设备制造商正被调查', '&lt;/li&gt;\n&lt;li&gt;&lt;span class="no"&gt;2&lt;/span&gt; ']
+半导体设备制造商正被调查
+</code></pre>
+<p><strong>Perfecto!!!</strong> 随后添加循环，叶问附身，我要整10个！</p>
+<pre><code class="language-text">Greetings = "今日事，今日报，黄大炮带你看速报：\n"
+for i in range(10):  # 咱就10个新闻
+    single_news = first_split_result[i+1]  # 咱新闻从第二个元素才开始！
+
+    # 第一次分割" target="_blank"&gt;，得到含有单独的新闻链接+新闻标题和小尾巴的长度为2的数列。
+    single_news_split_results = single_news.split('" target="_blank"&gt;')
+
+    # 新闻链接赋值 single_news_split_results中的第一个元素就是新闻url
+    single_news_url = single_news_split_results[0]
+
+    # 拆分标题与小尾巴 从single_news_split_results中的第二个元素就是新闻标题加小尾巴 将&lt;/a&gt;作为裁剪点 得出的结果数列中第一个就是新闻标题
+    rough_header = single_news_split_results[1].split('&lt;/a&gt;')
+    single_news_header = rough_header[0]
+
+    if i+1 &lt; 10:  # 在第十个前都换行，换行用“\n”，最后一个咱就不换了，占位置是不。
+        Greetings = Greetings + str(i+1) + "、" + single_news_header + "\n传送门：" + single_news_url + "\n"
+        #内容      = 原内容     + 新闻是第几个+ 顿号 + 新闻标题 +          换行 + 传送门： + 新闻链接         +换行
+    else:
+        Greetings = Greetings + str(i+1) + "、" + single_news_header + "\n传送门：" + single_news_url
+print(Greetings)
+</code></pre>
+<p>输出：</p>
+<pre><code class="language-text">今日事，今日报，黄大炮带你看速报：
+1、半导体设备制造商正被调查
+传送门：https://finance.eastmoney.com/a/202311172907424344.html
+2、深圳正威最大产业园停产 员工放假两个月
+传送门：https://finance.eastmoney.com/a/202311172907514416.html
+3、100分钟预订1万辆！李想“跳楼款”新车开售：60万以内 充电12分钟续航500公里
+传送门：https://finance.eastmoney.com/a/202311172907438635.html
+4、一则大消息 医药股狂飙！盘面多点开花 医药相关板块表现亮眼
+传送门：https://finance.eastmoney.com/a/202311172907464385.html
+5、证监会：严厉打击以衍生品为“通道”规避证券期货市场监管的行为
+传送门：https://finance.eastmoney.com/a/202311172907602732.html
+6、三部门：一视同仁满足不同所有制房地产企业合理融资需求
+传送门：https://finance.eastmoney.com/a/202311172907596212.html
+7、11月17日晚间沪深上市公司重大事项公告最新快递
+传送门：https://finance.eastmoney.com/a/202311172907637717.html
+8、事关房企！央行等三部门联合发声：一视同仁满足不同所有制房地产企业合理融资需求
+传送门：https://finance.eastmoney.com/a/202311172907753469.html
+9、讲话（全文）
+传送门：https://finance.eastmoney.com/a/202311182907761819.html
+10、格力
+传送门：https://finance.eastmoney.com/a/202311172907412546.html
+</code></pre>
+<p>值得注意的是，当你仅需要文本内容而不需要他的链接时，可不通过<code>str()</code>以及<code>.split()</code>流程，而仅仅需要<code>.text()</code>即可，以下是示例代码：</p>
+<pre><code class="language-text">print(first_attempt.text)
+</code></pre>
+<p>输出：</p>
+<pre><code class="language-text">1 半导体设备制造商正被调查
+2 深圳正威最大产业园停产 员工放假两个月
+3 全球首款！基于开源鸿蒙的人形机器人发布 相关A股机器人概念股午后异动
+4 A股三大指数小幅收涨 汽车产业链集体走强
+5 HBM概念火了！多家巨头加码入场 一图梳理概念股
+6 100分钟预订1万辆！李想“跳楼款”新车开售：60万以内 充电12分钟续航500公里
+7 一则大消息 医药股狂飙！盘面多点开花 医药相关板块表现亮眼
+8 举行会谈
+9 证监会：严厉打击以衍生品为“通道”规避证券期货市场监管的行为
+10 三部门：一视同仁满足不同所有制房地产企业合理融资需求
+</code></pre>
+<pre><code>恭喜你！现在咱的小新闻基本就成型拉！接下来我们将目光转到飞书！
+</code></pre>
+<br>
+
+<h3>④飞书BOT开发</h3>
+<p>下载飞书。</p>
+<ul>
+<li>我强烈建议使用电脑版，可以自己新建企业，也可以用个人账户（这个我没试过），不过大家可以来加我的飞书企业，上边还有许多类似Python+FeishuBot的相关开发！嘿嘿</li>
+</ul>
+<p>跟微信QQ一样，在飞书新建一个群聊：（机器人无法在外部群聊中使用！就是群里都得是你这个企业的人）<br>
+<img src="Finews_pics/img_11.png" alt="">
+新建完之后，咱点击群聊右上角三个点，再点击下拉菜单中的设置部分：
+<br></p>
+<p><img src="Finews_pics/img_12.png" alt="">
+点击群机器人&gt;添加机器人&gt;进入这个页面&gt;搜索自定义机器人&gt;点击：
+<br></p>
+<p><img src="Finews_pics/img_13.png" alt="">
+随后按照自己的喜好添加，添加完成后点击确定：
+<br></p>
+<p><img src="Finews_pics/img_14.png" alt="">
+跳转到下一页面，你会看到有一个名为<code>webhook地址</code>的东西，先点击复制，找个地方存着，请注意不要泄露到公网上~：
+<br></p>
+<p><img src="Finews_pics/img_15.png" alt="">
+选择暂不配置/完成。</p>
+<ul>
+<li>至此，飞书部分完成，我们根据字节同志官方给出的标准答案，抄一下作业：</li>
+</ul>
+<pre><code class="language-text">import requests
+import json
+
+
+# 利用飞书机器人发送消息
+def send():
+    url = "https://open.feishu.cn/open-apis/im/v1/messages"
+    params = {"receive_id_type":"chat_id"}
+    msg = "text content"
+    msgContent = {
+        "text": msg,
+    }
+    req = {
+        "receive_id": "oc_xxx", # chat id
+        "msg_type": "text",
+        "content": json.dumps(msgContent)
+    }
+    payload = json.dumps(req)
+    headers = {
+        'Authorization': 'Bearer xxx', # your access token
+        'Content-Type': 'application/json'
+    }
+    response = requests.request("POST", url, params=params, headers=headers, data=payload)
+    print(response.headers['X-Tt-Logid']) # for debug or oncall
+    print(response.content) # Print Response
+
+if __name__ == '__main__':
+    send()
+
+
+class FeishuTalk:
+
+    # 机器人webhook
+    hdpbot_url = 'https://open.feishu.cn/open-apis/bot/v2/hook/nihaonihao-vw50-xihuan-chaozuoye-niyoudianlan'
+
+    # 发送文本消息
+    def sendTextmessage(self, content):
+        url = self.hdpbot_url
+        headers = {
+            "Content-Type": "application/json; charset=utf-8",
+        }
+        payload_message = {
+            "msg_type": "text",
+            "content": {
+                # @ 单个用户 &lt;at user_id="ou_xxx"&gt;名字&lt;/at&gt;
+                "text": content #+ "&lt;at user_id=\"bf888888\"&gt;test&lt;/at&gt;" #+ "&lt;at user_id=\"bf888888\"&gt;test&lt;/at&gt;"
+            }
+        }
+        response = requests.post(url=url, data=json.dumps(payload_message), headers=headers)
+        return response.json
+
+</code></pre>
+<p>将上述代码复制至Python中<code>import</code>部分的后面，执行代码的前面。</p>
+<p>并做如下必要修改：</p>
+<ul>
+<li>在代码中的<code>class FeishuTalk</code>下，机器人<code>webhook</code>部分中，修改<code>hdpbot_url</code>等号后边的链接为你<strong>自己刚刚复制下来的自己的webhook地址</strong>。</li>
+<li>随后在自己的代码最后边加上<code>FeishuTalk().sendTextmessage(first_attempt.text)</code>，点击<strong>运行</strong>，理论上来说就完全没有问题拉！此时你的飞书群聊中会跳出来一位<strong>g7人</strong>：<br></li>
+</ul>
+<p><img src="Finews_pics/img_17.png" alt="">
+噢！有一些自定义的小创意你可以加上：</p>
+<ul>
+<li>想让你的消息能够 <strong>@你自己+别人</strong> 吗？</li>
+<li>将你的Python代码中的<code># 发送文本消息</code>这一部分：</li>
+</ul>
+<pre><code class="language-text">        payload_message = {
+            "msg_type": "text",
+            "content": {
+                # @ 单个用户 &lt;at user_id="ou_xxx"&gt;名字&lt;/at&gt;
+                "text": content #+ "&lt;at user_id=\"bf888888\"&gt;test&lt;/at&gt;"
+            }
+        }
+</code></pre>
+<p>把<code>#</code>去掉，<code>user_id</code>后边的<code>bf888888</code>修改为你的<strong>用户ID</strong>，例如我的用户ID为<code>abcdefgh</code>,如果<strong>想要@更多人</strong>，直接继续往后加<code>+ "&lt;at user_id=\"abcdefgh\"&gt;test&lt;/at&gt;" </code>即可：</p>
+<pre><code class="language-text">        payload_message = {
+            "msg_type": "text",
+            "content": {
+                # @ 单个用户 &lt;at user_id="ou_xxx"&gt;名字&lt;/at&gt;
+                # "text": content + "&lt;at user_id=\"abcdefgh\"&gt;test&lt;/at&gt;"
+            }
+        }
+</code></pre>
+<p>自己以及他人的<strong>用户ID</strong>可以单击头像获得：
+<br></p>
+<p><img src="Finews_pics/img_18.png" alt="">
+OK，你以为这就结束了吗！不，我们要实现<strong>完整的开发与定时执行程序</strong>，傻傻的通过让Python跑死循环<code>time.sleep(3600)</code>的方式是不可取的，老费电了。我们来介绍一个可以将其打包为<code>.exe</code>的方式。
+<br></p>
+<h3>⑤打包为可执行程序</h3>
+<p>希望你按照我的教程<strong>严丝合缝</strong>地走了，将咱的Python文件命名为了<code>Daily_News.py</code>，那这样就没啥问题了，跟随我的步伐：</p>
+<ul>
+<li>在打包前记得仔细检查代码是不是<strong>确认修改无误</strong>了，先运行一边看看是不是符合期望，同时<code>@谁谁</code>的功能最好取消~</li>
+</ul>
+<p>选择Pycharm页面，点击<strong>终端</strong><code>Terminal</code>，出现下图：
+<br></p>
+<p><img src="Finews_pics/img_19.png" alt="">
+你可能需要在终端中先安装一下<code>pyinstaller</code>,我们亲爱的打包库。</p>
+<ul>
+<li><code>pyinstaller</code>是<strong>Python安装哥</strong>的意思。</li>
+</ul>
+<pre><code class="language-text">pip install pyinstaller
+</code></pre>
+<p>然后出现Successful的字样就是成功了。</p>
+<ul>
+<li>写累了，不太想写了，本来想讲一下为什么用虚拟环境<code>pipenv</code>比较好，大家可以自行探索不使用虚拟环境的普通安装会出现啥问题。</li>
+</ul>
+<p>在<code>Terminal</code>中输入下方代码：
+虚拟环境，启动！</p>
+<p><em><del>我忘记pipenv是自带的还是也要pip install pipenv了，懒得看了，没有就自行安装吧</del></em></p>
+<pre><code class="language-text">pipenv shell
+</code></pre>
+<p>如果地址不是当前文件所在的文件夹就得具体先拉到那个文件夹先，例如刚打开是<code>D:\Feishubot</code>，但是我的文件其实在<code>D:\Feishubot\python</code>目录下，所以我又额外<code>cd</code>了一下，应该能理解吧<br>
+<img src="Finews_pics/img_20.png" alt="">
+头头会从<code>base</code>变为<code>PS</code>，就说明成功了，然后把Python代码中涉及到的库用空格分开依次安装(导入)：</p>
+<ul>
+<li>这个过程与<code>pip</code>是不太一样的，<code>pip install</code>相当于从网上下载了这个库到本地Python中，而<code>pipenv install</code>则是将本地已经有的库导入到虚拟环境中。</li>
+</ul>
+<pre><code class="language-text">pipenv install requests json bs4
+</code></pre>
+<p>只要返回的内容说明几个库的<code>pipenv insall</code>都报成功<code>Suceeded</code>了后，别的错误就不用管拉。</p>
+<pre><code class="language-text">Installing requests...
+Resolving requests...
+Added requests to Pipfile's [packages] ...
+Installation Succeeded
+Installing json...
+Resolving json...
+Added json to Pipfile's [packages] ...
+Installation Succeeded
+Installing bs4...
+Resolving bs4...
+Added bs4 to Pipfile's [packages] ...
+Installation Succeeded
+</code></pre>
+<p>然后就可以使用<code>pyinstaller</code>进行打包啦：</p>
+<pre><code class="language-text">Pyinstaller -F -w -i [图片名].ico [脚本名].py
+
+-F 参数为 产生单个的可执行文件
+-D 参数为 产生一个目录（包含多个文件）作为可执行程序
+-w 参数为 指定程序运行时不显示命令行窗口（仅对 Windows 有效）
+[图片名].ico：ico图片是需要软件把图片转换ico格式，而不是直接修改文件后缀名
+</code></pre>
+<p>示例代码：</p>
+<pre><code class="language-text">pyinstaller -F Daily_News.py
+</code></pre>
+<p>随后就是稍作等待~
+<br></p>
+<p><img src="Finews_pics/img_21.png" alt="">
+那么文件已经打包好拉，我们来看看他在哪里吧~
+<br></p>
+<p><img src="Finews_pics/img_22.png" alt=""><img src="Finews_pics/img_23.png" alt="">
+可以看到<code>D:\Feishubot\python\dist</code>里边已经出现了一个<code>Daily_News.exe</code>文件拉，我们双击运行：
+<br></p>
+<p><img src="Finews_pics/img_24.png" alt="">
+飞书聊天窗口示例：
+<br></p>
+<p><img src="Finews_pics/img_25.png" alt="">
+恭喜你！已经成功完成了程序打包步骤，接下来就是最后一步了，让我们给他一个定时的机会吧！</p>
+<br>
+
+<h3>⑥通过Windows定时任务使得程序定时运行</h3>
+<p>话不多说，我们任意点开单个文件夹，右键点击此电脑/我的电脑，在下拉菜单中选择管理：
+<br></p>
+<p><img src="Finews_pics/img_26.png" alt="">
+随后进入<code>计算机管理</code>页，选择<code>计算机管理（本地） &gt; 系统工具 &gt; 任务计划程序</code>，随后点击右侧<code>创建任务</code>：
+<br></p>
+<p><img src="Finews_pics/img_27.png" alt="">
+然后就可以准备创建定时任务拉！</p>
+<p>在此处个性化设置你想他叫啥，同时建议选择无需登录，但如果是来自于别人的<code>.exe</code>的话就不建议了：</p>
+<ul>
+<li>值得注意的是，由于我们的程序是需要联网才能进行请求与爬取，所以在电脑关机或者刚刚启动时是不会自动执行的~<br></li>
+</ul>
+<p><img src="Finews_pics/img_28.png" alt="">
+设置完名称后，我们来<strong>设置定时执行某任务</strong>：</p>
+<ul>
+<li><code>定时</code>对应的是<code>触发器</code>，而<code>执行</code>对应的是<code>操作</code>。<br></li>
+</ul>
+<p><img src="Finews_pics/img_29.png" alt="">
+按箭头顺序点击，框中的对象为必须选择项，<strong>必须选择一次！！！不然会叠加重复的！！！</strong>
+<img src="Finews_pics/img_30.png" alt="">
+按箭头顺序点击，框中的对象为必须选择项，通过点击浏览定位到刚刚打包好的<code>.exe</code>文件！</p>
+<p>最后再点击最终的确定就可以啦！！！</p>
+<p>厉害，你居然学完了，给你大拇指~</p>
+<br>
+
+<hr>
+<br>
+
+<h2>附录</h2>
+<h3>1、Python相关库安装代码（终端中运行）</h3>
+<pre><code class="language-text">pip install requests json bs4 pyinstaller
+</code></pre>
+<br>
+
+<h3>2、主程序全代码（在Python代码窗口中运行）</h3>
+<pre><code class="language-text">import requests
+import json
+from bs4 import BeautifulSoup
+
+def send():
+    url = "https://open.feishu.cn/open-apis/im/v1/messages"
+    params = {"receive_id_type":"chat_id"}
+    msg = "text content"
+    msgContent = {
+        "text": msg,
+    }
+    req = {
+        "receive_id": "oc_xxx", # chat id
+        "msg_type": "text",
+        "content": json.dumps(msgContent)
+    }
+    payload = json.dumps(req)
+    headers = {
+        'Authorization': 'Bearer xxx', # your access token
+        'Content-Type': 'application/json'
+    }
+    response = requests.request("POST", url, params=params, headers=headers, data=payload)
+    print(response.headers['X-Tt-Logid']) # for debug or oncall
+    print(response.content) # Print Response
+
+if __name__ == '__main__':
+    send()
+
+
+class FeishuTalk:
+
+    # 机器人webhook
+    hdpbot_url = 'https://open.feishu.cn/open-apis/bot/v2/hook/nihaonihao-vw50-xihuan-chaozuoye-niyoudianlan'
+
+    # 发送文本消息
+    def sendTextmessage(self, content):
+        url = self.hdpbot_url
+        headers = {
+            "Content-Type": "application/json; charset=utf-8",
+        }
+        payload_message = {
+            "msg_type": "text",
+            "content": {
+                # @ 单个用户 &lt;at user_id="ou_xxx"&gt;名字&lt;/at&gt;
+                "text": content #+ "&lt;at user_id=\"94dae5e3\"&gt;test&lt;/at&gt;
+            }
+        }
+        response = requests.post(url=url, data=json.dumps(payload_message), headers=headers)
+        return response.json
+
+# 所要请求的网址
+url = 'https://finance.eastmoney.com/a/czqyw.html'  # 为url赋值(str字符串格式)
+
+# 处理请求部分
+requests_respond = requests.get(url)  # 执行requests库中的get函数，获取该网址信息，再返回给requests_respond
+requests_respond_text = requests_respond.text
+requests_respond_text_ordered = BeautifulSoup(requests_respond.text,"html.parser")
+first_attempt = requests_respond_text_ordered.find('ul', class_='h28 fn')
+rough_text = str(first_attempt)
+first_split_result = rough_text.split('&lt;a href="')
+single_news = 'https://finance.eastmoney.com/a/202311172907424344.html" target="_blank"&gt;美半导体设备制造商因涉嫌逃避出口限制对华出口正被调查 外交部回应&lt;/a&gt;&lt;/li&gt;\n&lt;li&gt;&lt;span class="no"&gt;2&lt;/span&gt; '
+
+# 第一次分割" target="_blank"&gt;，得到含有单独的新闻链接+新闻标题和小尾巴的长度为2的数列。
+single_news_split_results = single_news.split('" target="_blank"&gt;')
+
+# 新闻链接赋值 single_news_split_results中的第一个元素就是新闻url
+single_news_url = single_news_split_results[0]
+
+# 拆分标题与小尾巴 从single_news_split_results中的第二个元素就是新闻标题加小尾巴 将&lt;/a&gt;作为裁剪点 得出的结果数列中第一个就是新闻标题
+rough_header = single_news_split_results[1].split('&lt;/a&gt;')
+single_news_header = rough_header[0]
+
+Greetings = "今日事，今日报，王尼玛带你看速报：\n"
+for i in range(10):  # 咱就10个新闻
+    single_news = first_split_result[i + 1]  # 咱新闻从第二个元素才开始！
+
+    # 第一次分割" target="_blank"&gt;，得到含有单独的新闻链接+新闻标题和小尾巴的长度为2的数列。
+    single_news_split_results = single_news.split('" target="_blank"&gt;')
+
+    # 新闻链接赋值 single_news_split_results中的第一个元素就是新闻url
+    single_news_url = single_news_split_results[0]
+
+    # 拆分标题与小尾巴 从single_news_split_results中的第二个元素就是新闻标题加小尾巴 将&lt;/a&gt;作为裁剪点 得出的结果数列中第一个就是新闻标题
+    rough_header = single_news_split_results[1].split('&lt;/a&gt;')
+    single_news_header = rough_header[0]
+
+    if i + 1 &lt; 10:  # 在第十个前都换行，换行用“\n”，最后一个咱就不换了，占位置是不。
+        Greetings = Greetings + str(i + 1) + "、" + single_news_header + "\n传送门：" + single_news_url + "\n"
+    else:
+        Greetings = Greetings + str(i + 1) + "、" + single_news_header + "\n传送门：" + single_news_url
+
+FeishuTalk().sendTextmessage(Greetings)  # 发信息专用
+</code></pre>
+<br>
+
+<h3>3、参考文章</h3>
+<p>[1] 酸梅不酸. "pyinstaller打包exe文件太大解决方法." CSDN Blog, 2022-11-23, <a href="https://blog.csdn.net/qq_38893512/article/details/127997744?spm=1001.2014.3001.5502">链接</a>.</p>
+<p>[2] wy971744839. "网络请求返回HTTP状态码（403、404、500、502）." CSDN Blog, 2023-05-04, <a href="https://blog.csdn.net/wy971744839/article/details/130490738">链接</a>.</p>
+<p>[3] tyh_keepRunning. "Python实现飞书机器人定时发送文本、图片等群消息." CSDN Blog, 2023-03-05, <a href="https://blog.csdn.net/tyh_keephunger/article/details/129346297#comments_28607826">链接</a>.</p>
+<br>
+
+<h3>4、小宣传</h3>
+<p>懒得宣传了，大家有空感兴趣可以找我加飞书企业，群里边几个人都熟的话马进~</p>
+<p>这是一个财经新闻进阶版上市公司板块的<code>.exe</code>文件，可以下载然后拿去自己用，相对于本教程中的新闻更加具有针对性同时刷新来源更新频率相对<strong>更快一些</strong>,缺点就是只能从<code>.exe</code>窗口里边看，要想点链接得复制出来~</p>
+<pre><code class="language-text">【超级会员V4】通过百度网盘分享的文件：DailyNew....exe
+链接：https://pan.baidu.com/s/180jVWafjonWi_r1W9XoiMQ?pwd=76T7
+提取码：76T7
+复制这段内容打开「百度网盘APP 即可获取」
+</code></pre>
+<br>
+
+<h3>5、鸣谢对象</h3>
+<p>感谢东方财富！感谢飞书！</p>
+<br>
+
+<h3>6、声明</h3>
+<blockquote>
+<p><em>本文内容为原创，未经许可，任何个人或组织不得擅自转载、摘编或利用其它方式使用。如需转载，请联系本人或相关权利人获取授权，并注明文章来源及作者。违反上述声明者，本人将保留追究其法律责任的权利。</em></p>
+</blockquote>
+<blockquote>
+<p><em>The content of this article is original. Without permission, no individual or organization may reprint, excerpt, or use it in any other way. If reprinting is necessary, please contact the author or relevant rights holder for authorization, and indicate the source and author of the article. The author reserves the right to pursue legal responsibilities for those who violate the above statement.</em></p>
+</blockquote>
+</div>
+
+        </div>
+    </section>
+
+
+    <!-- Footer-->
+    <footer class="bg-bottom text-center py-5">
+        <div class="container px-5">
+            <div class="text-white-50 small">
+                <div id="copyright-text" class="mb-2">© Dapao Huang 2023-2024. All Rights Reserved.</div>
+                <a id="github-link" href="https://github.com/cmdSTARMO">Github</a>
+                <span class="mx-1">·</span>
+                <a id="license-link" href="https://github.com/cmdSTARMO/cmdstar.github.io/blob/main/LICENSE">License</a>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+<script>
+(function() {
+  var ws = new WebSocket('ws://' + window.location.host +
+             '/jb-server-page?reloadMode=RELOAD_ON_SAVE&'+
+             'referrer=' + encodeURIComponent(window.location.pathname));
+  ws.onmessage = function (msg) {
+      if (msg.data === 'reload') {
+          window.location.reload();
+      }
+      if (msg.data.startsWith('update-css ')) {
+          var messageId = msg.data.substring(11);
+          var links = document.getElementsByTagName('link');
+          for (var i = 0; i < links.length; i++) {
+              var link = links[i];
+              if (link.rel !== 'stylesheet') continue;
+              var clonedLink = link.cloneNode(true);
+              var newHref = link.href.replace(/(&|\?)jbUpdateLinksId=\d+/, "$1jbUpdateLinksId=" + messageId);
+              if (newHref !== link.href) {
+                clonedLink.href = newHref;
+              }
+              else {
+                var indexOfQuest = newHref.indexOf('?');
+                if (indexOfQuest >= 0) {
+                  // to support ?foo#hash
+                  clonedLink.href = newHref.substring(0, indexOfQuest + 1) + 'jbUpdateLinksId=' + messageId + '&' +
+                                    newHref.substring(indexOfQuest + 1);
+                }
+                else {
+                  clonedLink.href += '?' + 'jbUpdateLinksId=' + messageId;
+                }
+              }
+              link.replaceWith(clonedLink);
+          }
+      }
+  };
+})();
+</script></body>
+</html>

@@ -1,7 +1,7 @@
 
 
 const content_dir = '../../../contents/blogs/blog-folder/'
-const config_file = 'config_blog.yml'
+const config_file = 'config_blog_python-feishu-finance-pusher.yml'
 const section_names = ['Finews']
 
 
