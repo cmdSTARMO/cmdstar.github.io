@@ -13,7 +13,7 @@ Results-oriented quantitative analyst with a solid foundation in time series ana
 huangdapao@huangdapao.com<br>xxh497@miami.edu
 
 #### Education
-MSc in Financial Mathematics, University of Miami, Aug. 2024-May 2025(expected). \
+MSc in Financial Mathematics, University of Miami, Aug. 2024-May. 2025(expected). \
 BSc in Financial Engineering, Guangdong University of Finance and Economics, Sep. 2020 – Jun. 2024.
 
 #### Personal Interests Keywords
