@@ -17,13 +17,12 @@
     }
 </style>
 
-
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="Academic Webpage" />
     <meta name="author" content="hdp" />
-    <title id="title"></title>
+    <title id="website-title"></title>
 
     <!-- Icon -->
     <link rel="icon" type="image/x-icon" href="static/assets/icon.png" />
@@ -33,13 +32,9 @@
 
     <!-- Google fonts-->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap"
-        rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
 
     <!-- Core theme CSS (includes Bootstrap)-->
     <link type="text/css" href="static/css/styles.css" rel="stylesheet" />
@@ -48,574 +43,638 @@
     <!-- Bootstrap core JS-->
     <script type="text/javascript" src="static/js/bootstrap.bundle.min.js"></script>
 
-    <!-- For Compatability -->
+    <!-- For Compatibility -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    
+
     <!-- Markdown -->
     <script type="text/javascript" src="static/js/marked.min.js"></script>
+    <!-- MathJax 示例（可根据需要启用） -->
+    <!-- <script type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script> -->
+    <!-- <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
 
-    <!-- Mathematics -->
-    <script>
-        // See https://docs.mathjax.org/en/latest/index.html for more details.
-        MathJax = {
-            tex: {
-                packages: {},              // extensions to use
-                inlineMath: [              // start/end delimiter pairs for in-line math
-                    ['$', '$'],
-                    ['\\(', '\\)']
-                ],
-                displayMath: [             // start/end delimiter pairs for display math
-                    ['$$', '$$'],
-                    ['\\[', '\\]']
-                ],
-                processEscapes: false,      // use \$ to produce a literal dollar sign
-                processEnvironments: true, // process \begin{xxx}...\end{xxx} outside math mode
-                processRefs: true,         // process \ref{...} outside of math mode
-                digits: /^(?:[0-9]+(?:\{,\}[0-9]{3})*(?:\.[0-9]*)?|\.[0-9]+)/,    // pattern for recognizing numbers
-                tags: 'all',              // or 'ams' or 'all'
-                tagSide: 'right',          // side for \tag macros
-                tagIndent: '0.8em',        // amount to indent tags
-                useLabelIds: true,         // use label name rather than tag for ids
-                maxMacros: 10000,          // maximum number of macro substitutions per expression
-                maxBuffer: 5 * 1024,       // maximum size for the internal TeX string (5K)
-                // baseURL:                   // URL for use with links to tags (when there is a <base> tag in effect)
-                // (document.getElementsByTagName('base').length === 0) ? '' : String(document.location).replace(/#.*$/, ''),
-                formatError:               // function called when TeX syntax errors occur
-                    (jax, err) => jax.formatError(err)
-            }
-        };
-    </script>
-<!--    <script type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>-->
-<!--    <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>-->
-    
-    <!-- Core JS-->
-    <script type="text/javascript" src="static/js/scripts_1.js"></script>
+    <!-- YAML 解析库 -->
     <script type="text/javascript" src="static/js/js-yaml.min.js"></script>
+
+    <!-- i18next 及后端插件 -->
+    <script src="https://unpkg.com/i18next@21.6.3/dist/umd/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@1.4.1/i18nextHttpBackend.min.js"></script>
+
+
 
 </head>
 
-<!--<body id="page-top">-->
-<!--    &lt;!&ndash; Navigation&ndash;&gt;-->
-<!--    <nav class="header navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); box-shadow: none;">-->
-<!--        <div class="container px-5">-->
-<!--            <a id="page-top-title" class="navbar-brand fw-bold text-white" href="#page-top"></a> &lt;!&ndash; 将文字变为白色 &ndash;&gt;-->
-<!--            &lt;!&ndash; <a href="#page-top"><img src="static/assets/img/CUMT_LOGO.svg" style="width: 11rem;"></a> &ndash;&gt;-->
-<!--            <button class="navbar-toggler text-white d-lg-none gradient-border-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"-->
-<!--                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--                <b>菜单</b>-->
-<!--                <i class="bi-list"></i>-->
-<!--            </button>-->
-<!--            <div class="collapse navbar-collapse" id="navbarResponsive">-->
-<!--                <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link me-lg-3 text-white" href="#page-top">主页</a> &lt;!&ndash; 文字颜色改为白色 &ndash;&gt;-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link me-lg-3 text-white" href="#publications">文章</a> &lt;!&ndash; 文字颜色改为白色 &ndash;&gt;-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link me-lg-3 text-white" href="#awards">奖励</a> &lt;!&ndash; 文字颜色改为白色 &ndash;&gt;-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </nav>-->
 <body id="page-top">
-    <!-- Navigation-->
-    <div id="navbar"></div>
-    <script>
-        fetch('navbar.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('navbar').innerHTML = data;
-            })
-            .catch(error => console.error('Error loading navbar:', error));
-    </script>
-    <!-- Top Section -->
-    <section class="top-section" style="background-image: url('static/assets/img/background.png');">
-        <div class="top-section-content">
-            <div class="container px-5">
-                <h2 id="top-section-bg-text" class="text-white display-3 lh-1 font-alt"></h2>
-            </div>
-        </div>
-    </section>
-    <!-- Top Section -->
+<!-- Navigation -->
+<div id="navbar"></div>
+<script>
+    // 动态加载 navbar.html
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => {
+          document.getElementById('navbar').innerHTML = data;
+      })
+      .catch(error => console.error('Error loading navbar:', error));
+</script>
 
-    <!-- Photo -->
-    <div class="container px-5">
-        <div id="avatar">
-            <img class="shadow" src="static/assets/img/photo.png">
+<!-- Top Section -->
+<section class="top-section" style="background-image: url('static/assets/img/background.png');">
+    <div class="top-section-content">
+        <div class="container px-5">
+            <h2 id="top-section-bg-text" class="text-white display-3 lh-1 font-alt">
+                <b>Live long and prosper.<br>生生不息 繁荣昌盛</b>
+            </h2>
         </div>
     </div>
-    <!-- Photo -->
+</section>
 
-    <!-- Home -->
-    <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="home">
-            <div class="container px-5">
-                <header>
-                    <h2 id="home-subtitle"> </h2>
-                    <!-- <span class="bi bi-list"></span> -->
-                </header>
-<!--                <div class="main-body" id="home-md"></div>-->
-<!--                <div class="experience-card" style="background-color: #f8f9fa; padding: 16px; border-radius: 8px;">-->
-<!--                    <h4 class="fw-bold" style="margin: 0; position: relative; top: 5px;">-->
-<!--                        Update <span class="online-dot"></span>-->
-<!--                    </h4>-->
-<!--                    <div style="margin-top: 16px;">-->
-<!--                        <p style="margin: 0; font-weight: 600;"><b>Website update plan</b> is currently pursuing!...</p>-->
-<!--                        <p style="margin: 0; font-weight: 600;">网站更新正在进行中！...</p>-->
-<!--                    </div>-->
-<!--                    <br>-->
-<!--                    <div>-->
-<!--                        <p style="margin: 0; font-weight: 600;">Time left until the <b>Chinese New Year</b>:</p>-->
-<!--                        <div style="position: relative; width: 100%; aspect-ratio: 4.5 / 1; margin: 16px 0;">-->
-<!--                            <iframe-->
-<!--                              id="chinese-new-year-countdown"-->
-<!--                                src="https://embed-countdown.onlinealarmkur.com/en/#2025-01-29T00:00:00@Asia%2FShanghai"-->
-<!--                            style="-->
-<!--                                transform: scale(0.75); /* 根据需要调整比例 */-->
-<!--                                transform-origin: top left;-->
-<!--                                position: absolute;-->
-<!--                                width: 133.33%; /* 1 / 0.75 */-->
-<!--                                height: 133.33%; /* 保持与 scale 相同的比例 */-->
-<!--                                top: 0;-->
-<!--                                left: 0;-->
-<!--                                border: none;">-->
-<!--                            </iframe>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--            </div>-->
+<!-- Photo -->
+<div class="container px-5">
+    <div id="avatar">
+        <img class="shadow" src="static/assets/img/photo.png">
+    </div>
+</div>
+<!-- Photo -->
 
-
-            <div class="experience-card" style="background-color: #f8f9fa;">
-                <!-- 自我介绍 -->
-                <h4 class="fw-bold" style="position: relative; top: 5px;">
-                    Intro
-                </h4>
-                <p>
-                    Hi there! Hope this finds you well.<br><br>
-                    I'm currently pursuing a Master's Degree in Financial Mathematics, at Miami Herbert Business School, University of Miami in Miami, Florida.<br><br>
-                    I'm a results-oriented quantitative analyst with a solid foundation in time series analysis and quantitative finance. Possesses a strong understanding of agricultural and precious metals markets, gained through extensive industry research. Proficient in utilizing programming languages and databases for data mining and analysis, and skilled in creating insightful data visualizations using Tableau. Has contributed to multiple investment-related projects, developing practical experience in the field.
-                </p>
-                <!-- 分割线 -->
-                <br>
-                <div class="custom-divider"></div>
-                <br>
-
-                <h4 class="fw-bold" style="position: relative; top: 5px;">
-                    Education
-                </h4>
-                <br>
-
-                <!-- 学校部分，保留logo位置 -->
-                <div class="d-flex align-items-center mb-2">
-                    <img src="static/assets/img/um_logo.png" alt="University Logo" class="me-3 circular-image">
-                    <div>
-                        <h5 class="fw-bold" style="position: relative; top: 5px;">
-                            University of Miami Herbert Business School
-                        </h5>
+<!-- Home -->
+<section class="bg-gradient-primary-to-secondary-light mt5 md5" id="home">
+    <div class="container px-5">
+        <header>
+            <h2 id="home-subtitle">Xinjie Huang&ensp;|&ensp;黄大炮</h2>
+        </header>
+        <!--                <div class="main-body" id="home-md"></div>-->
+                        <div class="experience-card" style="background-color: #f8f9fa; padding: 16px; border-radius: 8px;">
+                            <h4 class="fw-bold" style="margin: 0; position: relative; top: 5px;" id="update-title">
+                                Update <span class="online-dot"></span>
+                            </h4>
+                            <div style="margin-top: 16px;">
+                                <p style="margin: 0; font-weight: 600;" id="update-announce"></p>
+                            </div>
+                            <br>
+<!--                            <div>-->
+<!--                                <p style="margin: 0; font-weight: 600;">Time left until the <b>Chinese New Year</b>:</p>-->
+<!--                                <div style="position: relative; width: 100%; aspect-ratio: 4.5 / 1; margin: 16px 0;">-->
+<!--                                    <iframe-->
+<!--                                      id="chinese-new-year-countdown"-->
+<!--                                        src="https://embed-countdown.onlinealarmkur.com/en/#2025-01-29T00:00:00@Asia%2FShanghai"-->
+<!--                                    style="-->
+<!--                                        transform: scale(0.75); /* 根据需要调整比例 */-->
+<!--                                        transform-origin: top left;-->
+<!--                                        position: absolute;-->
+<!--                                        width: 133.33%; /* 1 / 0.75 */-->
+<!--                                        height: 133.33%; /* 保持与 scale 相同的比例 */-->
+<!--                                        top: 0;-->
+<!--                                        left: 0;-->
+<!--                                        border: none;">-->
+<!--                                    </iframe>-->
+<!--                                </div>-->
+<!--                            </div>-->
                     </div>
+
+        <div class="experience-card" style="background-color: #f8f9fa;">
+            <!-- 自我介绍 -->
+            <h4 class="fw-bold" style="position: relative; top: 5px;" id="intro-title">
+                Intro
+            </h4>
+            <p id="intro-content">
+                occu
+            </p>
+            <!-- 分割线 -->
+            <br>
+            <div class="custom-divider"></div>
+            <br>
+
+            <h4 class="fw-bold" style="position: relative; top: 5px;">
+                Education
+            </h4>
+            <br>
+
+            <!-- 学校部分，保留logo位置 -->
+            <div class="d-flex align-items-center mb-2">
+                <img src="static/assets/img/um_logo.png" alt="University Logo" class="me-3 circular-image">
+                <div>
+                    <h5 class="fw-bold" style="position: relative; top: 5px;">
+                        University of Miami Herbert Business School
+                    </h5>
                 </div>
-                <br>
-                <h6 class="fw-bold">M.Sc. in Financial Mathematics&nbsp;&nbsp;<span class="online-dot"></span></h6>
-                <p class="text-muted">
-                    Aug. 2024 - May 2025 (expected)<br>
-                    Miami, Florida, United States
-                </p>
-                <div class="d-flex align-items-center mb-2">
-                    <img src="static/assets/img/gdufe_logo.png" alt="University Logo" class="me-3 circular-image">
-                    <div>
-                        <h5 class="fw-bold" style="position: relative; top: 5px;">
-                            Guangdong University of Finance and Economics
-                        </h5>
-                    </div>
-                </div>
-                <br>
-                <h6 class="fw-bold">B.Sc. in Financial Engineering&nbsp;&nbsp;<span class="past-dot"></span></h6>
-                <p class="text-muted">
-                    Sep. 2020 – Jun. 2024<br>
-                    Guangzhou, Guangdong, China
-                </p>
-
-                <br>
-                <!-- 分割线 -->
-                <div class="custom-divider"></div>
-                <br>
-
-                <!-- 联系方式 -->
-                <h4 class="fw-bold" style="position: relative; top: 5px;">
-                    Emails
-                </h4>
-                <p>huangdapao@huangdapao.com<br>xxh497@miami.edu</p>
-
-                <br>
-                <!-- 分割线 -->
-                <div class="custom-divider"></div>
-                <br>
-
-                <!-- 个人兴趣关键字 -->
-                <h4 class="fw-bold" style="position: relative; top: 5px;">
-                    Personal Interests Keywords
-                </h4>
-                <p>Python, Excel VBA, Stata, Matlab, Tableau, Commodities...</p>
             </div>
+            <br>
+            <h6 class="fw-bold">M.Sc. in Financial Mathematics&nbsp;&nbsp;<span class="online-dot"></span></h6>
+            <p class="text-muted">
+                Aug. 2024 - May 2025 (expected)<br>
+                Miami, Florida, United States
+            </p>
+            <div class="d-flex align-items-center mb-2">
+                <img src="static/assets/img/gdufe_logo.png" alt="University Logo" class="me-3 circular-image">
+                <div>
+                    <h5 class="fw-bold" style="position: relative; top: 5px;">
+                        Guangdong University of Finance and Economics
+                    </h5>
+                </div>
+            </div>
+            <br>
+            <h6 class="fw-bold">B.Sc. in Financial Engineering&nbsp;&nbsp;<span class="past-dot"></span></h6>
+            <p class="text-muted">
+                Sep. 2020 – Jun. 2024<br>
+                Guangzhou, Guangdong, China
+            </p>
+
+            <br>
+            <!-- 分割线 -->
+            <div class="custom-divider"></div>
+            <br>
+
+            <!-- 联系方式 -->
+            <h4 class="fw-bold" style="position: relative; top: 5px;">
+                Emails
+            </h4>
+            <p>huangdapao@huangdapao.com<br>xxh497@miami.edu</p>
+
+            <br>
+            <!-- 分割线 -->
+            <div class="custom-divider"></div>
+            <br>
+
+            <!-- 个人兴趣关键字 -->
+            <h4 class="fw-bold" style="position: relative; top: 5px;">
+                Personal Interests Keywords
+            </h4>
+            <p>Python, Excel VBA, Stata, Matlab, Tableau, Commodities...</p>
         </div>
-    </section>
-    <!-- Home -->
+    </div>
+</section>
+<!-- Home -->
 
-    <!-- experiences -->
-    <section class="bg-gradient-primary-to-secondary-gray mt5 md5" id="experiences">
-        <div class="container px-5">
-            <header>
-                <h2 id="experiences-subtitle"><i class="bi bi-pencil-fill"></i>&nbsp;EXPERIENCES</h2>
-            </header>
+<!-- experiences -->
+<section class="bg-gradient-primary-to-secondary-gray mt5 md5" id="experiences">
+    <div class="container px-5">
+        <header>
+            <h2 id="experiences-subtitle"><i class="bi bi-pencil-fill"></i>&nbsp;EXPERIENCES</h2>
+        </header>
 
-
-            <!-- University of Miami Herbert Business School Experience -->
-            <div class="experience-card" style="background-color: #f8f9fa;">
-                <div class="d-flex align-items-center mb-2">
-                    <img src="static/assets/img/um_logo.png" alt="University of Miami" class="me-3 circular-image" style="">
-                    <div>
-                        <h5 class="fw-bold" style="position: relative; top: 5px;">
-                            University of Miami Herbert Business School
-                        </h5>
-                    </div>
-
+        <!-- University of Miami Herbert Business School Experience -->
+        <div class="experience-card" style="background-color: #f8f9fa;">
+            <div class="d-flex align-items-center mb-2">
+                <img src="static/assets/img/um_logo.png" alt="University of Miami" class="me-3 circular-image" style="">
+                <div>
+                    <h5 class="fw-bold" style="position: relative; top: 5px;">
+                        University of Miami Herbert Business School
+                    </h5>
                 </div>
-                <br>
-                <h6 class="fw-bold">Student Managed Conviction Fund | Analyst&nbsp;&nbsp;<span class="online-dot"></span></h6>
-                <p class="text-muted">
-                    Aug 2024 - Present <br>
-                    Miami, Florida, United States · On-site
-                </p>
-                <p>
-                    1. Present as an analyst in Finance & Real Estate Sector, evaluate stocks in the sector and generate reports.
-                    2. Authored valuation reports on an individual stock, with recommended stock successfully included in the initial live portfolio.<br>
-                </p>
-                <p><strong>Skills:</strong> Pricing Analysis, Financial Concepts, Market Pricing, Macroeconomics Analysis, P/E P/B Ratio Evaluation, DCF, DDM</p>
+
             </div>
-
-            <!-- Curveway Confluence Big Data Investment Center Experience -->
-            <div class="experience-card" style="background-color: #f8f9fa;">
-                <div class="d-flex align-items-center mb-2">
-                    <img src="static/assets/img/cc_logo.JPG" alt="Curveway Confluence Big Data Investment Center" class="me-3 circular-image" style="">
-                    <div >
-                        <h5 class="fw-bold" style="position: relative; top: 5px;">
-                            Curveway Confluence Big Data Investment Center
-                        </h5>
-                    </div>
-                </div>
-                <br>
-                <!-- Systems Maintenance Specialist Role -->
-                <h6 class="fw-bold me-3">Systems Maintenance Specialist&nbsp;&nbsp;<span class="online-dot"></span></h6>
-                <p class="text-muted">Freelance<br>
-                    Jul 2024 - Present<br>
-                    Remote</p>
-                <p>
-                    1. Developed an intelligent quantitative monitoring system based on a lightweight platform, integrated with Lark bot, enabling real-time stock price and quantitative indicator alerts for major domestic listed companies, along with scheduled market data distribution.<br>
-                    2. Developed a multi-term bond arbitrage validation system using Python and Excel based on Chinese and American bond markets, integrating yield curve modeling, forward rate calculations, and Nelson-Siegel fitting to identify arbitrage opportunities and optimize fixed-income strategies.<br>
-                    3. Assist in the daily maintenance of the quantitative analysis module, information system, and subscription system, addressing unexpected issues.<br>
-                    4. Contributed to the company’s website and email system.<br>
-                    5. Continuously participating in the development of new systems and modules.
-                </p>
-                <p><strong>Skills:</strong> Python, Financial Concepts, HTML Emails, JavaScript, Raspberry Pi, HTML, C++, Website Development, CSS, Quantitative Finance</p>
-                <br>
-                <!-- Investment Analysis Assistant Role -->
-                <h6 class="fw-bold">Investment Analysis Assistant&nbsp;&nbsp;<span class="past-dot"></span></h6>
-                <p class="text-muted">Internship<br>
-                    Dec 2023 - Jul 2024<br>
-                    Guangzhou, Guangdong, China · On-site</p>
-                <p>1. Built a model using Python to update, cross-verify, and analyze data.<br>
-                   2. Used PCA to predict trends in Southeast Asian markets.<br>
-                   3. Completed commodity analysis on gold and eggs.<br>
-                   4. Developed a quantitative analysis system, a mail subscription & bot push system, and a stock recommendation system.<br>
-                </p>
-                <p><strong>Skills:</strong> Python, Data Analysis, SQL, VBA Excel, Financial Concepts, Quantitative Analytics, Commodity Pricing, Tableau, Industry Analysis, Quantitative Research</p>
-                <p><strong>Click</strong> on the pictures below to see details:</p>
-                <section class="files_a_card-list">
-                    <article class="files_a_card">
-                        <!-- 背景图片 -->
-                        <div class="files_a_card-background" style="background-image: url('static/assets/img/黄金未来30年-2023112715360001.jpg');"></div>
-
-                        <!-- 卡片内容 -->
-                        <div class="files_a_card-header">
-                            <p>Nov 29th 2023</p>
-                            <h2>Gold's 30 Years-2023112715360001-PRDV</h2>
-                        </div>
-                        <div class="files_a_tags">
-                            <a href="filess/黄金未来30年-2023112715360001.pdf">Download</a>&nbsp;
-                            <a href="filess/黄金未来30年-2023112715360001.pdf">Web Preview (Preparing)</a>
-                        </div>
-                    </article>
-
-                    <article class="files_a_card">
-                        <div class="files_a_card-background" style="background-image: url('filess/filess_pic/恒大：债与票-2023122721570002.png');"></div>
-
-                        <div class="files_a_card-header">
-                            <p>Dec 27th 2023</p>
-                            <h2>Evergrande's dusk: bonds and commercial bills-2023122721570002-PRDV</h2>
-                        </div>
-
-                        <div class="files_a_tags">
-                            <a href="filess/恒大：债与票-2023122721570002.pdf">Download</a>&nbsp;
-                            <a href="filess/恒大：债与票-2023122721570002.pdf">Web Preview (Preparing)</a>
-                        </div>
-                    </article>
-                </section>
-            </div>
-
-            <!-- Paradox Interactive Experience -->
-            <div class="experience-card" style="background-color: #f8f9fa;">
-                <div class="d-flex align-items-center mb-2">
-                    <img src="static/assets/img/pdx_logo.png" alt="Paradox Interactive" class="me-3 circular-image" style="">
-                    <div>
-                        <h5 class="fw-bold" style="position: relative; top: 5px;">
-                            <!-- 在线状态绿点 -->
-                            Paradox Interactive
-                        </h5>
-                    </div>
-                </div>
-                <br>
-                <h6 class="fw-bold">China Community Ambassador&nbsp;&nbsp;<span class="online-dot"></span></h6>
-                <p class="text-muted">
-                    Freelance<br>
-                    May 2024 - Present <br>
-                    Remote
-                </p>
-                <p>1. Independently built a QQ Channel community system, creating an efficient communication channel between domestic players and the Stellaris development team.<br>
-                   2. Scraped community comments to generate weekly reports on community sentiment and bug reports.<br>
-                   3. Regularly assisted in translating developer diaries, Q&A, and promotional materials, while addressing player inquiries in the community.</p>
-                <p><strong>Skills:</strong> Community Management, Data Crawling & Analysis, Translation, Technical Writing</p>
-            </div>
-
-            <!-- Guangdong Haid Group Co., Limited Experience -->
-            <div class="experience-card" style="background-color: #f8f9fa;">
-                <div class="d-flex align-items-center mb-2">
-                    <img src="static/assets/img/haid_logo.png" alt="Paradox Interactive" class="me-3 circular-image" style="">
-                    <div>
-                        <h5 class="fw-bold" style="position: relative; top: 5px;">
-                            Guangdong Haid Group Co., Limited
-                        </h5>
-                    </div>
-
-                </div>
-                <br>
-                <h6 class="fw-bold">Commodity Intern&nbsp;&nbsp;<span class="past-dot"></span></h6>
-                <p class="text-muted">
-                    Internship<br>
-                    Jul 2023 - Nov 2023<br>
-                    Guangzhou, Guangdong, China · On-site
-                </p>
-                <p>1. Refined hedging models and analyzed data for the hog farming department.<br>
-                   2. Used Python and VBA for daily automatic updates of reports.<br>
-                   3. Conducted on-site research on hog farming enterprises.</p>
-                <p><strong>Skills:</strong> Commodity Markets, Python, Data Analysis, VBA Excel, Financial Concepts, Pricing Strategy, Commodity Pricing, Industry Analysis</p>
-            </div>
-
-            <!-- SusallWave Digital Technology Co., Ltd. Experience -->
-            <div class="experience-card" style="background-color: #f8f9fa;">
-                <div class="d-flex align-items-center mb-2">
-                    <img src="static/assets/img/sw_logo.jpg" alt="SusallWave Digital Technology Co., Ltd." class="me-3 circular-image">
-                    <div>
-                        <h5 class="fw-bold" style="position: relative; top: 5px;">
-                            SusallWave Digital Technology Co., Ltd.
-                        </h5>
-                    </div>
-                </div>
-                <br>
-                <h6 class="fw-bold">ESG Risk Analysis Intern&nbsp;&nbsp;<span class="past-dot"></span></h6>
-                <p class="text-muted">
-                    Internship<br>
-                    Mar 2023 - May 2023<br>
-                    Guangdong, China · On-site
-                </p>
-                <p>1. Extracted 3000+ negative information pieces from government websites using Requests and Selenium.<br>
-                   2. Conducted correlation analysis among companies using Python and Apriori algorithm.</p>
-                <p><strong>Skills:</strong> Web Crawling, Python, Data Analysis</p>
-            </div>
-
-            <!-- CnOpenData Experience -->
-            <div class="experience-card" style="background-color: #f8f9fa;">
-                <div class="d-flex align-items-center mb-2">
-                    <img src="static/assets/img/cop_logo.jpg" alt="CnOpenData" class="me-3 circular-image">
-                    <div>
-                        <h5 class="fw-bold" style="position: relative; top: 5px;">
-                            CnOpenData
-                        </h5>
-                    </div>
-                </div>
-                <br>
-                <h6 class="fw-bold">Data Assistant&nbsp;&nbsp;<span class="past-dot"></span></h6>
-                <p class="text-muted">
-                    Internship<br>
-                    Oct 2022 - Apr 2023<br>
-                    Guangzhou, Guangdong, China · Remote
-                </p>
-                <p>1. Expanded industry database categories and improved data for six databases.<br>
-                   2. Used Python to collect, organize, and normalize 169,700 index entries.</p>
-                <p><strong>Skills:</strong> Data Mining, Python, Data Analysis, SQL</p>
-            </div>
+            <br>
+            <h6 class="fw-bold">Student Managed Conviction Fund | Analyst&nbsp;&nbsp;<span class="online-dot"></span></h6>
+            <p class="text-muted">
+                Aug 2024 - Present <br>
+                Miami, Florida, United States · On-site
+            </p>
+            <p>
+                1. Present as an analyst in Finance & Real Estate Sector, evaluate stocks in the sector and generate reports.
+                2. Authored valuation reports on an individual stock, with recommended stock successfully included in the initial live portfolio.<br>
+            </p>
+            <p><strong>Skills:</strong> Pricing Analysis, Financial Concepts, Market Pricing, Macroeconomics Analysis, P/E P/B Ratio Evaluation, DCF, DDM</p>
         </div>
-    </section>
-    <!-- experiences -->
 
-    <!-- Publications -->
-    <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="publications">
-        <div class="container px-5">
-            <header>
-                <h2 id="publications-subtitle"><i class="bi bi-file-text-fill"></i>&nbsp;PUBLICATIONS</h2>
-            </header>
-            <!-- Artificial Intelligence and Quantitative Finance Book Contribution -->
-            <div class="experience-card" style="background-color: #f8f9fa;">
-                <div class="d-flex align-items-center mb-2">
-                    <div>
-                        <h5 class="fw-bold" style="position: relative; top: 5px;">
-                            <em>Artificial Intelligence and Quantitative Finance</em>
-                        </h5>
-                    </div>
+        <!-- Curveway Confluence Big Data Investment Center Experience -->
+        <div class="experience-card" style="background-color: #f8f9fa;">
+            <div class="d-flex align-items-center mb-2">
+                <img src="static/assets/img/cc_logo.JPG" alt="Curveway Confluence Big Data Investment Center" class="me-3 circular-image" style="">
+                <div >
+                    <h5 class="fw-bold" style="position: relative; top: 5px;">
+                        Curveway Confluence Big Data Investment Center
+                    </h5>
                 </div>
-                <br>
-                <h6 class="fw-bold">Chapter Author - Chapter 7: Principal Component Analysis (PCA)&nbsp;&nbsp;<span class="past-dot"></span></h6>
-                <p class="text-muted">
-                    Book Contribution<br>
-                    Publisher: Tsinghua University Press<br>
-                    Expected Publication: February 2025
-                </p>
-                <p>
-                    Authored Chapter 7, titled “Principal Component Analysis (PCA),” which explores PCA as a dimensionality reduction technique for extracting essential information from high-dimensional datasets. The chapter includes the theoretical foundation, practical implementation, and applications in financial data processing, such as data cleaning, standardization, feature extraction, risk management, and portfolio construction. Python code examples and visual aids are provided to enhance understanding and practical application.
-                </p>
             </div>
+            <br>
+            <!-- Systems Maintenance Specialist Role -->
+            <h6 class="fw-bold me-3">Systems Maintenance Specialist&nbsp;&nbsp;<span class="online-dot"></span></h6>
+            <p class="text-muted">Freelance<br>
+                Jul 2024 - Present<br>
+                Remote</p>
+            <p>
+                1. Developed an intelligent quantitative monitoring system based on a lightweight platform, integrated with Lark bot, enabling real-time stock price and quantitative indicator alerts for major domestic listed companies, along with scheduled market data distribution.<br>
+                2. Developed a multi-term bond arbitrage validation system using Python and Excel based on Chinese and American bond markets, integrating yield curve modeling, forward rate calculations, and Nelson-Siegel fitting to identify arbitrage opportunities and optimize fixed-income strategies.<br>
+                3. Assist in the daily maintenance of the quantitative analysis module, information system, and subscription system, addressing unexpected issues.<br>
+                4. Contributed to the company’s website and email system.<br>
+                5. Continuously participating in the development of new systems and modules.
+            </p>
+            <p><strong>Skills:</strong> Python, Financial Concepts, HTML Emails, JavaScript, Raspberry Pi, HTML, C++, Website Development, CSS, Quantitative Finance</p>
+            <br>
+            <!-- Investment Analysis Assistant Role -->
+            <h6 class="fw-bold">Investment Analysis Assistant&nbsp;&nbsp;<span class="past-dot"></span></h6>
+            <p class="text-muted">Internship<br>
+                Dec 2023 - Jul 2024<br>
+                Guangzhou, Guangdong, China · On-site</p>
+            <p>1. Built a model using Python to update, cross-verify, and analyze data.<br>
+                2. Used PCA to predict trends in Southeast Asian markets.<br>
+                3. Completed commodity analysis on gold and eggs.<br>
+                4. Developed a quantitative analysis system, a mail subscription & bot push system, and a stock recommendation system.<br>
+            </p>
+            <p><strong>Skills:</strong> Python, Data Analysis, SQL, VBA Excel, Financial Concepts, Quantitative Analytics, Commodity Pricing, Tableau, Industry Analysis, Quantitative Research</p>
+            <p><strong>Click</strong> on the pictures below to see details:</p>
+            <section class="files_a_card-list">
+                <article class="files_a_card">
+                    <!-- 背景图片 -->
+                    <div class="files_a_card-background" style="background-image: url('static/assets/img/黄金未来30年-2023112715360001.jpg');"></div>
+
+                    <!-- 卡片内容 -->
+                    <div class="files_a_card-header">
+                        <p>Nov 29th 2023</p>
+                        <h2>Gold's 30 Years-2023112715360001-PRDV</h2>
+                    </div>
+                    <div class="files_a_tags">
+                        <a href="filess/黄金未来30年-2023112715360001.pdf">Download</a>&nbsp;
+                        <a href="filess/黄金未来30年-2023112715360001.pdf">Web Preview (Preparing)</a>
+                    </div>
+                </article>
+
+                <article class="files_a_card">
+                    <div class="files_a_card-background" style="background-image: url('filess/filess_pic/恒大：债与票-2023122721570002.png');"></div>
+
+                    <div class="files_a_card-header">
+                        <p>Dec 27th 2023</p>
+                        <h2>Evergrande's dusk: bonds and commercial bills-2023122721570002-PRDV</h2>
+                    </div>
+
+                    <div class="files_a_tags">
+                        <a href="filess/恒大：债与票-2023122721570002.pdf">Download</a>&nbsp;
+                        <a href="filess/恒大：债与票-2023122721570002.pdf">Web Preview (Preparing)</a>
+                    </div>
+                </article>
+            </section>
         </div>
-    </section>
-    <!-- Publications  -->
 
-    <!-- Awards -->
-    <section class="bg-gradient-primary-to-secondary-gray mt5 md5" id="awards">
-        <div class="container px-5">
-            <header>
-                <h2 id="awards-subtitle"><i class="bi bi-award-fill"></i>&nbsp;AWARDS</h2>
-            </header>
-<!--            <div class="main-body" id="awards-md"></div>-->
-
-            <!-- Card 6: Mathematical Contest in Modeling -->
-            <div class="experience-card" style="background-color: #f8f9fa;">
-                <h5 class="fw-bold">2022 Contemporary Undergraduate Mathematical Contest in Modeling | Captain&nbsp;&nbsp;<span class="past-dot"></span></h5>
-                <p class="text-muted">Jul 2022 - Sep 2022</p>
-                <p><strong>Selected Prompt:</strong> Compositional Analysis and Identification of Glass Artifacts</p>
-                <ul>
-                    <li>Analyzed the correlation between surface weathering of glass artifacts and several traits of glass.</li>
-                    <li>Studied correlations and differences between chemical components and various types of glass artifacts.</li>
-                    <li>Utilized independent sample t-tests to identify patterns in the chemical content of weathered and non-weathered samples based on glass type.</li>
-                    <li>Established, evaluated, and applied a machine learning classification model to predict pre-weathering chemical composition based on weathering point detection data.</li>
-                </ul>
+        <!-- Paradox Interactive Experience -->
+        <div class="experience-card" style="background-color: #f8f9fa;">
+            <div class="d-flex align-items-center mb-2">
+                <img src="static/assets/img/pdx_logo.png" alt="Paradox Interactive" class="me-3 circular-image" style="">
+                <div>
+                    <h5 class="fw-bold" style="position: relative; top: 5px;">
+                        <!-- 在线状态绿点 -->
+                        Paradox Interactive
+                    </h5>
+                </div>
             </div>
-
-<!--            &lt;!&ndash; Card 7: Case Study Association &ndash;&gt;-->
-<!--            <div class="experience-card" style="background-color: #f8f9fa;">-->
-<!--                <h5 class="fw-bold">Case Study Association | Leader of Operation Department&nbsp;&nbsp;<span class="past-dot"></span></h5>-->
-<!--                <p class="text-muted">Oct 2020 - Jun 2022</p>-->
-<!--                <ul>-->
-<!--                    <li>Organized membership recruitment activities and payment mechanisms, recruiting 76 new members, an increase of 230.4% compared to the previous term.</li>-->
-<!--                    <li>Collected, collated, and analyzed a library of business case studies for various events, including three lectures and five seminars, attracting over 500 participants.</li>-->
-<!--                </ul>-->
-<!--            </div>-->
-
-            <!-- Card 8: "Ruihua Insurance Cup" Competition -->
-            <div class="experience-card" style="background-color: #f8f9fa;">
-                <h5 class="fw-bold">"Ruihua Insurance Cup" Internet Insurance Product Design Competition - Third Prize&nbsp;&nbsp;<span class="past-dot"></span></h5>
-                <p class="text-muted">Jun 2022 - Jun 2022</p>
-                <p>Ranked 4th out of 20 teams.</p>
-            </div>
-
-            <!-- Card 9: 1st Case Analysis Competition -->
-            <div class="experience-card" style="background-color: #f8f9fa;">
-                <h5 class="fw-bold">Second Prize in the 1st Case Analysis Competition at Guangdong University of Finance and Economics&nbsp;&nbsp;<span class="past-dot"></span></h5>
-                <p class="text-muted">Jun 2021 - Jun 2021</p>
-                <p>Ranked 2nd out of 136 teams.</p>
-            </div>
-
-            <!-- Card 10: "Chuangyi China · Meiling Cup" -->
-            <div class="experience-card" style="background-color: #f8f9fa;">
-                <h5 class="fw-bold">Semi-finalist in "Chuangyi China · Meiling Cup"&nbsp;&nbsp;<span class="past-dot"></span></h5>
-                <p class="text-muted">Jun 2021 - Sep 2021</p>
-                <p>Ranked within the top 50 out of 277 teams.</p>
-            </div>
-
-            <!-- Card 11: 2021 Liby Innovation Challenge -->
-            <div class="experience-card" style="background-color: #f8f9fa;">
-                <h5 class="fw-bold">Third Prize in the 2021 Liby Innovation Challenge&nbsp;&nbsp;<span class="past-dot"></span></h5>
-                <p class="text-muted">Jun 2021 - Sep 2021</p>
-                <p>Ranked 3rd out of 246 teams.</p>
-            </div>
+            <br>
+            <h6 class="fw-bold">China Community Ambassador&nbsp;&nbsp;<span class="online-dot"></span></h6>
+            <p class="text-muted">
+                Freelance<br>
+                May 2024 - Present <br>
+                Remote
+            </p>
+            <p>1. Independently built a QQ Channel community system, creating an efficient communication channel between domestic players and the Stellaris development team.<br>
+                2. Scraped community comments to generate weekly reports on community sentiment and bug reports.<br>
+                3. Regularly assisted in translating developer diaries, Q&A, and promotional materials, while addressing player inquiries in the community.</p>
+            <p><strong>Skills:</strong> Community Management, Data Crawling & Analysis, Translation, Technical Writing</p>
         </div>
-    </section>
-    <!-- Awards -->
 
-    <!-- Projects -->
-    <section class="bg-gradient-primary-to-secondary-white mt5 md5" id="projects">
-        <div class="container px-5">
-            <header>
-                <h2 id="projects-subtitle">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-motherboard-fill" viewBox="0 0 16 16">
-                      <path d="M5 7h3V4H5z"/>
-                      <path d="M1 2a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-2H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 9H1V8H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6H1V5H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 2zm11 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zm2 0a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zM3.5 10a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1zM4 4h-.5a.5.5 0 0 0 0 1H4v1h-.5a.5.5 0 0 0 0 1H4a1 1 0 0 0 1 1v.5a.5.5 0 0 0 1 0V8h1v.5a.5.5 0 0 0 1 0V8a1 1 0 0 0 1-1h.5a.5.5 0 0 0 0-1H9V5h.5a.5.5 0 0 0 0-1H9a1 1 0 0 0-1-1v-.5a.5.5 0 0 0-1 0V3H6v-.5a.5.5 0 0 0-1 0V3a1 1 0 0 0-1 1m7 7.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5"/>
-                    </svg>
-                    &nbsp;PROJECTS</h2>
-            </header>
+        <!-- Guangdong Haid Group Co., Limited Experience -->
+        <div class="experience-card" style="background-color: #f8f9fa;">
+            <div class="d-flex align-items-center mb-2">
+                <img src="static/assets/img/haid_logo.png" alt="Paradox Interactive" class="me-3 circular-image" style="">
+                <div>
+                    <h5 class="fw-bold" style="position: relative; top: 5px;">
+                        Guangdong Haid Group Co., Limited
+                    </h5>
+                </div>
 
-            <!-- Card 2: Dynamic Risk Management Portfolio System -->
-            <div class="experience-card" style="background-color: #f8f9fa;">
-                <h5 class="fw-bold">Dynamic Risk Management Portfolio System&nbsp;&nbsp;<span class="online-dot"></span></h5>
-                <p class="text-muted">Sep 2024 - Present</p>
-                <p>
-                    The system selects the top 30 stocks in each sector using multiple risk assessment indicators and various scoring methods to build portfolios. Data is updated every third weekend of each month, portfolio performance is evaluated, new portfolios are constructed, and continuous improvements are made.
-                </p>
             </div>
-
-            <!-- Card 3: Global Market Insights and Smart Stock Recommendation -->
-            <div class="experience-card" style="background-color: #f8f9fa;">
-                <h5 class="fw-bold">Global Market Insights and Smart Stock Recommendation&nbsp;&nbsp;<span class="online-dot"></span></h5>
-                <p class="text-muted">Jan 2024 - Present</p>
-                <p>
-                    This Python-based system leverages real-time data ingestion, feature engineering, and machine learning models to generate personalized stock recommendations. It processes market trends, historical data, and user profiles, delivering daily global market reports and recommendations via automated email.
-                </p>
-            </div>
-
-            <!-- Card 4: Ensemble Learning for Quantitative Investment -->
-            <div class="experience-card" style="background-color: #f8f9fa;">
-                <h5 class="fw-bold">Ensemble Learning for Quantitative Investment&nbsp;&nbsp;<span class="past-dot"></span></h5>
-                <p class="text-muted">Dec 2023 - Jun 2024</p>
-                <p>
-                    Utilized deep learning models such as LSTM, RNN, and Transformer for ensemble learning to optimize quantitative investment strategies with enhanced accuracy and efficiency.
-                </p>
-            </div>
-
-
-            <!-- Card 5: Research on Hog Futures and Spot Hog Prices -->
-            <div class="experience-card" style="background-color: #f8f9fa;">
-                <h5 class="fw-bold">Research on Hog Futures and Spot Hog Prices&nbsp;&nbsp;<span class="past-dot"></span></h5>
-                <p class="text-muted">Dec 2023 - May 2024</p>
-                <p>
-                    Selected appropriate variables and constructed a VAR model based on collected weekly average data. Employed cointegration tests, Granger causality tests, and impulse response analysis to investigate the short-term volatility patterns of hog futures on spot hog prices in China, and conducted risk measurement.
-                </p>
-            </div>
+            <br>
+            <h6 class="fw-bold">Commodity Intern&nbsp;&nbsp;<span class="past-dot"></span></h6>
+            <p class="text-muted">
+                Internship<br>
+                Jul 2023 - Nov 2023<br>
+                Guangzhou, Guangdong, China · On-site
+            </p>
+            <p>1. Refined hedging models and analyzed data for the hog farming department.<br>
+                2. Used Python and VBA for daily automatic updates of reports.<br>
+                3. Conducted on-site research on hog farming enterprises.</p>
+            <p><strong>Skills:</strong> Commodity Markets, Python, Data Analysis, VBA Excel, Financial Concepts, Pricing Strategy, Commodity Pricing, Industry Analysis</p>
         </div>
-    </section>
-    <!-- Projects -->
 
-
-    <!-- Footer-->
-    <footer class="bg-bottom text-center py-5">
-        <div class="container px-5">
-            <div class="text-white-50 small">
-                <div id="copyright-text" class="mb-2"></div>
-                <a id="github-link" href="https://github.com/cmdSTARMO">Github</a>
-                <span class="mx-1">&middot;</span>
-                <a id="license-link" href="https://github.com/cmdSTARMO/cmdstar.github.io/blob/main/LICENSE">License</a>
+        <!-- SusallWave Digital Technology Co., Ltd. Experience -->
+        <div class="experience-card" style="background-color: #f8f9fa;">
+            <div class="d-flex align-items-center mb-2">
+                <img src="static/assets/img/sw_logo.jpg" alt="SusallWave Digital Technology Co., Ltd." class="me-3 circular-image">
+                <div>
+                    <h5 class="fw-bold" style="position: relative; top: 5px;">
+                        SusallWave Digital Technology Co., Ltd.
+                    </h5>
+                </div>
             </div>
+            <br>
+            <h6 class="fw-bold">ESG Risk Analysis Intern&nbsp;&nbsp;<span class="past-dot"></span></h6>
+            <p class="text-muted">
+                Internship<br>
+                Mar 2023 - May 2023<br>
+                Guangdong, China · On-site
+            </p>
+            <p>1. Extracted 3000+ negative information pieces from government websites using Requests and Selenium.<br>
+                2. Conducted correlation analysis among companies using Python and Apriori algorithm.</p>
+            <p><strong>Skills:</strong> Web Crawling, Python, Data Analysis</p>
         </div>
-    </footer>
 
+        <!-- CnOpenData Experience -->
+        <div class="experience-card" style="background-color: #f8f9fa;">
+            <div class="d-flex align-items-center mb-2">
+                <img src="static/assets/img/cop_logo.jpg" alt="CnOpenData" class="me-3 circular-image">
+                <div>
+                    <h5 class="fw-bold" style="position: relative; top: 5px;">
+                        CnOpenData
+                    </h5>
+                </div>
+            </div>
+            <br>
+            <h6 class="fw-bold">Data Assistant&nbsp;&nbsp;<span class="past-dot"></span></h6>
+            <p class="text-muted">
+                Internship<br>
+                Oct 2022 - Apr 2023<br>
+                Guangzhou, Guangdong, China · Remote
+            </p>
+            <p>1. Expanded industry database categories and improved data for six databases.<br>
+                2. Used Python to collect, organize, and normalize 169,700 index entries.</p>
+            <p><strong>Skills:</strong> Data Mining, Python, Data Analysis, SQL</p>
+        </div>
+    </div>
+</section>
+<!-- experiences -->
+
+<!-- Publications -->
+<section class="bg-gradient-primary-to-secondary-light mt5 md5" id="publications">
+    <div class="container px-5">
+        <header>
+            <h2 id="publications-subtitle"><i class="bi bi-file-text-fill"></i>&nbsp;PUBLICATIONS</h2>
+        </header>
+        <!-- Artificial Intelligence and Quantitative Finance Book Contribution -->
+        <div class="experience-card" style="background-color: #f8f9fa;">
+            <div class="d-flex align-items-center mb-2">
+                <div>
+                    <h5 class="fw-bold" style="position: relative; top: 5px;">
+                        <em>Artificial Intelligence and Quantitative Finance</em>
+                    </h5>
+                </div>
+            </div>
+            <br>
+            <h6 class="fw-bold">Chapter Author - Chapter 7: Principal Component Analysis (PCA)&nbsp;&nbsp;<span class="past-dot"></span></h6>
+            <p class="text-muted">
+                Book Contribution<br>
+                Publisher: Tsinghua University Press<br>
+                Expected Publication: February 2025
+            </p>
+            <p>
+                Authored Chapter 7, titled “Principal Component Analysis (PCA),” which explores PCA as a dimensionality reduction technique for extracting essential information from high-dimensional datasets. The chapter includes the theoretical foundation, practical implementation, and applications in financial data processing, such as data cleaning, standardization, feature extraction, risk management, and portfolio construction. Python code examples and visual aids are provided to enhance understanding and practical application.
+            </p>
+        </div>
+    </div>
+</section>
+<!-- Publications  -->
+
+<!-- Awards -->
+<section class="bg-gradient-primary-to-secondary-gray mt5 md5" id="awards">
+    <div class="container px-5">
+        <header>
+            <h2 id="awards-subtitle"><i class="bi bi-award-fill"></i>&nbsp;AWARDS</h2>
+        </header>
+        <!--            <div class="main-body" id="awards-md"></div>-->
+
+        <!-- Card 6: Mathematical Contest in Modeling -->
+        <div class="experience-card" style="background-color: #f8f9fa;">
+            <h5 class="fw-bold">2022 Contemporary Undergraduate Mathematical Contest in Modeling | Captain&nbsp;&nbsp;<span class="past-dot"></span></h5>
+            <p class="text-muted">Jul 2022 - Sep 2022</p>
+            <p><strong>Selected Prompt:</strong> Compositional Analysis and Identification of Glass Artifacts</p>
+            <ul>
+                <li>Analyzed the correlation between surface weathering of glass artifacts and several traits of glass.</li>
+                <li>Studied correlations and differences between chemical components and various types of glass artifacts.</li>
+                <li>Utilized independent sample t-tests to identify patterns in the chemical content of weathered and non-weathered samples based on glass type.</li>
+                <li>Established, evaluated, and applied a machine learning classification model to predict pre-weathering chemical composition based on weathering point detection data.</li>
+            </ul>
+        </div>
+
+        <!--            &lt;!&ndash; Card 7: Case Study Association &ndash;&gt;-->
+        <!--            <div class="experience-card" style="background-color: #f8f9fa;">-->
+        <!--                <h5 class="fw-bold">Case Study Association | Leader of Operation Department&nbsp;&nbsp;<span class="past-dot"></span></h5>-->
+        <!--                <p class="text-muted">Oct 2020 - Jun 2022</p>-->
+        <!--                <ul>-->
+        <!--                    <li>Organized membership recruitment activities and payment mechanisms, recruiting 76 new members, an increase of 230.4% compared to the previous term.</li>-->
+        <!--                    <li>Collected, collated, and analyzed a library of business case studies for various events, including three lectures and five seminars, attracting over 500 participants.</li>-->
+        <!--                </ul>-->
+        <!--            </div>-->
+
+        <!-- Card 8: "Ruihua Insurance Cup" Competition -->
+        <div class="experience-card" style="background-color: #f8f9fa;">
+            <h5 class="fw-bold">"Ruihua Insurance Cup" Internet Insurance Product Design Competition - Third Prize&nbsp;&nbsp;<span class="past-dot"></span></h5>
+            <p class="text-muted">Jun 2022 - Jun 2022</p>
+            <p>Ranked 4th out of 20 teams.</p>
+        </div>
+
+        <!-- Card 9: 1st Case Analysis Competition -->
+        <div class="experience-card" style="background-color: #f8f9fa;">
+            <h5 class="fw-bold">Second Prize in the 1st Case Analysis Competition at Guangdong University of Finance and Economics&nbsp;&nbsp;<span class="past-dot"></span></h5>
+            <p class="text-muted">Jun 2021 - Jun 2021</p>
+            <p>Ranked 2nd out of 136 teams.</p>
+        </div>
+
+        <!-- Card 10: "Chuangyi China · Meiling Cup" -->
+        <div class="experience-card" style="background-color: #f8f9fa;">
+            <h5 class="fw-bold">Semi-finalist in "Chuangyi China · Meiling Cup"&nbsp;&nbsp;<span class="past-dot"></span></h5>
+            <p class="text-muted">Jun 2021 - Sep 2021</p>
+            <p>Ranked within the top 50 out of 277 teams.</p>
+        </div>
+
+        <!-- Card 11: 2021 Liby Innovation Challenge -->
+        <div class="experience-card" style="background-color: #f8f9fa;">
+            <h5 class="fw-bold">Third Prize in the 2021 Liby Innovation Challenge&nbsp;&nbsp;<span class="past-dot"></span></h5>
+            <p class="text-muted">Jun 2021 - Sep 2021</p>
+            <p>Ranked 3rd out of 246 teams.</p>
+        </div>
+    </div>
+</section>
+<!-- Awards -->
+
+<!-- Projects -->
+<section class="bg-gradient-primary-to-secondary-white mt5 md5" id="projects">
+    <div class="container px-5">
+        <header>
+            <h2 id="projects-subtitle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-motherboard-fill" viewBox="0 0 16 16">
+                    <path d="M5 7h3V4H5z"/>
+                    <path d="M1 2a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-2H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 9H1V8H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6H1V5H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 2zm11 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zm2 0a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zM3.5 10a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1zM4 4h-.5a.5.5 0 0 0 0 1H4v1h-.5a.5.5 0 0 0 0 1H4a1 1 0 0 0 1 1v.5a.5.5 0 0 0 1 0V8h1v.5a.5.5 0 0 0 1 0V8a1 1 0 0 0 1-1h.5a.5.5 0 0 0 0-1H9V5h.5a.5.5 0 0 0 0-1H9a1 1 0 0 0-1-1v-.5a.5.5 0 0 0-1 0V3H6v-.5a.5.5 0 0 0-1 0V3a1 1 0 0 0-1 1m7 7.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5"/>
+                </svg>
+                &nbsp;PROJECTS
+            </h2>
+        </header>
+
+        <!-- Card 2: Dynamic Risk Management Portfolio System -->
+        <div class="experience-card" style="background-color: #f8f9fa;">
+            <h5 class="fw-bold">Dynamic Risk Management Portfolio System&nbsp;&nbsp;<span class="online-dot"></span></h5>
+            <p class="text-muted">Sep 2024 - Present</p>
+            <p>
+                The system selects the top 30 stocks in each sector using multiple risk assessment indicators and various scoring methods to build portfolios. Data is updated every third weekend of each month, portfolio performance is evaluated, new portfolios are constructed, and continuous improvements are made.
+            </p>
+        </div>
+
+        <!-- Card 3: Global Market Insights and Smart Stock Recommendation -->
+        <div class="experience-card" style="background-color: #f8f9fa;">
+            <h5 class="fw-bold">Global Market Insights and Smart Stock Recommendation&nbsp;&nbsp;<span class="online-dot"></span></h5>
+            <p class="text-muted">Jan 2024 - Present</p>
+            <p>
+                This Python-based system leverages real-time data ingestion, feature engineering, and machine learning models to generate personalized stock recommendations. It processes market trends, historical data, and user profiles, delivering daily global market reports and recommendations via automated email.
+            </p>
+        </div>
+
+        <!-- Card 4: Ensemble Learning for Quantitative Investment -->
+        <div class="experience-card" style="background-color: #f8f9fa;">
+            <h5 class="fw-bold">Ensemble Learning for Quantitative Investment&nbsp;&nbsp;<span class="past-dot"></span></h5>
+            <p class="text-muted">Dec 2023 - Jun 2024</p>
+            <p>
+                Utilized deep learning models such as LSTM, RNN, and Transformer for ensemble learning to optimize quantitative investment strategies with enhanced accuracy and efficiency.
+            </p>
+        </div>
+
+        <!-- Card 5: Research on Hog Futures and Spot Hog Prices -->
+        <div class="experience-card" style="background-color: #f8f9fa;">
+            <h5 class="fw-bold">Research on Hog Futures and Spot Hog Prices&nbsp;&nbsp;<span class="past-dot"></span></h5>
+            <p class="text-muted">Dec 2023 - May 2024</p>
+            <p>
+                Selected appropriate variables and constructed a VAR model based on collected weekly average data. Employed cointegration tests, Granger causality tests, and impulse response analysis to investigate the short-term volatility patterns of hog futures on spot hog prices in China, and conducted risk measurement.
+            </p>
+        </div>
+    </div>
+</section>
+<!-- Projects -->
+
+<!-- 页面中放置一个容器，用于加载悬浮按钮 -->
+<div id="floating-buttons-container"></div>
+
+<!-- Footer-->
+<footer class="bg-bottom text-center py-5">
+    <div class="container px-5">
+        <div class="text-white-50 small">
+            <div id="copyright-text">
+                <!-- 默认内容，如果 config.yml 读取失败则使用这个 -->
+                &copy; Dapao Huang 2023-2024. All Rights Reserved.
+            </div>
+            <a id="github-link" href="https://github.com/cmdSTARMO">Github</a>
+            <span class="mx-1">&middot;</span>
+            <a id="license-link" href="https://github.com/cmdSTARMO/cmdstar.github.io/blob/main/LICENSE">License</a>
+        </div>
+    </div>
+</footer>
+<script>
+    // 动态加载 navbar.html
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => {
+          document.getElementById('navbar').innerHTML = data;
+          // 从当前页面读取 data-page-top-title 属性，并更新 navbar 中的标题
+          const pageTitle = document.body.getAttribute('data-page-top-title');
+          if (pageTitle) {
+              document.getElementById('page-top-title').innerHTML = pageTitle;
+          }
+      })
+      .catch(error => console.error('Error loading navbar:', error));
+</script>
+<!-- 内联 JavaScript -->
+<script>
+    // 定义配置与内容路径
+    const content_dir = '/';
+    const config_file = 'config.yml';
+
+    window.addEventListener('DOMContentLoaded', event => {
+
+      // Activate Bootstrap scrollspy on the main nav element
+      const mainNav = document.body.querySelector('#mainNav');
+      if (mainNav) {
+        new bootstrap.ScrollSpy(document.body, {
+          target: '#mainNav',
+          offset: 74,
+        });
+      }
+
+      // Collapse responsive navbar when toggler is visible
+      const navbarToggler = document.body.querySelector('.navbar-toggler');
+      const responsiveNavItems = [].slice.call(document.querySelectorAll('#navbarResponsive .nav-link'));
+      responsiveNavItems.map(function(responsiveNavItem) {
+        responsiveNavItem.addEventListener('click', () => {
+          if (window.getComputedStyle(navbarToggler).display !== 'none') {
+            navbarToggler.click();
+          }
+        });
+      });
+
+      // 读取 YAML 配置文件，仅用于更新 footer 中的版权信息
+      fetch(content_dir + config_file)
+        .then(response => response.text())
+        .then(text => {
+          const yml = jsyaml.load(text);
+          if (yml && yml['copyright-text']) {
+            document.getElementById('copyright-text').innerHTML = yml['copyright-text'];
+          }
+        })
+        .catch(error => console.log(error));
+
+      // 使用 Marked 解析 Markdown 内容，并在页面中渲染
+      marked.use({ mangle: false, headerIds: false });
+      section_names.forEach((name) => {
+        fetch(content_dir + name + '.md')
+          .then(response => response.text())
+          .then(markdown => {
+            // 页面中要求存在 id 如 "home-md", "publications-md", "awards-md"
+            document.getElementById(name + '-md').innerHTML = marked.parse(markdown);
+          }).then(() => {
+            // MathJax 重新渲染数学公式
+            MathJax.typeset();
+          })
+          .catch(error => console.log(error));
+      });
+    });
+</script>
+<!--悬浮按钮-->
+<script>
+    fetch('floatingButtons.html')
+      .then(response => response.text())
+      .then(html => {
+        var container = document.getElementById('floating-buttons-container');
+        container.innerHTML = html;
+        // 提取并执行内联的 script 标签
+        var scripts = container.querySelectorAll('script');
+        scripts.forEach(oldScript => {
+          var newScript = document.createElement('script');
+          newScript.textContent = oldScript.textContent;
+          document.body.appendChild(newScript);
+        });
+      })
+      .catch(error => console.error('Error loading floating buttons:', error));
+</script>
+<!-- i18next 初始化及内容更新 -->
+<script>
+    i18next
+      .use(i18nextHttpBackend)
+      .init({
+        lng: localStorage.getItem('lang') || 'zh',  // 默认中文
+        fallbackLng: 'zh',
+        debug: false,
+        backend: {
+          loadPath: '/localizations_mainpage/{{lng}}.json'
+        }
+      }, function(err, t) {
+        if (err) console.error(err);
+        updateContent();
+      });
+
+    function updateContent() {
+  // 获取当前语言下的翻译资源对象
+  const translations = i18next.getResourceBundle(i18next.language, 'translation');
+  for (const key in translations) {
+    if (translations.hasOwnProperty(key)) {
+      const el = document.getElementById(key);
+      if (el) {
+        // 如果翻译中包含 HTML 标签，则用 innerHTML，否则用 textContent
+        el.innerHTML = translations[key];
+      }
+    }
+  }
+}
+</script>
 </body>
-
 </html>

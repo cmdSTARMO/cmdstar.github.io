@@ -1,0 +1,161 @@
+<!-- floatingButtons.html -->
+<style>
+  /* 悬浮按钮整体容器 */
+  #floating-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px;
+  }
+  /* 公共按钮样式（黑色磨砂玻璃效果） */
+  .float-btn button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s, transform 0.3s;
+  }
+  .float-btn button:hover {
+    background: rgba(0, 0, 0, 0.5);
+    transform: scale(1.05);
+  }
+  /* 语言切换按钮容器：相对于 .lang-btn 定位 */
+  .lang-btn {
+    position: relative;
+  }
+  /* 语言选项容器：相对于 .lang-btn 定位，初始状态下隐藏 */
+  .lang-options {
+    position: absolute;
+    left: 0;
+    top: 50%;
+  }
+  /* 语言选项按钮：初始重叠在主按钮中心，隐藏（scale:0，opacity:0） */
+  .lang-option {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  }
+  .lang-option:hover {
+    background: rgba(0, 0, 0, 0.5);
+    transform: scale(1.1);
+  }
+  /* 当前激活状态：采用金色边框与文字提示 */
+  .lang-option.active {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #ff914d;
+    color: #ff914d;
+    font-weight: bold;
+  }
+  /* 显示状态时，设置两个选项的目标位置：
+     - top-option 向上偏移 40px
+     - bottom-option 向下偏移 40px
+     同时水平飞出 60px（即 calc(-100% - 10px)） */
+  .lang-options.show .top-option {
+    transform: translate(calc(-100% - 10px), calc(-50% - 40px)) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .lang-options.show .bottom-option {
+    transform: translate(calc(-100% - 10px), calc(-50% + 40px)) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>
+
+<div id="floating-buttons">
+  <!-- 语言切换按钮 -->
+  <div class="float-btn lang-btn">
+    <button id="toggle-lang-options" title="切换语言">🌐</button>
+    <div class="lang-options" id="lang-options">
+      <button class="lang-option top-option" data-lang="zh" title="中文">中</button>
+      <button class="lang-option bottom-option" data-lang="en" title="English">EN</button>
+    </div>
+  </div>
+  <!-- 回到顶部按钮 -->
+  <div class="float-btn top-btn">
+    <button id="back-to-top" title="回到顶部">↑</button>
+  </div>
+</div>
+
+<script>
+  (function() {
+  // 语言切换部分
+  var toggleLangOptions = document.getElementById("toggle-lang-options");
+  var langOptions = document.getElementById("lang-options");
+  var langOptionButtons = document.querySelectorAll(".lang-option");
+
+  // 点击主按钮时，切换显示状态（带动画效果）
+  toggleLangOptions.addEventListener("click", function() {
+    langOptions.classList.toggle("show");
+  });
+
+  // 点击具体语言按钮时，使用 i18next 切换语言
+  langOptionButtons.forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      var selectedLang = this.getAttribute("data-lang");
+      i18next.changeLanguage(selectedLang, function(err, t) {
+        if(err) {
+          console.error(err);
+          return;
+        }
+        localStorage.setItem("lang", selectedLang);
+        document.documentElement.lang = selectedLang;
+        // 调用全局 updateContent() 更新页面文本
+        if (typeof updateContent === "function") {
+          updateContent();
+        }
+        // 更新 active 样式
+        langOptionButtons.forEach(function(b) {
+          b.classList.remove("active");
+        });
+        btn.classList.add("active");
+        console.log("Language switched to: " + selectedLang);
+      });
+      // 隐藏语言选项
+      langOptions.classList.remove("show");
+    });
+  });
+
+  // 初始化时，根据 localStorage 的设置更新 active 样式
+  var currentLang = localStorage.getItem("lang") || "zh";
+  document.documentElement.lang = currentLang;
+  langOptionButtons.forEach(function(btn) {
+    if (btn.getAttribute("data-lang") === currentLang) {
+      btn.classList.add("active");
+    } else {
+      btn.classList.remove("active");
+    }
+  });
+
+  // 回到顶部按钮部分
+  var backToTop = document.getElementById("back-to-top");
+  backToTop.addEventListener("click", function() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+})();
+</script>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>语言切换示例</title>
+  <style>
+    /* 导航栏样式 */
+    .navbar {
+      background-color: #333;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+    }
+    .navbar a {
+      color: #fff;
+      padding: 14px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    /* 语言切换区域 */
+    .language-switch {
+      margin-left: auto;
+    }
+    /* 切换开关样式 */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 24px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="#">主页</a>
+    <a href="#">关于</a>
+    <a href="#">联系</a>
+    <!-- 语言切换开关 -->
+    <div class="language-switch">
+      <label class="switch">
+        <input type="checkbox" id="langToggle">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </nav>
+
+  <script>
+    const langToggle = document.getElementById('langToggle');
+    langToggle.addEventListener('change', function() {
+      if(this.checked) {
+        // 切换到英文版
+        document.documentElement.lang = "en";
+        // 在此处添加加载英文资源的逻辑
+        console.log("Switched to English");
+      } else {
+        // 切换到中文版
+        document.documentElement.lang = "zh";
+        // 在此处添加加载中文资源的逻辑
+        console.log("切换到中文");
+      }
+    });
+  </script>
+</body>
+</html>
