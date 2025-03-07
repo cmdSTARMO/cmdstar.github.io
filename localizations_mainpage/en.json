@@ -2,7 +2,15 @@
   "website-title":"DapaoHuang's Space",
   "page-top-title": "Main Page",
   "update-title": "Updating!  <span class=\"online-dot\"></span>",
-  "update-announce": "Website is currently updating! Last active time: 00:29 03/07/2025<br><br>Introducing the localization function and a brand new \"back-to-top\" button in this update (just right down that corner!).<br>And some new changes in .js&.yml to keep the tidiness:)",
+  "update-announce": "\uD83D\uDE80Website is currently updating! Last active time: 00:29 03/07/2025<br><br>Introducing the localization function and a brand new \"back-to-top\" button in this update (just right down that corner!).<br>And some new changes in .js&.yml to keep the tidiness:)",
   "intro-title": "Intro",
-  "intro-content": "Hi there! Hope this finds you well.<br><br>I'm currently pursuing a Master's Degree in Financial Mathematics, at Miami Herbert Business School, University of Miami in Miami, Florida.<br><br>I’m a results-oriented quantitative analyst with a strong foundation in time series analysis and quantitative finance. I have hands-on experience conducting real-time simulated backtesting of various trading strategies using Alpaca API and Python, and further optimizing algorithmic trading practices by integrating machine learning techniques based on backtesting results. Through extensive industry research, I have developed a solid understanding of agricultural and precious metals markets. I am proficient in multiple programming languages and databases, enabling efficient data mining, analysis, and visualization using Excel and Excel VBA. Additionally, I have contributed to multiple investment projects, gaining valuable hands-on experience in the field."
+  "intro-content": "Hi there! Hope this finds you well.<br><br>I'm currently pursuing a Master's Degree in Financial Mathematics, at Miami Herbert Business School, University of Miami in Miami, Florida.<br><br>I’m a results-oriented quantitative analyst with a strong foundation in time series analysis and quantitative finance. I have hands-on experience conducting real-time simulated backtesting of various trading strategies using Alpaca API and Python, and further optimizing algorithmic trading practices by integrating machine learning techniques based on backtesting results. Through extensive industry research, I have developed a solid understanding of agricultural and precious metals markets. I am proficient in multiple programming languages and databases, enabling efficient data mining, analysis, and visualization using Excel and Excel VBA. Additionally, I have contributed to multiple investment projects, gaining valuable hands-on experience in the field.",
+  "edu-title": "Education",
+  "edu-mhbs-title": "University of Miami Herbert Business School",
+  "edu-mhbs-degree": "M.Sc. in Financial Mathematics&nbsp;&nbsp;<span class=\"online-dot\"></span>",
+  "edu-mhbs-periodnbase": "Aug. 2024 - May 2025 (expected)<br>Miami, Florida, United States",
+  "edu-gdufe-title": "Guangdong University of Finance and Economics",
+  "edu-gdufe-degree": "B.Sc. in Financial Engineering&nbsp;&nbsp;<span class=\"past-dot\"></span>",
+  "edu-gdufe-periodnbase": "Sep. 2020 – Jun. 2024<br>Guangzhou, Guangdong, China",
+  "email-title": "Emails"
 }
