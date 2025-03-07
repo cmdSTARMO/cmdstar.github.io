@@ -15,6 +15,9 @@
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         cursor: pointer;
     }
+    .experience-card p {
+      text-align: justify;
+    }
 </style>
 
 <head>
@@ -102,33 +105,33 @@
             <h2 id="home-subtitle">Xinjie Huang&ensp;|&ensp;黄大炮</h2>
         </header>
         <!--                <div class="main-body" id="home-md"></div>-->
-                        <div class="experience-card" style="background-color: #f8f9fa; padding: 16px; border-radius: 8px;">
-                            <h4 class="fw-bold" style="margin: 0; position: relative; top: 5px;" id="update-title">
-                                Update <span class="online-dot"></span>
-                            </h4>
-                            <div style="margin-top: 16px;">
-                                <p style="margin: 0; font-weight: 600;" id="update-announce"></p>
-                            </div>
-                            <br>
-<!--                            <div>-->
-<!--                                <p style="margin: 0; font-weight: 600;">Time left until the <b>Chinese New Year</b>:</p>-->
-<!--                                <div style="position: relative; width: 100%; aspect-ratio: 4.5 / 1; margin: 16px 0;">-->
-<!--                                    <iframe-->
-<!--                                      id="chinese-new-year-countdown"-->
-<!--                                        src="https://embed-countdown.onlinealarmkur.com/en/#2025-01-29T00:00:00@Asia%2FShanghai"-->
-<!--                                    style="-->
-<!--                                        transform: scale(0.75); /* 根据需要调整比例 */-->
-<!--                                        transform-origin: top left;-->
-<!--                                        position: absolute;-->
-<!--                                        width: 133.33%; /* 1 / 0.75 */-->
-<!--                                        height: 133.33%; /* 保持与 scale 相同的比例 */-->
-<!--                                        top: 0;-->
-<!--                                        left: 0;-->
-<!--                                        border: none;">-->
-<!--                                    </iframe>-->
-<!--                                </div>-->
-<!--                            </div>-->
-                    </div>
+        <div class="experience-card" style="background-color: #f8f9fa; padding: 16px; border-radius: 8px;">
+            <h4 class="fw-bold" style="margin: 0; position: relative; top: 5px;" id="update-title">
+                Update <span class="online-dot"></span>
+            </h4>
+            <div style="margin-top: 16px;">
+                <p style="margin: 0; font-weight: 600;" id="update-announce"></p>
+            </div>
+            <!--            <br>-->
+            <!--            <div>-->
+            <!--                <p style="margin: 0; font-weight: 600;">Time left until the <b>Chinese New Year</b>:</p>-->
+            <!--                <div style="position: relative; width: 100%; aspect-ratio: 4.5 / 1; margin: 16px 0;">-->
+            <!--                    <iframe-->
+            <!--                            id="chinese-new-year-countdown"-->
+            <!--                            src="https://embed-countdown.onlinealarmkur.com/en/#2025-01-29T00:00:00@Asia%2FShanghai"-->
+            <!--                            style="-->
+            <!--                                transform: scale(0.75); /* 根据需要调整比例 */-->
+            <!--                                transform-origin: top left;-->
+            <!--                                position: absolute;-->
+            <!--                                width: 133.33%; /* 1 / 0.75 */-->
+            <!--                                height: 133.33%; /* 保持与 scale 相同的比例 */-->
+            <!--                                top: 0;-->
+            <!--                                left: 0;-->
+            <!--                                border: none;">-->
+            <!--                    </iframe>-->
+            <!--                </div>-->
+            <!--            </div>-->
+        </div>
 
         <div class="experience-card" style="background-color: #f8f9fa;">
             <!-- 自我介绍 -->
@@ -229,8 +232,8 @@
                 Miami, Florida, United States · On-site
             </p>
             <p>
-                1. Present as an analyst in Finance & Real Estate Sector, evaluate stocks in the sector and generate reports.
-                2. Authored valuation reports on an individual stock, with recommended stock successfully included in the initial live portfolio.<br>
+                1. Present as an analyst in Finance & Real Estate Sector, evaluate stocks in the sector and generate reports.<br><br>
+                2. Authored valuation reports on an individual stock, with recommended stock successfully included in the initial live portfolio.<br><br>
             </p>
             <p><strong>Skills:</strong> Pricing Analysis, Financial Concepts, Market Pricing, Macroeconomics Analysis, P/E P/B Ratio Evaluation, DCF, DDM</p>
         </div>
@@ -252,23 +255,26 @@
                 Jul 2024 - Present<br>
                 Remote</p>
             <p>
-                1. Developed an intelligent quantitative monitoring system based on a lightweight platform, integrated with Lark bot, enabling real-time stock price and quantitative indicator alerts for major domestic listed companies, along with scheduled market data distribution.<br>
-                2. Developed a multi-term bond arbitrage validation system using Python and Excel based on Chinese and American bond markets, integrating yield curve modeling, forward rate calculations, and Nelson-Siegel fitting to identify arbitrage opportunities and optimize fixed-income strategies.<br>
-                3. Assist in the daily maintenance of the quantitative analysis module, information system, and subscription system, addressing unexpected issues.<br>
-                4. Contributed to the company’s website and email system.<br>
-                5. Continuously participating in the development of new systems and modules.
+                1. Developed an automated quantitative monitoring system integrated with Lark bot, enabling real-time stock price and quantitative indicator alerts for multiple domestic listed companies, along with scheduled market data distribution and global market brief report. <br><br>
+                2. Built a multi-term bond yield analysis system based on partial data from Chinese and U.S. bond markets, integrating Nelson-Siegel fitting and forward rate calculations to identify arbitrage opportunities and optimize fixed-income strategies. <br><br>
+                3. Developed and tested a machine learning-based S&P 500 return forecasting system, incorporating multi-term lag features, PCA for dimensionality reduction, and genetic algorithm optimization. Evaluated linear regression, FFNN, and LSTM models through backtesting and visualized PCA insights using Excel and matplotlib to support stock market analysis. <br><br>
+                4. Constructed a Python-based Dow 30 portfolio optimization system, integrating Markowitz optimization and a genetic algorithm to optimize the Sharpe ratio under weight constraints. Evaluated performance on training and test data using annualized return, volatility, and Sharpe ratio metrics. <br><br>
+                5. Assisted in maintaining quantitative analysis modules, information systems, and subscription systems, addressing unexpected issues and improving system stability.<br><br>
+                6. Participated in the development and maintenance of the company's website and email system. <br><br>
+                7. Continuously optimized the company’s quantitative analysis system, adding market data processing and factor analysis modules. <br><br>
+
             </p>
-            <p><strong>Skills:</strong> Python, Financial Concepts, HTML Emails, JavaScript, Raspberry Pi, HTML, C++, Website Development, CSS, Quantitative Finance</p>
+            <p><strong>Skills:</strong> Python, Financial Concepts, HTML, JavaScript, Raspberry Pi, HTML, C++, Website Development, CSS, Quantitative Finance</p>
             <br>
             <!-- Investment Analysis Assistant Role -->
             <h6 class="fw-bold">Investment Analysis Assistant&nbsp;&nbsp;<span class="past-dot"></span></h6>
             <p class="text-muted">Internship<br>
                 Dec 2023 - Jul 2024<br>
                 Guangzhou, Guangdong, China · On-site</p>
-            <p>1. Built a model using Python to update, cross-verify, and analyze data.<br>
-                2. Used PCA to predict trends in Southeast Asian markets.<br>
-                3. Completed commodity analysis on gold and eggs.<br>
-                4. Developed a quantitative analysis system, a mail subscription & bot push system, and a stock recommendation system.<br>
+            <p>1. Built a model using Python to update, cross-verify, and analyze data.<br><br>
+                2. Used PCA to predict trends in Southeast Asian markets.<br><br>
+                3. Completed commodity analysis on gold and eggs.<br><br>
+                4. Developed a quantitative analysis system, a mail subscription & bot push system, and a stock recommendation system.<br><br>
             </p>
             <p><strong>Skills:</strong> Python, Data Analysis, SQL, VBA Excel, Financial Concepts, Quantitative Analytics, Commodity Pricing, Tableau, Industry Analysis, Quantitative Research</p>
             <p><strong>Click</strong> on the pictures below to see details:</p>
@@ -322,9 +328,9 @@
                 May 2024 - Present <br>
                 Remote
             </p>
-            <p>1. Independently built a QQ Channel community system, creating an efficient communication channel between domestic players and the Stellaris development team.<br>
-                2. Scraped community comments to generate weekly reports on community sentiment and bug reports.<br>
-                3. Regularly assisted in translating developer diaries, Q&A, and promotional materials, while addressing player inquiries in the community.</p>
+            <p>1. Independently built a QQ Channel community system, creating an efficient communication channel between domestic players and the Stellaris development team.<br><br>
+                2. Scraped community comments to generate weekly reports on community sentiment and bug reports.<br><br>
+                3. Regularly assisted in translating developer diaries, Q&A, and promotional materials, while addressing player inquiries in the community.<br><br></p>
             <p><strong>Skills:</strong> Community Management, Data Crawling & Analysis, Translation, Technical Writing</p>
         </div>
 
@@ -346,9 +352,9 @@
                 Jul 2023 - Nov 2023<br>
                 Guangzhou, Guangdong, China · On-site
             </p>
-            <p>1. Refined hedging models and analyzed data for the hog farming department.<br>
-                2. Used Python and VBA for daily automatic updates of reports.<br>
-                3. Conducted on-site research on hog farming enterprises.</p>
+            <p>1. Refined hedging models and analyzed data for the hog farming department.<br><br>
+                2. Used Python and VBA for daily automatic updates of reports.<br><br>
+                3. Conducted on-site research on hog farming enterprises.<br><br></p>
             <p><strong>Skills:</strong> Commodity Markets, Python, Data Analysis, VBA Excel, Financial Concepts, Pricing Strategy, Commodity Pricing, Industry Analysis</p>
         </div>
 
@@ -369,8 +375,8 @@
                 Mar 2023 - May 2023<br>
                 Guangdong, China · On-site
             </p>
-            <p>1. Extracted 3000+ negative information pieces from government websites using Requests and Selenium.<br>
-                2. Conducted correlation analysis among companies using Python and Apriori algorithm.</p>
+            <p>1. Extracted 3000+ negative information pieces from government websites using Requests and Selenium.<br><br>
+                2. Conducted correlation analysis among companies using Python and Apriori algorithm.<br><br></p>
             <p><strong>Skills:</strong> Web Crawling, Python, Data Analysis</p>
         </div>
 
@@ -391,8 +397,8 @@
                 Oct 2022 - Apr 2023<br>
                 Guangzhou, Guangdong, China · Remote
             </p>
-            <p>1. Expanded industry database categories and improved data for six databases.<br>
-                2. Used Python to collect, organize, and normalize 169,700 index entries.</p>
+            <p>1. Expanded industry database categories and improved data for six databases.<br><br>
+                2. Used Python to collect, organize, and normalize 169,700 index entries.<br><br></p>
             <p><strong>Skills:</strong> Data Mining, Python, Data Analysis, SQL</p>
         </div>
     </div>
