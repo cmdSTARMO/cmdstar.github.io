@@ -145,7 +145,7 @@
   });
 
   // 初始化时，根据 localStorage 的设置更新 active 样式
-  var currentLang = localStorage.getItem("lang") || "zh";
+  var currentLang = localStorage.getItem("lang") || "en";
   document.documentElement.lang = currentLang;
   langOptionButtons.forEach(function(btn) {
     if (btn.getAttribute("data-lang") === currentLang) {
