@@ -62,8 +62,6 @@
     <script src="https://unpkg.com/i18next@21.6.3/dist/umd/i18next.min.js"></script>
     <script src="https://unpkg.com/i18next-http-backend@1.4.1/i18nextHttpBackend.min.js"></script>
 
-
-
 </head>
 
 <body id="page-top">
@@ -273,7 +271,7 @@
                 Jul 2024 - Present<br>
                 Remote</p>
             <p id="experiences-cc-sms-detail">
-                1. Developed an automated quantitative monitoring system integrated with Lark bot, enabling real-time stock price and quantitative indicator alerts for multiple domestic listed companies, along with scheduled market data distribution and global market brief report. <br><br>
+                1. Developed an automated quantitative monitoring system integrated with Lark bot, enabling real-time stock price and quantitative indicator alerts for multiple China Mainland listed companies, along with scheduled market data distribution and global market brief report. <br><br>
                 2. Built a multi-term bond yield analysis system based on partial data from Chinese and U.S. bond markets, integrating Nelson-Siegel fitting and forward rate calculations to identify arbitrage opportunities and optimize fixed-income strategies. <br><br>
                 3. Developed and tested a machine learning-based S&P 500 return forecasting system, incorporating multi-term lag features, PCA for dimensionality reduction, and genetic algorithm optimization. Evaluated linear regression, FFNN, and LSTM models through backtesting and visualized PCA insights using Excel and matplotlib to support stock market analysis. <br><br>
                 4. Constructed a Python-based Dow 30 portfolio optimization system, integrating Markowitz optimization and a genetic algorithm to optimize the Sharpe ratio under weight constraints. Evaluated performance on training and test data using annualized return, volatility, and Sharpe ratio metrics. <br><br>
@@ -281,7 +279,13 @@
                 6. Participated in the development and maintenance of the company's website and email system. <br><br>
                 7. Continuously optimized the company’s quantitative analysis system, adding market data processing and factor analysis modules. <br><br>
             </p>
-            <p id="experiences-cc-sms-skill"><strong>Skills:</strong> Python, Financial Concepts, HTML, JavaScript, Raspberry Pi, HTML, C++, Website Development, CSS, Quantitative Finance</p>
+            <p id="experiences-cc-sms-skill">
+                <strong>Skills:</strong> Python, Financial Concepts, HTML, JavaScript, Raspberry Pi, HTML, C++, Website Development, CSS, Quantitative Finance
+            </p>
+
+            <br>
+            <!-- 分割线 -->
+            <div class="custom-divider"></div>
             <br>
             <!-- Investment Analysis Assistant Role -->
             <h6 class="fw-bold" id="experiences-cc-iaa-position">Investment Analysis Assistant&nbsp;&nbsp;<span class="past-dot"></span></h6>
@@ -304,12 +308,12 @@
 
                     <!-- 卡片内容 -->
                     <div class="files_a_card-header">
-                        <p>Nov 29th 2023</p>
-                        <h2>Gold's 30 Years-2023112715360001-PRDV</h2>
+                        <p id="experiences-cc-project1-time">Nov 29th 2023</p>
+                        <h2 id="experiences-cc-project1-title">Gold's 30 Years-2023112715360001-PRDV</h2>
                     </div>
                     <div class="files_a_tags">
-                        <a href="filess/黄金未来30年-2023112715360001.pdf">Download</a>&nbsp;
-                        <a href="filess/黄金未来30年-2023112715360001.pdf">Web Preview (Preparing)</a>
+                        <a href="filess/黄金未来30年-2023112715360001.pdf" id="project1-download-hint">Download</a>&nbsp;
+                        <a href="filess/黄金未来30年-2023112715360001.pdf" id="project1-preview-hint">Web Preview (Preparing)</a>
                     </div>
                 </article>
 
@@ -317,13 +321,13 @@
                     <div class="files_a_card-background" style="background-image: url('filess/filess_pic/恒大：债与票-2023122721570002.png');"></div>
 
                     <div class="files_a_card-header">
-                        <p>Dec 27th 2023</p>
-                        <h2>Evergrande's dusk: bonds and commercial bills-2023122721570002-PRDV</h2>
+                        <p id="experiences-cc-project2-time">Dec 27th 2023</p>
+                        <h2 id="experiences-cc-project2-title">Evergrande's dusk: bonds and commercial bills-2023122721570002-PRDV</h2>
                     </div>
 
                     <div class="files_a_tags">
-                        <a href="filess/恒大：债与票-2023122721570002.pdf">Download</a>&nbsp;
-                        <a href="filess/恒大：债与票-2023122721570002.pdf">Web Preview (Preparing)</a>
+                        <a href="filess/恒大：债与票-2023122721570002.pdf" id="project2-download-hint">Download</a>&nbsp;
+                        <a href="filess/恒大：债与票-2023122721570002.pdf" id="project2-preview-hint">Web Preview (Preparing)</a>
                     </div>
                 </article>
             </section>
@@ -334,25 +338,25 @@
             <div class="d-flex align-items-center mb-2">
                 <img src="static/assets/img/pdx_logo.png" alt="Paradox Interactive" class="me-3 circular-image" style="">
                 <div>
-                    <h5 class="fw-bold" style="position: relative; top: 5px;">
-                        <!-- 在线状态绿点 -->
+                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="experiences-pdx-title">
                         Paradox Interactive
                     </h5>
                 </div>
             </div>
             <br>
-            <h6 class="fw-bold">China Community Ambassador&nbsp;&nbsp;<span class="online-dot"></span></h6>
-            <p class="text-muted">
+            <h6 class="fw-bold" id="experiences-pdx-ca-position">China Community Ambassador&nbsp;&nbsp;<span class="online-dot"></span></h6>
+            <p class="text-muted" id="experiences-pdx-ca-periodnbase">
                 Freelance<br>
-                May 2024 - Present <br>
+                May 2024 - Present<br>
                 Remote
             </p>
-            <p>
-                1. Independently built a QQ Channel community system, creating an efficient communication channel between domestic players and the Stellaris development team.<br><br>
-                2. Scraped community comments to generate weekly reports on community sentiment and bug reports.<br><br>
-                3. Regularly assisted in translating developer diaries, Q&A, and promotional materials, while addressing player inquiries in the community.<br><br>
+            <p id="experiences-pdx-ca-detail">
+                1. Monitor multi-platforms’ reviews for the game Stellaris using semantic analysis to gather player feedback and produce weekly reports to support game optimization and market strategies.<br><br>
+                2. Liaise between the Stellaris development team and Chinese players to ensure accurate information delivery.<br><br>
+                3. Plan engagement activities to boost player participation and satisfaction and manage community relations.<br><br>
+                4. Successfully managed a PR crisis by providing decision-makers with comprehensive information and well-founded recommendations to support effective decision-making.
             </p>
-            <p>
+            <p id="experiences-pdx-ca-skill">
                 <strong>Skills:</strong> Community Management, Data Crawling & Analysis, Translation, Technical Writing
             </p>
         </div>
@@ -360,25 +364,29 @@
         <!-- Guangdong Haid Group Co., Limited Experience -->
         <div class="experience-card" style="background-color: #f8f9fa;">
             <div class="d-flex align-items-center mb-2">
-                <img src="static/assets/img/haid_logo.png" alt="Paradox Interactive" class="me-3 circular-image" style="">
+                <img src="static/assets/img/haid_logo.png" alt="haid_logo" class="me-3 circular-image" style="">
                 <div>
-                    <h5 class="fw-bold" style="position: relative; top: 5px;">
+                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="experiences-haid-ci-title">
                         Guangdong Haid Group Co., Limited
                     </h5>
                 </div>
 
             </div>
             <br>
-            <h6 class="fw-bold">Commodity Intern&nbsp;&nbsp;<span class="past-dot"></span></h6>
-            <p class="text-muted">
+            <h6 class="fw-bold" id="experiences-haid-ci-position">Commodity Intern&nbsp;&nbsp;<span class="past-dot"></span></h6>
+            <p class="text-muted" id="experiences-haid-ci-periodnbase">
                 Internship<br>
                 Jul 2023 - Nov 2023<br>
-                Guangzhou, Guangdong, China · On-site
+                On-site · Guangzhou, Guangdong, China
             </p>
-            <p>1. Refined hedging models and analyzed data for the hog farming department.<br><br>
+            <p id="experiences-haid-ci-detail">
+                1. Refined hedging models and analyzed data for the hog farming department.<br><br>
                 2. Used Python and VBA for daily automatic updates of reports.<br><br>
-                3. Conducted on-site research on hog farming enterprises.<br><br></p>
-            <p><strong>Skills:</strong> Commodity Markets, Python, Data Analysis, VBA Excel, Financial Concepts, Pricing Strategy, Commodity Pricing, Industry Analysis</p>
+                3. Conducted on-site research on hog farming enterprises.<br><br>
+            </p>
+            <p id="experiences-haid-ci-skill">
+                <strong>Skills:</strong> Commodity Markets, Python, Data Analysis, VBA Excel, Financial Concepts, Pricing Strategy, Commodity Pricing, Industry Analysis
+            </p>
         </div>
 
         <!-- SusallWave Digital Technology Co., Ltd. Experience -->
@@ -386,21 +394,25 @@
             <div class="d-flex align-items-center mb-2">
                 <img src="static/assets/img/sw_logo.jpg" alt="SusallWave Digital Technology Co., Ltd." class="me-3 circular-image">
                 <div>
-                    <h5 class="fw-bold" style="position: relative; top: 5px;">
+                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="experiences-suswave-title">
                         SusallWave Digital Technology Co., Ltd.
                     </h5>
                 </div>
             </div>
             <br>
-            <h6 class="fw-bold">ESG Risk Analysis Intern&nbsp;&nbsp;<span class="past-dot"></span></h6>
-            <p class="text-muted">
+            <h6 class="fw-bold" id="experiences-suswave-rai-position">ESG Risk Analysis Intern&nbsp;&nbsp;<span class="past-dot"></span></h6>
+            <p class="text-muted" id="experiences-suswave-rai-periodnbase">
                 Internship<br>
                 Mar 2023 - May 2023<br>
-                Guangdong, China · On-site
+                On-site · Guangdong, China
             </p>
-            <p>1. Extracted 3000+ negative information pieces from government websites using Requests and Selenium.<br><br>
-                2. Conducted correlation analysis among companies using Python and Apriori algorithm.<br><br></p>
-            <p><strong>Skills:</strong> Web Crawling, Python, Data Analysis</p>
+            <p id="experiences-suswave-rai-detail">
+                1. Extracted 3000+ negative information pieces from government websites using Requests and Selenium.<br><br>
+                2. Conducted correlation analysis among companies using Python and Apriori algorithm.<br><br>
+            </p>
+            <p id="experiences-suswave-rai-skill">
+                <strong>Skills:</strong> Web Crawling, Python, Data Analysis
+            </p>
         </div>
 
         <!-- CnOpenData Experience -->
@@ -408,21 +420,25 @@
             <div class="d-flex align-items-center mb-2">
                 <img src="static/assets/img/cop_logo.jpg" alt="CnOpenData" class="me-3 circular-image">
                 <div>
-                    <h5 class="fw-bold" style="position: relative; top: 5px;">
+                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="experiences-cop-title">
                         CnOpenData
                     </h5>
                 </div>
             </div>
             <br>
-            <h6 class="fw-bold">Data Assistant&nbsp;&nbsp;<span class="past-dot"></span></h6>
-            <p class="text-muted">
+            <h6 class="fw-bold" id="experiences-cop-da-position">Data Assistant&nbsp;&nbsp;<span class="past-dot"></span></h6>
+            <p class="text-muted" id="experiences-cop-da-periodnbase">
                 Internship<br>
                 Oct 2022 - Apr 2023<br>
-                Guangzhou, Guangdong, China · Remote
+                Remote · Guangzhou, Guangdong, China
             </p>
-            <p>1. Expanded industry database categories and improved data for six databases.<br><br>
-                2. Used Python to collect, organize, and normalize 169,700 index entries.<br><br></p>
-            <p><strong>Skills:</strong> Data Mining, Python, Data Analysis, SQL</p>
+            <p id="experiences-cop-da-detail">
+                1. Expanded industry database categories and improved data for six databases.<br><br>
+                2. Used Python to collect, organize, and normalize 169,700 index entries.<br><br>
+            </p>
+            <p id="experiences-cop-da-skill">
+                <strong>Skills:</strong> Data Mining, Python, Data Analysis, SQL
+            </p>
         </div>
     </div>
 </section>
@@ -438,19 +454,19 @@
         <div class="experience-card" style="background-color: #f8f9fa;">
             <div class="d-flex align-items-center mb-2">
                 <div>
-                    <h5 class="fw-bold" style="position: relative; top: 5px;">
+                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="publications-ainqf-title">
                         <em>Artificial Intelligence and Quantitative Finance</em>
                     </h5>
                 </div>
             </div>
             <br>
-            <h6 class="fw-bold">Chapter Author - Chapter 7: Principal Component Analysis (PCA)&nbsp;&nbsp;<span class="past-dot"></span></h6>
-            <p class="text-muted">
+            <h6 class="fw-bold" id="publications-ainqf-what">Chapter Author - Chapter 7: Principal Component Analysis (PCA)&nbsp;&nbsp;<span class="past-dot"></span></h6>
+            <p class="text-muted" id="publications-ainqf-info">
                 Book Contribution<br>
                 Publisher: Tsinghua University Press<br>
                 Expected Publication: February 2025
             </p>
-            <p>
+            <p id="publications-ainqf-detail">
                 Authored Chapter 7, titled “Principal Component Analysis (PCA),” which explores PCA as a dimensionality reduction technique for extracting essential information from high-dimensional datasets. The chapter includes the theoretical foundation, practical implementation, and applications in financial data processing, such as data cleaning, standardization, feature extraction, risk management, and portfolio construction. Python code examples and visual aids are provided to enhance understanding and practical application.
             </p>
         </div>

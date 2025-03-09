@@ -1,1 +1,89 @@
-<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/design/ILg6UISHMBjzTsILzKbAe2/Untitled?node-id=2-650&embed-host=share" allowfullscreen></iframe>
+<style>
+  .experience-card {
+    position: relative;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .experience-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
+  .experience-card p {
+    text-align: justify;
+    margin-bottom: 1em;
+  }
+  /* 关闭图标样式 */
+  .close-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 16px;
+    color: #999;
+    cursor: pointer;
+  }
+  /* 默认折叠状态：只显示两行文字 */
+  .experience-card.collapsible p {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  /* 展开状态移除行数限制 */
+  .experience-card.expanded p {
+    -webkit-line-clamp: unset;
+  }
+  /* 切换按钮 */
+  .toggle-btn {
+    background-color: transparent;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    padding: 0;
+    font-size: 14px;
+  }
+</style>
+
+<div class="experience-card collapsible" id="card1" style="background-color: #f8f9fa;">
+  <!-- 右上角关闭图标 -->
+  <span class="close-icon" onclick="closeCard(this)">✖</span>
+
+  <!-- 卡片内容（只写一次） -->
+  <h6 class="fw-bold">Sample Card Title&nbsp;&nbsp;<span class="online-dot"></span></h6>
+  <p>
+    这是卡片的详细内容。Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula cursus metus, a varius metus. Sed malesuada libero ac nulla accumsan, nec placerat mauris fermentum. Phasellus vel libero ut risus facilisis vulputate. Nulla facilisi. Integer id molestie massa.
+  </p>
+  <p>
+    再多一些文本以便测试行数截断效果。Curabitur eget consequat urna. Fusce interdum, arcu ut vestibulum tincidunt, odio nisi aliquet libero, at dapibus ex mauris sed libero.
+  </p>
+  <p>
+    更多的段落文本，用于展示卡片在展开时的全部内容。Vivamus ac nisi non justo gravida sodales ut sit amet libero.
+  </p>
+
+  <!-- 切换展开/收起按钮 -->
+  <button class="toggle-btn" onclick="toggleCard(this)">展开</button>
+</div>
+
+<script>
+  // 关闭卡片函数
+  function closeCard(elem) {
+    elem.parentElement.style.display = 'none';
+  }
+
+  // 切换卡片展开/收起
+  function toggleCard(button) {
+    var card = button.parentElement;
+    if (card.classList.contains('collapsible')) {
+      card.classList.remove('collapsible');
+      card.classList.add('expanded');
+      button.innerText = '收起';
+    } else {
+      card.classList.remove('expanded');
+      card.classList.add('collapsible');
+      button.innerText = '展开';
+    }
+  }
+</script>
