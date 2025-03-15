@@ -29,7 +29,7 @@
   "experiences-cc-sms-skill": "<strong>相关技能：</strong>Python, 金融概念, HTML, JavaScript, Raspberry Pi, HTML, C++, 网站开发, CSS, 量化金融",
   "experiences-cc-iaa-position": "投资分析助理&nbsp;&nbsp;<span class=\"past-dot\"></span>",
   "experiences-cc-iaa-periodnbase": "实习<br>2023年12月 - 2024年7月<br>现场 · 中国广东省广州市",
-  "experiences-cc-iaa-detail": "1. 使用Python构建了一个模型，用于更新、交叉验证和分析数据；<br><br>2. 利用主成分分析降维及遗传算法以预测东南亚市场的趋势；<br><br>3. 制作了针对黄金与鸡蛋商品行业研究报告；<br><br>4. 开发了一套量化分析系统、邮件订阅及机器人推送系统，以及股票推荐系统。<br><br>",
+  "experiences-cc-iaa-detail": "1、利用Python与VBA建立对国内定时公布的宏观数据、指标与趋势结论进行自动更新、互证与分析的模型，并进行了少量相关的数据挖掘；<br><br>2、参与设计并搭建了基于交易员操作数据的股票信息推荐推送系统；<br><br>3、对东南亚国家股市商品类期货及区域内大宗交易进行成交价格与成交量跟踪，并结合周边相关国家区域宏观数据以及相关航运指数进行通过主成分分析等方法进行数据挖掘以在保证趋势正确预测的同时尽可能缩小监测范围；<br><br>4、参与商品类分析报告（黄金）的编写。",
   "experiences-cc-iaa-skill": "<strong>相关技能：</strong>Python, 数据分析, SQL, Excel VBA, 金融概念, 量化分析, 商品定价, Tableau, 行业分析, 量化研究",
   "click-guide": "<strong>点击</strong>下方图片以查看详情:",
   "experiences-cc-project1-time": "2023年11月29日",
