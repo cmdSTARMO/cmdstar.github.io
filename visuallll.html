@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>股票数据可视化</title>
+  <!-- 引入 Bootstrap 样式 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- 引入 ECharts 图表库 -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+  <!-- 引入 Papa Parse 用于解析 CSV -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+  <style>
+    body {
+      font-family: 'Microsoft YaHei', sans-serif;
+      padding: 20px;
+      background-color: #f8f9fa;
+    }
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .chart-container {
+      height: 600px;
+      width: 100%;
+      background-color: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .control-panel {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    .data-info {
+      font-size: 14px;
+      color: #6c757d;
+    }
+    .btn-primary {
+      background-color: #1a73e8;
+      border-color: #1a73e8;
+    }
+    .btn-primary:hover {
+      background-color: #0d62d1;
+      border-color: #0d62d1;
+    }
+    .indicator-btn {
+      margin: 5px;
+      font-size: 0.85rem;
+    }
+    .active-indicator {
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <h2 class="text-center mb-4">股票数据可视化</h2>
+    <div class="row">
+      <!-- 控制面板 -->
+      <div class="col-md-3">
+        <div class="card control-panel">
+          <div class="card-body">
+            <h5 class="card-title">数据选择</h5>
+            <!-- 文件选择下拉菜单 -->
+            <div class="mb-3">
+              <label for="fileSelect" class="form-label">选择数据文件</label>
+              <select class="form-select" id="fileSelect">
+                <option value="" selected>请选择文件...</option>
+              </select>
+            </div>
+            <!-- 文件上传 -->
+            <div class="mb-3">
+              <label for="fileUpload" class="form-label">上传数据文件</label>
+              <input class="form-control" type="file" id="fileUpload" accept=".csv,.sql" />
+            </div>
+            <hr />
+            <!-- 图表类型选择 -->
+            <div class="mb-3">
+              <label class="form-label">图表类型</label>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="chartType" id="candlestick" value="candlestick" checked />
+                <label class="form-check-label" for="candlestick">K线图</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="chartType" id="line" value="line" />
+                <label class="form-check-label" for="line">分时图</label>
+              </div>
+            </div>
+            <hr />
+            <!-- 技术指标 -->
+            <div class="mb-3">
+              <label class="form-label">技术指标</label>
+              <div class="d-flex flex-wrap">
+                <button class="btn btn-sm btn-outline-secondary indicator-btn" data-indicator="MA">MA</button>
+                <button class="btn btn-sm btn-outline-secondary indicator-btn" data-indicator="EMA">EMA</button>
+                <button class="btn btn-sm btn-outline-secondary indicator-btn" data-indicator="BOLL">BOLL</button>
+                <button class="btn btn-sm btn-outline-secondary indicator-btn" data-indicator="MACD">MACD</button>
+                <button class="btn btn-sm btn-outline-secondary indicator-btn" data-indicator="KDJ">KDJ</button>
+                <button class="btn btn-sm btn-outline-secondary indicator-btn" data-indicator="RSI">RSI</button>
+              </div>
+            </div>
+            <hr />
+            <!-- 时间范围选择 -->
+            <div class="mb-3">
+              <label class="form-label">时间范围</label>
+              <div class="d-flex justify-content-between">
+                <button class="btn btn-sm btn-outline-secondary" data-range="1m">1月</button>
+                <button class="btn btn-sm btn-outline-secondary" data-range="3m">3月</button>
+                <button class="btn btn-sm btn-outline-secondary" data-range="6m">6月</button>
+                <button class="btn btn-sm btn-outline-secondary active" data-range="1y">1年</button>
+                <button class="btn btn-sm btn-outline-secondary" data-range="all">全部</button>
+              </div>
+            </div>
+            <div class="data-info mt-3" id="dataInfo">未加载数据</div>
+          </div>
+        </div>
+      </div>
+      <!-- 图表区域 -->
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-body">
+            <div id="stockChart" class="chart-container"></div>
+          </div>
+        </div>
+        <!-- 数据表格 -->
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">数据表格</h5>
+            <div class="table-responsive">
+              <table class="table table-striped table-hover" id="dataTable">
+                <thead>
+                  <tr>
+                    <th>日期</th>
+                    <th>开盘价</th>
+                    <th>收盘价</th>
+                    <th>最高价</th>
+                    <th>最低价</th>
+                    <th>成交量</th>
+                    <th>成交额</th>
+                    <th>振幅(%)</th>
+                    <th>涨跌幅(%)</th>
+                    <th>涨跌额</th>
+                    <th>换手率(%)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- 数据将通过JavaScript动态加载 -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript 代码 -->
+  <script>
+    let stockData = [];
+    let chart = null;
+    let activeIndicators = [];
+    let currentTimeRange = '1y';
+    let currentChartType = 'candlestick';
+    let currentFilteredData = []; // 用于悬停查找
+
+    document.addEventListener('DOMContentLoaded', function () {
+      initChart();
+      loadFileList();
+      bindEventListeners();
+    });
+
+    // 初始化图表，配置 tooltip 内显示详细信息
+    function initChart() {
+      const chartDom = document.getElementById('stockChart');
+      chart = echarts.init(chartDom);
+      const option = {
+        title: { text: '股票数据可视化', left: 'center' },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            lineStyle: { color: '#999', width: 1, opacity: 0.8 }
+          },
+          backgroundColor: 'rgba(255,255,255,0.95)',
+          borderColor: '#ccc',
+          borderWidth: 1,
+          textStyle: { color: '#333', fontSize: 12 },
+          // 修改后的 formatter 判断 seriesType
+          formatter: function (params) {
+            if (!params || params.length === 0) return '';
+            // 如果第一个系列是 candlestick，则按 K 线数据处理
+            if (params[0].seriesType === 'candlestick') {
+              const data = params[0].data;
+              const date = params[0].name;
+              let open = data[0], close = data[1], high = data[2], low = data[3];
+              let html = `<table style="width:100%;font-size:12px;">
+                            <tr><th style="text-align:left;">日期</th><td>${date}</td></tr>
+                            <tr><th style="text-align:left;">开盘价</th><td>${open.toFixed(2)}</td></tr>
+                            <tr><th style="text-align:left;">收盘价</th><td>${close.toFixed(2)}</td></tr>
+                            <tr><th style="text-align:left;">最高价</th><td>${high.toFixed(2)}</td></tr>
+                            <tr><th style="text-align:left;">最低价</th><td>${low.toFixed(2)}</td></tr>`;
+              if (data[4] !== undefined) {
+                html += `<tr><th style="text-align:left;">成交量</th><td>${parseFloat(data[4]).toLocaleString()}</td></tr>`;
+              }
+              html += `</table>`;
+              return html;
+            } else if (params[0].seriesType === 'bar') {
+              // 如果悬停在成交量部分，直接显示简单信息
+              return `${params[0].marker} ${params[0].seriesName}: ${params[0].value.toLocaleString()}`;
+            } else {
+              // 其它情况直接遍历所有参数
+              let text = '';
+              params.forEach(param => {
+                text += `${param.marker} ${param.seriesName}: ${param.value}<br/>`;
+              });
+              return text;
+            }
+          }
+        },
+        axisPointer: { link: { show: true }, label: { backgroundColor: '#777' } }
+      };
+      chart.setOption(option);
+      window.addEventListener('resize', () => chart.resize());
+    }
+
+    // 模拟加载文件列表
+    // 自动读取 market_data 文件夹中的所有文件（要求服务器支持目录列表）
+    function loadFileList() {
+      fetch('market_data/')
+        .then(response => response.text())
+        .then(html => {
+          // 使用 DOMParser 解析目录 HTML
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const links = doc.querySelectorAll('a');
+          const fileSelect = document.getElementById('fileSelect');
+          // 清空已有选项（保留第一个“请选择文件...”）
+          while (fileSelect.options.length > 1) {
+            fileSelect.remove(1);
+          }
+          links.forEach(link => {
+            let href = link.getAttribute('href');
+            // 忽略上级目录链接和空链接
+            if (href && href !== "../" && !href.endsWith('/')) {
+              const opt = document.createElement('option');
+              // 这里 opt.value 为 market_data/filename
+              opt.value = 'market_data/' + href;
+              opt.textContent = href;
+              fileSelect.appendChild(opt);
+            }
+          });
+        })
+        .catch(error => {
+          console.error('获取文件列表失败：', error);
+        });
+    }
+
+    function bindEventListeners() {
+      document.getElementById('fileSelect').addEventListener('change', function (e) {
+        if (e.target.value) loadDataFromFile(e.target.value);
+      });
+      document.getElementById('fileUpload').addEventListener('change', function (e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            const fileContent = event.target.result;
+            if (file.name.endsWith('.csv')) {
+              parseCSVData(fileContent, file.name);
+            } else if (file.name.endsWith('.sql')) {
+              parseSQLData(fileContent, file.name);
+            } else {
+              alert('不支持的文件格式，请上传CSV或SQL文件');
+            }
+          };
+          reader.readAsText(file);
+        }
+      });
+      document.querySelectorAll('input[name="chartType"]').forEach(radio => {
+        radio.addEventListener('change', function (e) {
+          currentChartType = e.target.value;
+          updateChart();
+        });
+      });
+      document.querySelectorAll('.indicator-btn').forEach(button => {
+        button.addEventListener('click', function (e) {
+          const indicator = e.target.getAttribute('data-indicator');
+          if (activeIndicators.includes(indicator)) {
+            activeIndicators = activeIndicators.filter(item => item !== indicator);
+            e.target.classList.remove('active-indicator');
+          } else {
+            activeIndicators.push(indicator);
+            e.target.classList.add('active-indicator');
+          }
+          updateChart();
+        });
+      });
+      document.querySelectorAll('[data-range]').forEach(button => {
+        button.addEventListener('click', function (e) {
+          document.querySelectorAll('[data-range]').forEach(btn => btn.classList.remove('active'));
+          e.target.classList.add('active');
+          currentTimeRange = e.target.getAttribute('data-range');
+          updateChart();
+        });
+      });
+    }
+
+    // 模拟数据加载（实际应用中用 AJAX 获取）
+    function loadDataFromFile(filePath) {
+      const simulatedData = [
+        ['2025/3/28', 270.33, 273.02, 273.28, 269.99, 347694, 161605623, 1.21, 0.74, 2, 0.23],
+        ['2025/3/27', 268.55, 271.02, 271.88, 268.10, 325478, 155432789, 1.41, 0.92, 2.47, 0.21],
+        ['2025/3/26', 269.20, 268.55, 270.15, 267.80, 298745, 142567890, 0.87, -0.24, -0.65, 0.19],
+        ['2025/3/25', 271.50, 269.20, 272.30, 268.75, 312456, 149876543, 1.32, -0.85, -2.30, 0.20],
+        ['2025/3/24', 273.80, 271.50, 274.25, 270.90, 287654, 138765432, 1.23, -0.84, -2.30, 0.18],
+        ['2025/3/21', 275.10, 273.80, 276.40, 273.20, 301234, 145678901, 1.17, -0.47, -1.30, 0.19],
+        ['2025/3/20', 272.90, 275.10, 275.80, 272.50, 289876, 140987654, 1.21, 0.81, 2.20, 0.18],
+        ['2025/3/19', 270.40, 272.90, 273.50, 269.80, 315678, 152345678, 1.37, 0.92, 2.50, 0.20],
+        ['2025/3/18', 267.80, 270.40, 271.20, 267.30, 298765, 143456789, 1.46, 0.97, 2.60, 0.19],
+        ['2025/3/15', 265.30, 267.80, 268.40, 264.90, 278965, 134567890, 1.32, 0.94, 2.50, 0.18],
+        ['2025/3/14', 262.70, 265.30, 266.10, 262.20, 289654, 139876543, 1.49, 0.99, 2.60, 0.19],
+        ['2025/3/13', 260.10, 262.70, 263.50, 259.80, 267890, 129876543, 1.42, 1.00, 2.60, 0.17],
+        ['2025/3/12', 257.60, 260.10, 260.80, 257.20, 256789, 124567890, 1.40, 0.97, 2.50, 0.16],
+        ['2025/3/11', 255.20, 257.60, 258.30, 254.90, 245678, 119876543, 1.33, 0.94, 2.40, 0.16],
+        ['2025/3/8', 252.90, 255.20, 255.90, 252.50, 234567, 115678901, 1.34, 0.91, 2.30, 0.15],
+        ['2025/3/7', 250.70, 252.90, 253.60, 250.30, 223456, 110987654, 1.32, 0.88, 2.20, 0.14],
+        ['2025/3/6', 248.60, 250.70, 251.40, 248.20, 212345, 106543210, 1.29, 0.85, 2.10, 0.14],
+        ['2025/3/5', 246.60, 248.60, 249.30, 246.20, 201234, 102345678, 1.26, 0.81, 2.00, 0.13],
+        ['2025/3/4', 244.70, 246.60, 247.30, 244.30, 190123, 98765432, 1.23, 0.78, 1.90, 0.12],
+        ['2025/3/1', 242.90, 244.70, 245.40, 242.50, 179012, 95123456, 1.19, 0.74, 1.80, 0.11]
+      ];
+      processData(simulatedData, filePath.split('/').pop().replace(/\.[^/.]+$/, ''));
+    }
+
+    // 解析 CSV 数据
+    function parseCSVData(csvContent, fileName) {
+      Papa.parse(csvContent, {
+        header: false,
+        skipEmptyLines: true,
+        complete: function (results) {
+          const data = results.data.slice(1);
+          processData(data, fileName.replace(/\.[^/.]+$/, ''));
+        },
+        error: function (error) {
+          console.error('解析CSV文件失败:', error);
+          alert('解析CSV文件失败');
+        }
+      });
+    }
+
+    // 解析 SQL 数据（仅支持简单的 INSERT 语句）
+    function parseSQLData(sqlContent, fileName) {
+      try {
+        const rows = [];
+        const insertRegex = /INSERT\s+INTO\s+[^\(]+\s*\([^\)]*\)\s*VALUES\s*\(([^\)]*)\)/gi;
+        const valueRegex = /'([^']*)'/g;
+        let match;
+        while ((match = insertRegex.exec(sqlContent)) !== null) {
+          const valueString = match[1];
+          const rowValues = [];
+          let valueMatch;
+          while ((valueMatch = valueRegex.exec(valueString)) !== null) {
+            rowValues.push(valueMatch[1]);
+          }
+          if (rowValues.length > 0) rows.push(rowValues);
+        }
+        if (rows.length > 0) {
+          processData(rows, fileName.replace(/\.[^/.]+$/, ''));
+        } else {
+          alert('未在SQL文件中找到有效数据');
+        }
+      } catch (error) {
+        console.error('解析SQL文件失败:', error);
+        alert('解析SQL文件失败');
+      }
+    }
+
+    // 处理数据并更新图表和数据表
+    function processData(data, fileName) {
+      stockData = data.map(row => {
+        return [
+          row[0],
+          parseFloat(row[1]),
+          parseFloat(row[2]),
+          parseFloat(row[3]),
+          parseFloat(row[4]),
+          parseFloat(row[5]),
+          parseFloat(row[6]),
+          parseFloat(row[7]),
+          parseFloat(row[8]),
+          parseFloat(row[9]),
+          parseFloat(row[10])
+        ];
+      });
+      stockData.sort((a, b) => new Date(a[0]) - new Date(b[0]));
+      updateChart();
+      updateDataTable();
+      document.getElementById('dataInfo').textContent = `${fileName} - 共${stockData.length}条数据`;
+    }
+
+    // 更新图表，采用 tooltip 内显示详细信息的方式
+    function updateChart() {
+      if (stockData.length === 0) return;
+      let filteredData = stockData;
+      if (currentTimeRange !== 'all') {
+        const now = new Date();
+        let startDate;
+        switch (currentTimeRange) {
+          case '1m':
+            startDate = new Date(now.setMonth(now.getMonth() - 1));
+            break;
+          case '3m':
+            startDate = new Date(now.setMonth(now.getMonth() - 3));
+            break;
+          case '6m':
+            startDate = new Date(now.setMonth(now.getMonth() - 6));
+            break;
+          case '1y':
+            startDate = new Date(now.setFullYear(now.getFullYear() - 1));
+            break;
+        }
+        filteredData = stockData.filter(item => new Date(item[0]) >= startDate);
+      }
+      currentFilteredData = filteredData;
+      const dates = filteredData.map(item => item[0]);
+      const candlestickData = filteredData.map(item => [
+        parseFloat(item[1]) || 0,
+        parseFloat(item[2]) || 0,
+        parseFloat(item[3]) || 0,
+        parseFloat(item[4]) || 0,
+        parseFloat(item[5]) || 0
+      ]);
+      const volumeData = filteredData.map(item => {
+        const open = parseFloat(item[1]) || 0;
+        const close = parseFloat(item[2]) || 0;
+        return {
+          value: parseFloat(item[5]) || 0,
+          itemStyle: { color: close >= open ? '#ef232a' : '#14b143' }
+        };
+      });
+      const option = {
+        animation: true,
+        legend: {
+          data: ['K线', '成交量'],
+          inactiveColor: '#777',
+          textStyle: { color: '#333' }
+        },
+        xAxis: [
+          {
+            type: 'category',
+            data: dates,
+            scale: true,
+            boundaryGap: false,
+            axisLine: { lineStyle: { color: '#8392A5' } },
+            axisLabel: {
+              margin: 10,
+              formatter: function (value) {
+                return value.replace(/\d+\//, '');
+              }
+            },
+            splitLine: { show: false },
+            splitNumber: 20
+          },
+          {
+            type: 'category',
+            gridIndex: 1,
+            data: dates,
+            scale: true,
+            boundaryGap: false,
+            axisLine: { lineStyle: { color: '#8392A5' } },
+            axisLabel: { show: false },
+            splitLine: { show: false }
+          }
+        ],
+        yAxis: [
+          {
+            scale: true,
+            splitArea: {
+              show: true,
+              areaStyle: {
+                color: ['rgba(250,250,250,0.1)', 'rgba(245,245,245,0.1)']
+              }
+            },
+            axisLine: { lineStyle: { color: '#8392A5' } },
+            splitLine: {
+              show: true,
+              lineStyle: { color: '#eee', type: 'dashed' }
+            }
+          },
+          {
+            scale: true,
+            gridIndex: 1,
+            splitNumber: 2,
+            axisLabel: { show: false },
+            axisLine: { show: false },
+            axisTick: { show: false },
+            splitLine: { show: false }
+          }
+        ],
+        grid: [
+          { left: '10%', right: '8%', height: '60%' },
+          { left: '10%', right: '8%', top: '75%', height: '15%' }
+        ],
+        dataZoom: [
+          {
+            type: 'slider',
+            show: true,
+            xAxisIndex: [0, 1],
+            start: 0,
+            end: 100,
+            height: 30,
+            bottom: 10,
+            handleIcon: 'M0,0 L0,30 L10,30 L10,0 Z',
+            handleSize: '80%',
+            handleStyle: { color: '#ccc' },
+            backgroundColor: '#f5f5f5',
+            fillerColor: 'rgba(26,115,232,0.2)'
+          },
+          { type: 'inside', xAxisIndex: [0, 1], start: 0, end: 100 }
+        ],
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            lineStyle: { color: '#999', width: 1, opacity: 0.8 }
+          },
+          backgroundColor: 'rgba(255,255,255,0.95)',
+          borderColor: '#ccc',
+          borderWidth: 1,
+          textStyle: { color: '#333', fontSize: 12 },
+          formatter: function (params) {
+            if (!params || params.length === 0) return '';
+            // 如果是 K 线系列，则格式化为表格显示
+            if (params[0].seriesType === 'candlestick') {
+              const data = params[0].data;
+              const date = params[0].name;
+              let open = data[1], close = data[2], high = data[3], low = data[4];
+              let html = `<table style="width:100%;font-size:12px;">
+                            <tr><th style="text-align:left;">日期</th><td>${date}</td></tr>
+                            <tr><th style="text-align:left;">开盘价</th><td>${open.toFixed(2)}</td></tr>
+                            <tr><th style="text-align:left;">收盘价</th><td>${close.toFixed(2)}</td></tr>
+                            <tr><th style="text-align:left;">最高价</th><td>${high.toFixed(2)}</td></tr>
+                            <tr><th style="text-align:left;">最低价</th><td>${low.toFixed(2)}</td></tr>`;
+              if (data[5] !== undefined) {
+                html += `<tr><th style="text-align:left;">成交量</th><td>${parseFloat(data[5]).toLocaleString()}</td></tr>`;
+              }
+              html += `</table>`;
+              return html;
+            } else if (params[0].seriesType === 'bar') {
+              // 对于成交量系列直接返回简单文本，避免 toFixed 调用错误
+              return `${params[0].marker} ${params[0].seriesName}: ${params[0].value.toLocaleString()}`;
+            } else {
+              let text = '';
+              params.forEach(param => {
+                text += `${param.marker} ${param.seriesName}: ${param.value}<br/>`;
+              });
+              return text;
+            }
+          }
+        },
+        series: [
+          {
+            name: 'K线',
+            type: currentChartType === 'candlestick' ? 'candlestick' : 'line',
+            data: currentChartType === 'candlestick' ? candlestickData : filteredData.map(item => parseFloat(item[2]) || 0),
+            itemStyle: {
+              color: '#ef232a',
+              color0: '#14b143',
+              borderColor: '#ef232a',
+              borderColor0: '#14b143'
+            },
+            showSymbol: false,
+            emphasis: { showSymbol: true, symbolSize: 8 }
+          },
+          {
+            name: '成交量',
+            type: 'bar',
+            xAxisIndex: 1,
+            yAxisIndex: 1,
+            data: volumeData
+          }
+        ]
+      };
+      if (activeIndicators.length > 0) {
+        addIndicators(option, filteredData);
+      }
+      try {
+        chart.setOption(option, true);
+        console.log('图表更新成功');
+      } catch (error) {
+        console.error('图表更新失败:', error);
+        alert('图表更新失败: ' + error.message);
+      }
+    }
+
+    // 以下各函数与之前基本一致，均添加了 showSymbol:false 与 emphasis 配置
+    function addIndicators(option, data) {
+      activeIndicators.forEach(indicator => {
+        switch (indicator) {
+          case 'MA': addMA(option, data); break;
+          case 'EMA': addEMA(option, data); break;
+          case 'BOLL': addBOLL(option, data); break;
+          case 'MACD': addMACD(option, data); break;
+          case 'KDJ': addKDJ(option, data); break;
+          case 'RSI': addRSI(option, data); break;
+        }
+      });
+    }
+
+    function addMA(option, data) {
+      const closePrices = data.map(item => item[2]);
+      const ma5 = calculateMA(5, closePrices);
+      const ma10 = calculateMA(10, closePrices);
+      const ma20 = calculateMA(20, closePrices);
+      option.series.push({
+        name: 'MA5',
+        type: 'line',
+        data: ma5,
+        smooth: true,
+        showSymbol: false,
+        emphasis: { showSymbol: true, symbolSize: 8 },
+        lineStyle: { opacity: 0.8, width: 1.5 }
+      });
+      option.series.push({
+        name: 'MA10',
+        type: 'line',
+        data: ma10,
+        smooth: true,
+        showSymbol: false,
+        emphasis: { showSymbol: true, symbolSize: 8 },
+        lineStyle: { opacity: 0.8, width: 1.5 }
+      });
+      option.series.push({
+        name: 'MA20',
+        type: 'line',
+        data: ma20,
+        smooth: true,
+        showSymbol: false,
+        emphasis: { showSymbol: true, symbolSize: 8 },
+        lineStyle: { opacity: 0.8, width: 1.5 }
+      });
+      option.legend.data = [...option.legend.data, 'MA5', 'MA10', 'MA20'];
+    }
+
+    function calculateMA(dayCount, data) {
+      const result = [];
+      for (let i = 0; i < data.length; i++) {
+        if (i < dayCount - 1) {
+          result.push('-');
+          continue;
+        }
+        let sum = 0;
+        for (let j = 0; j < dayCount; j++) {
+          sum += data[i - j];
+        }
+        result.push(+(sum / dayCount).toFixed(2));
+      }
+      return result;
+    }
+
+    function addEMA(option, data) {
+      const closePrices = data.map(item => item[2]);
+      const ema12 = calculateEMA(12, closePrices);
+      const ema26 = calculateEMA(26, closePrices);
+      option.series.push({
+        name: 'EMA12',
+        type: 'line',
+        data: ema12,
+        smooth: true,
+        showSymbol: false,
+        emphasis: { showSymbol: true, symbolSize: 8 },
+        lineStyle: { opacity: 0.8, width: 1.5 }
+      });
+      option.series.push({
+        name: 'EMA26',
+        type: 'line',
+        data: ema26,
+        smooth: true,
+        showSymbol: false,
+        emphasis: { showSymbol: true, symbolSize: 8 },
+        lineStyle: { opacity: 0.8, width: 1.5 }
+      });
+      option.legend.data = [...option.legend.data, 'EMA12', 'EMA26'];
+    }
+
+    function calculateEMA(dayCount, data) {
+      const result = [];
+      const k = 2 / (dayCount + 1);
+      result.push(data[0]);
+      for (let i = 1; i < data.length; i++) {
+        const ema = data[i] * k + result[i - 1] * (1 - k);
+        result.push(+ema.toFixed(2));
+      }
+      return result;
+    }
+
+    function addBOLL(option, data) {
+      const closePrices = data.map(item => item[2]);
+      const period = 20, stdDev = 2;
+      const boll = calculateBOLL(period, stdDev, closePrices);
+      option.series.push({
+        name: 'BOLL中轨',
+        type: 'line',
+        data: boll.mid,
+        smooth: true,
+        showSymbol: false,
+        emphasis: { showSymbol: true, symbolSize: 8 },
+        lineStyle: { opacity: 0.8, width: 1.5 }
+      });
+      option.series.push({
+        name: 'BOLL上轨',
+        type: 'line',
+        data: boll.upper,
+        smooth: true,
+        showSymbol: false,
+        emphasis: { showSymbol: true, symbolSize: 8 },
+        lineStyle: { opacity: 0.8, width: 1.5 }
+      });
+      option.series.push({
+        name: 'BOLL下轨',
+        type: 'line',
+        data: boll.lower,
+        smooth: true,
+        showSymbol: false,
+        emphasis: { showSymbol: true, symbolSize: 8 },
+        lineStyle: { opacity: 0.8, width: 1.5 }
+      });
+      option.series.push({
+        name: 'BOLL区域',
+        type: 'line',
+        data: boll.upper,
+        smooth: true,
+        showSymbol: false,
+        lineStyle: { opacity: 0 },
+        areaStyle: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: 'rgba(255,158,68,0.2)' },
+            { offset: 1, color: 'rgba(255,70,131,0.2)' }
+          ])
+        },
+        stack: 'BOLL'
+      });
+      option.series.push({
+        name: 'BOLL区域2',
+        type: 'line',
+        data: boll.lower,
+        smooth: true,
+        showSymbol: false,
+        lineStyle: { opacity: 0 },
+        areaStyle: { color: 'rgba(255,255,255,0)' },
+        stack: 'BOLL'
+      });
+      option.legend.data = [...option.legend.data, 'BOLL中轨', 'BOLL上轨', 'BOLL下轨'];
+      option.legend.selected = { ...option.legend.selected, 'BOLL区域': false, 'BOLL区域2': false };
+    }
+
+    function calculateBOLL(period, stdDev, data) {
+      const mid = [];
+      const upper = [];
+      const lower = [];
+      for (let i = 0; i < data.length; i++) {
+        if (i < period - 1) {
+          mid.push('-');
+          upper.push('-');
+          lower.push('-');
+          continue;
+        }
+        let sum = 0;
+        for (let j = 0; j < period; j++) {
+          sum += data[i - j];
+        }
+        const ma = sum / period;
+        let squareSum = 0;
+        for (let j = 0; j < period; j++) {
+          squareSum += Math.pow(data[i - j] - ma, 2);
+        }
+        const std = Math.sqrt(squareSum / period);
+        mid.push(+ma.toFixed(2));
+        upper.push(+(ma + stdDev * std).toFixed(2));
+        lower.push(+(ma - stdDev * std).toFixed(2));
+      }
+      return { mid, upper, lower };
+    }
+
+    function addMACD(option, data) {
+      const closePrices = data.map(item => item[2]);
+      const macd = calculateMACD(closePrices);
+      option.grid.push({ left: '10%', right: '8%', top: '75%', height: '15%' });
+      option.yAxis.push({ gridIndex: 2, splitNumber: 2, axisLine: { show: false }, axisTick: { show: false }, splitLine: { show: false } });
+      option.series.push({
+        name: 'MACD',
+        type: 'bar',
+        xAxisIndex: 1,
+        yAxisIndex: 2,
+        data: macd.histogram,
+        itemStyle: { color: params => params.data >= 0 ? '#ef232a' : '#14b143' }
+      });
+      option.series.push({
+        name: 'DIF',
+        type: 'line',
+        xAxisIndex: 1,
+        yAxisIndex: 2,
+        data: macd.dif,
+        showSymbol: false,
+        emphasis: { showSymbol: true, symbolSize: 8 },
+        lineStyle: { opacity: 0.8, width: 1.5 }
+      });
+      option.series.push({
+        name: 'DEA',
+        type: 'line',
+        xAxisIndex: 1,
+        yAxisIndex: 2,
+        data: macd.dea,
+        showSymbol: false,
+        emphasis: { showSymbol: true, symbolSize: 8 },
+        lineStyle: { opacity: 0.8, width: 1.5 }
+      });
+      option.legend.data = [...option.legend.data, 'MACD', 'DIF', 'DEA'];
+    }
+
+    function calculateMACD(data) {
+      const ema12 = calculateEMA(12, data);
+      const ema26 = calculateEMA(26, data);
+      const dif = ema12.map((value, index) => +(value - ema26[index]).toFixed(2));
+      const dea = calculateEMA(9, dif);
+      const histogram = dif.map((value, index) => +(2 * (value - dea[index])).toFixed(2));
+      return { dif, dea, histogram };
+    }
+
+    function addKDJ(option, data) {
+      const kdj = calculateKDJ(data);
+      if (option.grid.length < 3) {
+        option.grid.push({ left: '10%', right: '8%', top: '75%', height: '15%' });
+        option.yAxis.push({ gridIndex: 2, splitNumber: 2, axisLine: { show: false }, axisTick: { show: false }, splitLine: { show: false } });
+      }
+      option.series.push({
+        name: 'K值',
+        type: 'line',
+        xAxisIndex: 1,
+        yAxisIndex: 2,
+        data: kdj.k,
+        smooth: true,
+        showSymbol: false,
+        emphasis: { showSymbol: true, symbolSize: 8 },
+        lineStyle: { opacity: 0.8, width: 1.5 }
+      });
+      option.series.push({
+        name: 'D值',
+        type: 'line',
+        xAxisIndex: 1,
+        yAxisIndex: 2,
+        data: kdj.d,
+        smooth: true,
+        showSymbol: false,
+        emphasis: { showSymbol: true, symbolSize: 8 },
+        lineStyle: { opacity: 0.8, width: 1.5 }
+      });
+      option.series.push({
+        name: 'J值',
+        type: 'line',
+        xAxisIndex: 1,
+        yAxisIndex: 2,
+        data: kdj.j,
+        smooth: true,
+        showSymbol: false,
+        emphasis: { showSymbol: true, symbolSize: 8 },
+        lineStyle: { opacity: 0.8, width: 1.5 }
+      });
+      option.legend.data = [...option.legend.data, 'K值', 'D值', 'J值'];
+    }
+
+    function calculateKDJ(data) {
+      const n = 9;
+      const k = [], d = [], j = [];
+      for (let i = 0; i < data.length; i++) {
+        if (i < n - 1) {
+          k.push('-');
+          d.push('-');
+          j.push('-');
+          continue;
+        }
+        let highest = -Infinity, lowest = Infinity;
+        for (let j = 0; j < n; j++) {
+          highest = Math.max(highest, data[i - j][3]);
+          lowest = Math.min(lowest, data[i - j][4]);
+        }
+        const close = data[i][2];
+        const rsv = 100 * ((close - lowest) / (highest - lowest));
+        const k_value = i === n - 1 ? rsv : (2/3) * (k[i-1] === '-' ? 50 : k[i-1]) + (1/3) * rsv;
+        k.push(+k_value.toFixed(2));
+        const d_value = i === n - 1 ? k_value : (2/3) * (d[i-1] === '-' ? 50 : d[i-1]) + (1/3) * k_value;
+        d.push(+d_value.toFixed(2));
+        j.push(+ (3 * k_value - 2 * d_value).toFixed(2));
+      }
+      return { k, d, j };
+    }
+
+    function addRSI(option, data) {
+      const closePrices = data.map(item => item[2]);
+      const rsi6 = calculateRSI(6, closePrices);
+      const rsi12 = calculateRSI(12, closePrices);
+      const rsi24 = calculateRSI(24, closePrices);
+      if (option.grid.length < 3) {
+        option.grid.push({ left: '10%', right: '8%', top: '75%', height: '15%' });
+        option.yAxis.push({ gridIndex: 2, splitNumber: 2, axisLine: { show: false }, axisTick: { show: false }, splitLine: { show: false } });
+      }
+      option.series.push({
+        name: 'RSI6',
+        type: 'line',
+        xAxisIndex: 1,
+        yAxisIndex: 2,
+        data: rsi6,
+        smooth: true,
+        showSymbol: false,
+        emphasis: { showSymbol: true, symbolSize: 8 },
+        lineStyle: { opacity: 0.8, width: 1.5 }
+      });
+      option.series.push({
+        name: 'RSI12',
+        type: 'line',
+        xAxisIndex: 1,
+        yAxisIndex: 2,
+        data: rsi12,
+        smooth: true,
+        showSymbol: false,
+        emphasis: { showSymbol: true, symbolSize: 8 },
+        lineStyle: { opacity: 0.8, width: 1.5 }
+      });
+      option.series.push({
+        name: 'RSI24',
+        type: 'line',
+        xAxisIndex: 1,
+        yAxisIndex: 2,
+        data: rsi24,
+        smooth: true,
+        showSymbol: false,
+        emphasis: { showSymbol: true, symbolSize: 8 },
+        lineStyle: { opacity: 0.8, width: 1.5 }
+      });
+      option.legend.data = [...option.legend.data, 'RSI6', 'RSI12', 'RSI24'];
+    }
+
+    function calculateRSI(period, data) {
+      const result = [];
+      for (let i = 0; i < data.length; i++) {
+        if (i < period) {
+          result.push('-');
+          continue;
+        }
+        let sumGain = 0, sumLoss = 0;
+        for (let j = i - period + 1; j <= i; j++) {
+          const diff = data[j] - data[j - 1];
+          diff >= 0 ? (sumGain += diff) : (sumLoss -= diff);
+        }
+        if (sumGain + sumLoss === 0) {
+          result.push(50);
+        } else {
+          const rs = sumGain / sumLoss;
+          result.push(+ (100 - 100 / (1 + rs)).toFixed(2));
+        }
+      }
+      return result;
+    }
+
+    function updateDataTable() {
+      const tableBody = document.querySelector('#dataTable tbody');
+      tableBody.innerHTML = '';
+      const displayData = stockData.slice(-20).reverse();
+      displayData.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${row[0]}</td>
+          <td>${row[1].toFixed(2)}</td>
+          <td>${row[2].toFixed(2)}</td>
+          <td>${row[3].toFixed(2)}</td>
+          <td>${row[4].toFixed(2)}</td>
+          <td>${row[5].toLocaleString()}</td>
+          <td>${row[6].toLocaleString()}</td>
+          <td>${row[7]}%</td>
+          <td>${row[8]}%</td>
+          <td>${row[9].toFixed(2)}</td>
+          <td>${row[10]}%</td>
+        `;
+        tableBody.appendChild(tr);
+      });
+    }
+  </script>
+</body>
+</html>
