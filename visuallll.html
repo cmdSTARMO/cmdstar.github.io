@@ -229,28 +229,22 @@
     // 模拟加载文件列表
     // 自动读取 market_data 文件夹中的所有文件（要求服务器支持目录列表）
     function loadFileList() {
-      fetch('market_data/')
-        .then(response => response.text())
-        .then(html => {
-          // 使用 DOMParser 解析目录 HTML
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(html, 'text/html');
-          const links = doc.querySelectorAll('a');
+      // 请求 files.json
+      fetch('files.json')
+        .then(response => response.json())
+        .then(files => {
           const fileSelect = document.getElementById('fileSelect');
-          // 清空已有选项（保留第一个“请选择文件...”）
+          // 清空已有选项，保留第一项“请选择文件...”
           while (fileSelect.options.length > 1) {
             fileSelect.remove(1);
           }
-          links.forEach(link => {
-            let href = link.getAttribute('href');
-            // 忽略上级目录链接和空链接
-            if (href && href !== "../" && !href.endsWith('/')) {
-              const opt = document.createElement('option');
-              // 这里 opt.value 为 market_data/filename
-              opt.value = 'market_data/' + href;
-              opt.textContent = href;
-              fileSelect.appendChild(opt);
-            }
+          // 将files数组中的每个文件名添加到下拉菜单
+          files.forEach(filename => {
+            const opt = document.createElement('option');
+            // 假设你的 CSV 文件都放在 market_data 文件夹下
+            opt.value = 'market_data/' + filename;
+            opt.textContent = filename;
+            fileSelect.appendChild(opt);
           });
         })
         .catch(error => {
