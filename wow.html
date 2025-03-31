@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDD股价与交易数据可视化</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        #chart-container {
+            width: 100%;
+            height: 600px;
+            margin-top: 20px;
+        }
+        .loading {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 100px;
+        }
+        .data-panel {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .buy-signal {
+            color: #d81e06;
+            font-weight: bold;
+        }
+        .sell-signal {
+            color: #1e8e3e;
+            font-weight: bold;
+        }
+        .stop-loss {
+            color: #db4437;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>PDD股价与交易数据可视化</h1>
+    <div class="data-panel" id="data-info">
+        <h3>数据信息</h3>
+        <p>请上传PDD_backtest Excel文件：<input type="file" id="fileInput" accept=".xlsx"></p>
+        <div id="summary-stats"></div>
+    </div>
+    <div id="chart-container"></div>
+    <div id="trade-details" class="data-panel">
+        <h3>交易详情</h3>
+        <div id="trade-info">请将鼠标悬停在图表上查看交易详情</div>
+    </div>
+
+    <script>
+        let myChart = null;
+        let excelData = null;
+
+        // 初始化图表
+        function initChart() {
+            myChart = echarts.init(document.getElementById('chart-container'));
+            myChart.showLoading({text: '请上传数据文件...'});
+        }
+
+        // 解析Excel文件
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, {type: 'array'});
+
+                // 查找"交易记录"工作表
+                let tradeSheetName = null;
+                for (let i = 0; i < workbook.SheetNames.length; i++) {
+                    if (workbook.SheetNames[i] === "交易记录") {
+                        tradeSheetName = "交易记录";
+                        break;
+                    }
+                }
+
+                if (!tradeSheetName) {
+                    // 如果没有找到"交易记录"，使用第一个工作表
+                    tradeSheetName = workbook.SheetNames[0];
+                    console.warn("未找到'交易记录'工作表，使用第一个工作表：" + tradeSheetName);
+                }
+
+                const worksheet = workbook.Sheets[tradeSheetName];
+
+                // 解析交易记录数据
+                const rawData = XLSX.utils.sheet_to_json(worksheet, {header: 1, defval: ""});
+
+                // 处理数据
+                const processedData = processTradeData(rawData);
+
+                // 绘制图表
+                renderChart(processedData);
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        // 处理交易记录数据
+        function processTradeData(rawData) {
+            const headers = [];
+            const data = [];
+            let currentRecord = null;
+            let headerRow = -1;
+
+            // 查找表头行
+            for (let i = 0; i < rawData.length; i++) {
+                if (rawData[i].includes("日期") && rawData[i].includes("操作") && rawData[i].includes("交易价格")) {
+                    headerRow = i;
+                    break;
+                }
+            }
+
+            if (headerRow === -1) {
+                console.error("未找到表头行");
+                return [];
+            }
+
+            // 获取表头
+            for (let i = 0; i < rawData[headerRow].length; i++) {
+                headers.push(rawData[headerRow][i] || `列${i+1}`);
+            }
+
+            // 处理数据行
+            for (let i = headerRow + 1; i < rawData.length; i++) {
+                const row = rawData[i];
+
+                // 跳过分隔符行
+                if (row[0] === "#########" || row.length === 0) {
+                    continue;
+                }
+
+                // 创建记录对象
+                const record = {};
+                for (let j = 0; j < headers.length; j++) {
+                    if (j < row.length) {
+                        record[headers[j]] = row[j];
+                    }
+                }
+
+                // 只添加有日期和价格的记录
+                if (record["日期"] && record["交易价格"]) {
+                    // 转换日期格式（假设日期是数字格式，需要转换为JS日期）
+                    if (typeof record["日期"] === "number") {
+                        // Excel日期是从1900年1月1日开始的天数
+                        // 需要转换为JavaScript日期
+                        const excelEpoch = new Date(1899, 11, 30);
+                        record["日期"] = new Date(excelEpoch.getTime() + record["日期"] * 24 * 60 * 60 * 1000);
+                    }
+
+                    data.push(record);
+                }
+            }
+
+            return data;
+        }
+
+        // 渲染图表
+        function renderChart(data) {
+            if (!data || data.length === 0) {
+                alert('数据为空或格式不正确');
+                return;
+            }
+
+            // 提取数据
+            const dates = [];
+            const prices = [];
+            const buySignals = [];
+            const sellSignals = [];
+            const stopLossSignals = [];
+
+            // 处理数据，提取需要的信息
+            data.forEach(item => {
+                if (item["日期"] && item["交易价格"]) {
+                    const date = item["日期"];
+                    const price = parseFloat(item["交易价格"]);
+
+                    dates.push(date);
+                    prices.push(price);
+
+                    // 记录买卖信号
+                    if (item["操作"] === "买多") {
+                        buySignals.push({
+                            coord: [date, price],
+                            value: price,
+                            itemStyle: {color: '#d81e06'}
+                        });
+                    } else if (item["操作"] === "卖空") {
+                        sellSignals.push({
+                            coord: [date, price],
+                            value: price,
+                            itemStyle: {color: '#1e8e3e'}
+                        });
+                    } else if (item["操作"] && item["操作"].includes("止损")) {
+                        stopLossSignals.push({
+                            coord: [date, price],
+                            value: price,
+                            itemStyle: {color: '#db4437'}
+                        });
+                    }
+                }
+            });
+
+            // 显示统计信息
+            displaySummaryStats(data);
+
+            // 配置图表选项
+            const option = {
+                title: {
+                    text: 'PDD 股价动态与交易信号',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
+                    },
+                    formatter: function(params) {
+                        const date = params[0].axisValue;
+                        const tradeInfo = findTradeInfo(date, data);
+
+                        let result = `<div style="font-weight:bold">${new Date(date).toLocaleDateString()}</div>`;
+                        params.forEach(param => {
+                            result += `${param.marker} ${param.seriesName}: ${param.value}<br/>`;
+                        });
+
+                        if (tradeInfo) {
+                            result += `<br/><strong>操作:</strong> <span style="color:${getOperationColor(tradeInfo["操作"])}">${tradeInfo["操作"]}</span><br/>`;
+                            result += `<strong>交易价格:</strong> ${tradeInfo["交易价格"]}<br/>`;
+
+                            if (tradeInfo["股数"]) {
+                                result += `<strong>股数:</strong> ${tradeInfo["股数"]}<br/>`;
+                            }
+
+                            if (tradeInfo["收益率"]) {
+                                result += `<strong>收益率:</strong> ${tradeInfo["收益率"]}%<br/>`;
+                            }
+
+                            if (tradeInfo["止损原因"]) {
+                                result += `<strong>止损原因:</strong> ${tradeInfo["止损原因"]}<br/>`;
+                            }
+
+                            if (tradeInfo["调试信息"]) {
+                                result += `<strong>详情:</strong> ${tradeInfo["调试信息"]}<br/>`;
+                            }
+                        }
+
+                        return result;
+                    }
+                },
+                legend: {
+                    data: ['交易价格', '买入信号', '卖出信号', '止损信号'],
+                    top: 30
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {},
+                        dataZoom: {},
+                        restore: {}
+                    }
+                },
+                xAxis: {
+                    type: 'time',
+                    boundaryGap: false,
+                    axisLabel: {
+                        formatter: function(value) {
+                            const date = new Date(value);
+                            return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+                        }
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    name: '价格',
+                    scale: true
+                },
+                dataZoom: [
+                    {
+                        type: 'inside',
+                        start: 0,
+                        end: 100
+                    },
+                    {
+                        start: 0,
+                        end: 100
+                    }
+                ],
+                series: [
+                    {
+                        name: '交易价格',
+                        type: 'line',
+                        data: dates.map((date, index) => [date, prices[index]]),
+                        showSymbol: false,
+                        lineStyle: {
+                            width: 2
+                        }
+                    },
+                    {
+                        name: '买入信号',
+                        type: 'scatter',
+                        data: buySignals.map(signal => [signal.coord[0], signal.coord[1]]),
+                        itemStyle: {
+                            color: '#d81e06'
+                        },
+                        symbolSize: 10
+                    },
+                    {
+                        name: '卖出信号',
+                        type: 'scatter',
+                        data: sellSignals.map(signal => [signal.coord[0], signal.coord[1]]),
+                        itemStyle: {
+                            color: '#1e8e3e'
+                        },
+                        symbolSize: 10
+                    },
+                    {
+                        name: '止损信号',
+                        type: 'scatter',
+                        data: stopLossSignals.map(signal => [signal.coord[0], signal.coord[1]]),
+                        itemStyle: {
+                            color: '#db4437'
+                        },
+                        symbolSize: 10,
+                        symbol: 'diamond'
+                    }
+                ]
+            };
+
+            // 绘制图表
+            if (myChart) {
+                myChart.hideLoading();
+                myChart.setOption(option);
+            } else {
+                myChart = echarts.init(document.getElementById('chart-container'));
+                myChart.setOption(option);
+            }
+
+            // 添加鼠标悬停事件
+            myChart.on('mouseover', function(params) {
+                if (params.componentType === 'series') {
+                    const date = params.value[0];
+                    const tradeInfo = findTradeInfo(date, data);
+                    displayTradeDetails(tradeInfo);
+                }
+            });
+        }
+
+        // 获取操作颜色
+        function getOperationColor(operation) {
+            if (!operation) return '#000';
+
+            if (operation.includes('买多')) {
+                return '#d81e06';
+            } else if (operation.includes('卖空')) {
+                return '#1e8e3e';
+            } else if (operation.includes('止损')) {
+                return '#db4437';
+            } else if (operation.includes('平多') || operation.includes('平空')) {
+                return '#4285f4';
+            }
+
+            return '#000';
+        }
+
+        // 查找特定日期的交易信息
+        function findTradeInfo(date, data) {
+            // 将日期转换为时间戳进行比较
+            const targetDate = new Date(date);
+            const targetTime = targetDate.getTime();
+
+            return data.find(item => {
+                const itemDate = new Date(item["日期"]);
+                return Math.abs(itemDate.getTime() - targetTime) < 24 * 60 * 60 * 1000; // 允许1天的误差
+            });
+        }
+
+        // 显示交易详情
+        function displayTradeDetails(tradeInfo) {
+            const tradeInfoElement = document.getElementById('trade-info');
+            if (!tradeInfo) {
+                tradeInfoElement.innerHTML = '该日期无交易记录';
+                return;
+            }
+
+            let operationClass = '';
+            if (tradeInfo["操作"] && tradeInfo["操作"].includes('买多')) {
+                operationClass = 'buy-signal';
+            } else if (tradeInfo["操作"] && tradeInfo["操作"].includes('卖空')) {
+                operationClass = 'sell-signal';
+            } else if (tradeInfo["操作"] && tradeInfo["操作"].includes('止损')) {
+                operationClass = 'stop-loss';
+            }
+
+            let html = `<table>
+                <tr><th>日期</th><td>${new Date(tradeInfo["日期"]).toLocaleDateString()}</td></tr>
+                <tr><th>阈值</th><td>${tradeInfo["阈值"] || '-'}</td></tr>
+                <tr><th>动量</th><td>${tradeInfo["动量"] || '-'}</td></tr>
+                <tr><th>操作</th><td class="${operationClass}">${tradeInfo["操作"] || '-'}</td></tr>
+                <tr><th>交易价格</th><td>${tradeInfo["交易价格"] || '-'}</td></tr>
+                <tr><th>手续费</th><td>${tradeInfo["手续费"] || '-'}</td></tr>
+                <tr><th>股数</th><td>${tradeInfo["股数"] || '-'}</td></tr>
+                <tr><th>现金</th><td>${tradeInfo["现金"] || '-'}</td></tr>
+                <tr><th>总权益</th><td>${tradeInfo["总权益"] || '-'}</td></tr>`;
+
+            if (tradeInfo["收益率"]) {
+                html += `<tr><th>收益率</th><td>${tradeInfo["收益率"]}%</td></tr>`;
+            }
+
+            if (tradeInfo["下单价"]) {
+                html += `<tr><th>下单价</th><td>${tradeInfo["下单价"]}</td></tr>`;
+            }
+
+            if (tradeInfo["开盘价"]) {
+                html += `<tr><th>开盘价</th><td>${tradeInfo["开盘价"]}</td></tr>`;
+            }
+
+            if (tradeInfo["止损原因"]) {
+                html += `<tr><th>止损原因</th><td>${tradeInfo["止损原因"]}</td></tr>`;
+            }
+
+            if (tradeInfo["调试信息"]) {
+                html += `<tr><th>调试信息</th><td>${tradeInfo["调试信息"]}</td></tr>`;
+            }
+
+            if (tradeInfo["信号反转收益率"]) {
+                html += `<tr><th>信号反转收益率</th><td>${tradeInfo["信号反转收益率"]}%</td></tr>`;
+            }
+
+            if (tradeInfo["大幅亏损"]) {
+                html += `<tr><th>大幅亏损</th><td>${tradeInfo["大幅亏损"]}</td></tr>`;
+            }
+
+            html += '</table>';
+            tradeInfoElement.innerHTML = html;
+        }
+
+        // 显示统计摘要
+        function displaySummaryStats(data) {
+            // 计算一些基本统计数据
+            const summaryElement = document.getElementById('summary-stats');
+
+            // 获取第一条和最后一条记录的日期
+            const firstDate = data[0] ? new Date(data[0]["日期"]).toLocaleDateString() : '-';
+            const lastDate = data[data.length-1] ? new Date(data[data.length-1]["日期"]).toLocaleDateString() : '-';
+
+            // 计算总收益率
+            let totalReturn = 0;
+            if (data.length > 0 && data[data.length-1]["总权益"] && data[0]["总权益"]) {
+                const initialEquity = parseFloat(data[0]["总权益"]);
+                const finalEquity = parseFloat(data[data.length-1]["总权益"]);
+                totalReturn = ((finalEquity - initialEquity) / initialEquity * 100).toFixed(2);
+            }
+
+            // 计算最大回撤
+            let maxEquity = 0;
+            let maxDrawdown = 0;
+
+            data.forEach(item => {
+                if (item["总权益"]) {
+                    const equity = parseFloat(item["总权益"]);
+                    if (equity > maxEquity) {
+                        maxEquity = equity;
+                    }
+
+                    const drawdown = (maxEquity - equity) / maxEquity * 100;
+                    if (drawdown > maxDrawdown) {
+                        maxDrawdown = drawdown;
+                    }
+                }
+            });
+
+            // 计算交易次数
+            const buyCount = data.filter(item => item["操作"] === "买多").length;
+            const sellCount = data.filter(item => item["操作"] === "卖空").length;
+            const stopLossCount = data.filter(item => item["操作"] && item["操作"].includes("止损")).length;
+
+            // 计算胜率
+            const profitableTrades = data.filter(item => item["收益率"] && parseFloat(item["收益率"]) > 0).length;
+            const totalClosedTrades = data.filter(item => item["收益率"] && item["收益率"] !== "").length;
+            const winRate = totalClosedTrades > 0 ? (profitableTrades / totalClosedTrades * 100).toFixed(2) : 0;
+
+            let html = `
+                <h4>统计摘要</h4>
+                <table>
+                    <tr><th>数据时间范围</th><td>${firstDate} - ${lastDate}</td></tr>
+                    <tr><th>总收益率</th><td>${totalReturn}%</td></tr>
+                    <tr><th>最大回撤</th><td>${maxDrawdown.toFixed(2)}%</td></tr>
+                    <tr><th>买入次数</th><td>${buyCount}</td></tr>
+                    <tr><th>卖出次数</th><td>${sellCount}</td></tr>
+                    <tr><th>止损次数</th><td>${stopLossCount}</td></tr>
+                    <tr><th>胜率</th><td>${winRate}%</td></tr>
+                </table>
+            `;
+
+            summaryElement.innerHTML = html;
+        }
+
+        // 初始化图表
+        window.onload = initChart;
+
+        // 窗口大小变化时调整图表大小
+        window.addEventListener('resize', function() {
+            if (myChart) {
+                myChart.resize();
+            }
+        });
+    </script>
+</body>
+</html>
