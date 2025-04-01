@@ -125,172 +125,172 @@
             <!--                </div>-->
             <!--            </div>-->
         </div>
+    </div>
+</section>
+<section class="bg-gradient-primary-to-secondary-gray mt5 md5" id="experiences">
 
-        <section class="bg-gradient-primary-to-secondary-gray mt5 md5" id="experiences">
-            <div class="container px-5">
-                <div id="visuallll-container"></div>
+    <div id="visuallll-container"></div>
 
-                <script>
-                    // 使用 fetch 加载 visuallll.html 内容
-                    fetch('visuallll.html')
-                      .then(response => {
-                        if (!response.ok) {
-                          throw new Error("加载 visuallll.html 失败，状态码：" + response.status);
-                        }
-                        return response.text();
-                      })
-                      .then(html => {
-                        // 创建一个临时 DOM 元素，用于解析加载的 HTML
-                        const tempDiv = document.createElement('div');
-                        tempDiv.innerHTML = html;
-                        // 如果页面包含 <body> 标签，提取其内部内容；否则直接使用全部 HTML
-                        const content = tempDiv.querySelector('body')
-                          ? tempDiv.querySelector('body').innerHTML
-                          : html;
-                        // 将提取的内容插入到目标容器中
-                        document.getElementById('visuallll-container').innerHTML = content;
-
-                        // 如果页面内有内联 script 标签，需要重新执行它们
-                        const scripts = document.getElementById('visuallll-container').querySelectorAll('script');
-                        scripts.forEach(oldScript => {
-                          const newScript = document.createElement('script');
-                          // 如果 script 有 src 属性，可以直接复制
-                          if (oldScript.src) {
-                            newScript.src = oldScript.src;
-                          } else {
-                            newScript.textContent = oldScript.textContent;
-                          }
-                          document.body.appendChild(newScript);
-                        });
-                      })
-                      .catch(error => {
-                        console.error('加载 visuallll.html 失败:', error);
-                      });
-                </script>
-            </div>
-        </section>
-
-
-        <!-- 页面中放置一个容器，用于加载悬浮按钮 -->
-        <div id="floating-buttons-container"></div>
-
-        <!-- Footer-->
-        <footer class="bg-bottom text-center py-5">
-            <div class="container px-5">
-                <div class="text-white-50 small">
-                    <div id="copyright-text">
-                        <!-- 默认内容，如果 config.yml 读取失败则使用这个 -->
-                        &copy; Dapao Huang 2023-2025. All Rights Reserved.
-                    </div>
-                    <a id="github-link" href="https://github.com/cmdSTARMO">Github</a>
-                    <span class="mx-1">&middot;</span>
-                    <a id="license-link"
-                       href="https://github.com/cmdSTARMO/cmdstar.github.io/blob/main/LICENSE">License</a>
-                </div>
-            </div>
-        </footer>
-
-        <!-- 内联 JavaScript -->
-        <script>
-            // 定义配置与内容路径 独特路径
-            const content_dir = '/';
-            const config_file = 'config.yml';
-
-            window.addEventListener('DOMContentLoaded', event => {
-
-              // Activate Bootstrap scrollspy on the main nav element
-              const mainNav = document.body.querySelector('#mainNav');
-              if (mainNav) {
-                new bootstrap.ScrollSpy(document.body, {
-                  target: '#mainNav',
-                  offset: 74,
-                });
-              }
-
-              // Collapse responsive navbar when toggler is visible
-              const navbarToggler = document.body.querySelector('.navbar-toggler');
-              const responsiveNavItems = [].slice.call(document.querySelectorAll('#navbarResponsive .nav-link'));
-              responsiveNavItems.map(function(responsiveNavItem) {
-                responsiveNavItem.addEventListener('click', () => {
-                  if (window.getComputedStyle(navbarToggler).display !== 'none') {
-                    navbarToggler.click();
-                  }
-                });
-              });
-
-              // 读取 YAML 配置文件，仅用于更新 footer 中的版权信息
-              fetch(content_dir + config_file)
-                .then(response => response.text())
-                .then(text => {
-                  const yml = jsyaml.load(text);
-                  if (yml && yml['copyright-text']) {
-                    document.getElementById('copyright-text').innerHTML = yml['copyright-text'];
-                  }
-                })
-                .catch(error => console.log(error));
-
-              // 使用 Marked 解析 Markdown 内容，并在页面中渲染
-              marked.use({ mangle: false, headerIds: false });
-              section_names.forEach((name) => {
-                fetch(content_dir + name + '.md')
-                  .then(response => response.text())
-                  .then(markdown => {
-                    // 页面中要求存在 id 如 "home-md", "publications-md", "awards-md"
-                    document.getElementById(name + '-md').innerHTML = marked.parse(markdown);
-                  }).then(() => {
-                    // MathJax 重新渲染数学公式
-                    MathJax.typeset();
-                  })
-                  .catch(error => console.log(error));
-              });
-            });
-        </script>
-        <!--悬浮按钮-->
-        <script>
-            fetch('floatingButtons.html')
-              .then(response => response.text())
-              .then(html => {
-                var container = document.getElementById('floating-buttons-container');
-                container.innerHTML = html;
-                // 提取并执行内联的 script 标签
-                var scripts = container.querySelectorAll('script');
-                scripts.forEach(oldScript => {
-                  var newScript = document.createElement('script');
-                  newScript.textContent = oldScript.textContent;
-                  document.body.appendChild(newScript);
-                });
-              })
-              .catch(error => console.error('Error loading floating buttons:', error));
-        </script>
-        <!-- i18next 初始化及内容更新 -->
-        <script>
-            i18next
-              .use(i18nextHttpBackend)
-              .init({
-                lng: localStorage.getItem('lang') || 'en',  // 默认中文
-                fallbackLng: 'en',
-                debug: false,
-                backend: {
-                  loadPath: '/localizations_mainpage/{{lng}}.json' // 独特路径
-                }
-              }, function(err, t) {
-                if (err) console.error(err);
-                updateContent();
-              });
-
-            function updateContent() {
-          // 获取当前语言下的翻译资源对象
-          const translations = i18next.getResourceBundle(i18next.language, 'translation');
-          for (const key in translations) {
-            if (translations.hasOwnProperty(key)) {
-              const el = document.getElementById(key);
-              if (el) {
-                // 如果翻译中包含 HTML 标签，则用 innerHTML，否则用 textContent
-                el.innerHTML = translations[key];
-              }
+    <script>
+        // 使用 fetch 加载 visuallll.html 内容
+        fetch('visuallll.html')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error("加载 visuallll.html 失败，状态码：" + response.status);
             }
+            return response.text();
+          })
+          .then(html => {
+            // 创建一个临时 DOM 元素，用于解析加载的 HTML
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            // 如果页面包含 <body> 标签，提取其内部内容；否则直接使用全部 HTML
+            const content = tempDiv.querySelector('body')
+              ? tempDiv.querySelector('body').innerHTML
+              : html;
+            // 将提取的内容插入到目标容器中
+            document.getElementById('visuallll-container').innerHTML = content;
+
+            // 如果页面内有内联 script 标签，需要重新执行它们
+            const scripts = document.getElementById('visuallll-container').querySelectorAll('script');
+            scripts.forEach(oldScript => {
+              const newScript = document.createElement('script');
+              // 如果 script 有 src 属性，可以直接复制
+              if (oldScript.src) {
+                newScript.src = oldScript.src;
+              } else {
+                newScript.textContent = oldScript.textContent;
+              }
+              document.body.appendChild(newScript);
+            });
+          })
+          .catch(error => {
+            console.error('加载 visuallll.html 失败:', error);
+          });
+    </script>
+
+</section>
+
+<!-- 页面中放置一个容器，用于加载悬浮按钮 -->
+<div id="floating-buttons-container"></div>
+
+<!-- Footer-->
+<footer class="bg-bottom text-center py-5">
+    <div class="container px-5">
+        <div class="text-white-50 small">
+            <div id="copyright-text">
+                <!-- 默认内容，如果 config.yml 读取失败则使用这个 -->
+                &copy; Dapao Huang 2023-2025. All Rights Reserved.
+            </div>
+            <a id="github-link" href="https://github.com/cmdSTARMO">Github</a>
+            <span class="mx-1">&middot;</span>
+            <a id="license-link"
+               href="https://github.com/cmdSTARMO/cmdstar.github.io/blob/main/LICENSE">License</a>
+        </div>
+    </div>
+</footer>
+
+<!-- 内联 JavaScript -->
+<script>
+    // 定义配置与内容路径 独特路径
+    const content_dir = '/';
+    const config_file = 'config.yml';
+
+    window.addEventListener('DOMContentLoaded', event => {
+
+      // Activate Bootstrap scrollspy on the main nav element
+      const mainNav = document.body.querySelector('#mainNav');
+      if (mainNav) {
+        new bootstrap.ScrollSpy(document.body, {
+          target: '#mainNav',
+          offset: 74,
+        });
+      }
+
+      // Collapse responsive navbar when toggler is visible
+      const navbarToggler = document.body.querySelector('.navbar-toggler');
+      const responsiveNavItems = [].slice.call(document.querySelectorAll('#navbarResponsive .nav-link'));
+      responsiveNavItems.map(function(responsiveNavItem) {
+        responsiveNavItem.addEventListener('click', () => {
+          if (window.getComputedStyle(navbarToggler).display !== 'none') {
+            navbarToggler.click();
           }
+        });
+      });
+
+      // 读取 YAML 配置文件，仅用于更新 footer 中的版权信息
+      fetch(content_dir + config_file)
+        .then(response => response.text())
+        .then(text => {
+          const yml = jsyaml.load(text);
+          if (yml && yml['copyright-text']) {
+            document.getElementById('copyright-text').innerHTML = yml['copyright-text'];
+          }
+        })
+        .catch(error => console.log(error));
+
+      // 使用 Marked 解析 Markdown 内容，并在页面中渲染
+      marked.use({ mangle: false, headerIds: false });
+      section_names.forEach((name) => {
+        fetch(content_dir + name + '.md')
+          .then(response => response.text())
+          .then(markdown => {
+            // 页面中要求存在 id 如 "home-md", "publications-md", "awards-md"
+            document.getElementById(name + '-md').innerHTML = marked.parse(markdown);
+          }).then(() => {
+            // MathJax 重新渲染数学公式
+            MathJax.typeset();
+          })
+          .catch(error => console.log(error));
+      });
+    });
+</script>
+<!--悬浮按钮-->
+<script>
+    fetch('floatingButtons.html')
+      .then(response => response.text())
+      .then(html => {
+        var container = document.getElementById('floating-buttons-container');
+        container.innerHTML = html;
+        // 提取并执行内联的 script 标签
+        var scripts = container.querySelectorAll('script');
+        scripts.forEach(oldScript => {
+          var newScript = document.createElement('script');
+          newScript.textContent = oldScript.textContent;
+          document.body.appendChild(newScript);
+        });
+      })
+      .catch(error => console.error('Error loading floating buttons:', error));
+</script>
+<!-- i18next 初始化及内容更新 -->
+<script>
+    i18next
+      .use(i18nextHttpBackend)
+      .init({
+        lng: localStorage.getItem('lang') || 'en',  // 默认中文
+        fallbackLng: 'en',
+        debug: false,
+        backend: {
+          loadPath: '/localizations_mainpage/{{lng}}.json' // 独特路径
         }
-        </script>
+      }, function(err, t) {
+        if (err) console.error(err);
+        updateContent();
+      });
+
+    function updateContent() {
+  // 获取当前语言下的翻译资源对象
+  const translations = i18next.getResourceBundle(i18next.language, 'translation');
+  for (const key in translations) {
+    if (translations.hasOwnProperty(key)) {
+      const el = document.getElementById(key);
+      if (el) {
+        // 如果翻译中包含 HTML 标签，则用 innerHTML，否则用 textContent
+        el.innerHTML = translations[key];
+      }
+    }
+  }
+}
+</script>
 </body>
 </html>
