@@ -1,76 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- 卡片样式 -->
-<style>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta name="description" content="Dapao's Personal Website"/>
+  <meta name="author" content="hdp"/>
+  <title id="website-title"></title>
+
+  <!-- 卡片样式 -->
+  <style>
     .experience-card {
-        padding: 20px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
     .experience-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        cursor: pointer;
+      transform: translateY(-8px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
     }
     .experience-card p {
       text-align: justify;
     }
-</style>
+    /* iframe 样式：宽度占满、无边框 */
+    .iframe-container {
+      width: 100%;
+      border: none;
+    }
+  </style>
 
-<head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="description" content="Dapao's Personal Website"/>
-    <meta name="author" content="hdp"/>
-    <title id="website-title"></title>
+  <!-- Icon -->
+  <link rel="icon" type="image/x-icon" href="static/assets/icon.png"/>
+  <!-- Bootstrap icons-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
+  <!-- Google fonts-->
+  <link rel="preconnect" href="https://fonts.gstatic.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet"/>
 
-    <!-- Icon -->
-    <link rel="icon" type="image/x-icon" href="static/assets/icon.png"/>
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link type="text/css" href="static/css/styles.css" rel="stylesheet"/>
+  <link type="text/css" href="static/css/main.css" rel="stylesheet"/>
 
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
+  <!-- Bootstrap core JS-->
+  <script type="text/javascript" src="static/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Google fonts-->
-    <link rel="preconnect" href="https://fonts.gstatic.com"/>
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap"
-          rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap"
-          rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap"
-          rel="stylesheet"/>
+  <!-- Markdown -->
+  <script type="text/javascript" src="static/js/marked.min.js"></script>
+  <!-- YAML 解析库 -->
+  <script type="text/javascript" src="static/js/js-yaml.min.js"></script>
+  <!-- i18next 及后端插件 -->
+  <script src="https://unpkg.com/i18next@21.6.3/dist/umd/i18next.min.js"></script>
+  <script src="https://unpkg.com/i18next-http-backend@1.4.1/i18nextHttpBackend.min.js"></script>
 
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link type="text/css" href="static/css/styles.css" rel="stylesheet"/>
-    <link type="text/css" href="static/css/main.css" rel="stylesheet"/>
+  <!-- 定义自动调整 iframe 高度及内嵌样式函数 -->
+  <script>
+    function initIframe(iframe) {
+      try {
+        var doc = iframe.contentDocument || iframe.contentWindow.document;
+        // 设置 iframe 内部背景透明、上下各 10px 内边距
+        doc.body.style.backgroundColor = 'transparent';
+        doc.body.style.paddingTop = '10px';
+        doc.body.style.paddingBottom = '10px';
+        // 隐藏滚动条
+        doc.documentElement.style.overflow = 'hidden';
 
-    <!-- Bootstrap core JS-->
-    <script type="text/javascript" src="static/js/bootstrap.bundle.min.js"></script>
-
-    <!-- For Compatibility -->
-    <!--    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>-->
-
-    <!-- Markdown -->
-    <script type="text/javascript" src="static/js/marked.min.js"></script>
-    <!-- MathJax 示例（可根据需要启用） -->
-    <!-- <script type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script> -->
-    <!-- <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
-
-    <!-- YAML 解析库 -->
-    <script type="text/javascript" src="static/js/js-yaml.min.js"></script>
-
-    <!-- i18next 及后端插件 -->
-    <script src="https://unpkg.com/i18next@21.6.3/dist/umd/i18next.min.js"></script>
-    <script src="https://unpkg.com/i18next-http-backend@1.4.1/i18nextHttpBackend.min.js"></script>
-
+        // 定义一个调整高度的函数
+        function resize() {
+          iframe.style.height = doc.body.scrollHeight + 'px';
+        }
+        // 初次调整
+        resize();
+        // 使用定时器持续调整（若内部内容动态变化时也能自动调整高度）
+        setInterval(resize, 500);
+      } catch (e) {
+        console.error('initIframe error:', e);
+      }
+    }
+  </script>
 </head>
 
-
 <body id="page-top">
-<!-- Navigation -->
-<div id="navbar"></div>
-<script>
+  <!-- Navigation -->
+  <div id="navbar"></div>
+  <script>
     // 动态加载 navbar.html
     fetch('navbar.html')
       .then(response => response.text())
@@ -78,126 +94,66 @@
           document.getElementById('navbar').innerHTML = data;
       })
       .catch(error => console.error('Error loading navbar:', error));
-</script>
+  </script>
 
-<!-- Top Section -->
-<section class="top-section" style="background-image: url('static/assets/img/background.png');">
+  <!-- Top Section -->
+  <section class="top-section" style="background-image: url('static/assets/img/background.png');">
     <div class="top-section-content">
-        <div class="container px-5">
-            <h2 id="top-section-bg-text" class="text-white display-3 lh-1 font-alt">
-                <b>Live long and prosper.<br>生生不息 繁荣昌盛</b>
-            </h2>
-        </div>
+      <div class="container px-5">
+        <h2 id="top-section-bg-text" class="text-white display-3 lh-1 font-alt">
+          <b>Live long and prosper.<br>生生不息 繁荣昌盛</b>
+        </h2>
+      </div>
     </div>
-</section>
+  </section>
 
-<section class="bg-gradient-primary-to-secondary-light mt5 md5" id="home">
+  <!-- 策略一览 -->
+  <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="home">
     <div class="container px-5">
-        <header>
-            <h2 id="strategy-subtitle">策略一览</h2>
-        </header>
-
-        <!--                <div class="main-body" id="home-md"></div>-->
-        <div class="experience-card" style="background-color: #f8f9fa; padding: 16px; border-radius: 8px;">
-            <h4 class="fw-bold" style="margin: 0; position: relative; top: 5px;" id="update-title">
-                Update <span class="online-dot"></span>
-            </h4>
-            <div style="margin-top: 16px;">
-                <p style="margin: 0; font-weight: 628;" id="update-announce"></p>
-            </div>
-            <!--            <br>-->
-            <!--            <div>-->
-            <!--                <p style="margin: 0; font-weight: 600;">Time left until the <b>Chinese New Year</b>:</p>-->
-            <!--                <div style="position: relative; width: 100%; aspect-ratio: 4.5 / 1; margin: 16px 0;">-->
-            <!--                    <iframe-->
-            <!--                            id="chinese-new-year-countdown"-->
-            <!--                            src="https://embed-countdown.onlinealarmkur.com/en/#2025-01-29T00:00:00@Asia%2FShanghai"-->
-            <!--                            style="-->
-            <!--                                transform: scale(0.75); /* 根据需要调整比例 */-->
-            <!--                                transform-origin: top left;-->
-            <!--                                position: absolute;-->
-            <!--                                width: 133.33%; /* 1 / 0.75 */-->
-            <!--                                height: 133.33%; /* 保持与 scale 相同的比例 */-->
-            <!--                                top: 0;-->
-            <!--                                left: 0;-->
-            <!--                                border: none;">-->
-            <!--                    </iframe>-->
-            <!--                </div>-->
-            <!--            </div>-->
+      <header>
+        <h2 id="strategy-subtitle">策略一览</h2>
+      </header>
+      <div class="experience-card" style="background-color: #f8f9fa; padding: 16px; border-radius: 8px;">
+        <h4 class="fw-bold" style="margin: 0; position: relative; top: 5px;" id="update-title">
+          Update <span class="online-dot"></span>
+        </h4>
+        <div style="margin-top: 16px;">
+          <p style="margin: 0; font-weight: 628;" id="update-announce"></p>
         </div>
+      </div>
     </div>
-</section>
-<section class="bg-gradient-primary-to-secondary-gray mt5 md5" id="experiences">
+  </section>
 
-    <div id="visuallll-container"></div>
+  <!-- 内嵌 visuallll.html 的 iframe -->
+  <section class="bg-gradient-primary-to-secondary-gray mt5 md5" id="experiences">
+    <div class="container">
+      <iframe src="visuallll.html" class="iframe-container" onload="initIframe(this)" scrolling="no"></iframe>
+    </div>
+  </section>
 
-    <script>
-        // 使用 fetch 加载 visuallll.html 内容
-        fetch('visuallll.html')
-          .then(response => {
-            if (!response.ok) {
-              throw new Error("加载 visuallll.html 失败，状态码：" + response.status);
-            }
-            return response.text();
-          })
-          .then(html => {
-            // 创建一个临时 DOM 元素，用于解析加载的 HTML
-            const tempDiv = document.createElement('div');
-            tempDiv.innerHTML = html;
-            // 如果页面包含 <body> 标签，提取其内部内容；否则直接使用全部 HTML
-            const content = tempDiv.querySelector('body')
-              ? tempDiv.querySelector('body').innerHTML
-              : html;
-            // 将提取的内容插入到目标容器中
-            document.getElementById('visuallll-container').innerHTML = content;
+  <!-- 页面中放置一个容器，用于加载悬浮按钮 -->
+  <div id="floating-buttons-container"></div>
 
-            // 如果页面内有内联 script 标签，需要重新执行它们
-            const scripts = document.getElementById('visuallll-container').querySelectorAll('script');
-            scripts.forEach(oldScript => {
-              const newScript = document.createElement('script');
-              // 如果 script 有 src 属性，可以直接复制
-              if (oldScript.src) {
-                newScript.src = oldScript.src;
-              } else {
-                newScript.textContent = oldScript.textContent;
-              }
-              document.body.appendChild(newScript);
-            });
-          })
-          .catch(error => {
-            console.error('加载 visuallll.html 失败:', error);
-          });
-    </script>
-
-</section>
-
-<!-- 页面中放置一个容器，用于加载悬浮按钮 -->
-<div id="floating-buttons-container"></div>
-
-<!-- Footer-->
-<footer class="bg-bottom text-center py-5">
+  <!-- Footer-->
+  <footer class="bg-bottom text-center py-5">
     <div class="container px-5">
-        <div class="text-white-50 small">
-            <div id="copyright-text">
-                <!-- 默认内容，如果 config.yml 读取失败则使用这个 -->
-                &copy; Dapao Huang 2023-2025. All Rights Reserved.
-            </div>
-            <a id="github-link" href="https://github.com/cmdSTARMO">Github</a>
-            <span class="mx-1">&middot;</span>
-            <a id="license-link"
-               href="https://github.com/cmdSTARMO/cmdstar.github.io/blob/main/LICENSE">License</a>
+      <div class="text-white-50 small">
+        <div id="copyright-text">
+          &copy; Dapao Huang 2023-2025. All Rights Reserved.
         </div>
+        <a id="github-link" href="https://github.com/cmdSTARMO">Github</a>
+        <span class="mx-1">&middot;</span>
+        <a id="license-link" href="https://github.com/cmdSTARMO/cmdstar.github.io/blob/main/LICENSE">License</a>
+      </div>
     </div>
-</footer>
+  </footer>
 
-<!-- 内联 JavaScript -->
-<script>
-    // 定义配置与内容路径 独特路径
+  <!-- 内联 JavaScript -->
+  <script>
     const content_dir = '/';
     const config_file = 'config.yml';
 
     window.addEventListener('DOMContentLoaded', event => {
-
       // Activate Bootstrap scrollspy on the main nav element
       const mainNav = document.body.querySelector('#mainNav');
       if (mainNav) {
@@ -235,24 +191,24 @@
         fetch(content_dir + name + '.md')
           .then(response => response.text())
           .then(markdown => {
-            // 页面中要求存在 id 如 "home-md", "publications-md", "awards-md"
             document.getElementById(name + '-md').innerHTML = marked.parse(markdown);
-          }).then(() => {
-            // MathJax 重新渲染数学公式
+          })
+          .then(() => {
             MathJax.typeset();
           })
           .catch(error => console.log(error));
       });
     });
-</script>
-<!--悬浮按钮-->
-<script>
+  </script>
+
+  <!-- 悬浮按钮 -->
+  <script>
     fetch('floatingButtons.html')
       .then(response => response.text())
       .then(html => {
         var container = document.getElementById('floating-buttons-container');
         container.innerHTML = html;
-        // 提取并执行内联的 script 标签
+        // 执行内联 script 标签
         var scripts = container.querySelectorAll('script');
         scripts.forEach(oldScript => {
           var newScript = document.createElement('script');
@@ -261,17 +217,18 @@
         });
       })
       .catch(error => console.error('Error loading floating buttons:', error));
-</script>
-<!-- i18next 初始化及内容更新 -->
-<script>
+  </script>
+
+  <!-- i18next 初始化及内容更新 -->
+  <script>
     i18next
       .use(i18nextHttpBackend)
       .init({
-        lng: localStorage.getItem('lang') || 'en',  // 默认中文
+        lng: localStorage.getItem('lang') || 'en',
         fallbackLng: 'en',
         debug: false,
         backend: {
-          loadPath: '/localizations_mainpage/{{lng}}.json' // 独特路径
+          loadPath: '/localizations_mainpage/{{lng}}.json'
         }
       }, function(err, t) {
         if (err) console.error(err);
@@ -279,18 +236,16 @@
       });
 
     function updateContent() {
-  // 获取当前语言下的翻译资源对象
-  const translations = i18next.getResourceBundle(i18next.language, 'translation');
-  for (const key in translations) {
-    if (translations.hasOwnProperty(key)) {
-      const el = document.getElementById(key);
-      if (el) {
-        // 如果翻译中包含 HTML 标签，则用 innerHTML，否则用 textContent
-        el.innerHTML = translations[key];
+      const translations = i18next.getResourceBundle(i18next.language, 'translation');
+      for (const key in translations) {
+        if (translations.hasOwnProperty(key)) {
+          const el = document.getElementById(key);
+          if (el) {
+            el.innerHTML = translations[key];
+          }
+        }
       }
     }
-  }
-}
-</script>
+  </script>
 </body>
 </html>
