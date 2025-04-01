@@ -1,193 +1,195 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>股票数据可视化</title>
-    <!-- 引入 Bootstrap 样式 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- 引入 ECharts 图表库 -->
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
-    <!-- 引入 Papa Parse 用于解析 CSV -->
-    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
-    <style>
-        body {
-          font-family: 'Microsoft YaHei', sans-serif;
-          background-color: #f8f9fa;
-
-        }
-        .card {
-          border-radius: 10px;
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-          margin-bottom: 20px;
-        }
-        .chart-container {
-          height: 600px;
-          width: 100%;
-          background-color: #fff;
-          border-radius: 8px;
-          overflow: hidden;
-        }
-        /* 优化数据选择卡片中指标按钮的平铺排列 */
-        .indicator-buttons {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 10px;
-        }
-        .indicator-buttons button {
-          flex: 1 1 calc(33.33% - 10px); /* 每行3个，间隙10px */
-          min-width: 80px;
-        }
-        @media (max-width: 576px) {
-          .indicator-buttons button {
-            flex: 1 1 100%;
-          }
-        }
-        /* 时间范围按钮的容器 */
-        .time-range-buttons {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 10px;
-        }
-        .time-range-buttons button {
-          flex: 1 1 calc(33.33% - 10px); /* 每行3个，间隙10px */
-          min-width: 80px;
-        }
-        @media (max-width: 576px) {
-          .time-range-buttons button {
-            flex: 1 1 100%;
-          }
-        }
-        /* 限制表格容器高度，并启用垂直滚动 */
-        .table-responsive {
-          max-height: 400px; /* 可根据需要调整高度 */
-          overflow-y: auto;
-        }
-
-        /* 冻结表头 */
-        .table thead th {
-          position: sticky;
-          top: 0;
-          background-color: #fff; /* 表头背景色 */
-          z-index: 2;
-        }
-
-        /* 响应式调整字体大小 */
-        @media (max-width: 768px) {
-          .table {
-            font-size: 12px;
-          }
-        }
-        @media (max-width: 576px) {
-          .table {
-            font-size: 10px;
-          }
-        }
-        .active-indicator {
-          background-color: #28a745 !important;
-          border-color: #28a745 !important;
-          color: #fff;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>股票数据可视化</title>
+  <!-- 引入 Bootstrap 样式 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- 引入 ECharts 图表库 -->
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+  <!-- 引入 Papa Parse 用于解析 CSV -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+  <style>
+    body {
+      font-family: 'Microsoft YaHei', sans-serif;
+      background-color: #f8f9fa;
+    }
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+    .chart-container {
+      height: 600px;
+      width: 100%;
+      background-color: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    /* 优化数据选择卡片中指标按钮的平铺排列 */
+    .indicator-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .indicator-buttons button {
+      flex: 1 1 calc(33.33% - 10px);
+      min-width: 80px;
+    }
+    @media (max-width: 576px) {
+      .indicator-buttons button {
+        flex: 1 1 100%;
+      }
+    }
+    /* 时间范围按钮的容器 */
+    .time-range-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .time-range-buttons button {
+      flex: 1 1 calc(33.33% - 10px);
+      min-width: 80px;
+    }
+    @media (max-width: 576px) {
+      .time-range-buttons button {
+        flex: 1 1 100%;
+      }
+    }
+    /* 表格容器：垂直滚动及启用横向滚动，同时表格内容不换行 */
+    .table-responsive {
+      max-height: 400px;
+      overflow-y: auto;
+      overflow-x: auto;
+    }
+    .table-responsive table {
+      white-space: nowrap;
+    }
+    /* 冻结表头且居中 */
+    .table thead th {
+      position: sticky;
+      top: 0;
+      background-color: #fff;
+      z-index: 2;
+      text-align: center;
+    }
+    /* 响应式调整字体大小 */
+    @media (max-width: 768px) {
+      .table {
+        font-size: 12px;
+      }
+    }
+    @media (max-width: 576px) {
+      .table {
+        font-size: 10px;
+      }
+    }
+    .active-indicator {
+      background-color: #28a745 !important;
+      border-color: #28a745 !important;
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
-<div class="container">
+  <div class="container">
     <!-- 数据选择卡片 -->
     <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">策略选择</h5>
-            <div class="mb-3">
-                <label for="fileSelect" class="form-label">选择策略数据文件</label>
-                <select class="form-select" id="fileSelect">
-                    <option value="" selected>请选择文件...</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="fileUpload" class="form-label">上传数据文件</label>
-                <input class="form-control" type="file" id="fileUpload" accept=".csv,.sql">
-            </div>
-            <hr>
-            <div class="mb-3">
-                <label class="form-label">图表类型</label>
-                <div class="d-flex">
-                    <div class="form-check me-3">
-                        <input class="form-check-input" type="radio" name="chartType" id="candlestick"
-                               value="candlestick" checked>
-                        <label class="form-check-label" for="candlestick">K线图</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="chartType" id="line" value="line">
-                        <label class="form-check-label" for="line">分时图</label>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="mb-3">
-                <label class="form-label">技术指标</label>
-                <p>*MACD, KDJ, RSI尚未完全适配！请勿点击～若误触可刷新～</p>
-                <div class="indicator-buttons">
-                    <button class="btn btn-sm btn-outline-secondary indicator-btn" data-indicator="MA">MA</button>
-                    <button class="btn btn-sm btn-outline-secondary indicator-btn" data-indicator="EMA">EMA</button>
-                    <button class="btn btn-sm btn-outline-secondary indicator-btn" data-indicator="BOLL">BOLL</button>
-                    <button class="btn btn-sm btn-outline-secondary indicator-btn" data-indicator="MACD">MACD</button>
-                    <button class="btn btn-sm btn-outline-secondary indicator-btn" data-indicator="KDJ">KDJ</button>
-                    <button class="btn btn-sm btn-outline-secondary indicator-btn" data-indicator="RSI">RSI</button>
-                </div>
-            </div>
-            <hr>
-            <div class="mb-3">
-                <label class="form-label">时间范围</label>
-                <div class="time-range-buttons">
-                    <button class="btn btn-sm btn-outline-secondary" data-range="1m">1月</button>
-                    <button class="btn btn-sm btn-outline-secondary" data-range="3m">3月</button>
-                    <button class="btn btn-sm btn-outline-secondary" data-range="6m">6月</button>
-                    <button class="btn btn-sm btn-outline-secondary active" data-range="1y">1年</button>
-                    <button class="btn btn-sm btn-outline-secondary" data-range="all">全部</button>
-                </div>
-            </div>
-            <div class="data-info mt-3" id="dataInfo">未加载数据</div>
+      <div class="card-body">
+        <h5 class="card-title">策略选择</h5>
+        <div class="mb-3">
+          <label for="fileSelect" class="form-label">选择策略数据文件</label>
+          <select class="form-select" id="fileSelect">
+            <option value="" selected>请选择文件...</option>
+          </select>
         </div>
+        <div class="mb-3">
+          <label for="fileUpload" class="form-label">上传数据文件</label>
+          <input class="form-control" type="file" id="fileUpload" accept=".csv,.sql">
+        </div>
+        <hr>
+        <div class="mb-3">
+          <label class="form-label">图表类型</label>
+          <div class="d-flex">
+            <div class="form-check me-3">
+              <input class="form-check-input" type="radio" name="chartType" id="candlestick"
+                     value="candlestick" checked>
+              <label class="form-check-label" for="candlestick">K线图</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="chartType" id="line" value="line">
+              <label class="form-check-label" for="line">分时图</label>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="mb-3">
+          <label class="form-label">技术指标</label>
+          <p>*MACD, KDJ, RSI尚未完全适配！请勿点击～若误触可刷新～</p>
+          <div class="indicator-buttons">
+            <button class="btn btn-sm btn-outline-secondary indicator-btn" data-indicator="MA">MA</button>
+            <button class="btn btn-sm btn-outline-secondary indicator-btn" data-indicator="EMA">EMA</button>
+            <button class="btn btn-sm btn-outline-secondary indicator-btn" data-indicator="BOLL">BOLL</button>
+            <button class="btn btn-sm btn-outline-secondary indicator-btn" data-indicator="MACD">MACD</button>
+            <button class="btn btn-sm btn-outline-secondary indicator-btn" data-indicator="KDJ">KDJ</button>
+            <button class="btn btn-sm btn-outline-secondary indicator-btn" data-indicator="RSI">RSI</button>
+          </div>
+        </div>
+        <hr>
+        <div class="mb-3">
+          <label class="form-label">时间范围</label>
+          <div class="time-range-buttons">
+            <button class="btn btn-sm btn-outline-secondary" data-range="1m">1月</button>
+            <button class="btn btn-sm btn-outline-secondary" data-range="3m">3月</button>
+            <button class="btn btn-sm btn-outline-secondary" data-range="6m">6月</button>
+            <button class="btn btn-sm btn-outline-secondary active" data-range="1y">1年</button>
+            <button class="btn btn-sm btn-outline-secondary" data-range="all">全部</button>
+          </div>
+        </div>
+        <div class="data-info mt-3" id="dataInfo">未加载数据</div>
+      </div>
     </div>
 
     <!-- 图表卡片 -->
     <div class="card">
-        <div class="card-body">
-            <div id="stockChart" class="chart-container"></div>
-        </div>
+      <div class="card-body">
+        <div id="stockChart" class="chart-container"></div>
+      </div>
     </div>
 
     <!-- 数据表格卡片 -->
     <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">数据表格</h5>
-            <div class="table-responsive">
-                <table class="table table-striped table-hover" id="dataTable">
-                    <thead>
-                    <tr>
-                        <th>日期</th>
-                        <th>开盘价</th>
-                        <th>收盘价</th>
-                        <th>最高价</th>
-                        <th>最低价</th>
-                        <th>成交量</th>
-                        <th>成交额</th>
-                        <th>振幅(%)</th>
-                        <th>涨跌幅(%)</th>
-                        <th>涨跌额</th>
-                        <th>换手率(%)</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <!-- 数据动态加载 -->
-                    </tbody>
-                </table>
-            </div>
+      <div class="card-body">
+        <h5 class="card-title">数据表格</h5>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover" id="dataTable">
+            <thead>
+              <tr>
+                <th>日期</th>
+                <th>开盘价</th>
+                <th>收盘价</th>
+                <th>最高价</th>
+                <th>最低价</th>
+                <th>成交量</th>
+                <th>成交额</th>
+                <th>振幅(%)</th>
+                <th>涨跌幅(%)</th>
+                <th>涨跌额</th>
+                <th>换手率(%)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- 数据动态加载 -->
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<!-- JavaScript 代码 -->
-<script>
+  <!-- JavaScript 代码 -->
+  <script>
     let stockData = [];
     let chart = null;
     let activeIndicators = [];
@@ -217,30 +219,72 @@
           borderColor: '#ccc',
           borderWidth: 1,
           textStyle: { color: '#333', fontSize: 12 },
-          // 修改后的 formatter 判断 seriesType
           formatter: function (params) {
             if (!params || params.length === 0) return '';
-            // 如果第一个系列是 candlestick，则按 K 线数据处理
-            if (params[0].seriesType === 'candlestick') {
-              const data = params[0].data;
-              const date = params[0].name;
-              let open = data[0], close = data[1], high = data[2], low = data[3];
+            // 如果是 K线图或分时图（即 currentChartType 为 candlestick 或 line）
+            if (params[0].seriesType === 'candlestick' || (params[0].seriesType === 'line' && currentChartType === 'line')) {
+              const dataIndex = params[0].dataIndex;
+              const originalData = currentFilteredData[dataIndex] || [];
+              // 原始数据顺序：0日期、1开盘、2收盘、3最高、4最低、5成交量、6成交额、7振幅、8涨跌幅、9涨跌额、10换手率
+              const date = originalData[0];
+              const open = originalData[1];
+              const close = originalData[2];
+              const high = originalData[3];
+              const low = originalData[4];
+              const volume = originalData[5];
+              const amplitude = originalData[7];
+              const changePct = originalData[8];
+              const turnoverRate = originalData[10];
               let html = `<table style="width:100%;font-size:12px;">
-                            <tr><th style="text-align:left;">日期</th><td>${date}</td></tr>
-                            <tr><th style="text-align:left;">开盘价</th><td>${open.toFixed(2)}</td></tr>
-                            <tr><th style="text-align:left;">收盘价</th><td>${close.toFixed(2)}</td></tr>
-                            <tr><th style="text-align:left;">最高价</th><td>${high.toFixed(2)}</td></tr>
-                            <tr><th style="text-align:left;">最低价</th><td>${low.toFixed(2)}</td></tr>`;
-              if (data[4] !== undefined) {
-                html += `<tr><th style="text-align:left;">成交量</th><td>${parseFloat(data[4]).toLocaleString()}</td></tr>`;
+                            <tr>
+                              <th style="text-align:left;">日期</th>
+                              <td style="text-align:right;">${date}</td>
+                            </tr>
+                            <tr>
+                              <th style="text-align:left;">开盘价</th>
+                              <td style="text-align:right;">${open != null ? parseFloat(open).toFixed(2) : '-'}</td>
+                            </tr>
+                            <tr>
+                              <th style="text-align:left;">收盘价</th>
+                              <td style="text-align:right;">${close != null ? parseFloat(close).toFixed(2) : '-'}</td>
+                            </tr>
+                            <tr>
+                              <th style="text-align:left;">最高价</th>
+                              <td style="text-align:right;">${high != null ? parseFloat(high).toFixed(2) : '-'}</td>
+                            </tr>
+                            <tr>
+                              <th style="text-align:left;">最低价</th>
+                              <td style="text-align:right;">${low != null ? parseFloat(low).toFixed(2) : '-'}</td>
+                            </tr>`;
+              if (volume !== undefined) {
+                html += `<tr>
+                           <th style="text-align:left;">成交量</th>
+                           <td style="text-align:right;">${parseFloat(volume).toLocaleString()}</td>
+                         </tr>`;
+              }
+              if (amplitude !== undefined) {
+                html += `<tr>
+                           <th style="text-align:left;">振幅(%)</th>
+                           <td style="text-align:right;">${amplitude != null ? parseFloat(amplitude).toFixed(2) + '%' : '-'}</td>
+                         </tr>`;
+              }
+              if (changePct !== undefined) {
+                html += `<tr>
+                           <th style="text-align:left;">涨跌幅(%)</th>
+                           <td style="text-align:right;">${changePct != null ? parseFloat(changePct).toFixed(2) + '%' : '-'}</td>
+                         </tr>`;
+              }
+              if (turnoverRate !== undefined) {
+                html += `<tr>
+                           <th style="text-align:left;">换手率(%)</th>
+                           <td style="text-align:right;">${turnoverRate != null ? parseFloat(turnoverRate).toFixed(2) + '%' : '-'}</td>
+                         </tr>`;
               }
               html += `</table>`;
               return html;
             } else if (params[0].seriesType === 'bar') {
-              // 如果悬停在成交量部分，直接显示简单信息
               return `${params[0].marker} ${params[0].seriesName}: ${params[0].value.toLocaleString()}`;
             } else {
-              // 其它情况直接遍历所有参数
               let text = '';
               params.forEach(param => {
                 text += `${param.marker} ${param.seriesName}: ${param.value}<br/>`;
@@ -255,22 +299,16 @@
       window.addEventListener('resize', () => chart.resize());
     }
 
-    // 模拟加载文件列表
-    // 自动读取 market_data 文件夹中的所有文件（要求服务器支持目录列表）
     function loadFileList() {
-      // 请求 files.json
       fetch('files.json')
         .then(response => response.json())
         .then(files => {
           const fileSelect = document.getElementById('fileSelect');
-          // 清空已有选项，保留第一项“请选择文件...”
           while (fileSelect.options.length > 1) {
             fileSelect.remove(1);
           }
-          // 将files数组中的每个文件名添加到下拉菜单
           files.forEach(filename => {
             const opt = document.createElement('option');
-            // 假设你的 CSV 文件都放在 market_data 文件夹下
             opt.value = 'market_data/' + filename;
             opt.textContent = filename;
             fileSelect.appendChild(opt);
@@ -310,9 +348,7 @@
       });
       document.querySelectorAll('.indicator-btn').forEach(button => {
         button.addEventListener('click', function (e) {
-          // 获取当前按钮对应的指标标识
           const indicator = e.currentTarget.getAttribute('data-indicator');
-          // 如果 activeIndicators 数组中已经包含该指标，则移除（取消选中），否则添加（选中）
           if (activeIndicators.includes(indicator)) {
             activeIndicators = activeIndicators.filter(item => item !== indicator);
             e.currentTarget.classList.remove('active-indicator');
@@ -333,7 +369,6 @@
       });
     }
 
-    // 模拟数据加载（实际应用中用 AJAX 获取）
     function loadDataFromFile(filePath) {
       fetch(filePath)
         .then(response => {
@@ -355,7 +390,6 @@
         });
     }
 
-    // 解析 CSV 数据
     function parseCSVData(csvContent, fileName) {
       Papa.parse(csvContent, {
         header: false,
@@ -371,7 +405,6 @@
       });
     }
 
-    // 解析 SQL 数据（仅支持简单的 INSERT 语句）
     function parseSQLData(sqlContent, fileName) {
       try {
         const rows = [];
@@ -398,7 +431,6 @@
       }
     }
 
-    // 处理数据并更新图表和数据表
     function processData(data, fileName) {
       stockData = data.map(row => {
         return [
@@ -421,7 +453,6 @@
       document.getElementById('dataInfo').textContent = `${fileName} - 共${stockData.length}条数据`;
     }
 
-    // 更新图表，采用 tooltip 内显示详细信息的方式
     function updateChart() {
       if (stockData.length === 0) return;
       let filteredData = stockData;
@@ -552,26 +583,68 @@
           borderWidth: 1,
           textStyle: { color: '#333', fontSize: 12 },
           formatter: function (params) {
-              if (!params || params.length === 0) return '';
-              if (params[0].seriesType === 'candlestick') {
-                const data = params[0].data;
-                const date = params[0].name;
-                // 如果其中任何数值为 null，则不调用 toFixed
-                const open = data[0], close = data[1], high = data[2], low = data[3];
-                let html = `<table style="width:100%;font-size:12px;">
-                              <tr><th style="text-align:left;">日期</th><td>${date}</td></tr>
-                              <tr><th style="text-align:left;">开盘价</th><td>${open != null ? open.toFixed(2) : '-'}</td></tr>
-                              <tr><th style="text-align:left;">收盘价</th><td>${close != null ? close.toFixed(2) : '-'}</td></tr>
-                              <tr><th style="text-align:left;">最高价</th><td>${high != null ? high.toFixed(2) : '-'}</td></tr>
-                              <tr><th style="text-align:left;">最低价</th><td>${low != null ? low.toFixed(2) : '-'}</td></tr>`;
-                if (data[4] !== undefined) {
-                  html += `<tr><th style="text-align:left;">成交量</th><td>${parseFloat(data[4]).toLocaleString()}</td></tr>`;
-                }
-                html += `</table>`;
-                return html;
-              // 其它情况……
+            if (!params || params.length === 0) return '';
+            // 无论是 candlestick 还是 line（分时图），均显示完整 tooltip 内容
+            if (params[0].seriesType === 'candlestick' || (params[0].seriesType === 'line' && currentChartType === 'line')) {
+              const dataIndex = params[0].dataIndex;
+              const originalData = currentFilteredData[dataIndex] || [];
+              const date = originalData[0];
+              const open = originalData[1];
+              const close = originalData[2];
+              const high = originalData[3];
+              const low = originalData[4];
+              const volume = originalData[5];
+              const amplitude = originalData[7];
+              const changePct = originalData[8];
+              const turnoverRate = originalData[10];
+              let html = `<table style="width:100%;font-size:12px;">
+                            <tr>
+                              <th style="text-align:left;">日期</th>
+                              <td style="text-align:right;">${date}</td>
+                            </tr>
+                            <tr>
+                              <th style="text-align:left;">开盘价</th>
+                              <td style="text-align:right;">${open != null ? parseFloat(open).toFixed(2) : '-'}</td>
+                            </tr>
+                            <tr>
+                              <th style="text-align:left;">收盘价</th>
+                              <td style="text-align:right;">${close != null ? parseFloat(close).toFixed(2) : '-'}</td>
+                            </tr>
+                            <tr>
+                              <th style="text-align:left;">最高价</th>
+                              <td style="text-align:right;">${high != null ? parseFloat(high).toFixed(2) : '-'}</td>
+                            </tr>
+                            <tr>
+                              <th style="text-align:left;">最低价</th>
+                              <td style="text-align:right;">${low != null ? parseFloat(low).toFixed(2) : '-'}</td>
+                            </tr>`;
+              if (volume !== undefined) {
+                html += `<tr>
+                           <th style="text-align:left;">成交量</th>
+                           <td style="text-align:right;">${parseFloat(volume).toLocaleString()}</td>
+                         </tr>`;
+              }
+              if (amplitude !== undefined) {
+                html += `<tr>
+                           <th style="text-align:left;">振幅(%)</th>
+                           <td style="text-align:right;">${amplitude != null ? parseFloat(amplitude).toFixed(2) + '%' : '-'}</td>
+                         </tr>`;
+              }
+              if (changePct !== undefined) {
+                html += `<tr>
+                           <th style="text-align:left;">涨跌幅(%)</th>
+                           <td style="text-align:right;">${changePct != null ? parseFloat(changePct).toFixed(2) + '%' : '-'}</td>
+                         </tr>`;
+              }
+              if (turnoverRate !== undefined) {
+                html += `<tr>
+                           <th style="text-align:left;">换手率(%)</th>
+                           <td style="text-align:right;">${turnoverRate != null ? parseFloat(turnoverRate).toFixed(2) + '%' : '-'}</td>
+                         </tr>`;
+              }
+              html += `</table>`;
+              return html;
             } else if (params[0].seriesType === 'bar') {
-              // 对于成交量系列直接返回简单文本，避免 toFixed 调用错误
               return `${params[0].marker} ${params[0].seriesName}: ${params[0].value.toLocaleString()}`;
             } else {
               let text = '';
@@ -617,7 +690,6 @@
       }
     }
 
-    // 以下各函数与之前基本一致，均添加了 showSymbol:false 与 emphasis 配置
     function addIndicators(option, data) {
       activeIndicators.forEach(indicator => {
         switch (indicator) {
@@ -670,7 +742,7 @@
       const result = [];
       for (let i = 0; i < data.length; i++) {
         if (i < dayCount - 1) {
-          result.push(null);  // 改为 null
+          result.push(null);
           continue;
         }
         let sum = 0;
@@ -968,7 +1040,7 @@
       const result = [];
       for (let i = 0; i < data.length; i++) {
         if (i < period) {
-          result.push(null); // 不足时返回 null
+          result.push(null);
           continue;
         }
         let sumGain = 0, sumLoss = 0;
@@ -993,21 +1065,21 @@
       displayData.forEach(row => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td>${row[0]}</td>
-          <td>${row[1].toFixed(2)}</td>
-          <td>${row[2].toFixed(2)}</td>
-          <td>${row[3].toFixed(2)}</td>
-          <td>${row[4].toFixed(2)}</td>
-          <td>${row[5].toLocaleString()}</td>
-          <td>${row[6].toLocaleString()}</td>
-          <td>${row[7]}%</td>
-          <td>${row[8]}%</td>
-          <td>${row[9].toFixed(2)}</td>
-          <td>${row[10]}%</td>
+          <td style="text-align:left;">${row[0]}</td>
+          <td style="text-align:right;">${row[1].toFixed(2)}</td>
+          <td style="text-align:right;">${row[2].toFixed(2)}</td>
+          <td style="text-align:right;">${row[3].toFixed(2)}</td>
+          <td style="text-align:right;">${row[4].toFixed(2)}</td>
+          <td style="text-align:right;">${row[5].toLocaleString()}</td>
+          <td style="text-align:right;">${row[6].toLocaleString()}</td>
+          <td style="text-align:right;">${row[7]}%</td>
+          <td style="text-align:right;">${row[8]}%</td>
+          <td style="text-align:right;">${row[9].toFixed(2)}</td>
+          <td style="text-align:right;">${row[10]}%</td>
         `;
         tableBody.appendChild(tr);
       });
     }
-</script>
+  </script>
 </body>
 </html>
