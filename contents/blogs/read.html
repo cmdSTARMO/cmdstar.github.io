@@ -96,6 +96,9 @@
     </div>
 </section>
 
+<!-- 页面中放置一个容器，用于加载悬浮按钮 -->
+<div id="floating-buttons-container"></div>
+
 <!-- 页脚部分，从全局配置中加载版权信息 -->
 <footer class="bg-bottom text-center py-5">
     <div class="container px-5">
@@ -109,6 +112,23 @@
         </div>
     </div>
 </footer>
+
+<script>
+    fetch('../floatingButtons.html')
+      .then(response => response.text())
+      .then(html => {
+        var container = document.getElementById('floating-buttons-container');
+        container.innerHTML = html;
+        // 提取并执行内联的 script 标签
+        var scripts = container.querySelectorAll('script');
+        scripts.forEach(oldScript => {
+          var newScript = document.createElement('script');
+          newScript.textContent = oldScript.textContent;
+          document.body.appendChild(newScript);
+        });
+      })
+      .catch(error => console.error('Error loading floating buttons:', error));
+</script>
 
 <!-- 动态加载 YAML 与 Markdown 的脚本 -->
 <script>
@@ -179,5 +199,6 @@
     }
     loadConfig();
 </script>
+
 </body>
 </html>
