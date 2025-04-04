@@ -86,10 +86,11 @@
             <!-- 文章日期（可选） -->
             <div id="article-date" class="text-muted"></div>
         </header>
+        <div class="custom-divider"></div>
         <!-- Markdown 文章内容 -->
-        <div class="main-body vp-content" id="Finews-md"></div>
+        <div class="main-body vp-content" id="article-md"></div>
         <!-- YAML 中其他自定义变量示例 -->
-<!--        <h2 id="website_name"></h2>-->
+        <!--        <h2 id="website_name"></h2>-->
     </div>
 </section>
 
@@ -133,7 +134,7 @@
       for (let key in articleMeta) {
         let elem = document.getElementById(key);
         if (elem) {
-          if (key === "top_section_bg") {
+          if (key === "top-section-bg") {
             elem.style.backgroundImage = `url('${articleMeta[key]}')`;
           } else {
             elem.innerText = articleMeta[key];
@@ -145,11 +146,11 @@
     .then(response => response.text())
     .then(mdText => {
       const htmlContent = marked.parse(mdText);
-      document.getElementById('Finews-md').innerHTML = htmlContent;
+      document.getElementById('article-md').innerHTML = htmlContent;
     })
     .catch(error => {
       console.error('加载文章出错:', error);
-      document.getElementById('Finews-md').innerHTML = '<p>无法加载文章内容</p>';
+      document.getElementById('article-md').innerHTML = '<p>无法加载文章内容</p>';
     });
 }
 
@@ -172,7 +173,7 @@
     if (articleName) {
       loadArticle(articleName);
     } else {
-      document.getElementById('Finews-md').innerHTML = '<p>没有指定文章</p>';
+      document.getElementById('article-md').innerHTML = '<p>没有指定文章</p>';
     }
     loadConfig();
 </script>
