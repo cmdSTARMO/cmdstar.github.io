@@ -2,7 +2,7 @@
 [//]: # (# 从0开始！如何整出自己的飞书财经新闻小助手)
 <br>
 
-![](Finews_pics/IM_1.png)
+![](/contents/blogs/Finews_pics/IM_1.png)
 
 > ⚠️ 本教程仅作学习分享用途，该案例中使用爬虫工具抓取了东方财富网的部分页面与信息，仅为单次爬取供演示，实际实践中请注意请求频率，谨慎使用`while`与`for`循环，建议保持**3秒/次**的访问速率。
 
@@ -11,22 +11,17 @@
 链接：[东方财富-证券聚焦-网友点击排行榜](https://finance.eastmoney.com/a/czqyw.html)
 
 具体位置：<br>
-![](Finews_pics/IM_2.jpeg)
+![](/contents/blogs/Finews_pics/IM_2.jpeg)
 实现结果：<br>
-![](Finews_pics/IM_3.PNG)
-
+![](/contents/blogs/Finews_pics/IM_3.PNG)
 <br>
-
 -----------
 <br>
-
 ## 运行环境
 
 - Python 3 / Pycharm / Anaconda 3
 - Edge / Chrome
-
 <br>
-
 -----------
 <br>
 
@@ -35,11 +30,8 @@
 - **Python** (编写涉及)
 - **Html**  (数据涉及)
 - **Json**  (数据涉及)
-
 <br>
-
 -----------
-
 &nbsp;
 ## 开发流程
 <br>
@@ -51,27 +43,27 @@
   ```commandline
   https://finance.eastmoney.com/a/czqyw.html
   ```
-![](Finews_pics/IM_2.png)
+![](/contents/blogs/Finews_pics/IM_2.png)
 点击键盘上的 `F12` ，查看是否跳出如下窗口，若未跳出可能是未开启Fn锁，则需要按住键盘上的 `Fn + F12` 以打开该窗口。<br>
 _（~~你可能不经意间打开过还觉得很高级~~）_
-![](Finews_pics/img_1.png)
+![](/contents/blogs/Finews_pics/img_1.png)
 
-随后让我们把目光聚焦到上半部分，花花绿绿的这些能通过上述方法打开的英文字母合集，我们称之为**html语言**。这些个html代码就是对应这个网页上所有的内容，根据这个关系，我们就可以通过连连看的方法找到我们所需要的东西了，点击箭头所指：![](Finews_pics/img_2.png)<br>
-没错！就是他 ![](Finews_pics/img_3.png)<br>
+随后让我们把目光聚焦到上半部分，花花绿绿的这些能通过上述方法打开的英文字母合集，我们称之为**html语言**。这些个html代码就是对应这个网页上所有的内容，根据这个关系，我们就可以通过连连看的方法找到我们所需要的东西了，点击箭头所指：![](/contents/blogs/Finews_pics/img_2.png)<br>
+没错！就是他 ![](/contents/blogs/Finews_pics/img_3.png)<br>
 此时我们将视角转回网页区域，看看咱想爬取哪一部分的数据？是了，是咱的**网友点击排行榜**，将鼠标移动到箭头所指位置，并单击一次鼠标左键：
 
 _~~（因为除了这个是静态的之外其他都不能直接用上边的url去爬，以后有机会讲讲动态怎么结合着整）~~_
 
-![](Finews_pics/img_4.png)
+![](/contents/blogs/Finews_pics/img_4.png)
 我去！好神奇！**右边**的代码居然跟着动了。没错，这个就是**网页元素检查**，如果你将鼠标在右侧代码上移动，可能你会发现页面中的某一部分被蓝色半透明矩形所覆盖，而这就是一个个元素，网页中的**文字、图片、横线**都是元素，右边这些html代码被显示为一个个元素，合在一起便组成了整个网页。
-![](Finews_pics/img_5.png)
+![](/contents/blogs/Finews_pics/img_5.png)
 
 <br>
 
 ### ② 基底代码与原理以及元素选取
 
 现在你发现了我们究竟是在寻找什么，让我们暂停一下浏览器这边的进程，打开Pycharm：<br>
-![](Finews_pics/img_6.png)
+![](/contents/blogs/Finews_pics/img_6.png)
 然后新建一个`Daily_News.py`文件，最好是在一个**船新的路径**下，无需额外更改或设置。（你要不会新建最好[百度](https://www.baidu.com)一下）
 
 面对着如此空的代码页，我建议你先写下：
@@ -181,16 +173,16 @@ oi!输出老长一段：
 现在就很明朗了，不难看出，这段html代码中，`<li><span class="no">textcontent</li>`这种形式中的`textcontent`就是我们苦苦寻找的网友点击排行榜内容。
 
 你可能一脸懵b，想提问是怎么确定出这一段代码的呢？不急，演示一波。<br>
-![](Finews_pics/img_7.png)
+![](/contents/blogs/Finews_pics/img_7.png)
 * 如图所示，我们将鼠标向上移动，去寻找元素的合集，寻找是谁框住了我们的十条新闻。
 
 * 鼠标移动，我们不难发现包裹住我们想要爬取的整个部分的元素框框叫做`<ul class="h28 fn">`。但是！可能你的鼠标灵敏度太高，手一滑滑上了一点，一不小心滑到了上边的`<div class="tabList pt5 pb5 bg_sblue clearfix">`处。
 
-![](Finews_pics/img_8.png)
+![](/contents/blogs/Finews_pics/img_8.png)
 * 你会发现，欸？明明这个元素也可以整出个蓝框框框住网友点击排行榜的嘞，为啥不用他？相信聪明的人已经发现了，是的，`<div class="tabList pt5 pb5 bg_sblue clearfix">`相对于`<ul class="h28 fn">`来说，他所包含的信息多了一层，也就是`<ul class="h28 fn">`也被`<div class="tabList pt5 pb5 bg_sblue clearfix">`包裹在其中，这就会造成你在单独拎出来一段元素后还得再抽丝剥茧一次，而选择`<ul class="h28 fn">`，这个作为`<li>`最后一层保护壳的元素则会使得我们的步骤减少到两步。可能还有人不懂，我画个**抽象图**解释一下：
 
 
-![](Finews_pics/img_9.png)
+![](/contents/blogs/Finews_pics/img_9.png)
 * 如果你理解了，恭喜你！我们现在可以将目光转到**Python**上了。
 
 <br>
@@ -312,7 +304,7 @@ print(test_text.split('，'))
 回到我们的`rough_text`中，现在你知道了，我们可以通过将其中的`<a href="`作为裁剪点，要注意的是，现在`rough_text`已经是一个纯文本了，其中的`"`已经不再具有特殊意义以及其他作用，所以在分割时也需带上这一部分。
 * 同时，当裁剪点含有`"`时，我们可以使用单引号`''`来包裹他。反之，当裁剪点含有`'`时，我们可以使用双引号`""`来包裹他。裁剪点中有什么，包裹的引号就**不能**用什么，不然会引发错误，这条规则在其他Python函数中同样适用。
 
-![](Finews_pics/img_10.png)
+![](/contents/blogs/Finews_pics/img_10.png)
 裁剪过程：
 ```text
 first_split_result = rough_text.split('<a href="')
@@ -467,23 +459,23 @@ print(first_attempt.text)
 * 我强烈建议使用电脑版，可以自己新建企业，也可以用个人账户（这个我没试过），不过大家可以来加我的飞书企业，上边还有许多类似Python+FeishuBot的相关开发！嘿嘿
 
 跟微信QQ一样，在飞书新建一个群聊：（机器人无法在外部群聊中使用！就是群里都得是你这个企业的人）<br>
-![](Finews_pics/img_11.png)
+![](/contents/blogs/Finews_pics/img_11.png)
 新建完之后，咱点击群聊右上角三个点，再点击下拉菜单中的设置部分：
 <br>
 
-![](Finews_pics/img_12.png)
+![](/contents/blogs/Finews_pics/img_12.png)
 点击群机器人>添加机器人>进入这个页面>搜索自定义机器人>点击：
 <br>
 
-![](Finews_pics/img_13.png)
+![](/contents/blogs/Finews_pics/img_13.png)
 随后按照自己的喜好添加，添加完成后点击确定：
 <br>
 
-![](Finews_pics/img_14.png)
+![](/contents/blogs/Finews_pics/img_14.png)
 跳转到下一页面，你会看到有一个名为`webhook地址`的东西，先点击复制，找个地方存着，请注意不要泄露到公网上~：
 <br>
 
-![](Finews_pics/img_15.png)
+![](/contents/blogs/Finews_pics/img_15.png)
 选择暂不配置/完成。
 
 * 至此，飞书部分完成，我们根据字节同志官方给出的标准答案，抄一下作业：
@@ -547,7 +539,7 @@ class FeishuTalk:
 * 随后在自己的代码最后边加上`FeishuTalk().sendTextmessage(first_attempt.text)`，点击**运行**，理论上来说就完全没有问题拉！此时你的飞书群聊中会跳出来一位**g7人**：
 <br>
 
-![](Finews_pics/img_17.png)
+![](/contents/blogs/Finews_pics/img_17.png)
 噢！有一些自定义的小创意你可以加上：
 * 想让你的消息能够 **@你自己+别人** 吗？
 * 将你的Python代码中的`# 发送文本消息`这一部分：
@@ -573,7 +565,7 @@ class FeishuTalk:
 自己以及他人的**用户ID**可以单击头像获得：
 <br>
 
-![](Finews_pics/img_18.png)
+![](/contents/blogs/Finews_pics/img_18.png)
 OK，你以为这就结束了吗！不，我们要实现**完整的开发与定时执行程序**，傻傻的通过让Python跑死循环`time.sleep(3600)`的方式是不可取的，老费电了。我们来介绍一个可以将其打包为`.exe`的方式。
 <br>
 
@@ -584,7 +576,7 @@ OK，你以为这就结束了吗！不，我们要实现**完整的开发与定�
 选择Pycharm页面，点击**终端**`Terminal`，出现下图：
 <br>
 
-![](Finews_pics/img_19.png)
+![](/contents/blogs/Finews_pics/img_19.png)
 你可能需要在终端中先安装一下`pyinstaller`,我们亲爱的打包库。
 * `pyinstaller`是**Python安装哥**的意思。
 
@@ -604,7 +596,7 @@ _~~我忘记pipenv是自带的还是也要pip install pipenv了，懒得看了�
 pipenv shell
 ```
 如果地址不是当前文件所在的文件夹就得具体先拉到那个文件夹先，例如刚打开是`D:\Feishubot`，但是我的文件其实在`D:\Feishubot\python`目录下，所以我又额外`cd`了一下，应该能理解吧<br>
-![](Finews_pics/img_20.png)
+![](/contents/blogs/Finews_pics/img_20.png)
 头头会从`base`变为`PS`，就说明成功了，然后把Python代码中涉及到的库用空格分开依次安装(导入)：
 * 这个过程与`pip`是不太一样的，`pip install`相当于从网上下载了这个库到本地Python中，而`pipenv install`则是将本地已经有的库导入到虚拟环境中。
 
@@ -643,19 +635,19 @@ pyinstaller -F Daily_News.py
 随后就是稍作等待~
 <br>
 
-![](Finews_pics/img_21.png)
+![](/contents/blogs/Finews_pics/img_21.png)
 那么文件已经打包好拉，我们来看看他在哪里吧~
 <br>
 
-![](Finews_pics/img_22.png)![](Finews_pics/img_23.png)
+![](/contents/blogs/Finews_pics/img_22.png)![](/contents/blogs/Finews_pics/img_23.png)
 可以看到`D:\Feishubot\python\dist`里边已经出现了一个`Daily_News.exe`文件拉，我们双击运行：
 <br>
 
-![](Finews_pics/img_24.png)
+![](/contents/blogs/Finews_pics/img_24.png)
 飞书聊天窗口示例：
 <br>
 
-![](Finews_pics/img_25.png)
+![](/contents/blogs/Finews_pics/img_25.png)
 恭喜你！已经成功完成了程序打包步骤，接下来就是最后一步了，让我们给他一个定时的机会吧！
 
 <br>
@@ -665,25 +657,25 @@ pyinstaller -F Daily_News.py
 话不多说，我们任意点开单个文件夹，右键点击此电脑/我的电脑，在下拉菜单中选择管理：
 <br>
 
-![](Finews_pics/img_26.png)
+![](/contents/blogs/Finews_pics/img_26.png)
 随后进入`计算机管理`页，选择`计算机管理（本地） > 系统工具 > 任务计划程序`，随后点击右侧`创建任务`：
 <br>
 
-![](Finews_pics/img_27.png)
+![](/contents/blogs/Finews_pics/img_27.png)
 然后就可以准备创建定时任务拉！
 
 在此处个性化设置你想他叫啥，同时建议选择无需登录，但如果是来自于别人的`.exe`的话就不建议了：
 * 值得注意的是，由于我们的程序是需要联网才能进行请求与爬取，所以在电脑关机或者刚刚启动时是不会自动执行的~
 <br>
 
-![](Finews_pics/img_28.png)
+![](/contents/blogs/Finews_pics/img_28.png)
 设置完名称后，我们来**设置定时执行某任务**：
 * `定时`对应的是`触发器`，而`执行`对应的是`操作`。
 <br>
 
-![](Finews_pics/img_29.png)
+![](/contents/blogs/Finews_pics/img_29.png)
 按箭头顺序点击，框中的对象为必须选择项，**必须选择一次！！！不然会叠加重复的！！！**
-![](Finews_pics/img_30.png)
+![](/contents/blogs/Finews_pics/img_30.png)
 按箭头顺序点击，框中的对象为必须选择项，通过点击浏览定位到刚刚打包好的`.exe`文件！
 
 最后再点击最终的确定就可以啦！！！
