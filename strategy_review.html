@@ -246,6 +246,14 @@
         }
       }
     }
+
+    // 设置导航栏标题
+          setTimeout(() => {
+            const pageTitleElement = document.getElementById('page-top-title');
+            if (pageTitleElement) {
+              pageTitleElement.textContent = '策略一览';
+            }
+          }, 100);
   </script>
 </body>
 </html>
