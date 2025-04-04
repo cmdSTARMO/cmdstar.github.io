@@ -123,38 +123,35 @@
 
     // 加载当前文章（通过 URL 参数指定）
     function loadArticle(articleName) {
-      // 根据实际存放位置调整路径
-      const yamlPath = `./blog-folder/${articleName}.yml`;
-      const mdPath = `./blog-folder/${articleName}.md`;
+  // 根据实际存放位置调整路径
+  const yamlPath = `./blog-folder/${articleName}.yml`;
+  const mdPath = `./blog-folder/${articleName}.md`;
 
-      loadYAML(yamlPath)
-        .then(articleMeta => {
-          // 遍历 YAML 中的每个键
-          for (let key in articleMeta) {
-            // 如果文档中存在对应 id 的元素
-            let elem = document.getElementById(key);
-            if (elem) {
-              // 如果是背景图片，需要设置样式属性
-              if (key === "top_section_bg") {
-                elem.style.backgroundImage = `url('${articleMeta[key]}')`;
-              } else {
-                // 否则直接赋值
-                elem.innerText = articleMeta[key];
-              }
-            }
+  loadYAML(yamlPath)
+    .then(articleMeta => {
+      // 遍历 YAML 中的每个键
+      for (let key in articleMeta) {
+        let elem = document.getElementById(key);
+        if (elem) {
+          if (key === "top_section_bg") {
+            elem.style.backgroundImage = `url('${articleMeta[key]}')`;
+          } else {
+            elem.innerText = articleMeta[key];
           }
-          // 返回 Markdown 文件加载结果
-          return fetch(mdPath);
-        })
-        .then(response => response.text())
-        .then(mdText => {
-          const htmlContent = marked.parse(mdText);
-          document.getElementById('Finews-md').innerHTML = htmlContent;
-        })
-        .catch(error => {
-          console.error('加载文章出错:', error);
-          document.getElementById('Finews-md').innerHTML = '<p>无法加载文章内容</p>';
-        });
+        }
+      }
+      return fetch(mdPath);
+    })
+    .then(response => response.text())
+    .then(mdText => {
+      const htmlContent = marked.parse(mdText);
+      document.getElementById('Finews-md').innerHTML = htmlContent;
+    })
+    .catch(error => {
+      console.error('加载文章出错:', error);
+      document.getElementById('Finews-md').innerHTML = '<p>无法加载文章内容</p>';
+    });
+}
 
     // 加载全局配置（例如 footer 的版权信息），假设 config.yml 存放在根目录
     function loadConfig() {
