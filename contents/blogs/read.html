@@ -5,15 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="Academic Webpage" />
   <meta name="author" content="hdp" />
+  <!-- 页面标题将从 YAML 中加载 -->
   <title id="title">博客文章</title>
 
   <!-- Icon -->
   <link rel="icon" type="image/x-icon" href="../../../static/assets/icon.png" />
 
-  <!-- Bootstrap icons-->
+  <!-- Bootstrap icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 
-  <!-- Google fonts-->
+  <!-- Google fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&display=swap" rel="stylesheet" />
@@ -23,14 +24,14 @@
   <link type="text/css" href="../../../static/css/styles.css" rel="stylesheet" />
   <link type="text/css" href="../../../static/css/main.css" rel="stylesheet" />
 
-  <!-- Bootstrap JS-->
+  <!-- Bootstrap JS -->
   <script type="text/javascript" src="../../../static/js/bootstrap.bundle.min.js"></script>
   <!-- Markdown 解析库 -->
   <script type="text/javascript" src="../../../static/js/marked.min.js"></script>
   <!-- YAML 解析库 -->
   <script type="text/javascript" src="../../../static/js/js-yaml.min.js"></script>
 
-  <!-- 可选：MathJax -->
+  <!-- 可选：MathJax（注意：避免同时加载多个版本） -->
   <script>
       MathJax = {
           tex: {
@@ -50,8 +51,8 @@
           }
       };
   </script>
+  <!-- 仅加载一个 MathJax 脚本 -->
   <script type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-  <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body id="page-top">
 
@@ -65,10 +66,11 @@
   </script>
 
   <!-- 顶部背景部分 -->
-  <section class="top-section" style="background-image: url('Finews_pics/IM_2.jpeg');">
+  <section class="top-section" id="top-section" style="background-image: url('Finews_pics/IM_2.jpeg');">
     <div class="top-section-content">
       <div class="container px-5">
-        <h2 id="top-section-bg-text" class="text-white display-3 lh-1 font-alt"></h2>
+        <!-- 顶部文本将从 YAML 中加载 -->
+        <h2 id="top-section-bg-text" class="text-white display-3 lh-1 font-alt">默认顶部文本</h2>
       </div>
     </div>
   </section>
@@ -78,19 +80,23 @@
     <div class="container">
       <header>
         <h2><i class="bi bi-file-text-fill"></i> 正文</h2>
+        <!-- 文章日期（可选） -->
+        <div id="article-date" class="text-muted"></div>
       </header>
       <!-- Markdown 文章内容 -->
-      <div class="main-body" id="Finews-md"></div>
-      <!-- YAML 定义的自定义变量示例 -->
+      <div class="main-body vp-content" id="Finews-md"></div>
+      <!-- YAML 中其他自定义变量示例 -->
       <h2 id="website_name"></h2>
     </div>
   </section>
 
-  <!-- 页脚 -->
+  <!-- 页脚部分，从全局配置中加载版权信息 -->
   <footer class="bg-bottom text-center py-5">
     <div class="container px-5">
       <div class="text-white-50 small">
-        <div id="copyright-text" class="mb-2"></div>
+        <div id="copyright-text">
+          &copy; Dapao Huang 2023-2025. All Rights Reserved.
+        </div>
         <a id="github-link" href="https://github.com/cmdSTARMO">Github</a>
         <span class="mx-1">&middot;</span>
         <a id="license-link" href="https://github.com/cmdSTARMO/cmdstar.github.io/blob/main/LICENSE">License</a>
@@ -98,40 +104,50 @@
     </div>
   </footer>
 
-  <!-- 动态加载 YAML 与 Markdown -->
+  <!-- 动态加载 YAML 与 Markdown 的脚本 -->
   <script>
-    // 从 URL 获取参数 ?v=...
+    // 获取 URL 参数 ?v=...
     function getQueryParam(param) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
+      return new URLSearchParams(window.location.search).get(param);
     }
-    const articleName = getQueryParam('v');
 
-    if (articleName) {
-      // 根据文章名称构造 YAML 与 Markdown 文件路径（根据实际存放位置调整）
+    // 通用加载 YAML 的函数（返回解析后的对象）
+    function loadYAML(path) {
+      return fetch(path)
+        .then(response => response.text())
+        .then(yamlText => jsyaml.load(yamlText));
+    }
+
+    // 加载当前文章（通过 URL 参数指定）
+    function loadArticle(articleName) {
+      // 根据实际存放位置调整路径
       const yamlPath = `./blog-folder/${articleName}.yml`;
       const mdPath = `./blog-folder/${articleName}.md`;
 
-      // 加载 YAML 文件
-      fetch(yamlPath)
-        .then(response => response.text())
-        .then(yamlText => {
-          // 解析 YAML
-          const articleMeta = jsyaml.load(yamlText);
-          // 根据 YAML 定义的变量更新页面内容
+      loadYAML(yamlPath)
+        .then(articleMeta => {
+          // 根据 YAML 设置页面各部分内容
           if (articleMeta.title) {
             document.getElementById('title').innerText = articleMeta.title;
           }
           if (articleMeta.website_name) {
             document.getElementById('website_name').innerText = articleMeta.website_name;
           }
-          // 这里还可以添加其他自定义变量，例如文章作者、日期等
-          // 加载 Markdown 文件
+          if (articleMeta.top_section_bg) {
+            document.getElementById('top-section').style.backgroundImage = `url('${articleMeta.top_section_bg}')`;
+          }
+          if (articleMeta.top_section_text) {
+            document.getElementById('top-section-bg-text').innerText = articleMeta.top_section_text;
+          }
+          if (articleMeta.date) {
+            document.getElementById('article-date').innerText = articleMeta.date;
+          }
+          // 返回 Markdown 文件加载结果
           return fetch(mdPath);
         })
         .then(response => response.text())
         .then(mdText => {
-          // 使用 marked 将 Markdown 转换成 HTML
+          // marked 解析 Markdown 内容
           const htmlContent = marked.parse(mdText);
           document.getElementById('Finews-md').innerHTML = htmlContent;
         })
@@ -139,10 +155,30 @@
           console.error('加载文章出错:', error);
           document.getElementById('Finews-md').innerHTML = '<p>无法加载文章内容</p>';
         });
+    }
+
+    // 加载全局配置（例如 footer 的版权信息），假设 config.yml 存放在根目录
+    function loadConfig() {
+      const configPath = '/config.yml';
+      loadYAML(configPath)
+        .then(config => {
+          if (config && config.footer && config.footer.copyright) {
+            document.getElementById('copyright-text').innerHTML = config.footer.copyright;
+          }
+        })
+        .catch(error => {
+          console.error('加载全局配置失败:', error);
+        });
+    }
+
+    // 主程序：加载文章和全局配置
+    const articleName = getQueryParam('v');
+    if (articleName) {
+      loadArticle(articleName);
     } else {
-      // 如果没有传入参数，则提示用户或显示默认内容
       document.getElementById('Finews-md').innerHTML = '<p>没有指定文章</p>';
     }
+    loadConfig();
   </script>
 </body>
 </html>
