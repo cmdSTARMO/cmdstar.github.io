@@ -129,13 +129,13 @@ PACS将其成功[归功于](https://www.bamsec.com/filing/162828024039113/1%3Fci
 
 ![](https://pic1.zhimg.com/v2-3d781607f3799988b60065423dc8c8d4_1440w.jpg)
 
-（来源：PACS 第二季度投资者报告）翻译版本https://d1io3yog0oux5.cloudfront.net/\_f11d9a7f234171ec204487269656c486/pacs/db/937/8250/presentation/PACS+Group+2024+Q2+Investor+Presentation.pdf#page=11
+（来源：[PACS 第二季度投资者报告](https://d1io3yog0oux5.cloudfront.net/_f11d9a7f234171ec204487269656c486/pacs/db/937/8250/presentation/PACS+Group+2024+Q2+Investor+Presentation.pdf#page=11)）翻译版本
 
 根据其[注册声明](https://www.bamsec.com/filing/162828024010947/1%3Fcik%3D2001184%26hl%3D44343%3A45287%26hl_id%3Dekopryojbx)，PACS还表示，专业护理设施行业的分散性为其继续执行以收购为主的增长战略提供了肥沃的土壤。
 
 ![](https://pic4.zhimg.com/v2-3c42d97fb8c0f80f62ecb5d1c6430fa5_1440w.jpg)
 
-（来源：PACS 第二季度投资者报告）翻译版本https://d1io3yog0oux5.cloudfront.net/\_0ac72840d402f0e1f08664c2d93edc04/pacs/db/914/8251/pdf/PACS\_Group\_2024\_Q2\_Investor\_Presentation.pdf#page=6
+（来源：[PACS 第二季度投资者报告](https://d1io3yog0oux5.cloudfront.net/_0ac72840d402f0e1f08664c2d93edc04/pacs/db/914/8251/pdf/PACS_Group_2024_Q2_Investor_Presentation.pdf#page=6)）翻译版本
 
 从2024年初到2024年09月01日，PACS在其设施资产组合中增加了68所设施，使其[总足迹](https://www.bamsec.com/filing/162828024039734/1%3Fcik%3D2001184%26hl%3D12905%3A13310%26hl_id%3Dvyhbt3stgg)达到15个州的276家专业护理设施，每天为约29,000名患者提供服务[\[3\]]()。这使得PACS成为该国第二大公开交易的专业护理设施运营商，仅次于[Ensign集团](https://ensigngroup.net/)。
 
@@ -785,7 +785,7 @@ PACS联合创始人兼CEO杰森·穆雷曾在采访中[表示](https://youtu.be/
 
 本报告由Hindenburg Research LLC于2024年11月04日发布，并经其许可于2024年12月30日完成中文译稿的翻译与发表。由于译者个人能力所限，部分内容可能无法完全准确地传达原文含义，欢迎您的批评与指正！不明或冲突敬请以[Hindenburg英文原报告](https://hindenburgresearch.com/pacs/)为最终依据。图片翻译由译者个人制作，部分图片因技术原因无法复现，故保持原状。本报告免费向公众开放阅读。若需转载或引用，请先行联系并标明出处。本译文仅供参考，不代表Hindenburg Research LLC 的官方立场。若有任何疑问或需进一步信息，请参阅原文或与Hindenburg Research LLC（[info@hindenburgresearch.com](mailto:info@hindenburgresearch.com)）联系。
 
-翻译全文还会发布在https://huangdapao.com/contents/blogs/blog-folder/PACS_hindenburg.html，若未能访问可能是尚未准备好~
+翻译全文还会发布在[https://huangdapao.com/contents/blogs/read?a_id=PACS_hindenburg](https://huangdapao.com/contents/blogs/read?a_id=PACS_hindenburg)，若未能访问可能是尚未准备好~
 
 ***感谢您的阅读！！***
 
