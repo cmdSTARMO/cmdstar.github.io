@@ -1,11 +1,329 @@
 <!DOCTYPE html>
-<html lang="en">
-<iframe src="../../g_static.html" style="display: none;"></iframe>
+<html lang="cn">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>博客主页</title>
+
+  <!-- Icon -->
+  <link rel="icon" href="/static/assets/icon.png">
+
+  <!-- Bootstrap icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+
+  <!-- 内联 CSS 样式 -->
+  <style>
+    /* 设置根字体大小（响应式调整） */
+    html { font-size: 16px; }
+    @media (max-width: 600px) { html { font-size: 14px; } }
+    @media (min-width: 601px) and (max-width: 1024px) { html { font-size: 15px; } }
+    @media (min-width: 1025px) { html { font-size: 16px; } }
+
+    body {
+      margin: 0;
+      font-family: 'Mulish', sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    /* Navbar 和 Footer 简单样式 */
+    #navbar, footer {
+      background-color: #f8f9fa;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    /* 卡片容器使用 CSS Grid 响应式布局 */
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    /* 毛玻璃卡片样式 */
+    .card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+    .card:hover { transform: translateY(-5px); }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .card-content {
+      padding: 1rem;
+      color: #333;
+      background: rgba(255,255,255,0.6);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .card-date {
+      font-size: 0.875rem;
+      color: #666;
+    }
+
+    .card-description {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
+
+    /* Show More / Collapse 按钮 */
+    .toggle-btn {
+      display: block;
+      margin: 1rem auto;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    /* Markdown 内容区域样式 */
+    #article-md {
+      font-size: 1rem;
+      line-height: 1.5;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      margin: 1rem;
+    }
+
+    /* 自定义引用样式 */
+    .custom-blockquote {
+      border-left: 4px solid #ccc;
+      padding-left: 1em;
+      margin: 1em 0;
+      font-style: italic;
+      background: #f9f9f9;
+    }
+  </style>
+
+  <!-- 引入 highlight.js 的 CSS 和 JS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
+  <!-- 引入 marked.js 和 js-yaml -->
+  <script src="/static/js/marked.min.js"></script>
+  <script src="/static/js/js-yaml.min.js"></script>
+
+  <!-- MathJax 配置 -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: false,
+        processEnvironments: true,
+        processRefs: true,
+        digits: /^(?:[0-9]+(?:\{,\}[0-9]{3})*(?:\.[0-9]*)?|\.[0-9]+)/,
+        tags: 'all',
+        tagSide: 'right',
+        tagIndent: '0.8em',
+        useLabelIds: true,
+        maxMacros: 10000,
+        maxBuffer: 5 * 1024,
+        formatError: (jax, err) => jax.formatError(err)
+      }
+    };
+  </script>
+  <script type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
 </head>
 <body>
+  <!-- 保留 Navbar -->
+  <div id="navbar">
+    <!-- 这里你可以加载外部 navbar 或直接写入静态 HTML -->
+    <p>Navbar Placeholder</p>
+  </div>
 
+  <!-- 主标题 -->
+  <header style="text-align:center; padding:1rem;">
+    <h1>博客文章一览</h1>
+  </header>
+
+  <!-- 卡片容器 -->
+  <section id="cards-section" class="cards-container">
+    <!-- 卡片由 JS 动态生成 -->
+  </section>
+
+  <!-- Show More / Collapse 按钮 -->
+  <button id="toggle-btn" class="toggle-btn">显示更多</button>
+
+  <!-- Markdown 文章区域（用于展示单篇文章） -->
+  <section id="article">
+    <div id="article-md"></div>
+  </section>
+
+  <!-- 保留 Footer -->
+  <footer>
+    <p>&copy; Dapao Huang 2023-2025. All Rights Reserved.</p>
+  </footer>
+
+  <!-- 动态加载悬浮按钮（如果有） -->
+  <div id="floating-buttons-container"></div>
+  <script>
+    fetch('/floatingButtons.html')
+      .then(response => response.text())
+      .then(html => {
+        var container = document.getElementById('floating-buttons-container');
+        container.innerHTML = html;
+        var scripts = container.querySelectorAll('script');
+        scripts.forEach(oldScript => {
+          var newScript = document.createElement('script');
+          newScript.textContent = oldScript.textContent;
+          document.body.appendChild(newScript);
+        });
+      })
+      .catch(error => console.error('Error loading floating buttons:', error));
+  </script>
+
+  <!-- 动态加载文章卡片和构建博客主页 -->
+  <script>
+    // 获取 URL 参数 ?a_id=... (此处仅用于 read.html，如果主页不需要)
+    function getQueryParam(param) {
+      return new URLSearchParams(window.location.search).get(param);
+    }
+
+    // 通用加载 YAML 的函数
+    function loadYAML(path) {
+      return fetch(path)
+        .then(response => response.text())
+        .then(yamlText => jsyaml.load(yamlText));
+    }
+
+    // 设置 marked.js 配置（包括代码高亮、引用样式）
+    const renderer = new marked.Renderer();
+    renderer.blockquote = function(quote) {
+      return `<blockquote class="custom-blockquote">${quote}</blockquote>`;
+    };
+    marked.setOptions({
+      highlight: function(code, lang) {
+        if (window.hljs) {
+          return hljs.highlightAuto(code, lang ? [lang] : undefined).value;
+        }
+        return code;
+      },
+      renderer: renderer,
+      mangle: false,
+      headerIds: false
+    });
+
+    // 加载 blog-category.json 文件（文章 ID 列表）
+    // 示例 JSON 格式：
+    // { "articles": ["Finews", "Article2", "Article3", "Article4", "Article5", "Article6", ...] }
+    fetch('blog-category.json')
+      .then(response => response.json())
+      .then(data => {
+        const articles = data.articles;
+        const cardsSection = document.getElementById('cards-section');
+        const cards = [];
+
+        // 加载每篇文章的 YAML 信息，创建卡片
+        const loadPromises = articles.map(articleID => {
+          const yamlPath = `./blog-folder/${articleID}.yml`;
+          return fetch(yamlPath)
+            .then(response => response.text())
+            .then(yamlText => jsyaml.load(yamlText))
+            .then(meta => {
+              // 创建卡片元素
+              const card = document.createElement('div');
+              card.className = 'card';
+              // 点击卡片跳转到 read 页面
+              card.addEventListener('click', () => {
+                window.location.href = `read?a_id=${articleID}`;
+              });
+              // 图片部分（假设 meta["top-section"] 为图片路径）
+              if(meta["top-section"]) {
+                const img = document.createElement('img');
+                img.src = meta["top-section"];  // 确保图片路径正确（建议使用绝对路径）
+                card.appendChild(img);
+              }
+              // 内容部分
+              const content = document.createElement('div');
+              content.className = 'card-content';
+              // 标题
+              const title = document.createElement('div');
+              title.className = 'card-title';
+              title.innerText = meta.title || articleID;
+              content.appendChild(title);
+              // 日期
+              if(meta["article-date"]) {
+                const date = document.createElement('div');
+                date.className = 'card-date';
+                date.innerText = meta["article-date"];
+                content.appendChild(date);
+              }
+              // 描述（可选）
+              if(meta.description) {
+                const desc = document.createElement('p');
+                desc.className = 'card-description';
+                desc.innerText = meta.description;
+                content.appendChild(desc);
+              }
+              card.appendChild(content);
+              // 初始只显示前 5 个卡片
+              card.style.display = 'none';
+              cards.push(card);
+            })
+            .catch(err => {
+              console.error(`Error loading YAML for ${articleID}:`, err);
+            });
+        });
+
+        Promise.all(loadPromises).then(() => {
+          // 添加所有卡片到页面
+          cards.forEach((card, index) => {
+            if(index < 5) {
+              card.style.display = 'block';
+            }
+            cardsSection.appendChild(card);
+          });
+
+          // 设置 Show More / Collapse 按钮功能
+          const toggleBtn = document.getElementById('toggle-btn');
+          let expanded = false;
+          toggleBtn.addEventListener('click', () => {
+            if(expanded) {
+              // 收起，仅显示前 5 个
+              cards.forEach((card, index) => {
+                if(index >= 5) {
+                  card.style.display = 'none';
+                }
+              });
+              toggleBtn.innerText = '显示更多';
+              expanded = false;
+            } else {
+              // 展开显示所有
+              cards.forEach(card => {
+                card.style.display = 'block';
+              });
+              toggleBtn.innerText = '收起';
+              expanded = true;
+            }
+          });
+        });
+      })
+      .catch(err => {
+        console.error('Error loading blog category:', err);
+      });
+  </script>
 </body>
 </html>

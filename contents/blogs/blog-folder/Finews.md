@@ -1,6 +1,5 @@
 
 [//]: # (# 从0开始！如何整出自己的飞书财经新闻小助手)
-<br>
 
 ![](/contents/blogs/blog-folder/Finews_pics/IM_1.png)
 
