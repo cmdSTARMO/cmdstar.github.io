@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="Academic Webpage" />
+  <meta name="author" content="hdp" />
+  <title id="title">博客文章</title>
+
+  <!-- Icon -->
+  <link rel="icon" type="image/x-icon" href="../../../static/assets/icon.png" />
+
+  <!-- Bootstrap icons-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- Google fonts-->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+
+  <!-- 样式 -->
+  <link type="text/css" href="../../../static/css/styles.css" rel="stylesheet" />
+  <link type="text/css" href="../../../static/css/main.css" rel="stylesheet" />
+
+  <!-- Bootstrap JS-->
+  <script type="text/javascript" src="../../../static/js/bootstrap.bundle.min.js"></script>
+  <!-- Markdown 解析库 -->
+  <script type="text/javascript" src="../../../static/js/marked.min.js"></script>
+  <!-- YAML 解析库 -->
+  <script type="text/javascript" src="../../../static/js/js-yaml.min.js"></script>
+
+  <!-- 可选：MathJax -->
+  <script>
+      MathJax = {
+          tex: {
+              inlineMath: [['$', '$'], ['\\(', '\\)']],
+              displayMath: [['$$', '$$'], ['\\[', '\\]']],
+              processEscapes: false,
+              processEnvironments: true,
+              processRefs: true,
+              digits: /^(?:[0-9]+(?:\{,\}[0-9]{3})*(?:\.[0-9]*)?|\.[0-9]+)/,
+              tags: 'all',
+              tagSide: 'right',
+              tagIndent: '0.8em',
+              useLabelIds: true,
+              maxMacros: 10000,
+              maxBuffer: 5 * 1024,
+              formatError: (jax, err) => jax.formatError(err)
+          }
+      };
+  </script>
+  <script type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body id="page-top">
+
+  <!-- 导航部分 -->
+  <div id="navbar"></div>
+  <script>
+    fetch('../../../navbar.html')
+      .then(response => response.text())
+      .then(data => { document.getElementById('navbar').innerHTML = data; })
+      .catch(error => console.error('加载导航失败:', error));
+  </script>
+
+  <!-- 顶部背景部分 -->
+  <section class="top-section" style="background-image: url('Finews_pics/IM_2.jpeg');">
+    <div class="top-section-content">
+      <div class="container px-5">
+        <h2 id="top-section-bg-text" class="text-white display-3 lh-1 font-alt"></h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- 文章主体部分 -->
+  <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="article">
+    <div class="container">
+      <header>
+        <h2><i class="bi bi-file-text-fill"></i> 正文</h2>
+      </header>
+      <!-- Markdown 文章内容 -->
+      <div class="main-body" id="Finews-md"></div>
+      <!-- YAML 定义的自定义变量示例 -->
+      <h2 id="website_name"></h2>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="bg-bottom text-center py-5">
+    <div class="container px-5">
+      <div class="text-white-50 small">
+        <div id="copyright-text" class="mb-2"></div>
+        <a id="github-link" href="https://github.com/cmdSTARMO">Github</a>
+        <span class="mx-1">&middot;</span>
+        <a id="license-link" href="https://github.com/cmdSTARMO/cmdstar.github.io/blob/main/LICENSE">License</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 动态加载 YAML 与 Markdown -->
+  <script>
+    // 从 URL 获取参数 ?v=...
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+    const articleName = getQueryParam('v');
+
+    if (articleName) {
+      // 根据文章名称构造 YAML 与 Markdown 文件路径（根据实际存放位置调整）
+      const yamlPath = `./blog-folder/${articleName}.yml`;
+      const mdPath = `./blog-folder/${articleName}.md`;
+
+      // 加载 YAML 文件
+      fetch(yamlPath)
+        .then(response => response.text())
+        .then(yamlText => {
+          // 解析 YAML
+          const articleMeta = jsyaml.load(yamlText);
+          // 根据 YAML 定义的变量更新页面内容
+          if (articleMeta.title) {
+            document.getElementById('title').innerText = articleMeta.title;
+          }
+          if (articleMeta.website_name) {
+            document.getElementById('website_name').innerText = articleMeta.website_name;
+          }
+          // 这里还可以添加其他自定义变量，例如文章作者、日期等
+          // 加载 Markdown 文件
+          return fetch(mdPath);
+        })
+        .then(response => response.text())
+        .then(mdText => {
+          // 使用 marked 将 Markdown 转换成 HTML
+          const htmlContent = marked(mdText);
+          document.getElementById('Finews-md').innerHTML = htmlContent;
+        })
+        .catch(error => {
+          console.error('加载文章出错:', error);
+          document.getElementById('Finews-md').innerHTML = '<p>无法加载文章内容</p>';
+        });
+    } else {
+      // 如果没有传入参数，则提示用户或显示默认内容
+      document.getElementById('Finews-md').innerHTML = '<p>没有指定文章</p>';
+    }
+  </script>
+</body>
+</html>
