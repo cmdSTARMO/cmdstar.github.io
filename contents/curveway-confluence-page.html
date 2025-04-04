@@ -1,125 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
-<iframe src="../g_static.html" style="display: none;"></iframe>
-
+<html lang="cn">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Academic Webpage" />
-    <meta name="author" content="hdp" />
-    <title id="website-title"></title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content="Academic Webpage"/>
+    <meta name="author" content="hdp"/>
+    <title id="title">曲径共融</title>
 
-    <!-- 独特路径 Icon -->
-    <link rel="icon" type="image/x-icon" href="../static/assets/icon.png" />
+    <!-- Icon -->
+    <link rel="icon" type="image/x-icon" href="/static/assets/icon.png"/>
 
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Bootstrap icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
 
-    <!-- Google fonts-->
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet" />
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&display=swap"
+          rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&display=swap"
+          rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&display=swap" rel="stylesheet"/>
 
-    <!-- 独特路径 Core theme CSS (includes Bootstrap)-->
-    <link type="text/css" href="../static/css/styles.css" rel="stylesheet" />
-    <link type="text/css" href="../static/css/main.css" rel="stylesheet" />
+    <!-- 样式 -->
+    <link type="text/css" href="/static/css/styles.css" rel="stylesheet"/>
+    <link type="text/css" href="/static/css/main.css" rel="stylesheet"/>
+    <!-- 引入 highlight.js 的 CSS（这里使用默认主题，可根据需求选择其它主题） -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+    <!-- 引入 highlight.js 的 JS 文件 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
 
-    <!-- 独特路径 Bootstrap core JS-->
-    <script type="text/javascript" src="../static/js/bootstrap.bundle.min.js"></script>
-
-    <!-- For Compatibility -->
-<!--    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>-->
-
-    <!-- 独特路径 Markdown -->
-    <script type="text/javascript" src="../static/js/marked.min.js"></script>
-    <!-- MathJax 示例（可根据需要启用） -->
-    <!-- <script type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script> -->
-    <!-- <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
-
-    <!-- 独特路径 YAML 解析库 -->
-    <script type="text/javascript" src="../static/js/js-yaml.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script type="text/javascript" src="/static/js/bootstrap.bundle.min.js"></script>
+    <!-- Markdown 解析库 -->
+    <script type="text/javascript" src="/static/js/marked.min.js"></script>
+    <!-- YAML 解析库 -->
+    <script type="text/javascript" src="/static/js/js-yaml.min.js"></script>
 
     <!-- i18next 及后端插件 -->
     <script src="https://unpkg.com/i18next@21.6.3/dist/umd/i18next.min.js"></script>
     <script src="https://unpkg.com/i18next-http-backend@1.4.1/i18nextHttpBackend.min.js"></script>
-
 </head>
+<body id="page-top" data-page-top-title="曲径共融">
 
-<!--<body id="page-top">-->
-<!--    &lt;!&ndash; Navigation&ndash;&gt;-->
-<!--    <nav class="header navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" style="background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(10px); box-shadow: none;">-->
-<!--        <div class="container px-5">-->
-<!--            <a id="page-top-title" class="navbar-brand fw-bold text-white" href="#page-top"></a> &lt;!&ndash; 将文字变为白色 &ndash;&gt;-->
-<!--            &lt;!&ndash; <a href="#page-top"><img src="static/assets/img/CUMT_LOGO.svg" style="width: 11rem;"></a> &ndash;&gt;-->
-<!--            <button class="navbar-toggler text-white d-lg-none gradient-border-btn" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"-->
-<!--                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">-->
-<!--                <b>菜单</b>-->
-<!--                <i class="bi-list"></i>-->
-<!--            </button>-->
-<!--            <div class="collapse navbar-collapse" id="navbarResponsive">-->
-<!--                <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link me-lg-3 text-white" href="#page-top">主页</a> &lt;!&ndash; 文字颜色改为白色 &ndash;&gt;-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link me-lg-3 text-white" href="#publications">文章</a> &lt;!&ndash; 文字颜色改为白色 &ndash;&gt;-->
-<!--                    </li>-->
-<!--                    <li class="nav-item">-->
-<!--                        <a class="nav-link me-lg-3 text-white" href="#awards">奖励</a> &lt;!&ndash; 文字颜色改为白色 &ndash;&gt;-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </nav>-->
-<body id="page-top">
-<!-- Navigation-->
-<div id="navbar">曲径共融</div>
+<!-- 导航部分 -->
+<div id="navbar"></div>
 <script>
-    fetch('../navbar.html') // 指向上一级目录
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('navbar').innerHTML = data;
-        })
-        .catch(error => console.error('Error loading navbar:', error));
+    fetch('/navbar.html')
+      .then(response => response.text())
+      .then(data => {
+          document.getElementById('navbar').innerHTML = data;
+
+          // 设置导航栏标题
+          setTimeout(() => {
+              const pageTitleElement = document.getElementById('page-top-title');
+              if (pageTitleElement) {
+                  pageTitleElement.textContent = '曲径共融';
+              }
+          }, 100);
+      })
+      .catch(error => console.error('加载导航失败:', error));
 </script>
-<!-- Top Section -->
-<section class="top-section" style="background-image: url('../static/assets/img/background.png');">
+
+<!-- 顶部背景部分 -->
+<section class="top-section" id="top-section" style="background-image: url('/static/assets/img/background.png');">
     <div class="top-section-content">
         <div class="container px-5">
-            <h2 id="top-section-bg-text" class="text-white display-3 lh-1 font-alt"><b>我司简介</b></h2>
+            <h2 id="top-section-bg-text" class="text-white display-3 lh-1 font-alt fw-bold">我司简介</h2>
         </div>
     </div>
 </section>
-<!-- Top Section -->
 
-
-<!--    &lt;!&ndash; Home &ndash;&gt;-->
-<!--    <div class="container px-5">-->
-<!--        <header class="mt-5 mb-3"> &lt;!&ndash; Bootstrap 间距类 &ndash;&gt;-->
-<!--            <h2>测试文章</h2>-->
-<!--            &lt;!&ndash; <span class="bi bi-list"></span> &ndash;&gt;-->
-<!--        </header>-->
-<!--        <div class="main-body" id="home-md"></div>-->
-<!--    </div>-->
-
-<!-- Article -->
+<!-- 文章主体部分 -->
 <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="article">
     <div class="container">
-        <div class="main-body" id="curveway-confluence-page-md"></div>
+        <!-- Markdown 文章内容 -->
+        <div class="main-body vp-content" id="article-md"></div>
     </div>
 </section>
-<!-- Article -->
 
 <!-- 页面中放置一个容器，用于加载悬浮按钮 -->
 <div id="floating-buttons-container"></div>
 
-<!-- Footer-->
+<!-- 页脚部分，从全局配置中加载版权信息 -->
 <footer class="bg-bottom text-center py-5">
     <div class="container px-5">
         <div class="text-white-50 small">
             <div id="copyright-text">
-                <!-- 默认内容，如果 config.yml 读取失败则使用这个 -->
                 &copy; Dapao Huang 2023-2025. All Rights Reserved.
             </div>
             <a id="github-link" href="https://github.com/cmdSTARMO">Github</a>
@@ -128,67 +94,9 @@
         </div>
     </div>
 </footer>
+
 <script>
-    // 动态加载 navbar.html 独特路径
-    fetch('../navbar.html')
-      .then(response => response.text())
-      .then(data => {
-          document.getElementById('navbar').innerHTML = data;
-          // 从当前页面读取 data-page-top-title 属性，并更新 navbar 中的标题
-          const pageTitle = document.body.getAttribute('data-page-top-title');
-          if (pageTitle) {
-              document.getElementById('page-top-title').innerHTML = pageTitle;
-          }
-      })
-      .catch(error => console.error('Error loading navbar:', error));
-</script>
-<!-- 内联 JavaScript -->
-<script>
-    // 定义配置与内容路径 独特路径
-    const content_dir = './';         // Markdown 文件在当前目录
-    const config_file = '/config.yml'; // 配置文件在网站根目录
-    const section_names = ['curveway-confluence-page'];
-
-    // 根据当前语言返回对应的文件后缀
-    function getLangSuffix() {
-      const lang = i18next.language || 'en'; // 默认中文
-      // 假设支持中文(zh)和英文(en)
-      return lang === 'en' ? '_en' : '_zh';
-    }
-
-    window.addEventListener('DOMContentLoaded', event => {
-      // 读取 YAML 配置文件，仅用于更新 footer 中的版权信息
-      fetch(config_file)
-        .then(response => response.text())
-        .then(text => {
-          const yml = jsyaml.load(text);
-          if (yml && yml['copyright-text']) {
-            document.getElementById('copyright-text').innerHTML = yml['copyright-text'];
-          }
-        })
-        .catch(error => console.log(error));
-
-      // 使用 Marked 解析 Markdown 内容，并在页面中渲染
-      marked.use({ mangle: false, headerIds: false });
-      section_names.forEach((name) => {
-        // 根据当前语言拼接 Markdown 文件名，例如 "curveway-confluence-page_en.md" 或 "curveway-confluence-page_zh.md"
-        const mdFile = content_dir + name + getLangSuffix() + '.md';
-        fetch(mdFile)
-          .then(response => response.text())
-          .then(markdown => {
-            document.getElementById(name + '-md').innerHTML = marked.parse(markdown);
-          }).then(() => {
-            // MathJax 重新渲染数学公式（如有）
-            MathJax.typeset();
-          })
-          .catch(error => console.log(error));
-      });
-    });
-</script>
-
-<!--悬浮按钮-->
-<script>
-    fetch('../floatingButtons.html')
+    fetch('/floatingButtons.html')
       .then(response => response.text())
       .then(html => {
         var container = document.getElementById('floating-buttons-container');
@@ -203,20 +111,126 @@
       })
       .catch(error => console.error('Error loading floating buttons:', error));
 </script>
-<!-- i18next 初始化及内容更新 -->
+
+<!-- 动态加载 YAML 与 Markdown 的脚本，结合国际化功能 -->
 <script>
+    // 根据当前语言返回对应的文件后缀
+    function getLangSuffix() {
+      const lang = i18next.language || 'zh'; // 默认中文
+      // 假设支持中文(zh)和英文(en)
+      return lang === 'en' ? '_en' : '_zh';
+    }
+
+    // 通用加载 YAML 的函数（返回解析后的对象）
+    function loadYAML(path) {
+      return fetch(path)
+        .then(response => response.text())
+        .then(yamlText => jsyaml.load(yamlText));
+    }
+
+    // 加载文章（固定为 cc_page）
+    function loadArticle() {
+      const articleName = 'cc_page';
+      // 根据当前语言拼接 Markdown 文件名
+      const mdPath = `./${articleName}${getLangSuffix()}.md`;
+      const yamlPath = `./${articleName}.yml`;
+
+      // 配置 marked 选项，解决弃用警告
+      marked.use({
+        mangle: false,
+        headerIds: false
+      });
+
+      // 自定义渲染器
+      const renderer = new marked.Renderer();
+      renderer.blockquote = function(quote) {
+        return `<blockquote class="custom-blockquote">${quote}</blockquote>`;
+      };
+
+      // 配置代码高亮（不使用已弃用的 highlight 参数）
+      function applyHighlight(html) {
+        if (window.hljs) {
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = html;
+
+          const codeBlocks = tempDiv.querySelectorAll('pre code');
+          codeBlocks.forEach(block => {
+            hljs.highlightElement(block);
+          });
+
+          return tempDiv.innerHTML;
+        }
+        return html;
+      }
+
+      loadYAML(yamlPath)
+        .then(articleMeta => {
+          // 遍历 YAML 中的每个键
+          for (let key in articleMeta) {
+            let elem = document.getElementById(key);
+            if (elem) {
+              if (key === "top-section") {
+                elem.style.backgroundImage = `url('${articleMeta[key]}')`;
+              } else {
+                elem.innerText = articleMeta[key];
+              }
+            }
+          }
+
+          return fetch(mdPath);
+        })
+        .then(response => response.text())
+        .then(mdText => {
+          // 解析 Markdown
+          const htmlContent = marked.parse(mdText);
+
+          // 应用代码高亮
+          const highlightedContent = applyHighlight(htmlContent);
+
+          // 更新 DOM
+          document.getElementById('article-md').innerHTML = highlightedContent;
+
+          // 初始化 MathJax（如果页面包含数学公式）
+          if (typeof MathJax !== 'undefined') {
+            MathJax.typesetPromise();
+          }
+        })
+        .catch(error => {
+          console.error('加载文章出错:', error);
+          document.getElementById('article-md').innerHTML = '<p>无法加载文章内容</p>';
+        });
+    }
+
+    // 加载全局配置（例如 footer 的版权信息）
+    function loadConfig() {
+      const configPath = '/config.yml';
+      loadYAML(configPath)
+        .then(config => {
+          if (config && config.footer && config.footer.copyright) {
+            document.getElementById('copyright-text').innerHTML = config.footer.copyright;
+          }
+        })
+        .catch(error => {
+          console.error('加载全局配置失败:', error);
+        });
+    }
+
+    // i18next 初始化
     i18next
       .use(i18nextHttpBackend)
       .init({
-        lng: localStorage.getItem('lang') || 'en',  // 默认中文
-        fallbackLng: 'en',
+        lng: localStorage.getItem('lang') || 'zh',  // 默认中文
+        fallbackLng: 'zh',
         debug: false,
         backend: {
-          loadPath: './localizations_ccpage/{{lng}}.json' // 独特路径
+          loadPath: './localizations_ccpage/{{lng}}.json'
         }
       }, function(err, t) {
         if (err) console.error(err);
         updateContent();
+        // 初始化完成后加载文章
+        loadArticle();
+        loadConfig();
       });
 
     function updateContent() {
@@ -232,16 +246,11 @@
         }
       }
     }
+
+    // 语言切换时重新加载内容
     i18next.on('languageChanged', function(lng) {
-      section_names.forEach((name) => {
-        const mdFile = content_dir + name + getLangSuffix() + '.md';
-        fetch(mdFile + '?_=' + new Date().getTime()) // 防缓存
-          .then(response => response.text())
-          .then(markdown => {
-            document.getElementById(name + '-md').innerHTML = marked.parse(markdown);
-          })
-          .catch(error => console.log(error));
-      });
+      updateContent();
+      loadArticle(); // 重新加载对应语言的文章
     });
 </script>
 </body>

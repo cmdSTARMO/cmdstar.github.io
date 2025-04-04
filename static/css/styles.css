@@ -10914,16 +10914,154 @@ footer a:hover, footer a:active, footer a:focus {
   text-decoration: underline;
 }
 
-/* 代码块样式 */
-pre code {
-  display: block;
-  padding: 1em;
-  background: #f5f5f5;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  white-space: pre-wrap;
-  word-wrap: break-word;
+/* 代码块样式 - PyCharm Darcula 主题风格 */
+pre code,
+pre code.hljs,
+.hljs,
+pre code.pycharm-style,
+.main-body pre code,
+#article-md pre code,
+.vp-content pre code {
+  display: block !important;
+  padding: 1em !important;
+  background: #2b2b2b !important; /* 使用 !important 确保覆盖 highlight.js 的样式 */
+  color: #a9b7c6 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  font-family: 'JetBrains Mono', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace !important;
+  font-size: 0.9rem !important;
+  line-height: 1.5 !important;
+  white-space: pre !important;
+  overflow-x: auto !important;
+  tab-size: 4 !important;
+}
+
+/* 添加HTML特定的样式 */
+.language-html .hljs-tag,
+.language-xml .hljs-tag,
+code.language-html .hljs-tag,
+code.language-xml .hljs-tag {
+  color: #e8bf6a !important; /* HTML标签颜色 */
+}
+
+.language-html .hljs-name,
+.language-xml .hljs-name,
+code.language-html .hljs-name,
+code.language-xml .hljs-name {
+  color: #e8bf6a !important; /* 标签名颜色 */
+}
+
+.language-html .hljs-attr,
+.language-xml .hljs-attr,
+code.language-html .hljs-attr,
+code.language-xml .hljs-attr {
+  color: #9876aa !important; /* 属性名颜色 */
+}
+
+.language-html .hljs-string,
+.language-xml .hljs-string,
+code.language-html .hljs-string,
+code.language-xml .hljs-string {
+  color: #6a8759 !important; /* 属性值颜色 */
+}
+
+/* 确保HTML实体也有颜色 */
+.language-html .hljs-entity,
+.language-xml .hljs-entity,
+code.language-html .hljs-entity,
+code.language-xml .hljs-entity {
+  color: #cc7832 !important; /* HTML实体颜色 */
+}
+
+/* 强制应用样式到所有代码块 */
+code[class*="language-"] {
+  background: #2b2b2b !important;
+  color: #a9b7c6 !important;
+}
+
+/* 确保内联代码也有样式 */
+:not(pre) > code {
+  padding: 0.2em 0.4em !important;
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  border-radius: 3px !important;
+  font-family: 'JetBrains Mono', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace !important;
+  font-size: 0.9em !important;
+}
+
+/* 修改选择器以匹配 highlight.js 生成的类 */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-title,
+.hljs-section,
+.hljs-doctag,
+.hljs-name,
+.hljs-strong,
+code .hljs-keyword,
+code .hljs-selector-tag,
+code .hljs-title,
+code .hljs-section,
+code .hljs-doctag,
+code .hljs-name,
+code .hljs-strong,
+pre code .hljs-keyword,
+pre code .hljs-selector-tag,
+pre code .hljs-title,
+pre code .hljs-section,
+pre code .hljs-doctag,
+pre code .hljs-name,
+pre code .hljs-strong {
+  color: #cc7832 !important; /* 关键字橙色 */
+}
+
+.hljs-string,
+.hljs-attribute,
+.hljs-addition {
+  color: #6a8759 !important; /* 字符串绿色 */
+}
+
+.hljs-comment {
+  color: #808080 !important; /* 注释灰色 */
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-built_in,
+.hljs-params {
+  color: #6897bb !important; /* 数字蓝色 */
+}
+
+.hljs-class,
+.hljs-symbol,
+.hljs-type,
+.hljs-function {
+  color: #ffc66d !important; /* 函数/类名黄色 */
+}
+
+.hljs-variable,
+.hljs-template-variable {
+  color: #9876aa !important; /* 变量紫色 */
+}
+
+/* 其他常见的 highlight.js 类 */
+.hljs-title.function_ {
+  color: #ffc66d !important; /* 函数名 */
+}
+
+.hljs-attr {
+  color: #9876aa !important; /* 属性名 */
+}
+
+.hljs-tag {
+  color: #e8bf6a !important; /* HTML/XML 标签 */
+}
+
+.hljs-meta {
+  color: #bbb529 !important; /* 元信息 */
+}
+
+.hljs-selector-id,
+.hljs-selector-class {
+  color: #e8bf6a !important; /* CSS 选择器 */
 }
 
 /* 自定义引用块样式 */

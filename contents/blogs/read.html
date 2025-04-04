@@ -21,14 +21,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&display=swap"
           rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
 
-    <!-- 样式 -->
+    <!-- 引入 highlight.js 的 JS 文件和所有语言包 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <!-- 添加常用语言包 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/shell.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/json.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/yaml.min.js"></script>
+
+    <!-- 样式 - 注意：先引入自定义样式，确保它们能覆盖默认样式 -->
     <link type="text/css" href="/static/css/styles.css" rel="stylesheet"/>
     <link type="text/css" href="/static/css/main.css" rel="stylesheet"/>
-    <!-- 引入 highlight.js 的 CSS（这里使用默认主题，可根据需求选择其它主题） -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
-    <!-- 引入 highlight.js 的 JS 文件 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
 
     <!-- Bootstrap JS -->
     <script type="text/javascript" src="/static/js/bootstrap.bundle.min.js"></script>
@@ -60,7 +69,112 @@
     <!-- 仅加载一个 MathJax 脚本 -->
     <script type="text/javascript" id="MathJax-script"
             src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-</head>
+    <!-- 在head部分添加内联样式，确保最高优先级 -->
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content="Academic Webpage"/>
+        <meta name="author" content="hdp"/>
+        <!-- 页面标题将从 YAML 中加载 -->
+        <title id="title">博客文章</title>
+
+        <!-- Icon -->
+        <link rel="icon" type="image/x-icon" href="/static/assets/icon.png"/>
+
+        <!-- Bootstrap icons -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
+
+        <!-- Google fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com"/>
+        <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&display=swap"
+              rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&display=swap"
+              rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;1,400&display=swap" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+
+        <!-- 引入 highlight.js 的 JS 文件和所有语言包 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+        <!-- 添加常用语言包 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/javascript.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/bash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/shell.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/xml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/css.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/json.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/yaml.min.js"></script>
+
+        <!-- 样式 - 注意：先引入自定义样式，确保它们能覆盖默认样式 -->
+        <link type="text/css" href="/static/css/styles.css" rel="stylesheet"/>
+        <link type="text/css" href="/static/css/main.css" rel="stylesheet"/>
+
+        <!-- Bootstrap JS -->
+        <script type="text/javascript" src="/static/js/bootstrap.bundle.min.js"></script>
+        <!-- Markdown 解析库 -->
+        <script type="text/javascript" src="/static/js/marked.min.js"></script>
+        <!-- YAML 解析库 -->
+        <script type="text/javascript" src="/static/js/js-yaml.min.js"></script>
+
+        <!-- 可选：MathJax（注意：避免同时加载多个版本） -->
+        <script>
+            MathJax = {
+                tex: {
+                    inlineMath: [['$', '$'], ['\\(', '\\)']],
+                    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                    processEscapes: false,
+                    processEnvironments: true,
+                    processRefs: true,
+                    digits: /^(?:[0-9]+(?:\{,\}[0-9]{3})*(?:\.[0-9]*)?|\.[0-9]+)/,
+                    tags: 'all',
+                    tagSide: 'right',
+                    tagIndent: '0.8em',
+                    useLabelIds: true,
+                    maxMacros: 10000,
+                    maxBuffer: 5 * 1024,
+                    formatError: (jax, err) => jax.formatError(err)
+                }
+            };
+        </script>
+        <!-- 仅加载一个 MathJax 脚本 -->
+        <script type="text/javascript" id="MathJax-script"
+                src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+        <!-- 添加内联样式，确保最高优先级 -->
+        <style>
+            /* 强制应用代码块样式 */
+            pre code,
+            pre code.hljs,
+            .hljs,
+            pre code.pycharm-style,
+            .main-body pre code,
+            #article-md pre code,
+            .vp-content pre code,
+            code[class*="language-"] {
+              display: block !important;
+              padding: 1em !important;
+              background: #2b2b2b !important;
+              color: #a9b7c6 !important;
+              border: none !important;
+              border-radius: 4px !important;
+              font-family: 'JetBrains Mono', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace !important;
+              font-size: 0.9rem !important;
+              line-height: 1.5 !important;
+              white-space: pre !important;
+              overflow-x: auto !important;
+              tab-size: 4 !important;
+            }
+
+            /* 高亮语法颜色 */
+            .hljs-keyword { color: #cc7832 !important; }
+            .hljs-string { color: #6a8759 !important; }
+            .hljs-comment { color: #808080 !important; }
+            .hljs-number { color: #6897bb !important; }
+            .hljs-function { color: #ffc66d !important; }
+            .hljs-title.function_ { color: #ffc66d !important; }
+            .hljs-variable { color: #9876aa !important; }
+            .hljs-tag { color: #e8bf6a !important; }
+        </style>
+    </head>
 <body id="page-top">
 
 <!-- 导航部分 -->
@@ -148,62 +262,205 @@
         .then(yamlText => jsyaml.load(yamlText));
     }
 
-    // 加载当前文章（通过 URL 参数指定）
-    function loadArticle(articleName) {
-  // 根据实际存放位置调整路径
-  const yamlPath = `./blog-folder/${articleName}.yml`;
-  const mdPath = `./blog-folder/${articleName}.md`;
-
-  const renderer = new marked.Renderer();
-  renderer.blockquote = function(quote) {
-    return `<blockquote class="custom-blockquote">${quote}</blockquote>`;
-  };
-
-  marked.setOptions({
-    highlight: function(code, lang) {
-      if (window.hljs) {
-        return hljs.highlightAuto(code, lang ? [lang] : undefined).value;
-      }
-      return code;
-    },
-    renderer: renderer
-  });
-
-  marked.setOptions({
-  highlight: function(code, lang) {
-    // 如果没有明确的语言，highlight.js 会自动检测
-    if (window.hljs) {
-      return hljs.highlightAuto(code, lang ? [lang] : undefined).value;
+    // 辅助函数：转义HTML特殊字符
+    function escapeHtml(text) {
+      const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return text.replace(/[&<>"']/g, m => map[m]);
     }
-    return code;
-  }
-});
 
-  loadYAML(yamlPath)
-    .then(articleMeta => {
-      // 遍历 YAML 中的每个键
-      for (let key in articleMeta) {
-        let elem = document.getElementById(key);
-        if (elem) {
-          if (key === "top-section") {
-            elem.style.backgroundImage = `url('${articleMeta[key]}')`;
-          } else {
-            elem.innerText = articleMeta[key];
-          }
-        }
-      }
-      return fetch(mdPath);
-    })
-    .then(response => response.text())
-    .then(mdText => {
-      const htmlContent = marked.parse(mdText);
-      document.getElementById('article-md').innerHTML = htmlContent;
-    })
-    .catch(error => {
-      console.error('加载文章出错:', error);
-      document.getElementById('article-md').innerHTML = '<p>无法加载文章内容</p>';
+    // 辅助函数：解码HTML实体
+    function decodeHtmlEntities(text) {
+      return text
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&amp;/g, '&');
+    }
+
+    // 确保 highlight.js 初始化
+    document.addEventListener('DOMContentLoaded', function() {
+        // 初始化 highlight.js
+        hljs.configure({
+            // 启用安全模式
+            ignoreUnescapedHTML: true
+        });
+
+        // 如果页面上已有代码块，立即高亮
+        document.querySelectorAll('pre code').forEach(block => {
+            // 处理HTML内容
+            if (block.className.includes('language-html') || block.className.includes('language-xml')) {
+                // 将HTML实体转换回实际字符以便高亮
+                block.innerHTML = block.innerHTML
+                    .replace(/&lt;/g, '<')
+                    .replace(/&gt;/g, '>')
+                    .replace(/&quot;/g, '"')
+                    .replace(/&#39;/g, "'")
+                    .replace(/&amp;/g, '&');
+            }
+
+            try {
+                hljs.highlightElement(block);
+            } catch (e) {
+                console.error('高亮处理错误:', e);
+            }
+        });
     });
-}
+
+    // 配置代码高亮
+    function applyHighlight(html) {
+      if (window.hljs) {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+
+        const codeBlocks = tempDiv.querySelectorAll('pre code');
+        codeBlocks.forEach(block => {
+          try {
+            // 检查是否包含HTML内容
+            if (block.getAttribute('data-contains-html') === 'true' ||
+                block.className.includes('language-html') ||
+                block.className.includes('language-xml')) {
+              // 解码HTML实体以便正确高亮
+              block.innerHTML = decodeHtmlEntities(block.innerHTML);
+            }
+
+            // 确保有语言类
+            if (!block.className.includes('language-')) {
+              block.className += ' language-plaintext';
+            }
+
+            // 应用高亮
+            hljs.highlightElement(block);
+
+            // 添加自定义类
+            block.classList.add('pycharm-style');
+
+            // 强制应用样式
+            block.style.backgroundColor = '#2b2b2b';
+            block.style.color = '#a9b7c6';
+
+            // 如果是HTML内容，再次转义以防止执行
+            if (block.getAttribute('data-contains-html') === 'true') {
+              block.innerHTML = escapeHtml(block.innerHTML);
+            }
+          } catch (error) {
+            console.error('高亮处理错误:', error);
+          }
+        });
+
+        return tempDiv.innerHTML;
+      }
+      return html;
+    }
+
+    // 在文章加载完成后的处理
+    function loadArticle(articleName) {
+      // 根据实际存放位置调整路径
+      const yamlPath = `./blog-folder/${articleName}.yml`;
+      const mdPath = `./blog-folder/${articleName}.md`;
+
+      // 自定义渲染器
+      const renderer = new marked.Renderer();
+        renderer.blockquote = function(quote) {
+          return `<blockquote class="custom-blockquote">${quote}</blockquote>`;
+        };
+
+        marked.setOptions({
+          headerIds: false,
+          mangle: false,
+          renderer: renderer,
+          highlight: function(code, lang) {
+            if (window.hljs) {
+              return hljs.highlightAuto(code, lang ? [lang] : undefined).value;
+            }
+            return code;
+          }
+        });
+
+      // 自定义代码块渲染，确保HTML被转义
+      renderer.code = function(code, language) {
+        // 处理不支持的语言
+        if (language === 'commandline') {
+          language = 'bash';
+        } else if (!language) {
+          language = 'plaintext';
+        }
+
+        // 转义代码中的HTML
+        const escapedCode = escapeHtml(code);
+
+        // 返回带有语言类的代码块
+        return `<pre><code class="language-${language}">${escapedCode}</code></pre>`;
+      };
+
+      loadYAML(yamlPath)
+        .then(articleMeta => {
+          // 遍历 YAML 中的每个键
+          for (let key in articleMeta) {
+            let elem = document.getElementById(key);
+            if (elem) {
+              if (key === "top-section") {
+                elem.style.backgroundImage = `url('${articleMeta[key]}')`;
+              } else {
+                elem.innerText = articleMeta[key];
+              }
+            }
+          }
+
+          // 设置导航栏标题
+          setTimeout(() => {
+            const pageTitleElement = document.getElementById('page-top-title');
+            if (pageTitleElement) {
+              pageTitleElement.textContent = '博客';
+            }
+          }, 100);
+
+          return fetch(mdPath);
+        })
+        .then(response => response.text())
+        .then(mdText => {
+          // 解析 Markdown
+          const html = marked.parse(mdText);
+
+          // 应用代码高亮
+          const highlightedHtml = applyHighlight(html);
+
+          // 更新 DOM
+          document.getElementById('article-md').innerHTML = highlightedHtml;
+
+          // 重新渲染数学公式
+          if (window.MathJax) {
+            MathJax.typeset();
+          }
+
+          // 添加：确保样式应用到所有代码块
+          setTimeout(() => {
+            document.querySelectorAll('#article-md pre code').forEach(block => {
+              // 强制应用样式
+              block.style.backgroundColor = '#2b2b2b';
+              block.style.color = '#a9b7c6';
+
+              // 查找并应用语法高亮颜色
+              block.querySelectorAll('.hljs-keyword').forEach(el => { el.style.color = '#cc7832'; });
+              block.querySelectorAll('.hljs-string').forEach(el => { el.style.color = '#6a8759'; });
+              block.querySelectorAll('.hljs-comment').forEach(el => { el.style.color = '#808080'; });
+              block.querySelectorAll('.hljs-number').forEach(el => { el.style.color = '#6897bb'; });
+              block.querySelectorAll('.hljs-function').forEach(el => { el.style.color = '#ffc66d'; });
+              block.querySelectorAll('.hljs-tag').forEach(el => { el.style.color = '#e8bf6a'; });
+              block.querySelectorAll('.hljs-name').forEach(el => { el.style.color = '#e8bf6a'; });
+              block.querySelectorAll('.hljs-attr').forEach(el => { el.style.color = '#9876aa'; });
+              block.querySelectorAll('.hljs-built_in').forEach(el => { el.style.color = '#cc7832'; });
+            });
+          }, 100);
+        })
+        .catch(error => console.error('加载文章失败:', error));
+    }
 
     // 加载全局配置（例如 footer 的版权信息），假设 config.yml 存放在根目录
     function loadConfig() {

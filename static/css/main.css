@@ -119,7 +119,7 @@ section .main-body{
     border-radius: 18px; /* 圆角稍小一点，避免覆盖渐变边框 */
 }
 
-.navbar-toggler: hover {
+.navbar-toggler:hover {
     background: linear-gradient(90deg,#ff8a00,#e52e71);
     text-shadow: none;
     -webkit-text-fill-color: transparent;

@@ -1,6 +1,5 @@
 
 [//]: # (# 从0开始！如何整出自己的飞书财经新闻小助手)
-<br>
 
 ![](/contents/blogs/blog-folder/Finews_pics/IM_1.png)
 
@@ -70,7 +69,7 @@ _~~（因为除了这个是静态的之外其他都不能直接用上边的url�
 
 面对着如此空的代码页，我建议你先写下：
 
-```text
+```python
 a = 1 + 1
 print(a)
 ```
@@ -81,7 +80,7 @@ print(a)
 
 正如你所想的一样！我们在实际中通过浏览器访问网址是通过我们的电脑像那个网址请求目标网址给我们发信息，浏览器就像一个编译器，将html语言翻译成**文字、图片、横线**，让大家都能看得懂。而在Python中使用`requests`库则是实现同样的过程，但是Python并不会直接将其编译出来，如下所示：
 
-  ```text
+  ```python
   import requests
   
   # 所要请求的网址
@@ -94,13 +93,13 @@ print(a)
 
 哦豁！怎么输出个：
 
-  ```text
+  ```python
   <Response [200]>
   ```
 
 我们来更改一下代码，看看为啥输出个这个玩意儿。`type()`函数是Python中众多无需引入额外库可直接写入代码的函数之一，其功能主要为返回`()`中的所属类型。
 
-  ```text
+  ```python
   import requests
   
   # 所要请求的网址
@@ -113,7 +112,7 @@ print(a)
 
 这次代码输出：
 
-  ```text
+  ```python
   <class 'requests.models.Response'>
   ```
 
@@ -125,7 +124,7 @@ _想了解更多网络请求返回HTTP状态码请移步CSDN的[相关文章](ht
 
 那既然请求成功了，咱的html代码给请到哪里去了？？？这时就要请出来我们的`.text`了，使用它将请求的内容（text）整出来。
 
-  ```text
+  ```python
   import requests
   
   # 所要请求的网址
@@ -137,7 +136,7 @@ _想了解更多网络请求返回HTTP状态码请移步CSDN的[相关文章](ht
   ```
 oi!输出老长一段：
 
-  ```text
+  ```python
   <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
   <!--published at 2023/11/18 2:27:56 by finance.eastmoney.com ZP NEWS 156-->
   <html lang="en">
@@ -148,12 +147,12 @@ oi!输出老长一段：
   ```
 遇事先不急，反手掏出`type()`验他身份，
 
-  ```text
+  ```python
   <class 'str'>
   ```
 我的妈，这么大一串居然是一整个`str`类型的字符串，那我们该如何在这一串代码中寻找到我们所需要的网友点击排行榜呢？让我们把目光放回到浏览器中，在我们依据之前的操作选中网友点击排行榜的第一条新闻后，发现他处在如下一个**元素结构**中：
 
-  ```text
+  ```python
   <div class="tabList pt5 pb5 bg_sblue clearfix">
             <ul class="h28 fn">
                             <li><span class="no">1</span> <a target="_blank" href="https://finance.eastmoney.com/a/202311172907424344.html">半导体设备制造商正被调查</a></li>
@@ -201,14 +200,14 @@ oi!输出老长一段：
 
 给前文的`requests_respond_text`上个`.find()`嘴脸：
 
-  ```text
+  ```python
   # 寻寻觅觅我的ul和class="h28 fn"
   first_attempt = requests_respond_text.find('ul', class_ = 'h28 fn')
   ```
 
 果不其然，**报错了**，为啥捏？
 
-  ```text
+  ```python
   Traceback (most recent call last):
     File "D:\Feishubot\python\test.py", line 9, in <module>
       first_attempt = requests_respond_text.find('ul',class_ = 'h28 fn')
@@ -219,7 +218,7 @@ oi!输出老长一段：
 需要注意的是，`str`是一个大整体，直接用`.find`去找肯定是不能找的，**他就一个，你还找啥？**
 * 这个时候就要请出我们的整理大师`BeautifulSoup`美丽的汤了！其为Python中`bs4`库中的一个**格式整理**函数：
 * 它可以让`<li>`、`<ul>`、`<div>`等等拖家带口，让其后面的内容与其绑定，再从一个**巨无霸**，变成一条条单独的**元素**，这样当我们用`.find`去寻找`<li>`的时候，我们就可以直接把他后边的新闻直接拉出来啦~
-```text
+```python
 from bs4 import BeautifulSoup
   
 requests_respond_text_ordered = BeautifulSoup(requests_respond.text,"html.parser")
@@ -229,7 +228,7 @@ requests_respond_text_ordered = BeautifulSoup(requests_respond.text,"html.parser
 
 现在来看看代码全览：
 
-```text
+```python
 import requests
 from bs4 import BeautifulSoup
 
@@ -247,7 +246,7 @@ print(type(first_attempt)) # 验一下身份
 
 返回：
 
-```text
+```python
 <ul class="h28 fn">
 <li><span class="no">1</span> <a href="https://finance.eastmoney.com/a/202311172907424344.html" target="_blank">半导体设备制造商正被调查</a></li>
 <li><span class="no">2</span> <a href="https://finance.eastmoney.com/a/202311172907300654.html" target="_blank">智能网联汽车大消息 准入试点工作开启 概念股名单揭晓</a></li>
@@ -268,14 +267,14 @@ print(type(first_attempt)) # 验一下身份
 
 对于这段不知道怎么操作的文本类型，我们直接采用str大法，将其**字符串**化，`str()`，启动！
 
-```text
+```python
 rough_text = str(first_attempt)
 print(rough_text)
 ```
 
 输出如下结果：
 
-```text
+```python
 <ul class="h28 fn">
 <li><span class="no">1</span> <a href="https://finance.eastmoney.com/a/202311172907424344.html" target="_blank">半导体设备制造商正被调查</a></li>
 <li><span class="no">2</span> <a href="https://finance.eastmoney.com/a/202311172907514416.html" target="_blank">深圳正威最大产业园停产 员工放假两个月</a></li>
@@ -293,12 +292,12 @@ print(rough_text)
 * `split`是**分割**的意思。
 
 正如这个意思一般，`.split`可以通过识别`()`中内容并将其作为裁剪点，我们将这段话作为示例。
-```text
+```python
 test_text = '正如这个意思一般，.split可以通过识别()中内容并将其作为裁剪点，我们将这段话作为示例。'
 print(test_text.split('，'))
 ```
 输出：
-```text
+```python
 ['正如这个意思一般', '.split可以通过识别()中内容并将其作为裁剪点', '我们将这段话作为示例。']
 ```
 由上述代码以及结果可见，`.split()`通过识别`test_text`中`()`内的`'，'`，将句子按照逗号分割开了，同时，作为裁剪点的`'，'`并没有再次出现。
@@ -308,12 +307,12 @@ print(test_text.split('，'))
 
 ![](/contents/blogs/blog-folder/Finews_pics/img_10.png)
 裁剪过程：
-```text
+```python
 first_split_result = rough_text.split('<a href="')
 print(f'这个数列有{len(first_split_result)}个元素。')
 ```
 输出：
-```text
+```python
 ['<ul class="h28 fn">\n<li><span class="no">1</span> ', 'https://finance.eastmoney.com/a/202311172907424344.html" target="_blank">半导体设备制造商正被调查</a></li>\n<li><span class="no">2</span> ', 'https://finance.eastmoney.com/a/202311172907514416.html" target="_blank">深圳正威最大产业园停产 员工放假两个月</a></li>\n<li><span class="no">3</span> ', 'https://finance.eastmoney.com/a/202311172907411955.html" target="_blank">全球首款！基于开源鸿蒙的人形机器人发布 相关A股机器人概念股午后异动</a></li>\n<li><span class="no">4</span> ', 'https://finance.eastmoney.com/a/202311172907407885.html" target="_blank">A股三大指数小幅收涨 汽车产业链集体走强</a></li>\n<li><span class="no">5</span> ', 'https://finance.eastmoney.com/a/202311172907412259.html" target="_blank">HBM概念火了！多家巨头加码入场 一图梳理概念股</a></li>\n<li><span class="no">6</span> ', 'https://finance.eastmoney.com/a/202311172907438635.html" target="_blank">100分钟预订1万辆！李想“跳楼款”新车开售：60万以内 充电12分钟续航500公里</a></li>\n<li><span class="no">7</span> ', 'https://finance.eastmoney.com/a/202311172907464385.html" target="_blank">一则大消息 医药股狂飙！盘面多点开花 医药相关板块表现亮眼</a></li>\n<li><span class="no">8</span> ', 'https://finance.eastmoney.com/a/202311172907387340.html" target="_blank">举行会谈</a></li>\n<li><span class="no">9</span> ', 'https://finance.eastmoney.com/a/202311172907602732.html" target="_blank">证监会：严厉打击以衍生品为“通道”规避证券期货市场监管的行为</a></li>\n<li><span class="no">10</span> ', 'https://finance.eastmoney.com/a/202311172907596212.html" target="_blank">三部门：一视同仁满足不同所有制房地产企业合理融资需求</a></li>\n</ul>']
 这个数列有11个元素。
 ```
@@ -323,12 +322,12 @@ print(f'这个数列有{len(first_split_result)}个元素。')
 * `for循环`，伟大的作品。
 
 我们先来看一下Python中循环最基本的思想与注意事项：
-```text
+```python
 for i in range(10):  # 结尾要加冒号 range()指输出的次数是多少，为了与示例相同，我们选择与新闻数相同的10
     print(f'This is 第{i+1}次输出，此时i值为{i}')
 ```
 输出：
-```text
+```python
 This is 第1次输出，此时i值为0
 This is 第2次输出，此时i值为1
 This is 第3次输出，此时i值为2
@@ -341,18 +340,18 @@ This is 第9次输出，此时i值为8
 This is 第10次输出，此时i值为9
 ```
 显而易见，Python的数数是从`0`开始算的，也就是说数`10`次后，`i`为`9`，再举个例子，选取数列中第一个也是用Array[0]实现：
-```text
+```python
 print(first_split_result[0])
 ```
 输出：
-```text
+```python
 <ul class="h28 fn">\n<li><span class="no">1</span> 
 ```
 所以依据这个原理，我们可以借助`for循环`依次读取`first_split_result`11个元素中的那第2~11的真正含有有效信息的元素。
 
 因为其实`first_split_result[1]~first_split_result[10]`（也就是第2~11个元素）的形式都一模一样，我们先对单个进行分析：
 
-```text
+```python
 # 第二条内容
 single_news = 'https://finance.eastmoney.com/a/202311172907424344.html" target="_blank">半导体设备制造商正被调查</a></li>\n<li><span class="no">2</span> '
 ```
@@ -360,7 +359,7 @@ single_news = 'https://finance.eastmoney.com/a/202311172907424344.html" target="
 
 统合上文的`Array[0]`与`.split()`方法，我们写出如下代码：
 
-```text
+```python
 single_news = 'https://finance.eastmoney.com/a/202311172907424344.html" target="_blank">半导体设备制造商正被调查</a></li>\n<li><span class="no">2</span> '
 
 # 第一次分割" target="_blank">，得到含有单独的新闻链接+新闻标题和小尾巴的长度为2的数列。
@@ -380,14 +379,14 @@ print(rough_header)
 print(single_news_header)
 ```
 输出：
-```text
+```python
 ['https://finance.eastmoney.com/a/202311172907424344.html', '半导体设备制造商正被调查</a></li>\n<li><span class="no">2</span> ']
 https://finance.eastmoney.com/a/202311172907424344.html
 ['半导体设备制造商正被调查', '</li>\n<li><span class="no">2</span> ']
 半导体设备制造商正被调查
 ```
 **Perfecto!!!** 随后添加循环，叶问附身，我要整10个！
-```text
+```python
 Greetings = "今日事，今日报，黄大炮带你看速报：\n"
 for i in range(10):  # 咱就10个新闻
     single_news = first_split_result[i+1]  # 咱新闻从第二个元素才开始！
@@ -410,7 +409,7 @@ for i in range(10):  # 咱就10个新闻
 print(Greetings)
 ```
 输出：
-```text
+```python
 今日事，今日报，黄大炮带你看速报：
 1、半导体设备制造商正被调查
 传送门：https://finance.eastmoney.com/a/202311172907424344.html
@@ -436,11 +435,11 @@ print(Greetings)
 
 值得注意的是，当你仅需要文本内容而不需要他的链接时，可不通过`str()`以及`.split()`流程，而仅仅需要`.text()`即可，以下是示例代码：
 
-```text
+```python
 print(first_attempt.text)
 ```
 输出：
-```text
+```python
 1 半导体设备制造商正被调查
 2 深圳正威最大产业园停产 员工放假两个月
 3 全球首款！基于开源鸿蒙的人形机器人发布 相关A股机器人概念股午后异动
@@ -481,7 +480,7 @@ print(first_attempt.text)
 选择暂不配置/完成。
 
 * 至此，飞书部分完成，我们根据字节同志官方给出的标准答案，抄一下作业：
-```text
+```python
 import requests
 import json
 
@@ -545,7 +544,7 @@ class FeishuTalk:
 噢！有一些自定义的小创意你可以加上：
 * 想让你的消息能够 **@你自己+别人** 吗？
 * 将你的Python代码中的`# 发送文本消息`这一部分：
-```text
+```python
         payload_message = {
             "msg_type": "text",
             "content": {
@@ -555,7 +554,7 @@ class FeishuTalk:
         }
 ```
 把`#`去掉，`user_id`后边的`bf888888`修改为你的**用户ID**，例如我的用户ID为`abcdefgh`,如果**想要@更多人**，直接继续往后加`+ "<at user_id=\"abcdefgh\">test</at>" `即可：
-```text
+```python
         payload_message = {
             "msg_type": "text",
             "content": {
@@ -582,7 +581,7 @@ OK，你以为这就结束了吗！不，我们要实现**完整的开发与定�
 你可能需要在终端中先安装一下`pyinstaller`,我们亲爱的打包库。
 * `pyinstaller`是**Python安装哥**的意思。
 
-```text
+```python
 pip install pyinstaller
 ```
 
@@ -594,7 +593,7 @@ pip install pyinstaller
 
 _~~我忘记pipenv是自带的还是也要pip install pipenv了，懒得看了，没有就自行安装吧~~_
 
-```text
+```python
 pipenv shell
 ```
 如果地址不是当前文件所在的文件夹就得具体先拉到那个文件夹先，例如刚打开是`D:\Feishubot`，但是我的文件其实在`D:\Feishubot\python`目录下，所以我又额外`cd`了一下，应该能理解吧<br>
@@ -602,11 +601,11 @@ pipenv shell
 头头会从`base`变为`PS`，就说明成功了，然后把Python代码中涉及到的库用空格分开依次安装(导入)：
 * 这个过程与`pip`是不太一样的，`pip install`相当于从网上下载了这个库到本地Python中，而`pipenv install`则是将本地已经有的库导入到虚拟环境中。
 
-```text
+```python
 pipenv install requests json bs4
 ```
 只要返回的内容说明几个库的`pipenv insall`都报成功`Suceeded`了后，别的错误就不用管拉。
-```text
+```python
 Installing requests...
 Resolving requests...
 Added requests to Pipfile's [packages] ...
@@ -622,7 +621,7 @@ Installation Succeeded
 ```
 然后就可以使用`pyinstaller`进行打包啦：
 
-```text
+```python
 Pyinstaller -F -w -i [图片名].ico [脚本名].py
 
 -F 参数为 产生单个的可执行文件
@@ -631,7 +630,7 @@ Pyinstaller -F -w -i [图片名].ico [脚本名].py
 [图片名].ico：ico图片是需要软件把图片转换ico格式，而不是直接修改文件后缀名
 ```
 示例代码：
-```text
+```python
 pyinstaller -F Daily_News.py
 ```
 随后就是稍作等待~
@@ -693,13 +692,13 @@ pyinstaller -F Daily_News.py
 ## 附录
 ### 1、Python相关库安装代码（终端中运行）
 
-```text
+```python
 pip install requests json bs4 pyinstaller
 ```
 <br>
 
 ### 2、主程序全代码（在Python代码窗口中运行）
-```text
+```python
 import requests
 import json
 from bs4 import BeautifulSoup
@@ -808,7 +807,7 @@ FeishuTalk().sendTextmessage(Greetings)  # 发信息专用
 懒得宣传了，大家有空感兴趣可以找我加飞书企业，群里边几个人都熟的话马进~
 
 这是一个财经新闻进阶版上市公司板块的`.exe`文件，可以下载然后拿去自己用，相对于本教程中的新闻更加具有针对性同时刷新来源更新频率相对**更快一些**,缺点就是只能从`.exe`窗口里边看，要想点链接得复制出来~
-```text
+```python
 【超级会员V4】通过百度网盘分享的文件：DailyNew....exe
 链接：https://pan.baidu.com/s/180jVWafjonWi_r1W9XoiMQ?pwd=76T7 
 提取码：76T7 
