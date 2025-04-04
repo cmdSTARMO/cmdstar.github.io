@@ -10914,6 +10914,39 @@ footer a:hover, footer a:active, footer a:focus {
   text-decoration: underline;
 }
 
+/* 代码块样式 */
+pre code {
+  display: block;
+  padding: 1em;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
 
+/* 自定义引用块样式 */
+.custom-blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 1em;
+  margin: 1em 0;
+  color: #666;
+  font-style: italic;
+  background: #f9f9f9;
+}
 
+/* 链接样式，防止长链接超出屏幕宽度 */
+a {
+  overflow-wrap: break-word;
+  word-break: break-all;
+}
 
+.custom-blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 1em;
+  margin: 1em 0;
+  color: #666;
+  font-style: italic;
+  background: #f9f9f9;
+}
