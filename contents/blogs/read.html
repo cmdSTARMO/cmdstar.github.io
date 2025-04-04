@@ -86,7 +86,9 @@
             <!-- 文章日期（可选） -->
             <div id="article-date" class="text-muted"></div>
         </header>
+        <br>
         <div class="custom-divider"></div>
+        <br>
         <!-- Markdown 文章内容 -->
         <div class="main-body vp-content" id="article-md"></div>
         <!-- YAML 中其他自定义变量示例 -->
@@ -134,7 +136,7 @@
       for (let key in articleMeta) {
         let elem = document.getElementById(key);
         if (elem) {
-          if (key === "top-section-bg") {
+          if (key === "top-section") {
             elem.style.backgroundImage = `url('${articleMeta[key]}')`;
           } else {
             elem.innerText = articleMeta[key];
