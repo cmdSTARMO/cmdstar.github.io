@@ -132,7 +132,7 @@
         .then(response => response.text())
         .then(mdText => {
           // 使用 marked 将 Markdown 转换成 HTML
-          const htmlContent = marked(mdText);
+          const htmlContent = marked.parse(mdText);
           document.getElementById('Finews-md').innerHTML = htmlContent;
         })
         .catch(error => {
