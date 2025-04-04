@@ -10951,33 +10951,7 @@ a {
   background: #f9f9f9;
 }
 
-html {
-  font-size: 16px; /* 默认根字体大小 */
-}
-
-/* 小屏幕设备 */
-@media (max-width: 600px) {
-  html {
-    font-size: 14px;
-  }
-}
-
-/* 中屏幕设备 */
-@media (min-width: 601px) and (max-width: 1024px) {
-  html {
-    font-size: 15px;
-  }
-}
-
-/* 大屏幕设备 */
-@media (min-width: 1025px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-/* 确保 Markdown 渲染部分使用 rem 单位 */
-.main-body {
-  font-size: 1rem;
-  line-height: 1.5;
+#article-md {
+font-size: 1rem;  /* 1rem 根据 html 的 font-size 自动缩放 */
+line-height: 1.5;
 }
