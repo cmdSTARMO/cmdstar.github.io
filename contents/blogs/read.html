@@ -70,72 +70,51 @@
     <script type="text/javascript" id="MathJax-script"
             src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 
-    <!-- 添加章节导航样式 -->
+    <!-- 章节导航系统样式 -->
     <style>
-        /* 章节导航容器 - 宽屏模式 */
+        /* 章节导航容器 - 桌面版 */
         #toc-container {
             position: fixed;
             left: 20px;
-            top: 120px; /* 调整顶部距离，避免与导航栏重叠 */
+            top: 100px; /* 调整顶部距离，避免与导航栏重叠 */
             width: 280px;
-            max-height: calc(100vh - 180px);
+            max-height: calc(100vh - 150px);
             overflow-y: auto;
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             color: #fff;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            z-index: 998;
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            z-index: 1000;
+            transition: all 0.3s ease;
             display: none; /* 默认隐藏，通过JS控制显示 */
-            scrollbar-width: thin;
-            scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
-        }
-
-        /* 自定义滚动条 */
-        #toc-container::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        #toc-container::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        #toc-container::-webkit-scrollbar-thumb {
-            background-color: rgba(255, 255, 255, 0.3);
-            border-radius: 3px;
         }
 
         /* 章节导航标题 */
-        #toc-title {
+        #toc-container h3 {
+            margin-top: 0;
             font-size: 18px;
             font-weight: 600;
             margin-bottom: 15px;
             padding-bottom: 8px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
-            justify-content: space-between;
             align-items: center;
         }
 
-        /* 关闭按钮 - 仅在移动端显示 */
-        #toc-close {
-            cursor: pointer;
-            font-size: 20px;
-            display: none;
+        #toc-container h3 i {
+            margin-right: 8px;
         }
 
-        /* 章节列表 */
+        /* 章节列表样式 */
         #toc-list {
             list-style: none;
             padding: 0;
             margin: 0;
         }
 
-        /* 章节项 */
         #toc-list li {
             margin-bottom: 8px;
             padding-left: 15px;
@@ -143,16 +122,26 @@
             transition: all 0.2s ease;
         }
 
+        #toc-list li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+        }
+
         /* 不同级别标题的缩进 */
-        #toc-list li.toc-h1 { padding-left: 0; }
         #toc-list li.toc-h2 { padding-left: 15px; }
         #toc-list li.toc-h3 { padding-left: 30px; }
         #toc-list li.toc-h4 { padding-left: 45px; }
         #toc-list li.toc-h5 { padding-left: 60px; }
         #toc-list li.toc-h6 { padding-left: 75px; }
 
-        /* 章节链接 */
-        #toc-list li a {
+        /* 链接样式 */
+        #toc-list a {
             color: rgba(255, 255, 255, 0.85);
             text-decoration: none;
             font-size: 14px;
@@ -164,60 +153,118 @@
             text-overflow: ellipsis;
         }
 
-        /* 章节链接悬停效果 */
-        #toc-list li a:hover {
-            color: #ff914d;
+        #toc-list a:hover {
+            color: #fff;
             transform: translateX(3px);
         }
 
-        /* 当前活跃章节 */
+        /* 当前活动章节 */
+        #toc-list li.active:before {
+            background: #ff914d;
+            box-shadow: 0 0 5px #ff914d;
+        }
+
         #toc-list li.active a {
             color: #ff914d;
             font-weight: 600;
         }
 
-        /* 章节前的装饰点 */
-        #toc-list li:before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 12px;
-            width: 6px;
-            height: 6px;
+        /* 移动端悬浮按钮 */
+        #toc-toggle-btn {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-        }
-
-        #toc-list li.toc-h1:before { display: none; }
-        #toc-list li.active:before { background: #ff914d; }
-
-        /* 悬浮按钮 - 移动端 */
-        .float-btn.toc-btn {
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.3s ease;
             display: none; /* 默认隐藏，通过JS控制显示 */
         }
 
-        /* 响应式调整 */
-        @media (max-width: 1200px) {
-            #toc-container {
-                left: -300px; /* 默认隐藏在屏幕外 */
-                top: 50%;
-                transform: translateY(-50%);
-                max-height: 80vh;
-                transition: left 0.3s ease, opacity 0.3s ease;
-                opacity: 0;
-            }
+        #toc-toggle-btn:hover {
+            background: rgba(0, 0, 0, 0.5);
+            transform: scale(1.05);
+        }
 
-            #toc-container.show {
-                left: 20px;
-                opacity: 1;
-            }
+        /* 移动端弹出的章节导航 */
+        #toc-container.mobile {
+            left: 20px;
+            bottom: 80px;
+            top: auto;
+            width: calc(100% - 40px);
+            max-width: 320px;
+            max-height: 60vh;
+            transform: translateY(150%);
+            opacity: 0;
+            pointer-events: none;
+        }
 
-            #toc-close {
-                display: block;
-            }
+        #toc-container.mobile.show {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
 
-            .float-btn.toc-btn {
-                display: block;
+        /* 关闭按钮 */
+        #toc-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        #toc-close:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* 滚动条样式 */
+        #toc-container::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        #toc-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        #toc-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        #toc-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* 适配文章内容，确保不被TOC遮挡 */
+        @media (min-width: 1200px) {
+            .container {
+                padding-left: 300px;
             }
         }
     </style>
@@ -243,6 +290,18 @@
         </div>
     </div>
 </section>
+
+<!-- 章节导航按钮（移动端） -->
+<div id="toc-toggle-btn" title="显示章节目录">
+    <i class="bi bi-list-ul"></i>
+</div>
+
+<!-- 章节导航容器 -->
+<div id="toc-container">
+    <button id="toc-close" title="关闭目录"><i class="bi bi-x"></i></button>
+    <h3><i class="bi bi-bookmark-fill"></i> 章节目录</h3>
+    <ul id="toc-list"></ul>
+</div>
 
 <!-- 文章主体部分 -->
 <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="article">
@@ -419,6 +478,13 @@
           return `<blockquote class="custom-blockquote">${quote}</blockquote>`;
         };
 
+        // 修改标题渲染，添加ID以便章节导航
+        renderer.heading = function(text, level) {
+          const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
+          const id = `heading-${escapedText}`;
+          return `<h${level} id="${id}">${text}</h${level}>`;
+        };
+
         marked.setOptions({
           headerIds: false,
           mangle: false,
@@ -506,6 +572,9 @@
               block.querySelectorAll('.hljs-built_in').forEach(el => { el.style.color = '#cc7832'; });
             });
           }, 100);
+
+          // 生成章节导航
+          generateTableOfContents();
         })
         .catch(error => console.error('加载文章失败:', error));
     }
@@ -523,6 +592,138 @@
           console.error('加载全局配置失败:', error);
         });
     }
+
+    // 生成章节导航目录
+    function generateTableOfContents() {
+      const articleContent = document.getElementById('article-md');
+      const tocList = document.getElementById('toc-list');
+      const headings = articleContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+      // 清空现有目录
+      tocList.innerHTML = '';
+
+      // 如果没有标题，则隐藏目录
+      if (headings.length === 0) {
+        document.getElementById('toc-container').style.display = 'none';
+        document.getElementById('toc-toggle-btn').style.display = 'none';
+        return;
+      }
+
+      // 为每个标题创建目录项
+      headings.forEach((heading, index) => {
+        // 确保每个标题都有ID
+        if (!heading.id) {
+          const id = `heading-${index}`;
+          heading.id = id;
+        }
+
+        const level = parseInt(heading.tagName.substring(1));
+        const listItem = document.createElement('li');
+        listItem.className = `toc-h${level}`;
+
+        const link = document.createElement('a');
+        link.href = `#${heading.id}`;
+        link.textContent = heading.textContent;
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+
+          // 平滑滚动到目标位置
+          document.getElementById(heading.id).scrollIntoView({
+            behavior: 'smooth'
+          });
+
+          // 在移动端点击后关闭目录
+          if (window.innerWidth < 992) {
+            document.getElementById('toc-container').classList.remove('show');
+          }
+        });
+
+        listItem.appendChild(link);
+        tocList.appendChild(listItem);
+      });
+
+      // 设置响应式显示
+      updateTocDisplay();
+
+      // 监听滚动事件，高亮当前章节
+      window.addEventListener('scroll', highlightCurrentSection);
+    }
+
+    // 高亮当前可见的章节
+    function highlightCurrentSection() {
+      const scrollPosition = window.scrollY;
+      const articleContent = document.getElementById('article-md');
+      const headings = articleContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      const tocItems = document.querySelectorAll('#toc-list li');
+
+      // 找到当前可见的标题
+      let currentHeadingIndex = -1;
+
+      headings.forEach((heading, index) => {
+        const rect = heading.getBoundingClientRect();
+        // 标题在视口顶部以下100px处或以上
+        if (rect.top <= 100) {
+          currentHeadingIndex = index;
+        }
+      });
+
+      // 移除所有高亮
+      tocItems.forEach(item => {
+        item.classList.remove('active');
+      });
+
+      // 添加当前章节高亮
+      if (currentHeadingIndex >= 0 && currentHeadingIndex < tocItems.length) {
+        tocItems[currentHeadingIndex].classList.add('active');
+
+        // 确保当前项在目录视图中可见
+        const tocContainer = document.getElementById('toc-container');
+        const activeItem = tocItems[currentHeadingIndex];
+
+        if (tocContainer.scrollHeight > tocContainer.clientHeight) {
+          const itemTop = activeItem.offsetTop;
+          const containerScrollTop = tocContainer.scrollTop;
+          const containerHeight = tocContainer.clientHeight;
+
+          if (itemTop < containerScrollTop || itemTop > containerScrollTop + containerHeight) {
+            tocContainer.scrollTop = itemTop - containerHeight / 2;
+          }
+        }
+      }
+    }
+
+    // 根据屏幕宽度更新目录显示方式
+    function updateTocDisplay() {
+      const tocContainer = document.getElementById('toc-container');
+      const tocToggleBtn = document.getElementById('toc-toggle-btn');
+
+      if (window.innerWidth < 992) {
+        // 移动端：显示悬浮按钮，隐藏侧边栏
+        tocContainer.classList.add('mobile');
+        tocContainer.classList.remove('show');
+        tocToggleBtn.style.display = 'flex';
+      } else {
+        // 桌面端：显示侧边栏，隐藏悬浮按钮
+        tocContainer.classList.remove('mobile');
+        tocContainer.style.display = 'block';
+        tocToggleBtn.style.display = 'none';
+      }
+    }
+
+    // 监听窗口大小变化
+    window.addEventListener('resize', updateTocDisplay);
+
+    // 设置移动端目录切换按钮事件
+    document.getElementById('toc-toggle-btn').addEventListener('click', function() {
+      const tocContainer = document.getElementById('toc-container');
+      tocContainer.classList.toggle('show');
+    });
+
+    // 设置关闭按钮事件
+    document.getElementById('toc-close').addEventListener('click', function() {
+      const tocContainer = document.getElementById('toc-container');
+      tocContainer.classList.remove('show');
+    });
 
     // 主程序：加载文章和全局配置
     const articleName = getQueryParam('a_id');
