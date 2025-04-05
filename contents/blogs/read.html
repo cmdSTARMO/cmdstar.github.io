@@ -480,9 +480,9 @@
 
         // 修改标题渲染，添加ID以便章节导航
         renderer.heading = function(text, level) {
-          const escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
-          const id = `heading-${escapedText}`;
-          return `<h${level} id="${id}">${text}</h${level}>`;
+          // 使用计数方式生成ID，而不是基于英文文本
+          const headingId = generateHeadingId(level, text);
+          return `<h${level} id="${headingId}">${text}</h${level}>`;
         };
 
         marked.setOptions({
@@ -496,6 +496,47 @@
             return code;
           }
         });
+
+        // 新增：标题ID生成函数
+        function generateHeadingId(level, text) {
+          // 如果是第一次调用，初始化计数器
+          if (!window.headingCounters) {
+            window.headingCounters = {
+              counters: [0, 0, 0, 0, 0, 0], // h1-h6的计数器
+              lastLevel: 0
+            };
+          }
+
+          const counters = window.headingCounters.counters;
+          const lastLevel = window.headingCounters.lastLevel;
+
+          // 如果当前标题级别比上一个小（例如从h3到h2），重置所有更高级别的计数器
+          if (level < lastLevel) {
+            for (let i = level; i < counters.length; i++) {
+              counters[i] = 0;
+            }
+          }
+          // 如果跳级（例如从h1直接到h3），将中间级别的计数设为0
+          else if (level > lastLevel + 1) {
+            for (let i = lastLevel + 1; i < level; i++) {
+              counters[i - 1] = 0;
+            }
+          }
+
+          // 增加当前级别的计数
+          counters[level - 1]++;
+
+          // 更新最后处理的级别
+          window.headingCounters.lastLevel = level;
+
+          // 生成ID，格式为：h-1, h-1-2, h-1-2-3等
+          let id = 'h';
+          for (let i = 0; i < level; i++) {
+            id += '-' + counters[i];
+          }
+
+          return id;
+        }
 
       // 自定义代码块渲染，确保HTML被转义
       renderer.code = function(code, language) {
