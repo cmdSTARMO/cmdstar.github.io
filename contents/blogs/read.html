@@ -90,6 +90,8 @@
             z-index: 1000;
             transition: all 0.3s ease;
             display: none; /* 默认隐藏，通过JS控制显示 */
+            /* 添加这一行，防止滚动传递 */
+            overscroll-behavior: contain;
         }
 
         /* 章节导航标题 */
@@ -264,7 +266,7 @@
         /* 适配文章内容，确保不被TOC遮挡 */
         @media (min-width: 1200px) {
             .container {
-                padding-left: 300px;
+                padding-left: 100px;
             }
         }
     </style>
@@ -291,17 +293,7 @@
     </div>
 </section>
 
-<!-- 章节导航按钮（移动端） -->
-<div id="toc-toggle-btn" title="显示章节目录">
-    <i class="bi bi-list-ul"></i>
-</div>
 
-<!-- 章节导航容器 -->
-<div id="toc-container">
-    <button id="toc-close" title="关闭目录"><i class="bi bi-x"></i></button>
-    <h3><i class="bi bi-bookmark-fill"></i> 章节目录</h3>
-    <ul id="toc-list"></ul>
-</div>
 
 <!-- 文章主体部分 -->
 <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="article">
@@ -320,6 +312,18 @@
         <!--        <h2 id="website_name"></h2>-->
     </div>
 </section>
+
+<!-- 章节导航按钮（移动端） -->
+<div id="toc-toggle-btn" title="显示章节目录">
+    <i class="bi bi-list-ul"></i>
+</div>
+
+<!-- 章节导航容器 -->
+<div id="toc-container">
+    <button id="toc-close" title="关闭目录"><i class="bi bi-x"></i></button>
+    <h3><i class="bi bi-bookmark-fill"></i> 章节目录</h3>
+    <ul id="toc-list"></ul>
+</div>
 
 <!-- 页面中放置一个容器，用于加载悬浮按钮 -->
 <div id="floating-buttons-container"></div>
@@ -747,24 +751,60 @@
         // 桌面端：显示侧边栏，隐藏悬浮按钮
         tocContainer.classList.remove('mobile');
         tocContainer.style.display = 'block';
-        tocToggleBtn.style.display = 'none';
+        // 修改：在桌面模式下也显示悬浮按钮，用于重新打开关闭的TOC
+        tocToggleBtn.style.display = tocContainer.classList.contains('hidden') ? 'flex' : 'none';
       }
     }
 
-    // 监听窗口大小变化
-    window.addEventListener('resize', updateTocDisplay);
-
-    // 设置移动端目录切换按钮事件
+    // 设置移动端目录切换按钮事件 - 修改为同时支持桌面和移动端
     document.getElementById('toc-toggle-btn').addEventListener('click', function() {
       const tocContainer = document.getElementById('toc-container');
-      tocContainer.classList.toggle('show');
+      const tocToggleBtn = document.getElementById('toc-toggle-btn');
+
+      if (window.innerWidth < 992) {
+        // 移动端行为
+        tocContainer.classList.toggle('show');
+      } else {
+        // 桌面端行为
+        tocContainer.classList.remove('hidden');
+        tocContainer.style.display = 'block';
+        tocToggleBtn.style.display = 'none';
+      }
     });
 
-    // 设置关闭按钮事件
+    // 设置关闭按钮事件 - 修改为同时支持桌面和移动端
     document.getElementById('toc-close').addEventListener('click', function() {
       const tocContainer = document.getElementById('toc-container');
-      tocContainer.classList.remove('show');
+      const tocToggleBtn = document.getElementById('toc-toggle-btn');
+
+      if (window.innerWidth < 992) {
+        // 移动端行为
+        tocContainer.classList.remove('show');
+      } else {
+        // 桌面端行为 - 隐藏TOC并显示悬浮按钮
+        tocContainer.classList.add('hidden');
+        tocContainer.style.display = 'none';
+        tocToggleBtn.style.display = 'flex';
+      }
     });
+
+    // 添加：防止导航栏滚动传递到页面
+    document.getElementById('toc-container').addEventListener('wheel', function(event) {
+      const container = this;
+      const scrollTop = container.scrollTop;
+      const scrollHeight = container.scrollHeight;
+      const height = container.clientHeight;
+      const delta = event.deltaY;
+
+      // 检查是否已经滚动到底部或顶部
+      const isAtTop = scrollTop === 0;
+      const isAtBottom = scrollHeight - scrollTop === height;
+
+      // 如果向下滚动且已在底部，或向上滚动且已在顶部，则阻止事件传播
+      if ((delta > 0 && isAtBottom) || (delta < 0 && isAtTop)) {
+        event.preventDefault();
+      }
+    }, { passive: false });
 
     // 主程序：加载文章和全局配置
     const articleName = getQueryParam('a_id');
