@@ -73,14 +73,14 @@
     <!-- 章节导航系统样式 -->
     <style>
         /* 章节导航容器 - 桌面版 */
-        #toc-container {
+            #toc-container {
             position: fixed;
             left: 20px;
             top: 100px; /* 调整顶部距离，避免与导航栏重叠 */
             width: 280px;
             max-height: calc(100vh - 150px);
             overflow-y: auto;
-            background: rgba(0, 0, 0, 0.5); /* 调高黑色度，从0.3改为0.5 */
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border-radius: 12px;
@@ -89,7 +89,7 @@
             color: #fff;
             z-index: 1000;
             transition: all 0.3s ease;
-            display: none; /* 默认隐藏，通过JS控制显示 */
+            display: block; /* 修改为block，由JS控制可见性 */
             /* 添加这一行，防止滚动传递 */
             overscroll-behavior: contain;
         }
@@ -200,7 +200,6 @@
             transform: scale(1.05);
         }
 
-        /* 移动端弹出的章节导航 */
         #toc-container.mobile {
             left: 20px;
             bottom: 80px;
@@ -210,13 +209,15 @@
             max-height: 60vh;
             transform: translateY(150%);
             opacity: 0;
-            pointer-events: none;
+            visibility: hidden;
+            display: block !important; /* 确保元素始终存在 */
+            transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
         }
 
         #toc-container.mobile.show {
             transform: translateY(0);
             opacity: 1;
-            pointer-events: auto;
+            visibility: visible;
         }
 
         /* 关闭按钮 */
@@ -737,15 +738,19 @@
     }
   }
 
-  // 修改updateTocDisplay函数，确保正确处理移动端和桌面端的切换
-  function updateTocDisplay() {
+
+    // 修改updateTocDisplay函数
+    function updateTocDisplay() {
       const tocContainer = document.getElementById('toc-container');
       const tocToggleBtn = document.getElementById('toc-toggle-btn');
+
+      // 先重置所有状态
+      tocContainer.style.display = 'block';
 
       if (window.innerWidth < 992) {
         // 移动端：显示悬浮按钮，设置移动端样式
         tocContainer.classList.add('mobile');
-        tocContainer.classList.remove('show'); // 确保初始状态是隐藏的
+        tocContainer.classList.remove('show');
         tocToggleBtn.style.display = 'flex';
 
         // 重置桌面端的状态
@@ -757,17 +762,19 @@
 
         // 只有在未被手动关闭的情况下才显示
         if (!tocContainer.classList.contains('hidden')) {
-          tocContainer.style.display = 'block';
+          tocContainer.style.visibility = 'visible';
+          tocContainer.style.opacity = '1';
           tocToggleBtn.style.display = 'none';
         } else {
           // 如果已被手动关闭，则显示悬浮按钮
-          tocContainer.style.display = 'none';
+          tocContainer.style.visibility = 'hidden';
+          tocContainer.style.opacity = '0';
           tocToggleBtn.style.display = 'flex';
         }
       }
     }
 
-    // 设置移动端目录切换按钮事件 - 修改为更清晰地区分移动端和桌面端
+    // 设置移动端目录切换按钮事件
     document.getElementById('toc-toggle-btn').addEventListener('click', function() {
       const tocContainer = document.getElementById('toc-container');
       const tocToggleBtn = document.getElementById('toc-toggle-btn');
@@ -778,12 +785,13 @@
       } else {
         // 桌面端行为 - 重新显示TOC并隐藏悬浮按钮
         tocContainer.classList.remove('hidden');
-        tocContainer.style.display = 'block';
+        tocContainer.style.visibility = 'visible';
+        tocContainer.style.opacity = '1';
         tocToggleBtn.style.display = 'none';
       }
     });
 
-    // 设置关闭按钮事件 - 同样清晰区分移动端和桌面端
+    // 设置关闭按钮事件
     document.getElementById('toc-close').addEventListener('click', function() {
       const tocContainer = document.getElementById('toc-container');
       const tocToggleBtn = document.getElementById('toc-toggle-btn');
@@ -794,7 +802,8 @@
       } else {
         // 桌面端行为 - 隐藏TOC并显示悬浮按钮
         tocContainer.classList.add('hidden');
-        tocContainer.style.display = 'none';
+        tocContainer.style.visibility = 'hidden';
+        tocContainer.style.opacity = '0';
         tocToggleBtn.style.display = 'flex';
       }
     });
