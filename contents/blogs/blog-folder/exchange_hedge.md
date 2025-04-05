@@ -19,15 +19,15 @@
 
 点开工商银行app，在搜索框中输入“结售汇”并搜索，点击跳出来的功能：
 
-![](exchange_hedge_pics/img_1.jpg)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_1.jpg)
 
 点开后我们可以直接看到第一行便是对应美元汇率，默认显示的是**购汇**汇率，显示价格为726.54，这个购汇价格指的是**依据今天的汇率，银行现在愿意以726.54元（¥726.54）的价格卖出100美元**，而我们所需要用到的购汇汇率即为**¥7.2654/$**。
 
-![](exchange_hedge_pics/img_2.jpg)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_2.jpg)
 
 随后再点击结汇可以看到此处第一行的美元显示723.50，这个结汇价格指的是**依据今天的汇率，银行现在愿意以723.50元（¥723.50）的价格买入100美元**，而我们所需要用到的结汇汇率即为**¥7.2350/$**。
 
-![](exchange_hedge_pics/img_3.jpg)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_3.jpg)
 
 > 买是比卖的价格要高一点的。在外汇交易中，您可能会注意到银行出售外币给您的汇率（售汇汇率）通常高于银行从您手中购买外币的汇率（结汇汇率）。这种差异被称为买卖价差，它的存在有着深层的金融原因，主要涉及银行的运营成本、风险管理和盈利需求。
 > 1. 交易成本与运营费用
@@ -54,15 +54,15 @@
 
 回到首页，在搜索框中输入“**定期存款**”，随后点击下方跳出来的功能：
 
-![](exchange_hedge_pics/img_4.jpg)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_4.jpg)
 
 进入定期存款功能后，我们可以看到左上处有**外币**的定存币种选项，点开并选择美元：
 
-![](exchange_hedge_pics/img_5.JPG)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_5.JPG)
 
 可以看到美元三月期定存年化利率为2.30%。（实际上美元定存需要去线下柜台办理，但是年化利率是和app上显示的是一样的）
 
-![](exchange_hedge_pics/img_6.jpg)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_6.jpg)
 
 下一个便是国内三月期国债利率，这个是为了计算如果未对冲的时间价值成本。
 
@@ -86,27 +86,27 @@
 
 首先，我们使用购汇结汇利率来计算工行当日的锚定利率是多少。取二者平均数，得出当日银行结售汇锚定利率为¥7.2502/$。
 
-![](exchange_hedge_pics/img_7.png)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_7.png)
 
 对应得出购汇溢价率为0.2096%。
 
-![](exchange_hedge_pics/img_8.png)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_8.png)
 
 以下是总图：
 
-![](exchange_hedge_pics/img_9.png)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_9.png)
 
 随后我们开始着手对冲的计算。依据案例背景，我们最终在明年一至二月份，也就是三个月后将需要$30,000美元。
 
-![](exchange_hedge_pics/img_10.png)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_10.png)
 
 依据当日银行挂牌购汇汇率（工行），我们可以计算出我们当日购汇将花费¥217,962.00人民币，购汇完成后此时我们的账户将拥有$30,000美元。
 
-![](exchange_hedge_pics/img_11.png)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_11.png)
 
 我们于同日进行定存操作，并于三月后连本带息共取得$30,171.03美元。
 
-![](exchange_hedge_pics/img_12.png)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_12.png)
 
 此时再依据预期汇率，同时考虑结售汇溢价率，计算得出到期后结汇所得人民币为¥225,808.34。
 
@@ -114,30 +114,30 @@
 
 通过上述三个数据，**当日购汇花费 ¥**、**定期存款到期结汇所得人民币 ¥**与**支付宝实际缴纳人民币 ¥**，我们最终可以得出对冲后的总花费。
 
-![](exchange_hedge_pics/img_13.png)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_13.png)
 
 对冲后的最终总花费为¥217,153.66人民币。
 
 此时我们再来计算不对冲对应的花费：（就是未来贴现到今天是多少钱）
 
-![](exchange_hedge_pics/img_14.png)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_14.png)
 
 最终得出不对冲对应的花费为¥224,234.47人民币。
 
-![](exchange_hedge_pics/img_15.png)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_15.png)
 
 至此，主要计算过程已经结束，依据上述信息我们能得出，在汇率上涨至¥7.500/$后，汇率上涨导致总花费额外多出¥7,509.71人民币。在使用对冲策略后，购入美元存定期的策略带来了¥7080.81人民币的盈利，此时汇率上涨对总花费的影响减少至额外多出¥428.90人民币。由此证明对冲策略是有效的
 
-![](exchange_hedge_pics/img_16.png)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_16.png)
 
 ## 但是...
 > 这个对冲策略在不同汇率的时候都能有相同的效果吗？
 
 以下是在不同汇率情况下对冲策略的效果展示：
 
-![](exchange_hedge_pics/img_17.png)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_17.png)
 
-![](exchange_hedge_pics/img_18.png)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_18.png)
 
 由图可见，在汇率大幅度波动情况下，该策略通过花费¥400人民币的成本（对应$30,000美元），成功的保护了头部风险。该策略的成本依然会逐渐变化的原因是结售汇带有的溢价率。
 
@@ -166,11 +166,11 @@
 
 当然这只是基于盈亏为0的最佳对冲比例的计算方式！还有许多不同的计算方法！
 
-![](exchange_hedge_pics/img_19.png)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_19.png)
 
-![](exchange_hedge_pics/img_20.png)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_20.png)
 
-![](exchange_hedge_pics/img_21.png)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_21.png)
 
 ### 拓展3
 
@@ -188,9 +188,9 @@ Sub best_hedge_percent()
 End Sub
 ```
 
-![](exchange_hedge_pics/img_22.png)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_22.png)
 
-![](exchange_hedge_pics/img_23.png)
+![](/contents/blogs/blog-folder/exchange_hedge_pics/img_23.png)
 
 > Excel原文件请在公众号私信 “微型对冲” ！
 

@@ -80,7 +80,7 @@
             width: 280px;
             max-height: calc(100vh - 150px);
             overflow-y: auto;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.5); /* 调高黑色度，从0.3改为0.5 */
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border-radius: 12px;
@@ -179,7 +179,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.5); /* 调高黑色度，从0.3改为0.5 */
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -750,9 +750,15 @@
       } else {
         // 桌面端：显示侧边栏，隐藏悬浮按钮
         tocContainer.classList.remove('mobile');
-        tocContainer.style.display = 'block';
-        // 修改：在桌面模式下也显示悬浮按钮，用于重新打开关闭的TOC
-        tocToggleBtn.style.display = tocContainer.classList.contains('hidden') ? 'flex' : 'none';
+        // 只有在未被手动关闭的情况下才显示
+        if (!tocContainer.classList.contains('hidden')) {
+          tocContainer.style.display = 'block';
+          tocToggleBtn.style.display = 'none';
+        } else {
+          // 如果已被手动关闭，则显示悬浮按钮
+          tocContainer.style.display = 'none';
+          tocToggleBtn.style.display = 'flex';
+        }
       }
     }
 
@@ -762,10 +768,10 @@
       const tocToggleBtn = document.getElementById('toc-toggle-btn');
 
       if (window.innerWidth < 992) {
-        // 移动端行为
+        // 移动端行为 - 保持原样
         tocContainer.classList.toggle('show');
       } else {
-        // 桌面端行为
+        // 桌面端行为 - 重新显示TOC并隐藏悬浮按钮
         tocContainer.classList.remove('hidden');
         tocContainer.style.display = 'block';
         tocToggleBtn.style.display = 'none';
@@ -779,6 +785,212 @@
 
       if (window.innerWidth < 992) {
         // 移动端行为
+        tocContainer.classList.remove('show');
+      } else {
+        // 桌面端行为 - 隐藏TOC并显示悬浮按钮
+        tocContainer.classList.add('hidden');
+        tocContainer.style.display = 'none';
+        tocToggleBtn.style.display = 'flex';
+      }
+    });
+
+    // 添加窗口大小变化监听器，确保响应式布局正确
+    window.addEventListener('resize', function() {
+      updateTocDisplay();
+    });
+
+    // 重新渲染数学公式
+    if (window.MathJax) {
+      MathJax.typeset();
+    }
+
+    // 添加：确保样式应用到所有代码块
+    setTimeout(() => {
+      document.querySelectorAll('#article-md pre code').forEach(block => {
+        // 强制应用样式
+        block.style.backgroundColor = '#2b2b2b';
+        block.style.color = '#a9b7c6';
+
+        // 查找并应用语法高亮颜色
+        block.querySelectorAll('.hljs-keyword').forEach(el => { el.style.color = '#cc7832'; });
+        block.querySelectorAll('.hljs-string').forEach(el => { el.style.color = '#6a8759'; });
+        block.querySelectorAll('.hljs-comment').forEach(el => { el.style.color = '#808080'; });
+        block.querySelectorAll('.hljs-number').forEach(el => { el.style.color = '#6897bb'; });
+        block.querySelectorAll('.hljs-function').forEach(el => { el.style.color = '#ffc66d'; });
+        block.querySelectorAll('.hljs-tag').forEach(el => { el.style.color = '#e8bf6a'; });
+        block.querySelectorAll('.hljs-name').forEach(el => { el.style.color = '#e8bf6a'; });
+        block.querySelectorAll('.hljs-attr').forEach(el => { el.style.color = '#9876aa'; });
+        block.querySelectorAll('.hljs-built_in').forEach(el => { el.style.color = '#cc7832'; });
+      });
+    }, 100);
+
+    // 生成章节导航
+    generateTableOfContents();
+  })
+  .catch(error => console.error('加载文章失败:', error));
+    }
+
+    // 加载全局配置（例如 footer 的版权信息），假设 config.yml 存放在根目录
+    function loadConfig() {
+      const configPath = '/config.yml';
+      loadYAML(configPath)
+        .then(config => {
+          if (config && config.footer && config.footer.copyright) {
+            document.getElementById('copyright-text').innerHTML = config.footer.copyright;
+          }
+        })
+        .catch(error => {
+          console.error('加载全局配置失败:', error);
+        });
+    }
+
+    // 生成章节导航目录
+    function generateTableOfContents() {
+      const articleContent = document.getElementById('article-md');
+      const tocList = document.getElementById('toc-list');
+      const headings = articleContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+      // 清空现有目录
+      tocList.innerHTML = '';
+
+      // 如果没有标题，则隐藏目录
+      if (headings.length === 0) {
+        document.getElementById('toc-container').style.display = 'none';
+        document.getElementById('toc-toggle-btn').style.display = 'none';
+        return;
+      }
+
+      // 为每个标题创建目录项
+      headings.forEach((heading, index) => {
+        // 确保每个标题都有ID
+        if (!heading.id) {
+          const id = `heading-${index}`;
+          heading.id = id;
+        }
+
+        const level = parseInt(heading.tagName.substring(1));
+        const listItem = document.createElement('li');
+        listItem.className = `toc-h${level}`;
+
+        const link = document.createElement('a');
+        link.href = `#${heading.id}`;
+        link.textContent = heading.textContent;
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+
+          // 平滑滚动到目标位置
+          document.getElementById(heading.id).scrollIntoView({
+            behavior: 'smooth'
+          });
+
+          // 在移动端点击后关闭目录
+          if (window.innerWidth < 992) {
+            document.getElementById('toc-container').classList.remove('show');
+          }
+        });
+
+        listItem.appendChild(link);
+        tocList.appendChild(listItem);
+      });
+
+      // 设置响应式显示
+      updateTocDisplay();
+
+      // 监听滚动事件，高亮当前章节
+      window.addEventListener('scroll', highlightCurrentSection);
+    }
+
+    // 高亮当前可见的章节
+    function highlightCurrentSection() {
+      const scrollPosition = window.scrollY;
+      const articleContent = document.getElementById('article-md');
+      const headings = articleContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      const tocItems = document.querySelectorAll('#toc-list li');
+
+      // 找到当前可见的标题
+      let currentHeadingIndex = -1;
+
+      headings.forEach((heading, index) => {
+        const rect = heading.getBoundingClientRect();
+        // 标题在视口顶部以下100px处或以上
+        if (rect.top <= 100) {
+          currentHeadingIndex = index;
+        }
+      });
+
+      // 移除所有高亮
+      tocItems.forEach(item => {
+        item.classList.remove('active');
+      });
+
+      // 添加当前章节高亮
+      if (currentHeadingIndex >= 0 && currentHeadingIndex < tocItems.length) {
+        tocItems[currentHeadingIndex].classList.add('active');
+
+        // 确保当前项在目录视图中可见
+        const tocContainer = document.getElementById('toc-container');
+        const activeItem = tocItems[currentHeadingIndex];
+
+        if (tocContainer.scrollHeight > tocContainer.clientHeight) {
+          const itemTop = activeItem.offsetTop;
+          const containerScrollTop = tocContainer.scrollTop;
+          const containerHeight = tocContainer.clientHeight;
+
+          if (itemTop < containerScrollTop || itemTop > containerScrollTop + containerHeight) {
+            tocContainer.scrollTop = itemTop - containerHeight / 2;
+          }
+        }
+      }
+    }
+
+    // 根据屏幕宽度更新目录显示方式
+    function updateTocDisplay() {
+      const tocContainer = document.getElementById('toc-container');
+      const tocToggleBtn = document.getElementById('toc-toggle-btn');
+
+      if (window.innerWidth < 992) {
+        // 移动端：显示悬浮按钮，隐藏侧边栏
+        tocContainer.classList.add('mobile');
+        tocContainer.classList.remove('show');
+        tocToggleBtn.style.display = 'flex';
+      } else {
+        // 桌面端：显示侧边栏，隐藏悬浮按钮
+        tocContainer.classList.remove('mobile');
+        // 只有在未被手动关闭的情况下才显示
+        if (!tocContainer.classList.contains('hidden')) {
+          tocContainer.style.display = 'block';
+          tocToggleBtn.style.display = 'none';
+        } else {
+          // 如果已被手动关闭，则显示悬浮按钮
+          tocContainer.style.display = 'none';
+          tocToggleBtn.style.display = 'flex';
+        }
+      }
+    }
+
+    // 设置移动端目录切换按钮事件 - 修改为同时支持桌面和移动端
+    document.getElementById('toc-toggle-btn').addEventListener('click', function() {
+      const tocContainer = document.getElementById('toc-container');
+      const tocToggleBtn = document.getElementById('toc-toggle-btn');
+
+      if (window.innerWidth < 992) {
+        // 移动端行为 - 保持原样
+        tocContainer.classList.toggle('show');
+      } else {
+        // 桌面端行为 - 重新显示TOC并隐藏悬浮按钮
+        tocContainer.classList.remove('hidden');
+        tocContainer.style.display = 'block';
+        tocToggleBtn.style.display = 'none';
+      }
+    });
+
+    // 设置关闭按钮事件 - 修改为同时支持桌面和移动端
+    document.getElementById('toc-close').addEventListener('click', function() {
+      const tocContainer = document.getElementById('toc-container');
+      const tocToggleBtn = document.getElementById('toc-toggle-btn');
+
+      if (window.innerWidth < 992) {
+        // 移动端行为 - 保持原样
         tocContainer.classList.remove('show');
       } else {
         // 桌面端行为 - 隐藏TOC并显示悬浮按钮
