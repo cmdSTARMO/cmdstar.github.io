@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="cn">
 <head>
@@ -35,7 +34,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/css.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/json.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/languages/yaml.min.js"></script>
-<!-- 样式 - 注意：先引入自定义样式，确保它们能覆盖默认样式 -->
+
+    <!-- 样式 - 注意：先引入自定义样式，确保它们能覆盖默认样式 -->
     <link type="text/css" href="/static/css/styles.css" rel="stylesheet"/>
     <link type="text/css" href="/static/css/main.css" rel="stylesheet"/>
 
@@ -211,13 +211,63 @@
             transform: translateY(150%);
             opacity: 0;
             pointer-events: none;
-            display: block; /* 确保移动端模式下元素存在于DOM中 */
         }
 
         #toc-container.mobile.show {
             transform: translateY(0);
             opacity: 1;
             pointer-events: auto;
+        }
+
+        /* 关闭按钮 */
+        #toc-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            font-size: 18px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        #toc-close:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* 滚动条样式 */
+        #toc-container::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        #toc-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        #toc-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        #toc-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* 适配文章内容，确保不被TOC遮挡 */
+        @media (min-width: 1200px) {
+            .container {
+                padding-left: 100px;
+            }
         }
     </style>
 </head>
@@ -311,395 +361,400 @@
 
 <!-- 动态加载 YAML 与 Markdown 的脚本 -->
 <script>
-    // 获取 URL 参数 ?a_id=...
-    function getQueryParam(param) {
-      return new URLSearchParams(window.location.search).get(param);
-    }
+  // 获取 URL 参数 ?a_id=...
+  function getQueryParam(param) {
+    return new URLSearchParams(window.location.search).get(param);
+  }
 
-    // 通用加载 YAML 的函数（返回解析后的对象）
-    function loadYAML(path) {
-      return fetch(path)
-        .then(response => response.text())
-        .then(yamlText => jsyaml.load(yamlText));
-    }
+  // 通用加载 YAML 的函数（返回解析后的对象）
+  function loadYAML(path) {
+    return fetch(path)
+      .then(response => response.text())
+      .then(yamlText => jsyaml.load(yamlText));
+  }
 
-    // 辅助函数：转义HTML特殊字符
-    function escapeHtml(text) {
-      const map = {
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        '"': '&quot;',
-        "'": '&#039;'
-      };
-      return text.replace(/[&<>"']/g, m => map[m]);
-    }
+  // 辅助函数：转义HTML特殊字符
+  function escapeHtml(text) {
+    const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    };
+    return text.replace(/[&<>"']/g, m => map[m]);
+  }
 
-    // 辅助函数：解码HTML实体
-    function decodeHtmlEntities(text) {
-      return text
-        .replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>')
-        .replace(/&quot;/g, '"')
-        .replace(/&#39;/g, "'")
-        .replace(/&amp;/g, '&');
-    }
+  // 辅助函数：解码HTML实体
+  function decodeHtmlEntities(text) {
+    return text
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&amp;/g, '&');
+  }
 
-    // 确保 highlight.js 初始化
-    document.addEventListener('DOMContentLoaded', function() {
-        // 初始化 highlight.js
-        hljs.configure({
-            // 启用安全模式
-            ignoreUnescapedHTML: true
-        });
+  // 确保 highlight.js 初始化
+  document.addEventListener('DOMContentLoaded', function() {
+      // 初始化 highlight.js
+      hljs.configure({
+          // 启用安全模式
+          ignoreUnescapedHTML: true
+      });
 
-        // 如果页面上已有代码块，立即高亮
-        document.querySelectorAll('pre code').forEach(block => {
-            // 处理HTML内容
-            if (block.className.includes('language-html') || block.className.includes('language-xml')) {
-                // 将HTML实体转换回实际字符以便高亮
-                block.innerHTML = block.innerHTML
-                    .replace(/&lt;/g, '<')
-                    .replace(/&gt;/g, '>')
-                    .replace(/&quot;/g, '"')
-                    .replace(/&#39;/g, "'")
-                    .replace(/&amp;/g, '&');
-            }
+      // 如果页面上已有代码块，立即高亮
+      document.querySelectorAll('pre code').forEach(block => {
+          // 处理HTML内容
+          if (block.className.includes('language-html') || block.className.includes('language-xml')) {
+              // 将HTML实体转换回实际字符以便高亮
+              block.innerHTML = block.innerHTML
+                  .replace(/&lt;/g, '<')
+                  .replace(/&gt;/g, '>')
+                  .replace(/&quot;/g, '"')
+                  .replace(/&#39;/g, "'")
+                  .replace(/&amp;/g, '&');
+          }
 
-            try {
-                hljs.highlightElement(block);
-            } catch (e) {
-                console.error('高亮处理错误:', e);
-            }
-        });
-    });
-
-    // 配置代码高亮
-    function applyHighlight(html) {
-      if (window.hljs) {
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = html;
-
-        const codeBlocks = tempDiv.querySelectorAll('pre code');
-        codeBlocks.forEach(block => {
           try {
-            // 检查是否包含HTML内容
-            if (block.getAttribute('data-contains-html') === 'true' ||
-                block.className.includes('language-html') ||
-                block.className.includes('language-xml')) {
-              // 解码HTML实体以便正确高亮
-              block.innerHTML = decodeHtmlEntities(block.innerHTML);
+              hljs.highlightElement(block);
+          } catch (e) {
+              console.error('高亮处理错误:', e);
+          }
+      });
+  });
+
+  // 配置代码高亮
+  function applyHighlight(html) {
+    if (window.hljs) {
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = html;
+
+      const codeBlocks = tempDiv.querySelectorAll('pre code');
+      codeBlocks.forEach(block => {
+        try {
+          // 检查是否包含HTML内容
+          if (block.getAttribute('data-contains-html') === 'true' ||
+              block.className.includes('language-html') ||
+              block.className.includes('language-xml')) {
+            // 解码HTML实体以便正确高亮
+            block.innerHTML = decodeHtmlEntities(block.innerHTML);
+          }
+
+          // 确保有语言类
+          if (!block.className.includes('language-')) {
+            block.className += ' language-plaintext';
+          }
+
+          // 应用高亮
+          hljs.highlightElement(block);
+
+          // 添加自定义类
+          block.classList.add('pycharm-style');
+
+          // 强制应用样式
+          block.style.backgroundColor = '#2b2b2b';
+          block.style.color = '#a9b7c6';
+
+          // 如果是HTML内容，再次转义以防止执行
+          if (block.getAttribute('data-contains-html') === 'true') {
+            block.innerHTML = escapeHtml(block.innerHTML);
+          }
+        } catch (error) {
+          console.error('高亮处理错误:', error);
+        }
+      });
+
+      return tempDiv.innerHTML;
+    }
+    return html;
+  }
+
+  // 在文章加载完成后的处理
+  function loadArticle(articleName) {
+    // 根据实际存放位置调整路径
+    const yamlPath = `./blog-folder/${articleName}.yml`;
+    const mdPath = `./blog-folder/${articleName}.md`;
+
+    // 自定义渲染器
+    const renderer = new marked.Renderer();
+      renderer.blockquote = function(quote) {
+        return `<blockquote class="custom-blockquote">${quote}</blockquote>`;
+      };
+
+      // 修改标题渲染，添加ID以便章节导航
+      renderer.heading = function(text, level) {
+        // 使用计数方式生成ID，而不是基于英文文本
+        const headingId = generateHeadingId(level, text);
+        return `<h${level} id="${headingId}">${text}</h${level}>`;
+      };
+
+      marked.setOptions({
+        headerIds: false,
+        mangle: false,
+        renderer: renderer,
+        highlight: function(code, lang) {
+          if (window.hljs) {
+            return hljs.highlightAuto(code, lang ? [lang] : undefined).value;
+          }
+          return code;
+        }
+      });
+
+      // 新增：标题ID生成函数
+      function generateHeadingId(level, text) {
+        // 如果是第一次调用，初始化计数器
+        if (!window.headingCounters) {
+          window.headingCounters = {
+            counters: [0, 0, 0, 0, 0, 0], // h1-h6的计数器
+            lastLevel: 0
+          };
+        }
+
+        const counters = window.headingCounters.counters;
+        const lastLevel = window.headingCounters.lastLevel;
+
+        // 如果当前标题级别比上一个小（例如从h3到h2），重置所有更高级别的计数器
+        if (level < lastLevel) {
+          for (let i = level; i < counters.length; i++) {
+            counters[i] = 0;
+          }
+        }
+        // 如果跳级（例如从h1直接到h3），将中间级别的计数设为0
+        else if (level > lastLevel + 1) {
+          for (let i = lastLevel + 1; i < level; i++) {
+            counters[i - 1] = 0;
+          }
+        }
+
+        // 增加当前级别的计数
+        counters[level - 1]++;
+
+        // 更新最后处理的级别
+        window.headingCounters.lastLevel = level;
+
+        // 生成ID，格式为：h-1, h-1-2, h-1-2-3等
+        let id = 'h';
+        for (let i = 0; i < level; i++) {
+          id += '-' + counters[i];
+        }
+
+        return id;
+      }
+
+    // 自定义代码块渲染，确保HTML被转义
+    renderer.code = function(code, language) {
+      // 处理不支持的语言
+      if (language === 'commandline') {
+        language = 'bash';
+      } else if (!language) {
+        language = 'plaintext';
+      }
+
+      // 转义代码中的HTML
+      const escapedCode = escapeHtml(code);
+
+      // 返回带有语言类的代码块
+      return `<pre><code class="language-${language}">${escapedCode}</code></pre>`;
+    };
+
+    loadYAML(yamlPath)
+      .then(articleMeta => {
+        // 遍历 YAML 中的每个键
+        for (let key in articleMeta) {
+          let elem = document.getElementById(key);
+          if (elem) {
+            if (key === "top-section") {
+              elem.style.backgroundImage = `url('${articleMeta[key]}')`;
+            } else {
+              elem.innerText = articleMeta[key];
             }
+          }
+        }
 
-            // 确保有语言类
-            if (!block.className.includes('language-')) {
-              block.className += ' language-plaintext';
-            }
+        // 设置导航栏标题
+        setTimeout(() => {
+          const pageTitleElement = document.getElementById('page-top-title');
+          if (pageTitleElement) {
+            pageTitleElement.textContent = '博客';
+          }
+        }, 100);
 
-            // 应用高亮
-            hljs.highlightElement(block);
+        return fetch(mdPath);
+      })
+      .then(response => response.text())
+      .then(mdText => {
+        // 解析 Markdown
+        const html = marked.parse(mdText);
 
-            // 添加自定义类
-            block.classList.add('pycharm-style');
+        // 应用代码高亮
+        const highlightedHtml = applyHighlight(html);
 
+        // 更新 DOM
+        document.getElementById('article-md').innerHTML = highlightedHtml;
+
+        // 重新渲染数学公式
+        if (window.MathJax) {
+          MathJax.typeset();
+        }
+
+        // 添加：确保样式应用到所有代码块
+        setTimeout(() => {
+          document.querySelectorAll('#article-md pre code').forEach(block => {
             // 强制应用样式
             block.style.backgroundColor = '#2b2b2b';
             block.style.color = '#a9b7c6';
 
-            // 如果是HTML内容，再次转义以防止执行
-            if (block.getAttribute('data-contains-html') === 'true') {
-              block.innerHTML = escapeHtml(block.innerHTML);
-            }
-          } catch (error) {
-            console.error('高亮处理错误:', error);
-          }
-        });
-
-        return tempDiv.innerHTML;
-      }
-      return html;
-    }
-
-    // 在文章加载完成后的处理
-    function loadArticle(articleName) {
-      // 根据实际存放位置调整路径
-      const yamlPath = `./blog-folder/${articleName}.yml`;
-      const mdPath = `./blog-folder/${articleName}.md`;
-
-      // 自定义渲染器
-      const renderer = new marked.Renderer();
-        renderer.blockquote = function(quote) {
-          return `<blockquote class="custom-blockquote">${quote}</blockquote>`;
-        };
-
-        // 修改标题渲染，添加ID以便章节导航
-        renderer.heading = function(text, level) {
-          // 使用计数方式生成ID，而不是基于英文文本
-          const headingId = generateHeadingId(level, text);
-          return `<h${level} id="${headingId}">${text}</h${level}>`;
-        };
-
-        marked.setOptions({
-          headerIds: false,
-          mangle: false,
-          renderer: renderer,
-          highlight: function(code, lang) {
-            if (window.hljs) {
-              return hljs.highlightAuto(code, lang ? [lang] : undefined).value;
-            }
-            return code;
-          }
-        });
-
-        // 新增：标题ID生成函数
-        function generateHeadingId(level, text) {
-          // 如果是第一次调用，初始化计数器
-          if (!window.headingCounters) {
-            window.headingCounters = {
-              counters: [0, 0, 0, 0, 0, 0], // h1-h6的计数器
-              lastLevel: 0
-            };
-          }
-
-          const counters = window.headingCounters.counters;
-          const lastLevel = window.headingCounters.lastLevel;
-
-          // 如果当前标题级别比上一个小（例如从h3到h2），重置所有更高级别的计数器
-          if (level < lastLevel) {
-            for (let i = level; i < counters.length; i++) {
-              counters[i] = 0;
-            }
-          }
-          // 如果跳级（例如从h1直接到h3），将中间级别的计数设为0
-          else if (level > lastLevel + 1) {
-            for (let i = lastLevel + 1; i < level; i++) {
-              counters[i - 1] = 0;
-            }
-          }
-
-          // 增加当前级别的计数
-          counters[level - 1]++;
-
-          // 更新最后处理的级别
-          window.headingCounters.lastLevel = level;
-
-          // 生成ID，格式为：h-1, h-1-2, h-1-2-3等
-          let id = 'h';
-          for (let i = 0; i < level; i++) {
-            id += '-' + counters[i];
-          }
-
-          return id;
-        }
-
-      // 自定义代码块渲染，确保HTML被转义
-      renderer.code = function(code, language) {
-        // 处理不支持的语言
-        if (language === 'commandline') {
-          language = 'bash';
-        } else if (!language) {
-          language = 'plaintext';
-        }
-
-        // 转义代码中的HTML
-        const escapedCode = escapeHtml(code);
-
-        // 返回带有语言类的代码块
-        return `<pre><code class="language-${language}">${escapedCode}</code></pre>`;
-      };
-
-      loadYAML(yamlPath)
-        .then(articleMeta => {
-          // 遍历 YAML 中的每个键
-          for (let key in articleMeta) {
-            let elem = document.getElementById(key);
-            if (elem) {
-              if (key === "top-section") {
-                elem.style.backgroundImage = `url('${articleMeta[key]}')`;
-              } else {
-                elem.innerText = articleMeta[key];
-              }
-            }
-          }
-
-          // 设置导航栏标题
-          setTimeout(() => {
-            const pageTitleElement = document.getElementById('page-top-title');
-            if (pageTitleElement) {
-              pageTitleElement.textContent = '博客';
-            }
-          }, 100);
-
-          return fetch(mdPath);
-        })
-        .then(response => response.text())
-        .then(mdText => {
-          // 解析 Markdown
-          const html = marked.parse(mdText);
-
-          // 应用代码高亮
-          const highlightedHtml = applyHighlight(html);
-
-          // 更新 DOM
-          document.getElementById('article-md').innerHTML = highlightedHtml;
-
-          // 重新渲染数学公式
-          if (window.MathJax) {
-            MathJax.typeset();
-          }
-
-          // 添加：确保样式应用到所有代码块
-          setTimeout(() => {
-            document.querySelectorAll('#article-md pre code').forEach(block => {
-              // 强制应用样式
-              block.style.backgroundColor = '#2b2b2b';
-              block.style.color = '#a9b7c6';
-
-              // 查找并应用语法高亮颜色
-              block.querySelectorAll('.hljs-keyword').forEach(el => { el.style.color = '#cc7832'; });
-              block.querySelectorAll('.hljs-string').forEach(el => { el.style.color = '#6a8759'; });
-              block.querySelectorAll('.hljs-comment').forEach(el => { el.style.color = '#808080'; });
-              block.querySelectorAll('.hljs-number').forEach(el => { el.style.color = '#6897bb'; });
-              block.querySelectorAll('.hljs-function').forEach(el => { el.style.color = '#ffc66d'; });
-              block.querySelectorAll('.hljs-tag').forEach(el => { el.style.color = '#e8bf6a'; });
-              block.querySelectorAll('.hljs-name').forEach(el => { el.style.color = '#e8bf6a'; });
-              block.querySelectorAll('.hljs-attr').forEach(el => { el.style.color = '#9876aa'; });
-              block.querySelectorAll('.hljs-built_in').forEach(el => { el.style.color = '#cc7832'; });
-            });
-          }, 100);
-
-          // 生成章节导航
-          generateTableOfContents();
-        })
-        .catch(error => console.error('加载文章失败:', error));
-    }
-
-    // 加载全局配置（例如 footer 的版权信息），假设 config.yml 存放在根目录
-    function loadConfig() {
-      const configPath = '/config.yml';
-      loadYAML(configPath)
-        .then(config => {
-          if (config && config.footer && config.footer.copyright) {
-            document.getElementById('copyright-text').innerHTML = config.footer.copyright;
-          }
-        })
-        .catch(error => {
-          console.error('加载全局配置失败:', error);
-        });
-    }
-
-    // 生成章节导航目录
-    function generateTableOfContents() {
-      const articleContent = document.getElementById('article-md');
-      const tocList = document.getElementById('toc-list');
-      const headings = articleContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
-
-      // 清空现有目录
-      tocList.innerHTML = '';
-
-      // 如果没有标题，则隐藏目录
-      if (headings.length === 0) {
-        document.getElementById('toc-container').style.display = 'none';
-        document.getElementById('toc-toggle-btn').style.display = 'none';
-        return;
-      }
-
-      // 为每个标题创建目录项
-      headings.forEach((heading, index) => {
-        // 确保每个标题都有ID
-        if (!heading.id) {
-          const id = `heading-${index}`;
-          heading.id = id;
-        }
-
-        const level = parseInt(heading.tagName.substring(1));
-        const listItem = document.createElement('li');
-        listItem.className = `toc-h${level}`;
-
-        const link = document.createElement('a');
-        link.href = `#${heading.id}`;
-        link.textContent = heading.textContent;
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-
-          // 平滑滚动到目标位置
-          document.getElementById(heading.id).scrollIntoView({
-            behavior: 'smooth'
+            // 查找并应用语法高亮颜色
+            block.querySelectorAll('.hljs-keyword').forEach(el => { el.style.color = '#cc7832'; });
+            block.querySelectorAll('.hljs-string').forEach(el => { el.style.color = '#6a8759'; });
+            block.querySelectorAll('.hljs-comment').forEach(el => { el.style.color = '#808080'; });
+            block.querySelectorAll('.hljs-number').forEach(el => { el.style.color = '#6897bb'; });
+            block.querySelectorAll('.hljs-function').forEach(el => { el.style.color = '#ffc66d'; });
+            block.querySelectorAll('.hljs-tag').forEach(el => { el.style.color = '#e8bf6a'; });
+            block.querySelectorAll('.hljs-name').forEach(el => { el.style.color = '#e8bf6a'; });
+            block.querySelectorAll('.hljs-attr').forEach(el => { el.style.color = '#9876aa'; });
+            block.querySelectorAll('.hljs-built_in').forEach(el => { el.style.color = '#cc7832'; });
           });
+        }, 100);
 
-          // 在移动端点击后关闭目录
-          if (window.innerWidth < 992) {
-            document.getElementById('toc-container').classList.remove('show');
-          }
-        });
+        // 生成章节导航
+        generateTableOfContents();
+      })
+      .catch(error => console.error('加载文章失败:', error));
+  }
 
-        listItem.appendChild(link);
-        tocList.appendChild(listItem);
+  // 加载全局配置（例如 footer 的版权信息），假设 config.yml 存放在根目录
+  function loadConfig() {
+    const configPath = '/config.yml';
+    loadYAML(configPath)
+      .then(config => {
+        if (config && config.footer && config.footer.copyright) {
+          document.getElementById('copyright-text').innerHTML = config.footer.copyright;
+        }
+      })
+      .catch(error => {
+        console.error('加载全局配置失败:', error);
       });
+  }
 
-      // 设置响应式显示
-      updateTocDisplay();
+  // 生成章节导航目录
+  function generateTableOfContents() {
+    const articleContent = document.getElementById('article-md');
+    const tocList = document.getElementById('toc-list');
+    const headings = articleContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
 
-      // 监听滚动事件，高亮当前章节
-      window.addEventListener('scroll', highlightCurrentSection);
+    // 清空现有目录
+    tocList.innerHTML = '';
+
+    // 如果没有标题，则隐藏目录
+    if (headings.length === 0) {
+      document.getElementById('toc-container').style.display = 'none';
+      document.getElementById('toc-toggle-btn').style.display = 'none';
+      return;
     }
 
-    // 高亮当前可见的章节
-    function highlightCurrentSection() {
-      const scrollPosition = window.scrollY;
-      const articleContent = document.getElementById('article-md');
-      const headings = articleContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
-      const tocItems = document.querySelectorAll('#toc-list li');
+    // 为每个标题创建目录项
+    headings.forEach((heading, index) => {
+      // 确保每个标题都有ID
+      if (!heading.id) {
+        const id = `heading-${index}`;
+        heading.id = id;
+      }
 
-      // 找到当前可见的标题
-      let currentHeadingIndex = -1;
+      const level = parseInt(heading.tagName.substring(1));
+      const listItem = document.createElement('li');
+      listItem.className = `toc-h${level}`;
 
-      headings.forEach((heading, index) => {
-        const rect = heading.getBoundingClientRect();
-        // 标题在视口顶部以下100px处或以上
-        if (rect.top <= 100) {
-          currentHeadingIndex = index;
+      const link = document.createElement('a');
+      link.href = `#${heading.id}`;
+      link.textContent = heading.textContent;
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // 平滑滚动到目标位置
+        document.getElementById(heading.id).scrollIntoView({
+          behavior: 'smooth'
+        });
+
+        // 在移动端点击后关闭目录
+        if (window.innerWidth < 992) {
+          document.getElementById('toc-container').classList.remove('show');
         }
       });
 
-      // 移除所有高亮
-      tocItems.forEach(item => {
-        item.classList.remove('active');
-      });
+      listItem.appendChild(link);
+      tocList.appendChild(listItem);
+    });
 
-      // 添加当前章节高亮
-      if (currentHeadingIndex >= 0 && currentHeadingIndex < tocItems.length) {
-        tocItems[currentHeadingIndex].classList.add('active');
+    // 设置响应式显示
+    updateTocDisplay();
 
-        // 确保当前项在目录视图中可见
-        const tocContainer = document.getElementById('toc-container');
-        const activeItem = tocItems[currentHeadingIndex];
+    // 监听滚动事件，高亮当前章节
+    window.addEventListener('scroll', highlightCurrentSection);
+  }
 
-        if (tocContainer.scrollHeight > tocContainer.clientHeight) {
-          const itemTop = activeItem.offsetTop;
-          const containerScrollTop = tocContainer.scrollTop;
-          const containerHeight = tocContainer.clientHeight;
+  // 高亮当前可见的章节
+  function highlightCurrentSection() {
+    const scrollPosition = window.scrollY;
+    const articleContent = document.getElementById('article-md');
+    const headings = articleContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    const tocItems = document.querySelectorAll('#toc-list li');
 
-          if (itemTop < containerScrollTop || itemTop > containerScrollTop + containerHeight) {
-            tocContainer.scrollTop = itemTop - containerHeight / 2;
-          }
+    // 找到当前可见的标题
+    let currentHeadingIndex = -1;
+
+    headings.forEach((heading, index) => {
+      const rect = heading.getBoundingClientRect();
+      // 标题在视口顶部以下100px处或以上
+      if (rect.top <= 100) {
+        currentHeadingIndex = index;
+      }
+    });
+
+    // 移除所有高亮
+    tocItems.forEach(item => {
+      item.classList.remove('active');
+    });
+
+    // 添加当前章节高亮
+    if (currentHeadingIndex >= 0 && currentHeadingIndex < tocItems.length) {
+      tocItems[currentHeadingIndex].classList.add('active');
+
+      // 确保当前项在目录视图中可见
+      const tocContainer = document.getElementById('toc-container');
+      const activeItem = tocItems[currentHeadingIndex];
+
+      if (tocContainer.scrollHeight > tocContainer.clientHeight) {
+        const itemTop = activeItem.offsetTop;
+        const containerScrollTop = tocContainer.scrollTop;
+        const containerHeight = tocContainer.clientHeight;
+
+        if (itemTop < containerScrollTop || itemTop > containerScrollTop + containerHeight) {
+          tocContainer.scrollTop = itemTop - containerHeight / 2;
         }
       }
     }
+  }
 
-    // 根据屏幕宽度更新目录显示方式
-    function updateTocDisplay() {
+  // 修改updateTocDisplay函数，确保正确处理移动端和桌面端的切换
+  function updateTocDisplay() {
       const tocContainer = document.getElementById('toc-container');
       const tocToggleBtn = document.getElementById('toc-toggle-btn');
 
       if (window.innerWidth < 992) {
-        // 移动端：显示悬浮按钮，隐藏侧边栏
+        // 移动端：显示悬浮按钮，设置移动端样式
         tocContainer.classList.add('mobile');
-        tocContainer.classList.remove('show');
+        tocContainer.classList.remove('show'); // 确保初始状态是隐藏的
         tocToggleBtn.style.display = 'flex';
+
+        // 重置桌面端的状态
+        tocContainer.classList.remove('hidden');
       } else {
-        // 桌面端：显示侧边栏，隐藏悬浮按钮
+        // 桌面端：移除移动端样式
         tocContainer.classList.remove('mobile');
+        tocContainer.classList.remove('show');
+
         // 只有在未被手动关闭的情况下才显示
         if (!tocContainer.classList.contains('hidden')) {
           tocContainer.style.display = 'block';
@@ -712,13 +767,13 @@
       }
     }
 
-    // 设置移动端目录切换按钮事件 - 修改为同时支持桌面和移动端
+    // 设置移动端目录切换按钮事件 - 修改为更清晰地区分移动端和桌面端
     document.getElementById('toc-toggle-btn').addEventListener('click', function() {
       const tocContainer = document.getElementById('toc-container');
       const tocToggleBtn = document.getElementById('toc-toggle-btn');
 
       if (window.innerWidth < 992) {
-        // 移动端行为 - 保持原样
+        // 移动端行为 - 切换显示/隐藏状态
         tocContainer.classList.toggle('show');
       } else {
         // 桌面端行为 - 重新显示TOC并隐藏悬浮按钮
@@ -728,13 +783,13 @@
       }
     });
 
-    // 设置关闭按钮事件 - 修改为同时支持桌面和移动端
+    // 设置关闭按钮事件 - 同样清晰区分移动端和桌面端
     document.getElementById('toc-close').addEventListener('click', function() {
       const tocContainer = document.getElementById('toc-container');
       const tocToggleBtn = document.getElementById('toc-toggle-btn');
 
       if (window.innerWidth < 992) {
-        // 移动端行为
+        // 移动端行为 - 隐藏弹出的导航栏
         tocContainer.classList.remove('show');
       } else {
         // 桌面端行为 - 隐藏TOC并显示悬浮按钮
@@ -744,32 +799,37 @@
       }
     });
 
-    // 添加：防止导航栏滚动传递到页面
-    document.getElementById('toc-container').addEventListener('wheel', function(event) {
-      const container = this;
-      const scrollTop = container.scrollTop;
-      const scrollHeight = container.scrollHeight;
-      const height = container.clientHeight;
-      const delta = event.deltaY;
+    // 添加窗口大小变化监听器，确保响应式布局正确
+    window.addEventListener('resize', function() {
+      updateTocDisplay();
+    });
 
-      // 检查是否已经滚动到底部或顶部
-      const isAtTop = scrollTop === 0;
-      const isAtBottom = scrollHeight - scrollTop === height;
+  // 添加：防止导航栏滚动传递到页面
+  document.getElementById('toc-container').addEventListener('wheel', function(event) {
+    const container = this;
+    const scrollTop = container.scrollTop;
+    const scrollHeight = container.scrollHeight;
+    const height = container.clientHeight;
+    const delta = event.deltaY;
 
-      // 如果向下滚动且已在底部，或向上滚动且已在顶部，则阻止事件传播
-      if ((delta > 0 && isAtBottom) || (delta < 0 && isAtTop)) {
-        event.preventDefault();
-      }
-    }, { passive: false });
+    // 检查是否已经滚动到底部或顶部
+    const isAtTop = scrollTop === 0;
+    const isAtBottom = scrollHeight - scrollTop === height;
 
-    // 主程序：加载文章和全局配置
-    const articleName = getQueryParam('a_id');
-    if (articleName) {
-      loadArticle(articleName);
-    } else {
-      document.getElementById('article-md').innerHTML = '<p>没有指定文章</p>';
+    // 如果向下滚动且已在底部，或向上滚动且已在顶部，则阻止事件传播
+    if ((delta > 0 && isAtBottom) || (delta < 0 && isAtTop)) {
+      event.preventDefault();
     }
-    loadConfig();
+  }, { passive: false });
+
+  // 主程序：加载文章和全局配置
+  const articleName = getQueryParam('a_id');
+  if (articleName) {
+    loadArticle(articleName);
+  } else {
+    document.getElementById('article-md').innerHTML = '<p>没有指定文章</p>';
+  }
+  loadConfig();
 </script>
 
 </body>
