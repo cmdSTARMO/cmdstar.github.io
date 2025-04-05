@@ -70,6 +70,159 @@
     <script type="text/javascript" id="MathJax-script"
             src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 
+    <!-- 添加章节导航样式 -->
+    <style>
+        /* 章节导航容器 - 宽屏模式 */
+        #toc-container {
+            position: fixed;
+            left: 20px;
+            top: 120px; /* 调整顶部距离，避免与导航栏重叠 */
+            width: 280px;
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 998;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            display: none; /* 默认隐藏，通过JS控制显示 */
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+        }
+
+        /* 自定义滚动条 */
+        #toc-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #toc-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #toc-container::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+
+        /* 章节导航标题 */
+        #toc-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* 关闭按钮 - 仅在移动端显示 */
+        #toc-close {
+            cursor: pointer;
+            font-size: 20px;
+            display: none;
+        }
+
+        /* 章节列表 */
+        #toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* 章节项 */
+        #toc-list li {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        /* 不同级别标题的缩进 */
+        #toc-list li.toc-h1 { padding-left: 0; }
+        #toc-list li.toc-h2 { padding-left: 15px; }
+        #toc-list li.toc-h3 { padding-left: 30px; }
+        #toc-list li.toc-h4 { padding-left: 45px; }
+        #toc-list li.toc-h5 { padding-left: 60px; }
+        #toc-list li.toc-h6 { padding-left: 75px; }
+
+        /* 章节链接 */
+        #toc-list li a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+            padding: 4px 0;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* 章节链接悬停效果 */
+        #toc-list li a:hover {
+            color: #ff914d;
+            transform: translateX(3px);
+        }
+
+        /* 当前活跃章节 */
+        #toc-list li.active a {
+            color: #ff914d;
+            font-weight: 600;
+        }
+
+        /* 章节前的装饰点 */
+        #toc-list li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 12px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        #toc-list li.toc-h1:before { display: none; }
+        #toc-list li.active:before { background: #ff914d; }
+
+        /* 悬浮按钮 - 移动端 */
+        .float-btn.toc-btn {
+            display: none; /* 默认隐藏，通过JS控制显示 */
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 1200px) {
+            #toc-container {
+                left: -300px; /* 默认隐藏在屏幕外 */
+                top: 50%;
+                transform: translateY(-50%);
+                max-height: 80vh;
+                transition: left 0.3s ease, opacity 0.3s ease;
+                opacity: 0;
+            }
+
+            #toc-container.show {
+                left: 20px;
+                opacity: 1;
+            }
+
+            #toc-close {
+                display: block;
+            }
+
+            .float-btn.toc-btn {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
 <body id="page-top">
 
 <!-- 导航部分 -->
