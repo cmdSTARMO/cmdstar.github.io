@@ -41,6 +41,9 @@ jobs:
     name: Send Pending Notifications
     needs: update-etf
     runs-on: ubuntu-latest
+    env:
+      FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
+      
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
