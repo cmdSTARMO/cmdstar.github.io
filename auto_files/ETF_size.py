@@ -7,13 +7,24 @@ import io
 import logging
 import sys
 from auto_files.push_related.event_logger import log_push_event
+import os
+
+# 当前脚本（ETF_size.py）所在目录
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# 定义 data 目录：脚本的同级目录的上一级 data/
+DB_DIR  = os.path.normpath(os.path.join(SCRIPT_DIR, os.pardir, "data"))
+DB_PATH = os.path.join(DB_DIR, "SZSE_ETF_vol.sqlite")
+
+# 确保 data 目录存在
+os.makedirs(DB_DIR, exist_ok=True)
 
 # -------------------- Configuration --------------------
 JSON_URL    = "https://www.szse.cn/api/report/ShowReport/data"
 XLSX_URL    = "https://www.szse.cn/api/report/ShowReport?SHOWTYPE=xlsx&CATALOGID=1945&tab1PAGENO=1&TABKEY=tab1"
 CATALOGID   = "1945"
 SAMPLE_SIZE = 5
-DB_PATH     = "../data/SZSE_ETF_vol.sqlite"
+# DB_PATH     = ".../data/SZSE_ETF_vol.sqlite"
 LOG_LEVEL   = logging.INFO
 
 # **模拟浏览器的 User‑Agent**
