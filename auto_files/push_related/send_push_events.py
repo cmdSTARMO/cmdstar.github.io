@@ -13,7 +13,6 @@ import os
 FEISHU_WEBHOOK = os.environ.get('FEISHU_WEBHOOK_URL')
 if not FEISHU_WEBHOOK:
     raise RuntimeError("Missing FEISHU_WEBHOOK_URL environment variable")
-FEISHU_WEBHOOK = FEISHU_WEBHOOK_URL
 
 
 def send_pending_events(sender_email=None, sender_password=None, receivers=None):
