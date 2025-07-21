@@ -2,3 +2,4 @@ id,timestamp,related_subject,large_status,report_title,report_details,push_statu
 c854d570983045d08565bdae5690277f,2025-07-21 11:11:40,深交所ETF规模更新,异常推送,深交所ETF 更新异常,"('Connection aborted.', ConnectionAbortedError(10053, '你的主机中的软件中止了一个已建立的连接。', None, 10053, None))",已推送
 687865ea47d6400da9a8a660f7c06c65,2025-07-21 11:18:42,深交所ETF规模更新,异常推送,深交所ETF规模数据 更新异常,"('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))",已推送
 326573e8cd6f45b79179895fe807b7e5,2025-07-21 11:20:43,深交所ETF规模更新,成功推送,2025-07-21 SZSE ETF 规模报告,本次共插入 510 条记录,已推送
+5dff81de91c846768eadcd625c01450f,2025-07-21 04:43:58,深交所ETF规模更新,成功推送,2025-07-21 SZSE ETF 规模数据更新成功！,本次共插入 510 条记录,未推送
