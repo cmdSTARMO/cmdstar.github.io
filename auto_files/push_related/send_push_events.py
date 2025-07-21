@@ -9,7 +9,7 @@ from feishu_bot import FeishuBot
 # from email_sender import send_email
 
 # 请替换为你的飞书 Webhook 地址
-FEISHU_WEBHOOK = feishu_webhook_url
+FEISHU_WEBHOOK = FEISHU_WEBHOOK_URL
 
 
 def send_pending_events(sender_email=None, sender_password=None, receivers=None):
