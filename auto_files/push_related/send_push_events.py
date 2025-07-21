@@ -5,6 +5,7 @@
 import pandas as pd
 from event_logger import EVENTS_FILE, update_push_status
 from feishu_bot import FeishuBot
+import os
 # 如果需要发送邮件，可自行导入你的 send_email 函数
 # from email_sender import send_email
 
