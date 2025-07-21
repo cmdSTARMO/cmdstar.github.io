@@ -7,29 +7,35 @@ on:
   workflow_dispatch:       # 支持手动触发
 
 jobs:
-  update-etf:
-    name: Update ETF Data
+  update-and-notify:
+    name: 更新数据并推送通知
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+    env:
+      # 确保脚本中能 import auto_files 包
+      PYTHONPATH: ${{ github.workspace }}
+      # 注入飞书 Webhook URL
+      FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
 
-      - name: Set up Python
+    steps:
+      - name: Checkout 代码
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: true   # 允许后续 git push
+
+      - name: 设置 Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
-      - name: Install dependencies
+      - name: 安装依赖
         run: |
           pip install requests pandas openpyxl
 
-      - name: Run ETF update script
+      - name: 更新 ETF 数据
         run: |
           python -m auto_files.ETF_size
-        env:
-          PYTHONPATH: ${{ github.workspace }}
 
-      - name: Commit updated data & events
+      - name: 提交更新的数据和事件记录
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
@@ -37,26 +43,6 @@ jobs:
           git commit -m 'chore: 自动更新 ETF 数据并记录推送事件' || echo "No changes to commit"
           git push
 
-  push-events:
-    name: Send Pending Notifications
-    needs: update-etf
-    runs-on: ubuntu-latest
-    env:
-      FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
-      
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Install dependencies
-        run: |
-          pip install pandas requests
-
-      - name: Send Feishu notifications
+      - name: 发送飞书通知
         run: |
           python auto_files/push_related/send_push_events.py
