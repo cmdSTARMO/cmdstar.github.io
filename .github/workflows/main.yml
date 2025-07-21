@@ -25,7 +25,9 @@ jobs:
 
       - name: Run ETF update script
         run: |
-          python auto_files/ETF_size.py
+          python -m auto_files.ETF_size
+        env:
+          PYTHONPATH: ${{ github.workspace }}
 
       - name: Commit updated data & events
         run: |
