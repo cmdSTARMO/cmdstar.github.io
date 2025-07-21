@@ -9,6 +9,9 @@ from feishu_bot import FeishuBot
 # from email_sender import send_email
 
 # 请替换为你的飞书 Webhook 地址
+FEISHU_WEBHOOK = os.environ.get('FEISHU_WEBHOOK_URL')
+if not FEISHU_WEBHOOK:
+    raise RuntimeError("Missing FEISHU_WEBHOOK_URL environment variable")
 FEISHU_WEBHOOK = FEISHU_WEBHOOK_URL
 
 
