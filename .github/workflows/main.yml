@@ -3,7 +3,7 @@ name: SZSE ETF Pipeline
 
 on:
   schedule:
-    - cron: '0 23 * * *'     # 每日 UTC 23:00 触发 - 8 即早上7点
+    - cron: '00 00 * * *'     # 每日 UTC 23:00 触发 - 8 即早上7点
   workflow_dispatch:       # 支持手动触发
 
 jobs:
