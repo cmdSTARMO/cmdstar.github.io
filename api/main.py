@@ -15,7 +15,7 @@ from contextlib import asynccontextmanager
 from routers import szse_etf_shares, foo
 
 # ─────── 数据库配置 ───────
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.getcwd()
 DB_PATH  = os.path.join(BASE_DIR, "data", "SZSE_ETF_vol.sqlite")
 DB_URL   = f"sqlite:///{DB_PATH}"
 database = Database(DB_URL)
@@ -61,3 +61,7 @@ app.include_router(
     prefix="/foo",
     tags=["foo"]
 )
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

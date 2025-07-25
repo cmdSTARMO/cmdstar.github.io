@@ -7,9 +7,12 @@ from fastapi import APIRouter, HTTPException, Query
 from fastapi.responses import ORJSONResponse
 from pydantic import BaseModel
 from databases import Database
+import os
 
 # ─────── 数据库配置 ───────
-DB_URL = "sqlite:////app/data/SZSE_ETF_vol.sqlite"
+BASE_DIR = os.getcwd()
+DB_PATH  = os.path.join(BASE_DIR, "data", "SZSE_ETF_vol.sqlite")
+DB_URL   = f"sqlite:///{DB_PATH}"
 database = Database(DB_URL)
 
 # ─────── Pydantic 模型 ───────
