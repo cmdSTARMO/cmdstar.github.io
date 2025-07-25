@@ -11,20 +11,14 @@ from databases import Database
 from aiocache import cached, Cache
 from contextlib import asynccontextmanager
 
+# 导入子路由模块
+from routers import szse_etf_shares, foo
+
 # ─────── 数据库配置 ───────
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DB_PATH  = os.path.join(BASE_DIR, "data", "SZSE_ETF_vol.sqlite")
 DB_URL   = f"sqlite:///{DB_PATH}"
 database = Database(DB_URL)
-
-# ─────── Pydantic 数据模型 ───────
-class ETFRecord(BaseModel):
-    dt: date
-    code: str
-    name: str
-    index_code: str
-    size: float
-    manager: str
 
 # ─────── Lifespan 事件管理 ───────
 @asynccontextmanager
@@ -33,11 +27,11 @@ async def lifespan(app: FastAPI):
     yield
     await database.disconnect()
 
-# ─────── FastAPI 应用与中间件 ───────
+# ─────── FastAPI 应用 & 中间件 ───────
 app = FastAPI(
-    title="SZSE ETF Data API",
-    description="深交所 ETF 规模数据，支持按日期区间、分页查询",
-    version="1.2.0",
+    title="HuangDaPao API",
+    description="统一接口服务，支持 ETF 查询与其他业务",
+    version="1.0.0",
     lifespan=lifespan
 )
 app.add_middleware(
@@ -48,55 +42,22 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ─────── 健康检查路由 ───────
+# ─────── 路由挂载 ───────
+# 健康检查
 @app.get("/health", summary="健康检查")
 async def health_check() -> dict:
     return {"status": "ok"}
 
-# ─────── 缓存包装的数据库查询 ───────
-@cached(ttl=60, cache=Cache.MEMORY)  # 缓存 60 秒
-async def fetch_data_from_db(
-    start: str,
-    end: str,
-    limit: Optional[int],
-    offset: Optional[int]
-):
-    sql = """
-        SELECT dt, code, name, index_code, size, manager
-        FROM etf_data
-        WHERE dt BETWEEN :start AND :end
-        ORDER BY dt, code
-    """
-    params = {"start": start, "end": end}
-    if limit is not None:
-        sql += " LIMIT :limit OFFSET :offset"
-        params.update({"limit": limit, "offset": offset})
-    return await database.fetch_all(query=sql, values=params)
-
-# ─────── 数据查询路由 ───────
-@app.get(
-    "/data",
-    response_model=List[ETFRecord],
-    summary="按日期区间和分页查询 ETF 数据",
+# ETF 路由组挂载到 /etf
+app.include_router(
+    etf.router,
+    prefix="/etf",
+    tags=["etf"]
 )
-async def get_data(
-    startdate: date = Query(..., description="起始日期 (YYYY-MM-DD)"),
-    enddate:   date = Query(..., description="结束日期 (YYYY-MM-DD)"),
-    limit: Optional[int]  = Query(None, ge=1, le=1000, description="单页记录数上限"),
-    offset: Optional[int] = Query(0,  ge=0, description="记录偏移量"),
-) -> List[ETFRecord]:
-    """
-    异步查询 dt 在 [startdate, enddate] 之间的记录，
-    支持 limit/offset 分页，并使用内存缓存。
-    """
-    try:
-        rows = await fetch_data_from_db(
-            startdate.isoformat(),
-            enddate.isoformat(),
-            limit,
-            offset
-        )
-    except Exception as err:
-        raise HTTPException(status_code=500, detail=f"查询失败：{err}")
 
-    return [ETFRecord(**row) for row in rows]
+# Foo 示例路由组挂载到 /foo
+app.include_router(
+    foo.router,
+    prefix="/foo",
+    tags=["foo"]
+)
