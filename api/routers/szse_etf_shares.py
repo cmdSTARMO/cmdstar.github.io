@@ -10,8 +10,15 @@ from databases import Database
 import os
 
 # ─────── 数据库配置 ───────
-BASE_DIR = os.getcwd()
-DB_PATH  = os.path.join(BASE_DIR, "data", "SZSE_ETF_vol.sqlite")
+# 拿到当前脚本文件的绝对路径 → /app/api/main.py
+this_file = os.path.abspath(__file__)
+
+# 再取它的父目录 → /app/api
+base_dir   = os.path.dirname(this_file)
+
+# 再上一级到 /app，然后拼 data 目录
+data_dir   = os.path.abspath(os.path.join(base_dir, os.pardir, "data"))
+DB_PATH    = os.path.join(data_dir, "SZSE_ETF_vol.sqlite")
 DB_URL   = f"sqlite:///{DB_PATH}"
 database = Database(DB_URL)
 
