@@ -48,11 +48,11 @@ app.add_middleware(
 async def health_check() -> dict:
     return {"status": "ok"}
 
-# ETF 路由组挂载到 /etf
+# 深交所ETF份额数据！ 路由组挂载到 /szse_etf_shares
 app.include_router(
-    etf.router,
-    prefix="/etf",
-    tags=["etf"]
+    szse_etf_shares.router,
+    prefix="/szse_etf_shares",
+    tags=["szse_etf_shares"]
 )
 
 # Foo 示例路由组挂载到 /foo
