@@ -29,9 +29,9 @@ async def lifespan(app: FastAPI):
 
 # ─────── FastAPI 应用 & 中间件 ───────
 app = FastAPI(
-    title="HuangDaPao API",
-    description="统一接口服务，支持 ETF 查询与其他业务",
-    version="1.0.0",
+    title="HuangDapao's API(s)",
+    description="统一接口服务，支持 ETF 查询与其他业务，部分功能与性能优化以及漏洞修复。",
+    version="1.0.1",
     lifespan=lifespan
 )
 app.add_middleware(
