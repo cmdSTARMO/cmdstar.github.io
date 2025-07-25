@@ -1,10 +1,11 @@
 # api/main.py
 
 import os
+
 from datetime import date
 from typing import List, Optional
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from databases import Database
@@ -68,6 +69,20 @@ app.include_router(
     prefix="/foo",
     tags=["foo"]
 )
+
+router = APIRouter()
+
+@router.get("/_debug/fs")
+async def debug_fs():
+    files = {}
+    for d in ["", "data", "api", "api/routers"]:
+        try:
+            files[d] = os.listdir(os.path.join(os.getcwd(), d))
+        except:
+            files[d] = None
+    return files
+
+app.include_router(router)
 
 if __name__ == "__main__":
     import uvicorn
