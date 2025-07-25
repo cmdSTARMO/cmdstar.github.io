@@ -143,35 +143,40 @@ def insert_all(conn, dt: str, xlsx_df: pd.DataFrame) -> int:
 # ------- 主流程 -------
 
 if __name__ == "__main__":
+    error_happened = False
     try:
         dt, json_data = fetch_json()
         xlsx_df       = fetch_xlsx()
-        validate_sample(random.sample(json_data, min(SAMPLE_SIZE, len(json_data))), xlsx_df)
+        validate_sample(
+            random.sample(json_data, min(SAMPLE_SIZE, len(json_data))),
+            xlsx_df
+        )
 
         conn = sqlite3.connect(DB_PATH)
         init_db(conn)
         if record_exists(conn, dt):
-            logger.info(f"{dt} 已处理，跳过。")
-            sys.exit(0)
-        new_count = insert_all(conn, dt, xlsx_df)
-        conn.close()
-
-        # 记录“未推送”事件
-        evt = log_push_event(
-            related_subject="深交所ETF规模更新",
-            report_title=f"{dt} SZSE ETF 规模数据更新成功",
-            report_details=f"本次共插入 {new_count} 条记录",
-            large_status="成功推送"
-        )
-        logger.info(f"Logged event {evt}")
-
+            logger.info(f"{dt} already processed.")
+        else:
+            new_count = insert_all(conn, dt, xlsx_df)
+            # 正常记录一条“成功”事件
+            evt = log_push_event(
+                related_subject="深交所ETF规模更新",
+                report_title=f"{dt} SZSE ETF 规模数据更新成功",
+                report_details=f"本次共插入 {new_count} 条记录",
+                large_status="成功推送"
+            )
+            logger.info(f"Logged success event {evt}")
     except Exception as e:
-        # 任何异常都记录为“异常推送”
+        error_happened = True
+        # 只记录，不退出
         evt = log_push_event(
             related_subject="深交所ETF规模更新",
-            report_title="深交所ETF规模更新异常",
+            report_title="深交所ETF规模数据 更新异常",
             report_details=str(e),
             large_status="异常推送"
         )
-        logger.exception("Update failed.")
-        sys.exit(1)
+        logger.exception("捕获异常，记录错误事件： %s", evt)
+
+    # 最终返回 0，让后续发送脚本也能跑~~
+    # 如果你想失败时也让 CI 标红，可改成 sys.exit(1) 但要把发送那步和提交移到另一个 Job
+    sys.exit(0)
