@@ -37,7 +37,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="SZSE ETF Data API",
     description="深交所 ETF 规模数据，支持按日期区间、分页查询",
-    version="1.2.0",
+    version="1.0.111",
     lifespan=lifespan
 )
 app.add_middleware(
