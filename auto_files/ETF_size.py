@@ -11,10 +11,15 @@ import pandas as pd
 from auto_files.push_related.event_logger import log_push_event
 
 # ------- 脚本目录 & 数据库路径 -------
+# 当前脚本的路径
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_DIR     = os.path.join(SCRIPT_DIR, os.pardir, "data")
-DB_PATH    = os.path.join(DB_DIR, "SZSE_ETF_vol.sqlite")
-os.makedirs(DB_DIR, exist_ok=True)
+
+# 目标数据库目录（假设 data 被放到 api/ 下）
+DB_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, os.pardir, "api", "data"))
+
+# 拼接最终数据库路径
+DB_PATH = os.path.join(DB_DIR, "SZSE_ETF_vol.sqlite")
+
 
 # ------- 配置 -------
 JSON_URL    = "https://www.szse.cn/api/report/ShowReport/data"

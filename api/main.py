@@ -12,9 +12,12 @@ from aiocache import cached, Cache
 from contextlib import asynccontextmanager
 
 # ─────── 数据库配置 ───────
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DB_PATH  = os.path.join(BASE_DIR, "data", "SZSE_ETF_vol.sqlite")
-DB_URL   = f"sqlite:///{DB_PATH}"
+# 把 BASE_DIR 定为当前文件所在目录（也就是 api/）
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# data 文件夹就在 BASE_DIR 下面
+DB_PATH = os.path.join(BASE_DIR, "data", "SZSE_ETF_vol.sqlite")
+DB_URL  = f"sqlite:///{DB_PATH}"
 database = Database(DB_URL)
 
 # ─────── Pydantic 数据模型 ───────
