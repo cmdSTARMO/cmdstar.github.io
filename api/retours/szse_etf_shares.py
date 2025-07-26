@@ -46,7 +46,7 @@ async def get_etf_data(
             SELECT dt, code, name, index_code, size, manager
             FROM etf_data
             WHERE dt BETWEEN :start AND :end
-            ORDER BY dt, code
+            ORDER BY dt DESC, code
         """
         values = {"start": startdate.isoformat(), "end": enddate.isoformat()}
         if limit is not None:
