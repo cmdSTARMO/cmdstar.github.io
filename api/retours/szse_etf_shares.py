@@ -1,7 +1,6 @@
 # api/retours/szse_etf_shares.py
 
 from fastapi import APIRouter, Query, HTTPException
-from fastapi.responses import ORJSONResponse
 from typing import List, Optional
 from datetime import date, datetime
 from pydantic import BaseModel
@@ -35,7 +34,7 @@ COLUMN_ZH = {
 }
 
 # ─────── 查询接口 ───────
-@router.get("/shares", response_class=ORJSONResponse, summary="ETF 查询")
+@router.get("/shares", summary="ETF 查询")
 async def get_etf_data(
     startdate: date = Query(..., description="起始日期 YYYY-MM-DD"),
     enddate:   date = Query(..., description="结束日期 YYYY-MM-DD"),
