@@ -18,7 +18,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="HuangDapao's Data API",
     description="2025-07-26 深交所 ETF 规模数据查询服务更新！",
-    version="1.0.3",
+    version="1.0.4",
     lifespan=lifespan
 )
 
