@@ -73,7 +73,13 @@ def fetch_json():
         raise RuntimeError(f"JSON 拉取失败: {e}")
     try:
         payload = resp.json()[0]
-        return payload['metadata']['subname'], payload['data']
+        # 从 dqgm 的字段描述中提取日期
+        dqgm_field = payload["metadata"]["cols"].get("dqgm", "")
+        match = re.search(r"（(\d{4}-\d{2}-\d{2})）", dqgm_field)
+        if not match:
+            raise RuntimeError("未能从字段描述中提取日期")
+        dt_str = match.group(1)
+        return dt_str, payload['data']
     except Exception as e:
         raise RuntimeError(f"JSON 解析失败: {e}")
 
