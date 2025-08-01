@@ -14,3 +14,4 @@ af7848e8b1e34f78b5450b38c6dfdb6c,2025-07-28 01:14:06,深交所ETF规模更新,�
 e7655399b319431b8c7423d63b3620af,2025-07-29 01:18:07,深交所ETF规模更新,异常推送,深交所ETF规模数据 更新异常,"JSON 拉取失败: HTTPSConnectionPool(host='www.szse.cn', port=443): Max retries exceeded with url: /api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=1945 (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7fbce7707130>: Failed to establish a new connection: [Errno 101] Network is unreachable'))",已推送
 9fdd8688f71044418730612adbedc787,2025-07-29 19:40:35,深交所ETF规模更新,成功推送,2025-07-29 SZSE ETF 规模数据更新成功,本次共插入 516 条记录,已推送
 0e93994d610047489012f952e587837f,2025-07-31 01:10:32,深交所ETF规模更新,成功推送,2025-07-30 SZSE ETF 规模数据更新成功,本次共插入 516 条记录,已推送
+c5f332dfd9594afca7263eceefe63551,2025-08-01 01:17:59,深交所ETF规模更新,异常推送,深交所ETF规模数据 更新异常,样本校验失败：代码 159258 未在 XLSX 中找到,已推送
