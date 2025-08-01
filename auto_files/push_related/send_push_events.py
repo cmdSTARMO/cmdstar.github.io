@@ -6,10 +6,9 @@ import pandas as pd
 from event_logger import EVENTS_FILE, update_push_status
 from feishu_bot import FeishuBot
 import os
-# 如果需要发送邮件，可自行导入你的 send_email 函数
 # from email_sender import send_email
 
-# 请替换为你的飞书 Webhook 地址
+# 飞书 Webhook 地址赋值！
 FEISHU_WEBHOOK = os.environ.get('FEISHU_WEBHOOK_URL')
 if not FEISHU_WEBHOOK:
     raise RuntimeError("Missing FEISHU_WEBHOOK_URL environment variable")
