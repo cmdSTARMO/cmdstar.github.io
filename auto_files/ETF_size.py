@@ -183,7 +183,7 @@ if __name__ == "__main__":
         evt = log_push_event(
             related_subject="深交所ETF规模更新",
             report_title="深交所ETF规模数据 更新异常",
-            report_details=str(e),
+            report_details=str(e) + " <at user_id=\"94dae5e3\">test</at>",
             large_status="异常推送"
         )
         logger.exception("捕获异常，记录错误事件： %s", evt)
