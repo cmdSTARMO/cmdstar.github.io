@@ -1,7 +1,7 @@
 import time
 import requests
 
-URL = "https://api.huangdapao.com/szse_etf_shares/shares?startdate=2025-07-18&enddate=2025-07-25&offset=0"
+URL = "https://api.huangdapao.com/szse_etf_shares/shares?startdate=2025-07-18&enddate=2026-07-25&offset=0"
 
 def fetch_data():
     try:
