@@ -31,7 +31,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="HuangDapao's Data API",
     description="新增嵌套路由：/margin/szse/totals；ETF接口保持不变。",
-    version="1.1.1",
+    version="1.1.2",
     lifespan=lifespan,
     default_response_class=ORJSONUTF8Response
 )
@@ -52,3 +52,20 @@ app.include_router(foo.router, prefix="/foo", tags=["测试接口"])
 @app.get("/health", summary="健康检查")
 async def health_check() -> dict:
     return {"status": "ok"}
+
+from fastapi import Request, HTTPException
+from fastapi.exceptions import RequestValidationError
+
+# 让 HTTPException 也用 UTF-8 + orjson
+@app.exception_handler(HTTPException)
+async def http_exc_handler(request: Request, exc: HTTPException):
+    payload = exc.detail if isinstance(exc.detail, dict) else {"detail": exc.detail}
+    return ORJSONUTF8Response(payload, status_code=exc.status_code)
+
+# 让 422 校验错误也用 UTF-8 + orjson
+@app.exception_handler(RequestValidationError)
+async def validation_exc_handler(request: Request, exc: RequestValidationError):
+    return ORJSONUTF8Response(
+        {"detail": "请求参数不合法", "errors": exc.errors()},
+        status_code=422
+    )

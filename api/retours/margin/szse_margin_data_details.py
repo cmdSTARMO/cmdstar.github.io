@@ -40,7 +40,7 @@ COLUMNS_ZH = {
     "marginnshort_total": "融资融券余额(元)"
 }
 
-@router.get("/detail", summary="融资融券交易明细（SZSE tab2）")
+@router.get("/details", summary="融资融券交易明细（SZSE tab2）")
 async def get_szse_margin_detail(
     startdate: date = Query(..., description="起始日期 YYYY-MM-DD"),
     enddate:   date = Query(..., description="结束日期 YYYY-MM-DD"),
