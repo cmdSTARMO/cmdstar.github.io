@@ -14,5 +14,5 @@ router.include_router(szse_margin_data_total.router, prefix="/szse") # , tags=["
 router.include_router(szse_margin_data_details.router, prefix="/szse") # , tags=["szse_margin_data_details"])
 
 # 子层：/margin/sse
-# router.include_router(sse_margin_data_total.router, prefix="/sse") # , tags=["sse_margin_data_total"])
+router.include_router(sse_margin_data_total.router, prefix="/sse") # , tags=["sse_margin_data_total"])
 router.include_router(sse_margin_data_details.router, prefix="/sse") # , tags=["sse_margin_data_detail"])
