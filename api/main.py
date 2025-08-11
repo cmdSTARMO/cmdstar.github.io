@@ -11,6 +11,8 @@ from retours.margin import router as margin_router
 # 为了在 lifespan 里连接数据库（只连接真正用到 DB 的子模块）
 from retours.margin import szse_margin_data_total as szse_margin_data_total
 from retours.margin import szse_margin_data_details as szse_margin_data_details
+from retours.margin import sse_margin_data_total as sse_margin_data_total
+from retours.margin import sse_margin_data_details as sse_margin_data_details
 
 class ORJSONUTF8Response(ORJSONResponse):
     media_type = "application/json; charset=utf-8"
@@ -21,17 +23,21 @@ async def lifespan(app: FastAPI):
     await szse_etf_shares.database.connect()
     await szse_margin_data_total.database.connect()
     await szse_margin_data_details.database.connect()
+    await sse_margin_data_total.database.connect()
+    await sse_margin_data_details.database.connect()
     try:
         yield
     finally:
         await szse_etf_shares.database.disconnect()
         await szse_margin_data_total.database.disconnect()
         await szse_margin_data_details.database.disconnect()
+        await sse_margin_data_total.database.connect()
+        await sse_margin_data_details.database.disconnect()
 
 app = FastAPI(
     title="HuangDapao's Data API",
-    description="新增嵌套路由：/margin/szse/totals；ETF接口保持不变。",
-    version="1.1.2",
+    description="新增深交所上交所双融数据及每日细节查询api！v1.1版本开发圆满结束！",
+    version="1.1.4",
     lifespan=lifespan,
     default_response_class=ORJSONUTF8Response
 )
