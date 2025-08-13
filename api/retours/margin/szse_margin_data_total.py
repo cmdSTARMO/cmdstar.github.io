@@ -47,7 +47,8 @@ async def get_szse_margin_totals(
     读取表 tab1_data：你的抓取脚本 szse_margintotal_data.py 已将每日一行写入该表。
     """
     if enddate < startdate:
-        raise HTTPException(status_code=400, detail="enddate must be >= startdate startdate比enddate大？ 啊？")
+        raise HTTPException(status_code=400, detail="enddate must be >= startdate"
+                                                    "回答我！为什么startdate比enddate大？ 回答我！")
 
     try:
         sql = """

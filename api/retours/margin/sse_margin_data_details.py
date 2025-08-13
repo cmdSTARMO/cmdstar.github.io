@@ -39,7 +39,7 @@ COLUMNS_ZH = {
     "short_repay_qty": "本日融券偿还量(股/份)",
 }
 
-@router.get("/detail", summary="上交所 融资融券交易明细（SSE tab2）")
+@router.get("/details", summary="上交所 融资融券交易明细（SSE tab2）")
 async def get_sse_margin_detail(
     startdate: date = Query(..., description="起始日期 YYYY-MM-DD"),
     enddate:   date = Query(..., description="结束日期 YYYY-MM-DD"),
@@ -51,14 +51,16 @@ async def get_sse_margin_detail(
 ):
     # 基本校验
     if enddate < startdate:
-        raise HTTPException(status_code=400, detail="参数错误：enddate 必须 ≥ startdate")
+        raise HTTPException(status_code=400, detail="enddate must be >= startdate "
+                                                    "回答我！为什么startdate比enddate大？ 回答我！")
 
     # 兼容 ?codes=600000,601318
     if codes and len(codes) == 1 and ("," in codes[0] or " " in codes[0]):
         codes = [p.strip() for p in codes[0].replace(" ", "").split(",") if p.strip()]
 
     if codes and len(codes) > 900:  # 预留 SQLite 绑定变量上限余量
-        raise HTTPException(status_code=400, detail="单次 codes 数量过多，请分批查询")
+        raise HTTPException(status_code=400, detail="Too many codes in one request"
+                                                    "单次 codes 数量过多，请分批查询")
 
     try:
         sql = """

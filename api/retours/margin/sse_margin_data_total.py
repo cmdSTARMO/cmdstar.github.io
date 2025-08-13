@@ -44,7 +44,8 @@ async def get_sse_margin_total(
     offset: int = Query(0, ge=0),
 ):
     if enddate < startdate:
-        raise HTTPException(status_code=400, detail="参数错误：enddate 必须 ≥ startdate")
+        raise HTTPException(status_code=400, detail="enddate must be >= startdate"
+                                                    "回答我！为什么startdate比enddate大？ 回答我！")
 
     try:
         sql = """
