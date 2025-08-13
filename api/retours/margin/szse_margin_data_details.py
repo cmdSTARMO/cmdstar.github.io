@@ -145,8 +145,8 @@ async def get_szse_margin_detail(
             "columns_zh": COLUMNS_ZH,
             "source": "SZSE tab2 (Parquet/月度单文件)",
             "pagination": {"limit": limit, "offset": offset, "returned": len(data), "has_more": len(data) == limit},
-            "storage_dir": PARQUET_DIR,
-            "files_scanned": [os.path.basename(x) for x in month_files]
+            # "storage_dir": PARQUET_DIR,
+            # "files_scanned": [os.path.basename(x) for x in month_files]
         },
         "data": data
     }

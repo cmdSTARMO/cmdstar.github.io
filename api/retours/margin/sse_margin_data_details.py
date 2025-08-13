@@ -73,8 +73,8 @@ async def get_sse_margin_detail(
                 "columns_zh": COLUMNS_ZH,
                 "source": "SSE tab2 (Parquet/月度单文件)",
                 "pagination": {"limit": limit, "offset": offset, "returned": 0, "has_more": False},
-                "storage_dir": PARQUET_DIR,
-                "files_scanned": []
+                # "storage_dir": PARQUET_DIR,
+                # "files_scanned": []
             },
             "data": []
         }
