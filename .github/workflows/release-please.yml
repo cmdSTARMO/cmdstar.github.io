@@ -1,3 +1,4 @@
+# .github/workflows/release-please.yml
 name: release-please
 on:
   push:
@@ -5,9 +6,13 @@ on:
 permissions:
   contents: write
   pull-requests: write
-
+  issues: write                # 建议保留（有权限时可打标签）
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: googleapis/release-please-action@v4
+        with:
+          # 若你用 manifest，直接不写 inputs；simple 模式则指定 release-type
+          # release-type: simple
+          skip-labeling: true   # ← 先绕过创建/添加 label 的动作
