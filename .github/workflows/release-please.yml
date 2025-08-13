@@ -9,9 +9,13 @@ permissions:
 concurrency:
   group: release-please-${{ github.ref }}
   cancel-in-progress: true
+
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: googleapis/release-please-action@v4
-        # 如遇标签权限问题：with: { skip-labeling: true }
+        with:
+          skip-github-release: true
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
