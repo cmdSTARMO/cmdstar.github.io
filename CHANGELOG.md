@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.3.0...v1.4.0) (2025-08-14)
+
+
+### ✨ Features
+
+* **data:** 数据已全并作冗余备份！api正式版上线！！ ([8dd1c52](https://github.com/cmdSTARMO/cmdstar.github.io/commit/8dd1c5208ed52e130c2edb8e878b5970f63bad3d))
+
 ## [1.3.0](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.2.0...v1.3.0) (2025-08-13)
 
 
