@@ -1,21 +1,31 @@
 name: release-please
+
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+
 permissions:
   contents: write
   pull-requests: write
   issues: write
+
 concurrency:
   group: release-please-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   release:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - uses: googleapis/release-please-action@v4
+      - name: Release PR (no tag / no GitHub Release)
+        uses: googleapis/release-please-action@v4
         with:
+          # 仅创建/更新 Release PR；不会打 tag 或生成 GitHub Release
           skip-github-release: true
+          # 你的配置文件
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+          # 如需避免给 PR 自动打标签，可解开下一行（遇到权限问题时有用）
+          # skip-labeling: true
