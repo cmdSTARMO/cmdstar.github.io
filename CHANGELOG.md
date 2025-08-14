@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.8](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.4.0...v1.1.8) (2025-08-14)
+
+
+### 🐞 Fixes
+
+* **data:** 数据已全并作冗余备份！api正式版上线！！优化版本号识别！ ([47e231d](https://github.com/cmdSTARMO/cmdstar.github.io/commit/47e231dd546586581d1a6a346e26f01a336d57b9))
+* **data:** 数据已全并作冗余备份！api正式版上线！！优化版本号识别！ ([ba7751b](https://github.com/cmdSTARMO/cmdstar.github.io/commit/ba7751b1d8e1e003cb7b6dd0f3596de43b456b75))
+* **data:** 数据已全并作冗余备份！api正式版上线！！优化版本号识别！ ([f3ef4a5](https://github.com/cmdSTARMO/cmdstar.github.io/commit/f3ef4a5103b04882b035c1c12009373de000a6b7))
+
 ## [1.4.0](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.3.0...v1.4.0) (2025-08-14)
 
 
