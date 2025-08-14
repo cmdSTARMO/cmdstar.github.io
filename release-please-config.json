@@ -1,16 +1,30 @@
 {
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+
+  "commit-search-depth": 150,
+  "release-search-depth": 40,
+
   "packages": {
-    ".": { "release-type": "simple" }
+    ".": {
+      "release-type": "simple",
+      "changelog-path": "CHANGELOG.md"
+    }
   },
+
   "changelog-sections": [
-    { "type": "feat", "section": "✨ Features", "hidden": false },
-    { "type": "fix",  "section": "🐞 Fixes",    "hidden": false },
-    { "type": "perf", "section": "⚡ Performance", "hidden": false },
-    { "type": "refactor", "section": "♻️ Refactors", "hidden": true },
-    { "type": "docs", "section": "📝 Docs", "hidden": true },
-    { "type": "ci",   "section": "🤖 CI",   "hidden": true },
-    { "type": "chore","section": "Chores",  "hidden": true }
+    { "type": "feat",      "section": "✨ Features",     "hidden": false },
+    { "type": "fix",       "section": "🐞 Fixes",        "hidden": false },
+    { "type": "perf",      "section": "⚡ Performance",  "hidden": false },
+    { "type": "refactor",  "section": "♻️ Refactors",    "hidden": true  },
+    { "type": "docs",      "section": "📝 Docs",         "hidden": true  },
+    { "type": "ci",        "section": "🤖 CI",           "hidden": true  },
+    { "type": "chore",     "section": "Chores",         "hidden": true  }
   ],
-  "skip-labels": ["skip-release"]
+
+  "skip-labels": ["skip-release"],
+  "x-notes": "以下是暂存、当前不启用的选项",
+  "x-disabled": {
+    "bootstrap-sha": "PUT_CLEAN_SHA_HERE",
+    "last-release-sha": "PUT_CLEAN_SHA_HERE"
+  }
 }

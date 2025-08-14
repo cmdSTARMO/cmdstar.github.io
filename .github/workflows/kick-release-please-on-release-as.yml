@@ -1,0 +1,48 @@
+name: 合并含 Release-As 的 PR 后，立即触发 release-please
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: kick-release-please-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  kick:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    env:
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: 检查 PR 提交/正文是否包含 Release-As
+        id: check
+        shell: bash
+        run: |
+          msgs="$(gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/commits --paginate -q '.[].commit.message' || true)"
+          body="$(gh pr view "$PR_NUMBER" --json body -q .body || true)"
+
+          if printf '%s\n%s' "$msgs" "$body" | grep -qiE 'Release-As:\s*[0-9]+\.[0-9]+\.[0-9]+'; then
+            echo "has_release_as=true" >> "$GITHUB_OUTPUT"
+            echo "✅ 发现 Release-As 覆盖字段，准备触发 release-please。"
+          else
+            echo "has_release_as=false" >> "$GITHUB_OUTPUT"
+            echo "ℹ️ 未发现 Release-As，跳过。"
+          fi
+
+      - name: 触发 release-please（创建/刷新 Release PR）
+        if: steps.check.outputs.has_release_as == 'true'
+        uses: googleapis/release-please-action@v4
+        with:
+          skip-github-release: true
+          release-type: simple
+          package-name: ${{ github.event.repository.name }}
+          config-file: release-please-config.json
