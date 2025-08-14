@@ -21,7 +21,6 @@ jobs:
     steps:
       - uses: googleapis/release-please-action@v4
         with:
-          commit-limit: 3
           # ✅ 仅创建/更新 Release PR；不打 tag、不发 GitHub Release
           skip-github-release: true
           config-file: release-please-config.json
