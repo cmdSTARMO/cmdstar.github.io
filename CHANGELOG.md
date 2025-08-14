@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.14](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.13...v1.1.14) (2025-08-14)
+
+
+### 🐞 Fixes
+
+* **data:** tag测试*6，连通测试 ([63ea727](https://github.com/cmdSTARMO/cmdstar.github.io/commit/63ea727393b0a06fff4ab2f08228423a03179ae2))
+
 ## [1.1.13](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.12...v1.1.13) (2025-08-14)
 
 
