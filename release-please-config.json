@@ -1,8 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
-  "packages": {
-    ".": { "release-type": "simple" }
-  },
+  "commit-search-depth": 5,
+  "packages": { ".": { "release-type": "simple" } },
   "changelog-sections": [
     { "type": "feat", "section": "✨ Features", "hidden": false },
     { "type": "fix",  "section": "🐞 Fixes",    "hidden": false },
