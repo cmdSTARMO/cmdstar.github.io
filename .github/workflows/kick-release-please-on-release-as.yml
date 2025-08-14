@@ -1,4 +1,4 @@
-name: 合并含 Release-As 的 PR 后，立即触发 release-please
+name: 合并含 Release-As 的 PR 后，立即触发 release-please（受控版）
 
 on:
   pull_request:
@@ -20,26 +20,83 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PR_NUMBER: ${{ github.event.pull_request.number }}
+      MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
-      - name: 检查 PR 提交/正文是否包含 Release-As
-        id: check
+      - name: 读取 PR 标签（只在显式允许时触发）
+        id: labels
         shell: bash
         run: |
-          msgs="$(gh api repos/${{ github.repository }}/pulls/${PR_NUMBER}/commits --paginate -q '.[].commit.message' || true)"
-          body="$(gh pr view "$PR_NUMBER" --json body -q .body || true)"
-
-          if printf '%s\n%s' "$msgs" "$body" | grep -qiE 'Release-As:\s*[0-9]+\.[0-9]+\.[0-9]+'; then
-            echo "has_release_as=true" >> "$GITHUB_OUTPUT"
-            echo "✅ 发现 Release-As 覆盖字段，准备触发 release-please。"
+          labels="$(gh pr view "$PR_NUMBER" --json labels -q '.labels[].name' || true)"
+          echo "labels=$labels"
+          if ! printf '%s' "$labels" | grep -qx 'use-release-as'; then
+            echo "✅ 未发现标签 use-release-as，本次不触发 release-please。"
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
           else
-            echo "has_release_as=false" >> "$GITHUB_OUTPUT"
-            echo "ℹ️ 未发现 Release-As，跳过。"
+            echo "🔓 检测到 use-release-as 标签，允许读取 Release-As。"
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: 检出仓库（带 tag）
+        if: steps.labels.outputs.should_run == 'true'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 仅读取“合并提交”的 message 中的 Release-As
+        if: steps.labels.outputs.should_run == 'true'
+        id: parse
+        shell: bash
+        run: |
+          msg="$(gh api repos/${{ github.repository }}/commits/${MERGE_SHA} -q .commit.message || true)"
+          echo "🧾 合并提交信息："
+          echo "$msg"
+          ra="$(printf '%s' "$msg" | grep -ioE 'Release-As:\s*[0-9]+\.[0-9]+\.[0-9]+' | head -n1 | grep -ioE '[0-9]+\.[0-9]+\.[0-9]+')"
+          if [[ -z "$ra" ]]; then
+            echo "ℹ️ 合并提交未包含 Release-As: x.y.z，跳过。"
+            echo "has_ra=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "🔖 解析到 Release-As: $ra"
+            echo "has_ra=true"      >> "$GITHUB_OUTPUT"
+            echo "release_as=$ra"   >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: 计算“最新已发布版本”（优先 tag，回退 manifest）
+        if: steps.parse.outputs.has_ra == 'true'
+        id: latest
+        shell: bash
+        run: |
+          git fetch --tags --force || true
+          latest_tag="$(git tag --list 'v[0-9]*' --sort=-v:refname | head -n1 || true)"
+          if [[ -n "$latest_tag" ]]; then
+            latest_ver="${latest_tag#v}"
+            echo "📌 最新 tag：$latest_tag"
+          else
+            # 回退到 manifest：解析 ".": "1.2.3"
+            if [[ -f ".release-please-manifest.json" ]]; then
+              latest_ver="$(grep -oE '"\."\s*:\s*"[0-9]+\.[0-9]+\.[0-9]+"' .release-please-manifest.json | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')"
+              echo "📄 未发现 tag，回退到 manifest 版本：$latest_ver"
+            fi
+          fi
+          echo "latest_ver=${latest_ver}" >> "$GITHUB_OUTPUT"
+
+      - name: 降级保护（Release-As 不得低于最新版本）
+        if: steps.parse.outputs.has_ra == 'true'
+        shell: bash
+        run: |
+          want="${{ steps.parse.outputs.release_as }}"
+          latest="${{ steps.latest.outputs.latest_ver }}"
+          if [[ -n "$latest" ]]; then
+            if [ "$(printf '%s\n%s\n' "$latest" "$want" | sort -V | head -n1)" != "$latest" ]; then
+              echo "❌ Release-As $want 低于最新版本 $latest，已拦截（请改为更高版本）。"
+              exit 1
+            fi
+          fi
+          echo "✅ 版本检查通过：$want >= $latest"
+
       - name: 触发 release-please（创建/刷新 Release PR）
-        if: steps.check.outputs.has_release_as == 'true'
+        if: steps.parse.outputs.has_ra == 'true'
         uses: googleapis/release-please-action@v4
         with:
           skip-github-release: true

@@ -1,0 +1,46 @@
+name: 合并前拦截未打标的 Release-As
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, edited, labeled, unlabeled]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检查是否含 Release-As 且未打 use-release-as 标签
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const number = pr.number;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            const labels = (pr.labels || []).map(l => l.name);
+            const hasLabel = labels.includes('use-release-as');
+
+            // 收集 PR 所有提交信息 + 正文
+            const commits = await github.paginate(
+              github.rest.pulls.listCommits,
+              { owner, repo, pull_number: number }
+            );
+            const body = pr.body || '';
+
+            const re = /(^|\n)\s*Release-As:\s*[0-9]+\.[0-9]+\.[0-9]+/i;
+            const hasRAInCommits = commits.some(c => re.test(c.commit.message || ''));
+            const hasRAInBody = re.test(body);
+
+            core.info(`PR #${number} 标签: ${labels.join(', ') || '(无)'}`);
+            core.info(`正文是否含 Release-As: ${hasRAInBody}`);
+            core.info(`提交是否含 Release-As: ${hasRAInCommits}`);
+
+            if ((hasRAInCommits || hasRAInBody) && !hasLabel) {
+              core.setFailed('❌ 检测到 Release-As 但未打标签 use-release-as：已拦截合并。\n请确认确实要指定版本，并在 PR 上添加标签 use-release-as。');
+            } else {
+              core.info('✅ 未发现违规的 Release-As，或已正确打标签，放行。');
+            }
