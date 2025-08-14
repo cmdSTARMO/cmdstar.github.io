@@ -160,5 +160,5 @@ def fetch_tab1(end_date, db_path, a = a):
 
 if __name__ == '__main__':
     # 配置抓取终止日
-    end_date = datetime.strptime('2025-08-10', '%Y-%m-%d').date()
+    end_date = datetime.strptime('2025-08-14', '%Y-%m-%d').date()
     fetch_tab1(end_date, '../api/data/szse_tab1.sqlite')
