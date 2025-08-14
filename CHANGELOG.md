@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.1.8](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.12...v1.1.8) (2025-08-14)
+
+
+### ✨ Features
+
+* **data:** 数据已全并作冗余备份！api正式版上线！！ ([8dd1c52](https://github.com/cmdSTARMO/cmdstar.github.io/commit/8dd1c5208ed52e130c2edb8e878b5970f63bad3d))
+* **data:** 更新数据源，启用修改，优化api返回数据显示（先行测试版） ([c35fbcf](https://github.com/cmdSTARMO/cmdstar.github.io/commit/c35fbcf86ff32248b858c1415bafc349b9205446))
+* replace LFS pointers with real sqlite files ([1c17ab2](https://github.com/cmdSTARMO/cmdstar.github.io/commit/1c17ab2166b6f0165f26eafbd8ad3c58dcb3305f))
+
+
+### 🐞 Fixes
+
+* **data:** tag测试*2 ([fe48355](https://github.com/cmdSTARMO/cmdstar.github.io/commit/fe48355148e7411f4c9f89aaf15ea2c0f8074fba))
+* **data:** tag测试*3 ([5a96d38](https://github.com/cmdSTARMO/cmdstar.github.io/commit/5a96d38dd942c027cf64cb31c56b0db9b4d89cd7))
+* **data:** tag测试*4，感觉修好了/ ([25f353a](https://github.com/cmdSTARMO/cmdstar.github.io/commit/25f353aa7000670eb53aa6fca60128fd8dbe1fc7))
+* **data:** tag测试*4，连通测试 ([bca4506](https://github.com/cmdSTARMO/cmdstar.github.io/commit/bca4506fbbb6d4df88fd546c70961c1d976a28cc))
+* **data:** 数据已全并作冗余备份！api正式版上线！！优化版本号识别！ ([47e231d](https://github.com/cmdSTARMO/cmdstar.github.io/commit/47e231dd546586581d1a6a346e26f01a336d57b9))
+* **data:** 数据已全并作冗余备份！api正式版上线！！优化版本号识别！ ([ba7751b](https://github.com/cmdSTARMO/cmdstar.github.io/commit/ba7751b1d8e1e003cb7b6dd0f3596de43b456b75))
+* **data:** 数据已全并作冗余备份！api正式版上线！！优化版本号识别！ ([f3ef4a5](https://github.com/cmdSTARMO/cmdstar.github.io/commit/f3ef4a5103b04882b035c1c12009373de000a6b7))
+* **data:** 测试 ([0aaf26c](https://github.com/cmdSTARMO/cmdstar.github.io/commit/0aaf26cde4094758f10278b155ff536e6623f0e8))
+
 ## [1.1.12](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.11...v1.1.12) (2025-08-14)
 
 
