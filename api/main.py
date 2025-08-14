@@ -35,7 +35,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="HuangDapao's Data API",
     description="新增深交所上交所双融数据及每日细节查询api！v1.1版本开发圆满结束！（本次小版本优化了数据储存方式。*2）",
-    version="1.1.7",
+    version="1.1.8",
     lifespan=lifespan,
     default_response_class=ORJSONUTF8Response
 )
