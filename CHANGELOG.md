@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.1.14](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.13...v1.1.14) (2025-08-16)
+
+
+### 🐞 Fixes
+
+* **data:** tag测试*2 ([dda4def](https://github.com/cmdSTARMO/cmdstar.github.io/commit/dda4def58667302a8f423b226d7ad3eed6d92144))
+* **data:** tag测试*3 ([ff71bd0](https://github.com/cmdSTARMO/cmdstar.github.io/commit/ff71bd09befab4a7845ce8c791aac78bae924ee1))
+* **data:** tag测试*4，感觉修好了/ ([da4fe62](https://github.com/cmdSTARMO/cmdstar.github.io/commit/da4fe62ce14c23a2f98bc20cd5290beb529fbd6c))
+* **data:** tag测试*4，连通测试 ([8b80e4f](https://github.com/cmdSTARMO/cmdstar.github.io/commit/8b80e4f8afcc29c0e81ca47dbedca3c51b68fa50))
+* **data:** tag测试*5，连通测试 ([42f9ea8](https://github.com/cmdSTARMO/cmdstar.github.io/commit/42f9ea8c9e17b8ca1b895e4b4b07a4ef40882cac))
+* **data:** tag测试*6，连通测试 ([c27f790](https://github.com/cmdSTARMO/cmdstar.github.io/commit/c27f790cc4c9d2ff0f18b6b34c2587c82a2f91fd))
+* **data:** tag测试*7，连通测试 ([ba8b574](https://github.com/cmdSTARMO/cmdstar.github.io/commit/ba8b5741aa4abf9c3116691f37a30751dc14dced))
+* **data:** tag测试*7，连通测试 ([a5d1e42](https://github.com/cmdSTARMO/cmdstar.github.io/commit/a5d1e4288948a4c54a9e9babb7014e65c37a78ac))
+* **data:** 日常数据维护。 ([b79dd56](https://github.com/cmdSTARMO/cmdstar.github.io/commit/b79dd564a1871da416ee77bdeec8dc38a7cb2487))
+
 ## [1.1.13](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.12...v1.1.13) (2025-08-15)
 
 
