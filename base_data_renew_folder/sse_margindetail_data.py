@@ -16,7 +16,7 @@ from urllib3.util.retry import Retry
 
 # ───────── 配置 ─────────
 INITIAL_START = "2010-03-31"         # 当DB无记录时起始日
-END_DATE = "2025-08-14"              # 终止日（你可改或外部传入）
+END_DATE = "2025-08-23"              # 终止日（你可改或外部传入）
 DB_PATH = "../api/data/sse_tab2.sqlite"
 SLEEP_BASE, SLEEP_JITTER = 5, 10    # 休眠基数+抖动（秒）
 

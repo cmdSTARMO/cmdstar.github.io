@@ -190,6 +190,6 @@ def fetch_tab2(end_date, db_path, fail_streak=0):
 
 if __name__ == '__main__':
     # 终止日期（可改）
-    end_date = datetime.strptime('2025-08-15', '%Y-%m-%d').date()
+    end_date = datetime.strptime('2025-08-23', '%Y-%m-%d').date()
     # 输出到 tab2 的独立库
     fetch_tab2(end_date, '../api/data/szse_tab2.sqlite')
