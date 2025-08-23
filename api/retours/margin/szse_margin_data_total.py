@@ -19,21 +19,21 @@ database = Database(DB_URL)
 # ── 字段模型（类型提示；返回仍是 dict） ──
 class MarginTotalRecord(BaseModel):
     dt: date
-    margin_balance: float       # 融资余额(元)
-    margin_buy_amt: float       # 融资买入额(元)
-    short_qty: float            # 融券余量
-    short_value: float          # 融券余量金额(元)
-    short_sell_qty: float       # 融券卖出量
-    marginnshort_total: float   # 融资融券余额(元)
+    margin_balance: float       # 融资余额(亿元)
+    margin_buy_amt: float       # 融资买入额(亿元)
+    short_qty: float            # 融券余量(亿股/亿份)
+    short_value: float          # 融券余额(亿元)
+    short_sell_qty: float       # 融券卖出量(亿股/亿份)
+    marginnshort_total: float   # 融资融券余额(亿元)
 
 COLUMNS_ZH = {
     "dt": "日期",
-    "margin_balance": "融资余额(元)",
-    "margin_buy_amt": "融资买入额(元)",
-    "short_qty": "融券余量",
-    "short_value": "融券余量金额(元)",
-    "short_sell_qty": "融券卖出量",
-    "marginnshort_total": "融资融券余额(元)"
+    "margin_balance": "融资余额(亿元)",
+    "margin_buy_amt": "融资买入额(亿元)",
+    "short_qty": "融券余量(亿股/亿份)",
+    "short_value": "融券余额(亿元)",
+    "short_sell_qty": "融券卖出量(亿股/亿份)",
+    "marginnshort_total": "融资融券余额(亿元)"
 }
 
 @router.get("/total", summary="深交所 融资融券交易总量（SZSE tab1）")
