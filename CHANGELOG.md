@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.16](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.15...v1.1.16) (2025-08-23)
+
+
+### 🐞 Fixes
+
+* **data:** api中文标签单位修复。 ([3ca6aea](https://github.com/cmdSTARMO/cmdstar.github.io/commit/3ca6aea5fdfa94553929e14fb41fed249f794b4c))
+
 ## [1.1.15](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.14...v1.1.15) (2025-08-23)
 
 
