@@ -1,0 +1,100 @@
+name: Auto tag, relabel, and cleanup after Release PR merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+permissions:
+  contents: write         # 推送 tag、删分支
+  pull-requests: write    # 编辑 PR 标签
+  issues: write           # 若需要也可改 PR/Issue 标签（冗余但无害）
+
+jobs:
+  tag_and_cleanup:
+    # 只处理：已合并 + Release Please 生成的 PR（标题含 "chore(main): release"）
+    if: >
+      github.event.pull_request.merged == true &&
+      contains(github.event.pull_request.title, 'chore(main): release')
+    runs-on: ubuntu-latest
+
+    env:
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      PR_TITLE: ${{ github.event.pull_request.title }}
+      MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+      HEAD_REF: ${{ github.event.pull_request.head.ref }}
+      HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+      BASE_REPO: ${{ github.repository }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Parse version from PR title
+        id: parse
+        shell: bash
+        run: |
+          # 期望标题形如：chore(main): release 1.2.3
+          version="$(printf '%s' "$PR_TITLE" | sed -E 's/.*release ([0-9]+\.[0-9]+\.[0-9]+).*/\1/')"
+          if [[ -z "$version" ]]; then
+            echo "❌ Cannot parse version from PR title: $PR_TITLE"
+            exit 1
+          fi
+          # 约定打 v 前缀的 tag；如需无 v 前缀，改成 tag="$version"
+          tag="v$version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=$tag"         >> "$GITHUB_OUTPUT"
+          echo "Parsed version: $version; tag: $tag"
+
+      - name: Check if tag already exists on origin
+        id: check
+        shell: bash
+        run: |
+          tag="${{ steps.parse.outputs.tag }}"
+          if git ls-remote --tags origin "refs/tags/${tag}" | grep -q "${tag}"; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Tag ${tag} already exists on origin."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "Tag ${tag} does not exist on origin."
+          fi
+
+      - name: Create & push tag (if missing)
+        if: steps.check.outputs.exists == 'false'
+        shell: bash
+        run: |
+          tag="${{ steps.parse.outputs.tag }}"
+          sha="${MERGE_SHA}"
+          if [[ -z "$sha" ]]; then
+            echo "❌ Missing merge commit SHA."
+            exit 1
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "$tag" "$sha" -m "Release $tag (via workflow)"
+          git push origin "$tag"
+          echo "✅ Pushed tag $tag -> $sha"
+
+      - name: Flip PR labels (pending -> tagged)
+        shell: bash
+        run: |
+          # 尝试去掉 pending（不存在也不报错），再加上 tagged
+          gh pr edit "$PR_NUMBER" --remove-label "autorelease: pending" || true
+          gh pr edit "$PR_NUMBER" --add-label    "autorelease: tagged"
+
+      - name: Delete release branch (same-repo PRs only)
+        shell: bash
+        run: |
+          echo "HEAD_REPO=$HEAD_REPO  BASE_REPO=$BASE_REPO"
+          if [[ "$HEAD_REPO" == "$BASE_REPO" ]]; then
+            # 同仓库分支，可安全删除
+            echo "Deleting branch: ${HEAD_REF}"
+            # 方式一：GitHub API
+            gh api -X DELETE "repos/${BASE_REPO}/git/refs/heads/${HEAD_REF}" || true
+            # 方式二（备选）：git push --delete origin "${HEAD_REF}"
+          else
+            echo "PR comes from a fork (${HEAD_REPO}); skip branch deletion."
+          fi

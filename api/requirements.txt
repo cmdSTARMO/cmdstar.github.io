@@ -6,3 +6,6 @@ httpx
 databases
 aiosqlite
 aiocache
+orjson
+duckdb
+pyarrow

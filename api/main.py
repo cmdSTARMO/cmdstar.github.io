@@ -1,47 +1,45 @@
-# api/main.py
-
+# main.py
 import os
-
-from datetime import date
-from typing import List, Optional
-
-from fastapi import FastAPI, HTTPException, Query, APIRouter
+from fastapi import FastAPI
+from fastapi.responses import ORJSONResponse
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from databases import Database
-from aiocache import cached, Cache
 from contextlib import asynccontextmanager
 
-# 导入子路由模块
-from routers import szse_etf_shares, foo
+# 现有模块
+from retours import szse_etf_shares, foo
+# 新增：父路由（树状挂载）
+from retours.margin import router as margin_router
+# 为了在 lifespan 里连接数据库（只连接真正用到 DB 的子模块）
+from retours.margin import szse_margin_data_total as szse_margin_data_total
+from retours.margin import sse_margin_data_total as sse_margin_data_total
+# from retours.margin import sse_margin_data_details as sse_margin_data_details
 
-# ─────── 数据库配置 ───────
-# 拿到当前脚本文件的绝对路径 → /app/api/main.py
-this_file = os.path.abspath(__file__)
+class ORJSONUTF8Response(ORJSONResponse):
+    media_type = "application/json; charset=utf-8"
 
-# 再取它的父目录 → /app/api
-base_dir   = os.path.dirname(this_file)
-
-# 再上一级到 /app，然后拼 data 目录
-data_dir   = os.path.abspath(os.path.join(base_dir, os.pardir, "data"))
-DB_PATH    = os.path.join(data_dir, "SZSE_ETF_vol.sqlite")
-DB_URL   = f"sqlite:///{DB_PATH}"
-database = Database(DB_URL)
-
-# ─────── Lifespan 事件管理 ───────
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    await database.connect()
-    yield
-    await database.disconnect()
+    # 连接需要 DB 的模块
+    await szse_etf_shares.database.connect()
+    await szse_margin_data_total.database.connect()
+    await sse_margin_data_total.database.connect()
+    # await sse_margin_data_details.database.connect()
+    try:
+        yield
+    finally:
+        await szse_etf_shares.database.disconnect()
+        await szse_margin_data_total.database.disconnect()
+        await sse_margin_data_total.database.disconnect()
+        # await sse_margin_data_details.database.disconnect()
 
-# ─────── FastAPI 应用 & 中间件 ───────
 app = FastAPI(
-    title="HuangDapao's API(s)",
-    description="统一接口服务，支持 ETF 查询与其他业务，部分功能与性能优化以及漏洞修复。",
-    version="1.0.5",
-    lifespan=lifespan
+    title="HuangDapao's Data API",
+    description="新增深交所上交所双融数据及每日细节查询api！v1.1版本开发圆满结束！（本次小版本优化了数据储存方式。*2）",
+    version="1.1.8",
+    lifespan=lifespan,
+    default_response_class=ORJSONUTF8Response
 )
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -50,40 +48,28 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ─────── 路由挂载 ───────
-# 健康检查
+# 路由挂载
+app.include_router(szse_etf_shares.router, prefix="/szse_etf_shares", tags=["SZSE ETF份额数据"])
+app.include_router(margin_router)  # /margin/* 双融数据全家桶
+app.include_router(foo.router, prefix="/foo", tags=["测试接口"])
+
 @app.get("/health", summary="健康检查")
 async def health_check() -> dict:
     return {"status": "ok"}
 
-# 深交所ETF份额数据！ 路由组挂载到 /szse_etf_shares
-app.include_router(
-    szse_etf_shares.router,
-    prefix="/szse_etf_shares",
-    tags=["szse_etf_shares"]
-)
+from fastapi import Request, HTTPException
+from fastapi.exceptions import RequestValidationError
 
-# Foo 示例路由组挂载到 /foo
-app.include_router(
-    foo.router,
-    prefix="/foo",
-    tags=["foo"]
-)
+# 让 HTTPException 也用 UTF-8 + orjson
+@app.exception_handler(HTTPException)
+async def http_exc_handler(request: Request, exc: HTTPException):
+    payload = exc.detail if isinstance(exc.detail, dict) else {"detail": exc.detail}
+    return ORJSONUTF8Response(payload, status_code=exc.status_code)
 
-router = APIRouter()
-
-@router.get("/_debug/fs")
-async def debug_fs():
-    files = {}
-    for d in ["", "data", "api", "api/routers"]:
-        try:
-            files[d] = os.listdir(os.path.join(os.getcwd(), d))
-        except:
-            files[d] = None
-    return files
-
-app.include_router(router)
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+# 让 422 校验错误也用 UTF-8 + orjson
+@app.exception_handler(RequestValidationError)
+async def validation_exc_handler(request: Request, exc: RequestValidationError):
+    return ORJSONUTF8Response(
+        {"detail": "请求参数不合法", "errors": exc.errors()},
+        status_code=422
+    )

@@ -39,6 +39,6 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add data/SZSE_ETF_vol.sqlite auto_files/push_related/data/push_events.csv
+          git add api/data/SZSE_ETF_vol.sqlite auto_files/push_related/data/push_events.csv
           git commit -m 'chore: 更新 ETF 数据 & 推送状态' || echo "No changes to commit"
           git push

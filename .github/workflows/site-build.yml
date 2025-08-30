@@ -1,0 +1,58 @@
+name: site-build
+
+on:
+  push:
+    branches: [main]
+    # 合并 Release PR 通常只改这些文件，直接忽略可避免被触发
+    paths-ignore:
+      - 'CHANGELOG.md'
+      - '.release-please-manifest.json'
+      - 'version.txt'
+      - '**/CHANGELOG.md'
+      - '**/.release-please-manifest.json'
+
+permissions:
+  pages: write          # 部署 GitHub Pages 必须
+  id-token: write       # OIDC for deploy-pages
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    # 双保险：就算 paths-ignore 失效，看到 release-please 的典型提交也跳过
+    if: |
+      !startsWith(github.event.head_commit.message, 'chore(main): release')
+      && !contains(github.event.head_commit.message, 'release-please')
+      && !contains(github.event.head_commit.message, 'autorelease')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      # 如果你的站点需要构建（例如产物在 ./dist），在这里执行构建
+      # 纯静态（仓库根目录就是站点）可略过这步
+      # - name: Build site
+      #   run: |
+      #     npm ci
+      #     npm run build
+
+      # 上传要发布的目录：
+      # - 如果构建到 dist：path: ./dist
+      # - 如果纯静态站点就在根目录：path: .
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
