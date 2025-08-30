@@ -10,6 +10,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
+from datetime import date
 
 # 默认开始抓取日期（当数据库无记录时使用）
 INITIAL_START = '2010-05-04'
@@ -190,6 +191,6 @@ def fetch_tab2(end_date, db_path, fail_streak=0):
 
 if __name__ == '__main__':
     # 终止日期（可改）
-    end_date = datetime.strptime('2025-08-23', '%Y-%m-%d').date()
+    end_date = datetime.strptime(date.today().strftime("%Y-%m-%d"), '%Y-%m-%d').date()
     # 输出到 tab2 的独立库
     fetch_tab2(end_date, '../api/data/szse_tab2.sqlite')

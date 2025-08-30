@@ -10,13 +10,13 @@ import random
 import sqlite3
 import requests
 import pandas as pd
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 # ───────── 配置 ─────────
 INITIAL_START = "2010-03-31"         # 当DB无记录时起始日
-END_DATE = "2025-08-23"              # 终止日（你可改或外部传入）
+END_DATE = date.today().strftime("%Y-%m-%d")             # 终止日（你可改或外部传入）
 DB_PATH = "../api/data/sse_tab2.sqlite"
 SLEEP_BASE, SLEEP_JITTER = 5, 10    # 休眠基数+抖动（秒）
 

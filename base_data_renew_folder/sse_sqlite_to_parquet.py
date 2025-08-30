@@ -83,17 +83,17 @@ def count_sqlite_month(con: duckdb.DuckDBPyConnection, yyyymm: str) -> int:
     return int(cnt)
 
 def count_parquet_rows(con: duckdb.DuckDBPyConnection, file_path: str) -> int:
-    """通过 parquet_metadata 读取总行数；不存在或异常返回 -1。"""
+    # 仅当文件真实存在才尝试计数
     if not os.path.isfile(file_path):
         return -1
     path = file_path.replace("\\", "/")
     try:
-        (cnt,) = con.execute(
-            "SELECT COALESCE(SUM(num_rows), 0) FROM parquet_metadata(?)", [path]
-        ).fetchone()
+        # 直接读取并COUNT，避免不同版本 parquet_metadata 架构差异
+        (cnt,) = con.execute("SELECT COUNT(*) FROM read_parquet(?)", [path]).fetchone()
         return int(cnt)
     except Exception:
         return -1
+
 
 def export_one_month(con: duckdb.DuckDBPyConnection,
                      yyyymm: str, outdir: str,

@@ -3,6 +3,7 @@
 # Shanghai Stock Exchange Margin Trading Totals (RZRQ_HZ_INFO)
 
 import random
+from datetime import date
 import sys
 import re
 import json
@@ -227,4 +228,4 @@ def fetch_totals(end_date_str: str, db_path: str = DB_PATH):
 
 if __name__ == '__main__':
     # 与你的 SZSE 脚本一致的调用方式
-    fetch_totals(end_date_str='2025-08-23', db_path=DB_PATH)
+    fetch_totals(end_date_str=date.today().strftime("%Y-%m-%d"), db_path=DB_PATH)

@@ -7,7 +7,7 @@ import sys
 import requests
 import sqlite3
 import time
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
@@ -160,5 +160,5 @@ def fetch_tab1(end_date, db_path, a = a):
 
 if __name__ == '__main__':
     # 配置抓取终止日
-    end_date = datetime.strptime('2025-08-23', '%Y-%m-%d').date()
+    end_date = datetime.strptime(date.today().strftime("%Y-%m-%d"), '%Y-%m-%d').date()
     fetch_tab1(end_date, '../api/data/szse_tab1.sqlite')
