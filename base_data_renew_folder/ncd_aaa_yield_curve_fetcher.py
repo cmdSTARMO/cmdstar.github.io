@@ -39,7 +39,7 @@ session.mount("https://www.chinamoney.org.cn", LegacyTLSAdapter())
 
 # ======= 需要你填写的时间范围（含首尾） =======
 START_DATE = "2024-08-29"   # yyyy-mm-dd
-END_DATE   = "2025-09-13"   # yyyy-mm-dd
+END_DATE   = "2025-09-20"   # yyyy-mm-dd
 # ============================================
 
 DEFAULT_PARAMS = {
