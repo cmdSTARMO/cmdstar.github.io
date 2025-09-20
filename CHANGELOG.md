@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.20](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.19...v1.1.20) (2025-09-20)
+
+
+### 🐞 Fixes
+
+* **data:** 2025-09-20的日常数据维护。 ([38ae5ec](https://github.com/cmdSTARMO/cmdstar.github.io/commit/38ae5ec0cf2df248b4d2d5fb8549bc935347d513))
+
 ## [1.1.19](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.18...v1.1.19) (2025-09-13)
 
 
