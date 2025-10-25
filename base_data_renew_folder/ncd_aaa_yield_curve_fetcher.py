@@ -5,6 +5,7 @@ import time
 import ssl
 from requests.adapters import HTTPAdapter
 from urllib3.poolmanager import PoolManager
+from datetime import datetime, timedelta, date
 
 BASE_URL = "https://www.chinamoney.org.cn/ags/ms/cm-u-bk-currency/ClsYldCurvHis"
 
@@ -39,7 +40,7 @@ session.mount("https://www.chinamoney.org.cn", LegacyTLSAdapter())
 
 # ======= 需要你填写的时间范围（含首尾） =======
 START_DATE = "2024-08-29"   # yyyy-mm-dd
-END_DATE   = "2025-10-30"   # yyyy-mm-dd
+END_DATE = date.today().strftime("%Y-%m-%d")        # yyyy-mm-dd
 # ============================================
 
 DEFAULT_PARAMS = {
