@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.38](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.37...v1.1.38) (2026-03-14)
+
+
+### 🐞 Fixes
+
+* **data:** 2026-03-14的日常数据维护。 ([3a5200f](https://github.com/cmdSTARMO/cmdstar.github.io/commit/3a5200f45e559eba6a99d0e298caec5a447bc3a5))
+
 ## [1.1.37](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.36...v1.1.37) (2026-03-08)
 
 
