@@ -1,0 +1,2202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="所见：旅途照片与游记" />
+  <meta name="author" content="hdp" />
+  <title>所见 | Seen</title>
+  <link rel="icon" type="image/x-icon" href="../static/assets/icon.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet" />
+  <link type="text/css" href="../static/css/styles.css" rel="stylesheet" />
+  <link type="text/css" href="../static/css/main.css" rel="stylesheet" />
+  <script type="text/javascript" src="../static/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="../static/js/theme.js"></script>
+  <script src="https://unpkg.com/i18next@21.6.3/dist/umd/i18next.min.js"></script>
+  <script src="https://unpkg.com/i18next-http-backend@1.4.1/i18nextHttpBackend.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    :root {
+      --seen-bg: #070b10;
+      --seen-surface: rgba(255, 255, 255, 0.74);
+      --seen-surface-solid: #f8fbf9;
+      --seen-border: rgba(255, 255, 255, 0.42);
+      --seen-text: #172025;
+      --seen-muted: #526168;
+      --seen-green: #497c68;
+      --seen-blue: #416d9f;
+      --seen-cyan: #7dd3fc;
+      --seen-amber: #b77f38;
+      --seen-rose: #a95163;
+      --seen-line: rgba(20, 32, 38, 0.16);
+      --seen-shadow: 0 26px 80px rgba(3, 9, 14, 0.24);
+      --seen-input-bg: rgba(255, 255, 255, 0.72);
+      --seen-title-gradient: linear-gradient(112deg, #10262b 0%, #227a95 30%, #9b6226 62%, #9d3d59 100%);
+      --seen-title-ghost: rgba(16, 38, 43, 0.16);
+      --seen-tooltip-bg: rgba(250, 253, 251, 0.94);
+      --seen-tooltip-text: #172025;
+    }
+
+    html[data-theme="dark"] {
+      --seen-surface: rgba(14, 20, 26, 0.72);
+      --seen-surface-solid: #101820;
+      --seen-border: rgba(229, 238, 236, 0.16);
+      --seen-text: #eef5f2;
+      --seen-muted: #a9b6b8;
+      --seen-green: #8ac3ad;
+      --seen-blue: #8ab4f8;
+      --seen-amber: #e3b46f;
+      --seen-rose: #e89aa8;
+      --seen-line: rgba(238, 245, 242, 0.16);
+      --seen-shadow: 0 26px 80px rgba(0, 0, 0, 0.38);
+      --seen-input-bg: rgba(255, 255, 255, 0.075);
+      --seen-title-gradient: linear-gradient(112deg, #ffffff 0%, var(--seen-cyan) 30%, var(--seen-amber) 58%, var(--seen-rose) 100%);
+      --seen-title-ghost: rgba(238, 245, 242, 0.18);
+      --seen-tooltip-bg: rgba(12, 17, 23, 0.92);
+      --seen-tooltip-text: #eef5f2;
+    }
+
+    body.seen-page {
+      min-height: 100vh;
+      color: var(--seen-text);
+      background:
+        radial-gradient(circle at 16% 12%, rgba(125, 211, 252, 0.24), transparent 28%),
+        radial-gradient(circle at 80% 16%, rgba(227, 180, 111, 0.16), transparent 26%),
+        linear-gradient(135deg, #071017 0%, #0e141d 45%, #080b10 100%);
+      overflow-x: hidden;
+    }
+
+    body.seen-page::before,
+    body.seen-page::after {
+      content: "";
+      position: fixed;
+      inset: -20%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    body.seen-page::before {
+      background:
+        linear-gradient(105deg, transparent 18%, rgba(138, 195, 173, 0.16) 34%, transparent 48%),
+        linear-gradient(252deg, transparent 24%, rgba(138, 180, 248, 0.18) 44%, transparent 58%);
+      filter: blur(34px);
+      animation: seenAurora 18s ease-in-out infinite alternate;
+    }
+
+    body.seen-page::after {
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(circle at 50% 20%, #000, transparent 72%);
+    }
+
+    @keyframes seenAurora {
+      from { transform: translate3d(-3%, -2%, 0) rotate(0deg); opacity: 0.75; }
+      to { transform: translate3d(4%, 3%, 0) rotate(6deg); opacity: 1; }
+    }
+
+    .seen-shell { width: min(1480px, calc(100% - 40px)); margin: 0 auto; padding: 112px 0 44px; }
+    .seen-hero { display: grid; grid-template-columns: minmax(300px, 0.8fr) minmax(560px, 1.2fr); gap: 18px; align-items: stretch; }
+    .seen-panel { border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface); box-shadow: var(--seen-shadow); backdrop-filter: blur(22px) saturate(1.18); -webkit-backdrop-filter: blur(22px) saturate(1.18); }
+    .seen-left { display: grid; gap: 18px; grid-template-rows: minmax(430px, 1fr) auto; }
+    .seen-card { padding: 18px; overflow: hidden; }
+    .seen-kicker { display: flex; align-items: center; justify-content: space-between; gap: 14px; color: var(--seen-muted); font-size: 0.84rem; letter-spacing: 0; text-transform: uppercase; }
+    .seen-title { position: relative; width: max-content; max-width: 100%; margin: 12px 0 8px; font-size: clamp(2.35rem, 5vw, 5.25rem); line-height: 0.92; letter-spacing: 0; color: var(--seen-text); background: var(--seen-title-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 34px rgba(125, 211, 252, 0.2); filter: drop-shadow(0 14px 30px rgba(25, 71, 80, 0.2)); }
+    .seen-title::after { content: "Seen"; position: absolute; right: -0.42em; bottom: -0.3em; z-index: -1; color: transparent; -webkit-text-stroke: 1px var(--seen-title-ghost); font-size: 0.34em; letter-spacing: 0; text-transform: uppercase; -webkit-text-fill-color: transparent; }
+    .seen-subtitle { margin: 0; color: var(--seen-muted); font-size: 1rem; line-height: 1.8; }
+    .keyword-rail { display: flex; gap: 8px; overflow-x: hidden; overflow-y: visible; margin: 15px 0; padding: 4px 0; mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+    .keyword-track { display: flex; gap: 8px; min-width: max-content; animation: seenMarquee 24s linear infinite; }
+    @keyframes seenMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .seen-tag { border: 1px solid var(--seen-border); border-radius: 999px; background: var(--seen-input-bg); color: var(--seen-text); padding: 6px 10px; font-size: 0.82rem; line-height: 1; white-space: nowrap; cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease; }
+    .seen-tag:hover, .seen-tag.is-active { border-color: rgba(138, 195, 173, 0.72); background: rgba(138, 195, 173, 0.16); transform: translateY(-1px); }
+    .feature-photo { position: relative; min-height: 252px; border-radius: 8px; overflow: hidden; background: #111820; isolation: isolate; }
+    .feature-photo img { width: 100%; height: 100%; min-height: 252px; object-fit: cover; display: block; filter: saturate(0.92) contrast(1.05); }
+    .feature-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5, 8, 10, 0.08) 20%, rgba(5, 8, 10, 0.82)); z-index: 1; }
+    .feature-copy { position: absolute; left: 16px; right: 16px; bottom: 14px; z-index: 2; color: #fff; }
+    .feature-copy h2 { margin: 0 0 6px; font-size: 1.35rem; line-height: 1.25; letter-spacing: 0; }
+    .feature-copy p { margin: 0; color: rgba(255, 255, 255, 0.82); line-height: 1.7; font-size: 0.95rem; }
+    .feature-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 14px; }
+    .icon-btn { width: 38px; height: 38px; border-radius: 999px; border: 1px solid var(--seen-border); background: var(--seen-input-bg); color: var(--seen-text); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease; }
+    .icon-btn:hover { transform: translateY(-1px); border-color: rgba(227, 180, 111, 0.72); background: rgba(227, 180, 111, 0.14); }
+    .dashboard-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+    .metric { border: 1px solid var(--seen-border); border-radius: 8px; padding: 12px; background: var(--seen-input-bg); min-height: 88px; }
+    .metric strong { display: block; font-size: 1.45rem; line-height: 1; margin-bottom: 10px; color: var(--seen-text); }
+    .metric span { color: var(--seen-muted); font-size: 0.82rem; line-height: 1.35; display: block; }
+    .seen-map-panel { display: grid; grid-template-rows: auto minmax(560px, 1fr) auto; min-height: 760px; }
+    .map-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 18px 0; }
+    .map-toolbar h2 { margin: 0; font-size: 1.36rem; letter-spacing: 0; }
+    .map-toolbar p { margin: 4px 0 0; color: var(--seen-muted); font-size: 0.92rem; }
+    .map-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+    .zoom-tabs { display: inline-flex; gap: 4px; border: 1px solid var(--seen-border); border-radius: 999px; padding: 4px; background: var(--seen-input-bg); }
+    .zoom-tabs button { border: 0; border-radius: 999px; padding: 8px 12px; background: transparent; color: var(--seen-muted); cursor: pointer; font-size: 0.86rem; }
+    .zoom-tabs button.is-active { background: rgba(238, 245, 242, 0.9); color: #101820; }
+    .map-wrap { position: relative; margin: 12px 18px; border-radius: 8px; border: 1px solid var(--seen-border); overflow: hidden; background: rgba(7, 11, 16, 0.56); }
+    .seen-map { width: 100%; height: 100%; min-height: 560px; display: block; background: #091016; }
+    .map-fallback { position: absolute; inset: 0; display: none; place-items: center; padding: 28px; color: var(--seen-muted); text-align: center; background: rgba(7, 11, 16, 0.86); z-index: 3; }
+    .map-fallback.is-visible { display: grid; }
+    .leaflet-container { font-family: var(--site-font-family); background: #091016; }
+    .leaflet-control-attribution { background: rgba(8, 12, 18, 0.72) !important; color: rgba(255, 255, 255, 0.72) !important; }
+    .leaflet-control-attribution a { color: var(--seen-cyan) !important; }
+    .seen-boundary { cursor: pointer; transition: opacity 0.2s ease, fill-opacity 0.2s ease; }
+    .seen-boundary:hover { filter: drop-shadow(0 0 12px rgba(125, 211, 252, 0.45)); }
+    .seen-boundary-active { filter: drop-shadow(0 0 12px rgba(227, 180, 111, 0.55)); }
+    .seen-route-case { stroke-linecap: round; stroke-linejoin: round; opacity: 0.5; }
+    .seen-route-core { stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 10 14; animation: seenRouteFlow 1.4s linear infinite; filter: drop-shadow(0 0 8px rgba(125, 211, 252, 0.55)); }
+    .seen-route-active { filter: drop-shadow(0 0 14px rgba(232, 154, 168, 0.72)); }
+    @keyframes seenRouteFlow { to { stroke-dashoffset: -24; } }
+    .waypoint-node { position: relative; display: block; width: 14px; height: 14px; border-radius: 999px; background: radial-gradient(circle, #ffffff 0 16%, var(--seen-cyan) 18% 48%, rgba(125, 211, 252, 0.18) 52% 100%); border: 1px solid rgba(255, 255, 255, 0.78); box-shadow: 0 0 0 6px rgba(125, 211, 252, 0.12), 0 0 18px rgba(125, 211, 252, 0.7); }
+    .waypoint-node.is-active { background: radial-gradient(circle, #ffffff 0 16%, var(--seen-rose) 18% 48%, rgba(232, 154, 168, 0.2) 52% 100%); box-shadow: 0 0 0 7px rgba(232, 154, 168, 0.14), 0 0 22px rgba(232, 154, 168, 0.78); }
+    .record-node { position: relative; display: block; width: 18px; height: 18px; border-radius: 999px; background: radial-gradient(circle, #ffffff 0 18%, var(--seen-green) 20% 45%, rgba(138, 195, 173, 0.18) 48% 100%); border: 1px solid rgba(255, 255, 255, 0.78); box-shadow: 0 0 0 7px rgba(138, 195, 173, 0.12), 0 0 18px rgba(138, 195, 173, 0.72); animation: seenPointPulse 2.2s ease-in-out infinite; }
+    .record-node::after { content: ""; position: absolute; inset: 5px; border-radius: inherit; border: 1px solid rgba(255, 255, 255, 0.72); }
+    @keyframes seenPointPulse { 0%, 100% { transform: scale(0.94); opacity: 0.86; } 50% { transform: scale(1.08); opacity: 1; } }
+    .leaflet-tooltip.seen-tooltip { border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-tooltip-bg); color: var(--seen-tooltip-text); box-shadow: 0 14px 34px rgba(0, 0, 0, 0.26); backdrop-filter: blur(12px); }
+    .leaflet-tooltip.seen-tooltip strong { color: var(--seen-tooltip-text); }
+    .leaflet-tooltip-top.seen-tooltip::before { border-top-color: var(--seen-tooltip-bg); }
+    .leaflet-tooltip-bottom.seen-tooltip::before { border-bottom-color: var(--seen-tooltip-bg); }
+    .leaflet-tooltip-left.seen-tooltip::before { border-left-color: var(--seen-tooltip-bg); }
+    .leaflet-tooltip-right.seen-tooltip::before { border-right-color: var(--seen-tooltip-bg); }
+    .map-legend { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; padding: 0 18px 18px; color: var(--seen-muted); font-size: 0.88rem; }
+    .legend-item { display: inline-flex; align-items: center; gap: 7px; }
+    .legend-item[role="button"] { border: 1px solid transparent; border-radius: 999px; padding: 4px 8px; cursor: pointer; transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease; }
+    .legend-item[role="button"]:hover, .legend-item.is-active { border-color: var(--seen-border); background: var(--seen-input-bg); color: var(--seen-text); }
+    .legend-swatch { width: 18px; height: 10px; border-radius: 999px; border: 1px solid var(--seen-border); background: rgba(138, 195, 173, 0.24); }
+    .legend-swatch.route { height: 0; border: 0; border-top: 3px dashed var(--seen-cyan); background: transparent; border-radius: 0; }
+    .legend-swatch.point { width: 11px; height: 11px; background: var(--seen-green); }
+    .filter-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; padding: 12px 14px; }
+    .filter-bar strong { font-size: 0.95rem; }
+    .filter-bar span { color: var(--seen-muted); font-size: 0.9rem; }
+    .management-panel { margin-top: 18px; padding: 16px; }
+    .management-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+    .management-head h2 { margin: 0; font-size: 1.15rem; letter-spacing: 0; }
+    .management-head p { margin: 4px 0 0; color: var(--seen-muted); font-size: 0.9rem; line-height: 1.6; }
+    .record-form { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+    .record-form label { display: grid; gap: 6px; color: var(--seen-muted); font-size: 0.78rem; }
+    .record-form .is-hidden { display: none; }
+    .record-form input, .record-form select, .record-form textarea { width: 100%; border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-input-bg); color: var(--seen-text); padding: 9px 10px; font: inherit; font-size: 0.9rem; }
+    .record-form input:focus, .record-form select:focus, .record-form textarea:focus, .combo input:focus { outline: 0; border-color: rgba(125, 211, 252, 0.62); box-shadow: 0 0 0 3px rgba(125, 211, 252, 0.14); }
+    .record-form select, .record-form input[type="date"] { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--seen-muted) 50%), linear-gradient(135deg, var(--seen-muted) 50%, transparent 50%); background-position: calc(100% - 15px) 52%, calc(100% - 10px) 52%; background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; padding-right: 28px; color-scheme: light; }
+    .record-form input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0; cursor: pointer; }
+    html[data-theme="dark"] .record-form select, html[data-theme="dark"] .record-form input[type="date"] { color-scheme: dark; }
+    .record-form option { background: var(--seen-surface-solid); color: var(--seen-text); }
+    .record-form textarea { min-height: 84px; resize: vertical; }
+    .combo { position: relative; display: grid; gap: 6px; }
+    .combo > span { color: var(--seen-muted); font-size: 0.78rem; }
+    .combo input { padding-right: 34px; border-radius: 8px; background: var(--seen-input-bg); color: var(--seen-text); }
+    .combo::after { content: ""; position: absolute; right: 13px; bottom: 16px; width: 7px; height: 7px; border-right: 1px solid var(--seen-muted); border-bottom: 1px solid var(--seen-muted); transform: rotate(45deg); pointer-events: none; }
+    .combo-list { position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 20; display: none; max-height: 230px; overflow: auto; border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface-solid); box-shadow: var(--seen-shadow); padding: 6px; }
+    .combo.is-open .combo-list { display: grid; gap: 4px; }
+    .combo-option { border: 0; border-radius: 6px; background: transparent; color: var(--seen-text); padding: 8px 9px; text-align: left; cursor: pointer; font: inherit; font-size: 0.88rem; }
+    .combo-option:hover, .combo-option.is-active { background: rgba(125, 211, 252, 0.14); }
+    .manager-map-wrap { position: relative; min-height: 280px; border: 1px solid var(--seen-border); border-radius: 8px; overflow: hidden; background: #091016; }
+    .manager-map { min-height: 280px; height: 100%; }
+    .manager-map-hint { margin: 8px 0 0; color: var(--seen-muted); font-size: 0.82rem; }
+    .route-builder { border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface-solid); padding: 0; overflow: hidden; }
+    .route-builder-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding: 10px 14px; border-bottom: 1px solid var(--seen-line); background: rgba(255, 255, 255, 0.58); }
+    html[data-theme="dark"] .route-builder-head { background: rgba(255, 255, 255, 0.045); }
+    .route-builder-head strong { display: block; color: var(--seen-text); font-size: 0.96rem; line-height: 1.25; }
+    .route-builder-head span { display: block; margin-top: 2px; color: var(--seen-muted); font-size: 0.76rem; line-height: 1.35; }
+    .route-panel-icon { width: 36px; height: 36px; border: 0; border-radius: 999px; background: transparent; color: var(--seen-muted); display: grid; place-items: center; font-size: 1.1rem; cursor: pointer; }
+    .route-panel-icon:hover { background: rgba(65, 109, 159, 0.1); color: var(--seen-text); }
+    .route-builder-body { position: relative; padding: 14px 14px 12px; }
+    .route-builder-meta { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; margin-bottom: 14px; padding-left: 44px; }
+    .route-point-list { display: grid; gap: 8px; position: relative; }
+    .route-point-row { position: relative; z-index: 1; display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 8px; align-items: center; min-height: 44px; }
+    .route-point-row:not(:last-child)::before { content: ""; position: absolute; left: 17px; top: 30px; bottom: -16px; border-left: 2px dotted var(--seen-muted); opacity: 0.7; }
+    .route-stop-marker { position: relative; display: grid; place-items: center; align-self: center; width: 36px; height: 36px; color: var(--seen-muted); }
+    .route-stop-marker::before { content: ""; width: 12px; height: 12px; border: 2px solid currentColor; border-radius: 999px; background: var(--seen-surface-solid); box-sizing: border-box; z-index: 1; }
+    .route-point-row.is-end .route-stop-marker { color: #ea4335; }
+    .route-point-row.is-end .route-stop-marker::before { width: 16px; height: 16px; border-color: #ea4335; background: #fff; box-shadow: inset 0 0 0 4px #ea4335; }
+    .route-input-shell { display: grid; grid-template-columns: minmax(0, 1fr) 32px 32px; align-items: center; min-height: 40px; border: 1px solid rgba(23, 32, 37, 0.22); border-radius: 4px; background: rgba(255, 255, 255, 0.86); overflow: hidden; }
+    html[data-theme="dark"] .route-input-shell { border-color: rgba(238, 245, 242, 0.24); background: rgba(255, 255, 255, 0.08); }
+    .route-input-shell:focus-within { border-color: var(--seen-blue); box-shadow: 0 0 0 2px rgba(65, 109, 159, 0.16); }
+    .route-input-shell input { border: 0; border-radius: 0; background: transparent; padding: 9px 10px; min-width: 0; color: var(--seen-text); }
+    .route-input-shell input:focus { box-shadow: none; }
+    .route-input-shell .icon-btn { width: 32px; height: 32px; border: 0; border-radius: 0; background: transparent; box-shadow: none; color: var(--seen-muted); }
+    .route-input-shell .icon-btn:hover { transform: none; background: rgba(65, 109, 159, 0.1); color: var(--seen-text); }
+    .route-record-preview { grid-column: 2; min-height: 18px; color: var(--seen-muted); font-size: 0.76rem; line-height: 1.45; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .route-record-preview strong { color: var(--seen-text); font-weight: 600; }
+    .route-record-preview.is-missing { color: var(--seen-rose); }
+    .route-add-btn { width: 100%; border: 0; background: transparent; color: var(--seen-muted); display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 8px; align-items: center; margin-top: 8px; padding: 0; cursor: pointer; font: inherit; font-size: 0.9rem; text-align: left; }
+    .route-add-btn:hover { color: var(--seen-text); }
+    .route-add-icon { width: 36px; height: 36px; display: grid; place-items: center; color: var(--seen-text); font-size: 1.3rem; }
+    .route-builder-help { margin: 10px 0 0; padding-left: 44px; color: var(--seen-muted); font-size: 0.78rem; line-height: 1.55; }
+    .load-more-wrap { display: flex; justify-content: center; margin: 16px 0 0; }
+    .image-preview-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .image-preview-grid img { width: 76px; height: 58px; border-radius: 8px; border: 1px solid var(--seen-border); object-fit: cover; background: #111820; }
+    .form-wide { grid-column: span 2; }
+    .form-full { grid-column: 1 / -1; }
+    .form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .seen-action { border: 1px solid var(--seen-border); border-radius: 999px; background: var(--seen-input-bg); color: var(--seen-text); padding: 8px 12px; cursor: pointer; font-size: 0.86rem; transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease; }
+    .seen-action:hover { transform: translateY(-1px); border-color: rgba(125, 211, 252, 0.55); }
+    .seen-action.danger { border-color: rgba(232, 154, 168, 0.42); color: var(--seen-rose); }
+    .seen-action.primary { border-color: rgba(138, 195, 173, 0.68); background: rgba(138, 195, 173, 0.16); }
+    .drawer-list { display: grid; gap: 8px; margin-top: 12px; }
+    .drawer-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-input-bg); padding: 10px 12px; }
+    .drawer-item strong { display: block; font-size: 0.92rem; }
+    .drawer-item span { color: var(--seen-muted); font-size: 0.8rem; }
+    .seen-dialog { width: min(420px, calc(100% - 32px)); border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface-solid); color: var(--seen-text); box-shadow: var(--seen-shadow); padding: 0; }
+    .seen-dialog::backdrop { background: rgba(3, 8, 12, 0.62); backdrop-filter: blur(8px); }
+    .dialog-card { padding: 18px; }
+    .dialog-card h2 { margin: 0 0 8px; font-size: 1.12rem; letter-spacing: 0; }
+    .dialog-card p { margin: 0; color: var(--seen-muted); line-height: 1.7; font-size: 0.92rem; }
+    .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+    .post-actions { display: flex; gap: 6px; margin-top: 12px; }
+    .record-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
+    .post-card { border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface); overflow: hidden; min-height: 240px; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; cursor: pointer; }
+    .post-card:hover { transform: translateY(-3px); box-shadow: var(--seen-shadow); border-color: rgba(125, 211, 252, 0.28); }
+    .post-photo img { width: 100%; height: 190px; object-fit: cover; display: block; }
+    .post-card.with-note { display: grid; grid-template-columns: 0.96fr 1.04fr; }
+    .post-card.with-note .post-photo img { height: 100%; min-height: 240px; }
+    .post-body { padding: 14px; }
+    .post-body h3 { margin: 6px 0; font-size: 1.06rem; line-height: 1.35; letter-spacing: 0; }
+    .post-meta { color: var(--seen-muted); font-size: 0.8rem; line-height: 1.4; }
+    .post-note { margin: 8px 0 0; color: var(--seen-muted); font-size: 0.9rem; line-height: 1.7; }
+    .post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .post-tags .seen-tag { padding: 5px 8px; font-size: 0.76rem; }
+    .detail-dialog { width: min(860px, calc(100% - 32px)); max-height: min(820px, calc(100vh - 32px)); overflow: visible; }
+    .detail-card { position: relative; display: grid; grid-template-columns: minmax(260px, 0.95fr) minmax(280px, 1.05fr); gap: 0; padding: 0; overflow: hidden; max-height: calc(100vh - 140px); }
+    .detail-card img { width: 100%; height: 100%; min-height: 360px; object-fit: cover; display: block; background: #111820; }
+    .detail-media { position: relative; background: #111820; }
+    .detail-media img { width: 100%; height: 100%; min-height: 360px; object-fit: cover; display: block; }
+    .image-nav { position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; justify-content: space-between; gap: 8px; pointer-events: none; }
+    .image-nav button { pointer-events: auto; }
+    .image-count { position: absolute; top: 12px; right: 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.32); background: rgba(7, 11, 16, 0.64); color: #fff; padding: 5px 9px; font-size: 0.78rem; }
+    .detail-copy { position: relative; padding: 20px 20px 68px; overflow: auto; }
+    .detail-id { margin-top: 4px; color: var(--seen-muted); font-size: 0.78rem; word-break: break-all; }
+    .detail-copy h2 { margin: 6px 0 8px; font-size: 1.5rem; line-height: 1.25; letter-spacing: 0; }
+    .detail-copy .post-tags { margin-top: 14px; }
+    .detail-actions { position: absolute; right: 14px; bottom: 14px; display: flex; gap: 8px; margin: 0; }
+    .detail-actions .seen-action {
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0;
+    }
+
+    .detail-actions .seen-action i {
+      font-size: 0.98rem;
+      line-height: 1;
+    }
+    .data-note { margin: 18px 0 0; color: var(--seen-muted); font-size: 0.9rem; line-height: 1.8; }
+    body.search-open .seen-shell { filter: blur(12px); transform: scale(0.992); pointer-events: none; transition: filter 0.24s ease, transform 0.24s ease; }
+    .floating-search { position: fixed; left: 50%; bottom: 24px; z-index: 10020; width: 124px; transform: translateX(-50%); transition: inset 0.28s ease, width 0.28s ease, transform 0.28s ease; }
+    .search-glass { border: 1px solid var(--seen-border); border-radius: 999px; background: linear-gradient(110deg, rgba(125, 211, 252, 0.18), rgba(138, 195, 173, 0.18), rgba(232, 154, 168, 0.12)), var(--seen-surface); box-shadow: 0 18px 54px rgba(3, 9, 14, 0.22); backdrop-filter: blur(20px) saturate(1.16); -webkit-backdrop-filter: blur(20px) saturate(1.16); overflow: hidden; }
+    .floating-search.is-open { top: 50%; bottom: auto; width: min(640px, calc(100% - 36px)); transform: translate(-50%, -50%); }
+    .floating-search.is-open .search-glass { border-radius: 22px; }
+    .search-main { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; align-items: center; gap: 6px; min-height: 42px; padding: 6px 12px; }
+    .search-main i { color: var(--seen-muted); font-size: 1.05rem; }
+    .search-main input { border: 0; outline: 0; background: transparent; color: var(--seen-text); font: inherit; min-width: 0; }
+    .floating-search:not(.is-open) .search-main { grid-template-columns: 22px auto; justify-content: center; min-height: 38px; padding: 5px 12px; }
+    .floating-search:not(.is-open) .search-main input { display: none; }
+    .floating-search:not(.is-open) .search-scope { display: none; }
+    .floating-search:not(.is-open) .search-main::after { content: "搜索"; color: var(--seen-text); font-size: 0.92rem; }
+    .search-scope { display: inline-flex; gap: 3px; border: 1px solid var(--seen-border); border-radius: 999px; padding: 3px; background: rgba(255,255,255,0.32); }
+    .search-scope button { border: 0; border-radius: 999px; padding: 5px 9px; background: transparent; color: var(--seen-muted); cursor: pointer; font: inherit; font-size: 0.76rem; }
+    .search-scope button.is-active { background: var(--seen-surface-solid); color: var(--seen-text); }
+    .search-results { display: none; padding: 0 12px 12px; }
+    .floating-search.is-open .search-results { display: block; }
+    .search-card { min-height: 144px; border: 1px solid var(--seen-border); border-radius: 14px; background: var(--seen-input-bg); padding: 12px; cursor: grab; }
+    .search-card:active { cursor: grabbing; }
+    .search-card h3 { margin: 6px 0; font-size: 1.05rem; line-height: 1.3; }
+    .search-hit { color: var(--seen-muted); font-size: 0.86rem; line-height: 1.55; }
+    mark { border-radius: 4px; background: rgba(227, 180, 111, 0.34); color: inherit; padding: 0 2px; }
+    .search-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; color: var(--seen-muted); font-size: 0.8rem; }
+    .detail-switch { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; }
+    .detail-switch:hover { transform: translateY(-50%); }
+    .detail-switch.prev { left: 10px; }
+    .detail-switch.next { right: 10px; }
+    .route-dock { --route-step: 78px; --active-index: 0; --route-width: 0px; --route-viewport-width: 0px; display: none; position: fixed; left: 50%; bottom: 22px; z-index: 4; width: min(620px, calc(100% - 36px)); transform: translateX(-50%); border: 1px solid var(--seen-border); border-radius: 26px; background: var(--seen-surface); box-shadow: 0 18px 54px rgba(3, 9, 14, 0.26); backdrop-filter: blur(22px) saturate(1.16); -webkit-backdrop-filter: blur(22px) saturate(1.16); padding: 12px 14px 13px; overflow: hidden; }
+    .route-dock.is-visible { display: block; }
+    .route-dock-info { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: start; margin-bottom: 10px; }
+    .route-dock-info strong { display: block; color: var(--seen-text); font-size: 0.96rem; line-height: 1.24; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .route-dock-info span { display: block; margin-top: 3px; color: var(--seen-muted); font-size: 0.73rem; line-height: 1.35; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .route-station-count { text-align: right; color: var(--seen-text); font-size: 0.86rem; line-height: 1.25; white-space: nowrap; }
+    .route-station-count span { color: var(--seen-muted); font-size: 0.72rem; }
+    .route-viewport { position: relative; height: 50px; overflow: hidden; touch-action: pan-y; cursor: grab; mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%); -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%); }
+    .route-viewport:active { cursor: grabbing; }
+    .route-track { display: flex; align-items: center; width: var(--route-width); height: 100%; transform: translateX(calc((var(--route-viewport-width) - var(--route-step)) / 2 - (var(--active-index) * var(--route-step)))); transition: transform 620ms cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
+    .route-node-cell { position: relative; width: var(--route-step); height: 50px; flex: 0 0 var(--route-step); display: grid; place-items: center; }
+    .route-node-cell:not(:last-child)::after { content: ""; position: absolute; left: calc(50% + 17px); width: calc(var(--route-step) - 34px); top: 50%; height: 3px; transform: translateY(-50%); background-image: radial-gradient(circle, currentColor 1.4px, transparent 1.6px); background-size: 11px 3px; background-repeat: repeat-x; color: var(--seen-muted); opacity: 0.62; pointer-events: none; }
+    .route-node { width: 17px; height: 17px; border: 2px solid rgba(82, 97, 104, 0.72); border-radius: 999px; background: var(--seen-surface-solid); color: transparent; cursor: pointer; transition: transform 460ms cubic-bezier(0.16, 1, 0.3, 1), border-color 260ms ease, box-shadow 260ms ease, background 260ms ease, opacity 260ms ease; }
+    .route-node:hover { transform: scale(1.16); border-color: var(--seen-blue); }
+    .route-node.is-active { transform: scale(1.42); border-color: var(--seen-cyan); background: #fff; box-shadow: 0 0 0 7px rgba(125, 211, 252, 0.14), 0 0 22px rgba(125, 211, 252, 0.54); animation: routeNodeArrive 520ms cubic-bezier(0.16, 1, 0.3, 1); }
+    @keyframes routeNodeArrive { 0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(125, 211, 252, 0); } 62% { transform: scale(1.56); } 100% { transform: scale(1.42); } }
+    .route-node-cell.is-edge .route-node { opacity: 0.52; }
+    @media (max-width: 1180px) { .seen-hero, .record-strip { grid-template-columns: 1fr; } .seen-map-panel { min-height: auto; } }
+    @media (max-width: 920px) { .record-form { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 920px) { .route-builder-meta { padding-left: 0; } }
+    @media (max-width: 720px) { .seen-shell { width: min(100% - 24px, 1480px); padding-top: 92px; } .seen-left, .dashboard-grid, .record-form { grid-template-columns: 1fr; } .form-wide { grid-column: auto; } .map-toolbar, .filter-bar, .management-head { align-items: flex-start; flex-direction: column; } .map-controls, .zoom-tabs { width: 100%; justify-content: space-between; } .zoom-tabs button { flex: 1; } .post-card.with-note, .detail-card { grid-template-columns: 1fr; } .detail-card { max-height: calc(100vh - 172px); overflow: auto; } .detail-card img { min-height: 220px; max-height: 38vh; } .detail-copy { overflow: visible; } .drawer-item { align-items: flex-start; flex-direction: column; } .route-dock { --route-step: 58px; bottom: 10px; width: min(360px, calc(100% - 20px)); padding: 10px 12px; border-radius: 22px; } .route-dock-info { margin-bottom: 6px; } .route-dock-info strong { font-size: 0.86rem; } .route-dock-info span, .route-station-count span { font-size: 0.68rem; } .route-station-count { font-size: 0.78rem; } .route-viewport { height: 40px; } .route-node-cell { height: 40px; } .floating-search { bottom: 14px; } }
+  </style>
+</head>
+<body id="page-top" class="seen-page">
+  <div id="navbar"></div>
+  <main class="seen-shell">
+    <section class="seen-hero" aria-label="所见首页">
+      <div class="seen-left">
+        <article class="seen-panel seen-card">
+          <div class="seen-kicker"><span>Seen / Travel Notes</span><span id="feature-count">0 records</span></div>
+          <h1 class="seen-title">所见</h1>
+          <p class="seen-subtitle">旅途照片、城市碎片、路线记录在这里汇总。现在已经按底层记录集自动汇总统计、区域、路线与标签，后续只需要替换数据源。</p>
+          <div class="keyword-rail" aria-label="关键词滚动推荐"><div class="keyword-track" id="keyword-track"></div></div>
+          <div class="feature-photo" id="feature-photo">
+            <img src="../static/assets/img/background.jpeg" alt="随机地点推荐" />
+            <div class="feature-copy"><h2 id="feature-title">加载中</h2><p id="feature-note">正在整理一条随机推荐。</p></div>
+          </div>
+          <div class="feature-actions">
+            <div id="feature-tags" class="post-tags" aria-label="当前推荐标签"></div>
+            <button class="icon-btn" id="shuffle-feature" type="button" title="换一条推荐" aria-label="换一条推荐"><i class="bi-shuffle"></i></button>
+          </div>
+        </article>
+        <section class="seen-panel seen-card" aria-label="Dashboard">
+          <div class="seen-kicker"><span>Dashboard</span><span>From Records</span></div>
+          <div class="dashboard-grid" id="dashboard-grid"></div>
+        </section>
+      </div>
+      <section class="seen-panel seen-map-panel" aria-label="地图区域选择">
+        <div class="map-toolbar">
+          <div><h2>地图区域选择</h2><p>真实底图用于导航与缩放；边界层先以可替换的 GeoJSON 风格结构维护，后续可直接接市级边界文件。</p></div>
+          <div class="map-controls">
+            <div class="zoom-tabs" aria-label="地图缩放级别">
+              <button type="button" class="is-active" data-zoom="country">国家</button>
+              <button type="button" data-zoom="province">省/州</button>
+              <button type="button" data-zoom="city">城市</button>
+            </div>
+            <button class="icon-btn" id="reset-map" type="button" title="重置地图视野" aria-label="重置地图视野"><i class="bi-arrows-fullscreen"></i></button>
+          </div>
+        </div>
+        <div class="map-wrap" id="map-wrap">
+          <div class="seen-map" id="seen-map" role="img" aria-label="所见记录交互地图"></div>
+          <div class="map-fallback" id="map-fallback">地图资源暂时没有加载成功。记录列表、筛选和统计仍可使用；联网后 Leaflet 与 OpenStreetMap 底图会自动显示。</div>
+        </div>
+        <div class="map-legend">
+          <span class="legend-item is-active" role="button" tabindex="0" data-layer-filter="all"><span class="legend-swatch"></span>全部图层</span>
+          <span class="legend-item" role="button" tabindex="0" data-layer-filter="routes"><span class="legend-swatch route"></span>旅途路线</span>
+          <span class="legend-item" role="button" tabindex="0" data-layer-filter="points"><span class="legend-swatch point"></span>照片记录点</span>
+        </div>
+      </section>
+    </section>
+    <section class="seen-panel filter-bar" aria-label="筛选状态">
+      <div><strong id="filter-title">全部记录</strong><br><span id="filter-detail">正在显示所有照片与游记。</span></div>
+      <button class="icon-btn" id="clear-filter" type="button" title="清除筛选" aria-label="清除筛选"><i class="bi-x-lg"></i></button>
+    </section>
+    <section class="seen-panel management-panel" aria-label="记录管理">
+      <div class="management-head">
+        <div>
+          <h2>记录管理</h2>
+          <p>前端临时工作台：新增记录写入 localStorage；上传图片会转成本地 data URL；隐藏可恢复，永久删除会在本浏览器中移除。</p>
+        </div>
+        <button class="seen-action" id="toggle-manager" type="button">展开管理</button>
+      </div>
+      <div id="manager-body" hidden>
+        <form class="record-form" id="record-form">
+          <label><span data-seen-i18n="title">标题</span><input name="title" required placeholder="例如：雨后街角" data-seen-i18n-attr="placeholder:title_placeholder"></label>
+          <label><span data-seen-i18n="type">类型</span><select name="type" id="record-type"><option value="photo" data-seen-i18n="photo_only">纯图片</option><option value="note" data-seen-i18n="photo_note">图片 + 随笔</option></select></label>
+          <label><span data-seen-i18n="date">日期</span><input name="date" type="date" required></label>
+          <label><span data-seen-i18n="category">归类</span><select name="category" id="record-category"><option value="region" data-seen-i18n="region_record">区域记录</option><option value="route" data-seen-i18n="route_record">路线记录</option></select></label>
+          <label class="form-wide" data-field-group="region"><span data-seen-i18n="record_id">记录 ID</span><input name="recordId" id="record-id" placeholder="留空自动生成，必须唯一" data-seen-i18n-attr="placeholder:record_id_placeholder"></label>
+          <div class="form-wide form-actions">
+            <button class="seen-action" id="generate-record-id" type="button" data-field-group="region">生成 ID</button>
+            <span class="post-meta" id="record-id-status">创建时会检查重复。</span>
+          </div>
+          <div class="combo" data-field-group="region" data-combo="country">
+            <span data-seen-i18n="country_region">国家/地区</span><input id="record-country-input" autocomplete="off" placeholder="输入 China / United States 搜索" data-seen-i18n-attr="placeholder:country_placeholder"><input name="country" id="record-country" type="hidden"><div class="combo-list" id="country-options"></div>
+          </div>
+          <div class="combo" data-field-group="region" data-combo="province">
+            <span data-seen-i18n="province_state">省/州</span><input id="record-province-input" autocomplete="off" placeholder="输入 Guangdong / Florida 搜索" data-seen-i18n-attr="placeholder:province_placeholder"><input name="province" id="record-province" type="hidden"><div class="combo-list" id="province-options"></div>
+          </div>
+          <div class="combo" data-field-group="region" data-combo="city">
+            <span data-seen-i18n="city">城市</span><input id="record-city-input" autocomplete="off" placeholder="输入 Guangzhou / Miami 搜索" data-seen-i18n-attr="placeholder:city_placeholder"><input name="city" id="record-city" type="hidden"><div class="combo-list" id="city-options"></div>
+          </div>
+          <label data-field-group="region"><span data-seen-i18n="place">地点</span><input name="place" required placeholder="选择城市后自动生成，也可手动微调" data-seen-i18n-attr="placeholder:place_placeholder"></label>
+          <label data-field-group="region"><span data-seen-i18n="latitude">纬度</span><input name="lat" type="number" step="0.000001" placeholder="23.1291"></label>
+          <label data-field-group="region"><span data-seen-i18n="longitude">经度</span><input name="lng" type="number" step="0.000001" placeholder="113.2644"></label>
+          <div class="form-full route-builder" data-field-group="route">
+            <input name="routeSource" id="route-source" type="hidden" value="records">
+            <input name="tripMode" id="trip-mode" type="hidden" value="route">
+            <div class="route-builder-head">
+              <div><strong data-seen-i18n="route_builder_title">导航式经停点</strong><span data-seen-i18n="route_builder_subtitle">用已有记录 ID 串联路线。</span></div>
+              <button class="route-panel-icon" type="button" id="clear-route-record-ids" aria-label="清空路线"><i class="bi-x-lg"></i></button>
+            </div>
+            <div class="route-builder-body">
+              <div class="route-builder-meta">
+                <label><span data-seen-i18n="route_id">路线 ID</span><input name="newRouteId" placeholder="留空自动生成，例如 route-pearl-river" data-seen-i18n-attr="placeholder:route_id_placeholder"></label>
+                <label><span data-seen-i18n="route_name">路线名称</span><input name="newRouteName" placeholder="例如：珠江夜行线" data-seen-i18n-attr="placeholder:route_name_placeholder"></label>
+              </div>
+              <div class="route-point-list" id="route-record-id-list"></div>
+              <button class="route-add-btn" id="add-route-record-id" type="button">
+                <span class="route-add-icon"><i class="bi-plus-circle"></i></span>
+                <span data-seen-i18n="add_waypoint">添加经停点</span>
+              </button>
+              <p class="route-builder-help" data-seen-i18n="route_builder_help">输入已有记录 ID，列表顺序会决定起点、经停点与终点。至少需要两个有效 ID。</p>
+            </div>
+          </div>
+          <label class="form-wide"><span data-seen-i18n="tags">标签</span><input name="tags" placeholder="海边, 夜色, 街角" data-seen-i18n-attr="placeholder:tags_placeholder"></label>
+          <label class="form-wide"><span data-seen-i18n="upload_image">上传图片</span><input name="imageFile" id="image-file" type="file" accept="image/*" multiple></label>
+          <div class="form-wide image-preview-grid" id="image-preview-grid"></div>
+          <div class="form-full" data-field-group="region">
+            <div class="manager-map-wrap"><div class="manager-map" id="record-picker-map"></div></div>
+            <p class="manager-map-hint">点击管理地图可直接写入经纬度；切换地点候选时地图会同步移动到该城市。</p>
+          </div>
+          <label class="form-full" data-note-field><span data-seen-i18n="note">随笔</span><textarea name="note" placeholder="图片 + 随笔模式下填写路上的细节" data-seen-i18n-attr="placeholder:note_placeholder"></textarea></label>
+          <div class="form-full form-actions">
+            <button class="seen-action primary" type="submit" data-seen-i18n="add_record">添加记录</button>
+            <button class="seen-action" id="use-map-center" type="button" data-seen-i18n="use_map_center">使用当前地图中心坐标</button>
+            <button class="seen-action" type="reset" data-seen-i18n="clear_form">清空表单</button>
+          </div>
+        </form>
+        <div class="drawer-list" id="route-manager"></div>
+        <div class="drawer-list" id="hidden-records"></div>
+      </div>
+    </section>
+    <section class="record-strip" id="record-strip" aria-label="照片与游记列表"></section>
+    <p class="data-note">维护建议：真实记录只存最底层条目。区域照片使用 region.country/province/city + lat/lng；路线记录使用 routeId + segmentIndex + lat/lng。页面会自动计算 dashboard、标签、区域高亮、路线计数和卡片筛选。</p>
+  </main>
+  <dialog class="seen-dialog detail-dialog" id="record-detail-dialog">
+    <div class="detail-card">
+      <button class="icon-btn detail-switch prev" id="prev-detail-record" type="button" title="上一条记录" aria-label="上一条记录"><i class="bi-chevron-left"></i></button>
+      <button class="icon-btn detail-switch next" id="next-detail-record" type="button" title="下一条记录" aria-label="下一条记录"><i class="bi-chevron-right"></i></button>
+      <div class="detail-media">
+        <img id="detail-image" src="../static/assets/img/background.jpeg" alt="">
+        <span class="image-count" id="detail-image-count">1 / 1</span>
+        <div class="image-nav">
+          <button class="icon-btn" id="prev-detail-image" type="button" title="上一张" aria-label="上一张"><i class="bi-chevron-left"></i></button>
+          <button class="icon-btn" id="next-detail-image" type="button" title="下一张" aria-label="下一张"><i class="bi-chevron-right"></i></button>
+        </div>
+      </div>
+      <div class="detail-copy">
+        <div class="post-meta" id="detail-meta"></div>
+        <div class="detail-id" id="detail-id"></div>
+        <h2 id="detail-title"></h2>
+        <p class="post-note" id="detail-note"></p>
+        <div class="post-tags" id="detail-tags"></div>
+        <div class="detail-actions">
+          <button class="seen-action" id="hide-detail-record" type="button" title="隐藏" aria-label="隐藏"><i class="bi-eye-slash"></i>隐藏</button>
+          <button class="seen-action danger" id="delete-detail-record" type="button" title="永久删除" aria-label="永久删除"><i class="bi-trash"></i>永久删除</button>
+        </div>
+      </div>
+    </div>
+    <div class="route-dock" id="route-dock" aria-live="polite"></div>
+  </dialog>
+  <div class="floating-search" id="floating-search">
+    <div class="search-glass">
+      <div class="search-main">
+        <i class="bi-search"></i>
+        <input id="global-search-input" type="search" placeholder="搜索记录、路线、ID 或关键词" aria-label="搜索">
+        <div class="search-scope" role="group" aria-label="搜索范围">
+          <button class="is-active" type="button" data-search-scope="records">记录</button>
+          <button type="button" data-search-scope="routes">路线</button>
+        </div>
+      </div>
+      <div class="search-results">
+        <div class="search-card" id="search-card"></div>
+        <div class="search-nav">
+          <button class="icon-btn" id="prev-search-result" type="button" aria-label="上一个搜索结果"><i class="bi-chevron-left"></i></button>
+          <span id="search-result-count">输入关键词开始搜索</span>
+          <button class="icon-btn" id="next-search-result" type="button" aria-label="下一个搜索结果"><i class="bi-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <dialog class="seen-dialog" id="delete-dialog">
+    <div class="dialog-card">
+      <h2>永久删除记录？</h2>
+      <p id="delete-dialog-copy">这会把自建记录从本地数据中移除；内置示例会写入本浏览器的删除标记，刷新后也不会恢复。</p>
+      <div class="dialog-actions">
+        <button class="seen-action" id="cancel-delete" type="button">取消</button>
+        <button class="seen-action danger" id="confirm-delete" type="button">永久删除</button>
+      </div>
+    </div>
+  </dialog>
+  <div id="floating-buttons-container"></div>
+  <script>
+    // Data boundary: replace this object with fetch("posts.yml") or generated JSON later.
+    // The UI consumes normalized records, route definitions, and boundary definitions only.
+    const SEEN_DATA = {
+      tags: ["海边", "城市漫游", "夜色", "公路", "博物馆", "咖啡", "日落", "山路", "街角", "校园", "桥", "建筑", "雨后", "市场"],
+      records: [
+        { id: "miami-bay-dusk", title: "海湾边的傍晚", type: "note", image: "../static/assets/img/background.jpeg", date: "2025-04-18", place: "United States / Florida / Miami", lat: 25.7617, lng: -80.1918, region: { country: "us", province: "florida", city: "miami" }, tags: ["海边", "日落", "城市漫游"], note: "风从海湾吹过来，玻璃幕墙把落日切成几块。" },
+        { id: "miami-campus", title: "校园午后的树影", type: "photo", image: "../static/assets/img/photo.png", date: "2025-04-20", place: "United States / Florida / Coral Gables", lat: 25.7215, lng: -80.2793, region: { country: "us", province: "florida", city: "miami" }, tags: ["校园", "建筑"] },
+        { id: "keywest-road", title: "从海上公路看见云", type: "note", image: "../static/assets/blog-header.jpg", date: "2025-03-12", place: "United States / Florida / Key West", lat: 24.5551, lng: -81.7800, routeId: "florida-coast", segmentIndex: 1, tags: ["公路", "海边"], note: "这条记录挂在路线段上，适合描述两个坐标之间发生的事情。" },
+        { id: "key-largo-blue", title: "Key Largo 的蓝", type: "photo", image: "../static/assets/img/background.jpeg", date: "2025-03-12", place: "United States / Florida / Key Largo", lat: 25.0865, lng: -80.4473, routeId: "florida-coast", segmentIndex: 0, tags: ["海边", "公路"] },
+        { id: "everglades-flat", title: "湿地边缘", type: "photo", image: "../static/assets/img/background.png", date: "2025-02-02", place: "United States / Florida / Everglades", lat: 25.2866, lng: -80.8987, region: { country: "us", province: "florida", city: "miami" }, tags: ["山路", "日落"] },
+        { id: "orlando-night", title: "奥兰多夜色", type: "note", image: "../static/assets/blog-header.jpg", date: "2025-01-18", place: "United States / Florida / Orlando", lat: 28.5383, lng: -81.3792, region: { country: "us", province: "florida", city: "orlando" }, tags: ["夜色", "城市漫游"], note: "灯光把街区切成很清楚的层次。" },
+        { id: "newyork-window", title: "纽约窗口", type: "photo", image: "../static/assets/img/photo.png", date: "2024-12-22", place: "United States / New York / New York", lat: 40.7128, lng: -74.0060, region: { country: "us", province: "new-york", city: "new-york-city" }, tags: ["建筑", "城市漫游"] },
+        { id: "brooklyn-bridge", title: "桥上的风", type: "note", image: "../static/assets/img/background.jpeg", date: "2024-12-23", place: "United States / New York / Brooklyn", lat: 40.7061, lng: -73.9969, region: { country: "us", province: "new-york", city: "new-york-city" }, tags: ["桥", "街角"], note: "桥面上每个人都走得很快，河面反而显得安静。" },
+        { id: "guangzhou-rain", title: "旧街和雨后的灯", type: "photo", image: "../static/assets/img/background.png", date: "2024-07-06", place: "China / Guangdong / Guangzhou", lat: 23.1291, lng: 113.2644, region: { country: "cn", province: "guangdong", city: "guangzhou" }, tags: ["街角", "夜色", "雨后"] },
+        { id: "guangzhou-river", title: "珠江边的慢走", type: "note", image: "../static/assets/blog-header.jpg", date: "2024-07-06", place: "China / Guangdong / Guangzhou", lat: 23.1080, lng: 113.3186, routeId: "pearl-river", segmentIndex: 0, tags: ["桥", "夜色"], note: "路线记录可以在这一段插入多条照片或随笔。" },
+        { id: "shenzhen-market", title: "深圳市场清晨", type: "photo", image: "../static/assets/img/photo.png", date: "2024-07-08", place: "China / Guangdong / Shenzhen", lat: 22.5431, lng: 114.0579, region: { country: "cn", province: "guangdong", city: "shenzhen" }, tags: ["市场", "城市漫游"] },
+        { id: "macau-density", title: "窗口里的城市密度", type: "photo", image: "../static/assets/img/photo.png", date: "2024-02-09", place: "China / Macau / Macau", lat: 22.1987, lng: 113.5439, region: { country: "cn", province: "macau", city: "macau" }, tags: ["城市漫游", "街角"] },
+        { id: "macau-walk", title: "澳门步行线", type: "note", image: "../static/assets/img/background.jpeg", date: "2024-02-10", place: "China / Macau / Macau", lat: 22.1919, lng: 113.5380, routeId: "pearl-river", segmentIndex: 1, tags: ["建筑", "街角"], note: "街巷很窄，但每个转角都有不同的垂直层次。" },
+        { id: "hongkong-harbour", title: "海港夜色", type: "photo", image: "../static/assets/blog-header.jpg", date: "2024-02-11", place: "China / Hong Kong / Hong Kong", lat: 22.3193, lng: 114.1694, region: { country: "cn", province: "hong-kong", city: "hong-kong" }, tags: ["海边", "夜色"] },
+        { id: "beijing-museum", title: "博物馆里的下午", type: "note", image: "../static/assets/img/background.png", date: "2023-10-03", place: "China / Beijing / Beijing", lat: 39.9042, lng: 116.4074, region: { country: "cn", province: "beijing", city: "beijing" }, tags: ["博物馆", "建筑"], note: "展厅的光线比想象中柔和，适合慢慢看。" },
+        { id: "shanghai-coffee", title: "上海咖啡店窗口", type: "photo", image: "../static/assets/img/photo.png", date: "2023-09-22", place: "China / Shanghai / Shanghai", lat: 31.2304, lng: 121.4737, region: { country: "cn", province: "shanghai", city: "shanghai" }, tags: ["咖啡", "街角"] },
+        { id: "hangzhou-lake", title: "湖边雨后", type: "note", image: "../static/assets/img/background.jpeg", date: "2023-09-24", place: "China / Zhejiang / Hangzhou", lat: 30.2741, lng: 120.1551, region: { country: "cn", province: "zhejiang", city: "hangzhou" }, tags: ["雨后", "城市漫游"], note: "湿润的空气让远处的轮廓变得很轻。" },
+        { id: "portland-corner", title: "Portland 的街角", type: "photo", image: "../static/assets/img/background.png", date: "2023-05-17", place: "United States / Oregon / Portland", lat: 45.5152, lng: -122.6784, region: { country: "us", province: "oregon", city: "portland" }, tags: ["街角", "咖啡"] },
+        { id: "seattle-ferry", title: "渡轮上的风", type: "note", image: "../static/assets/blog-header.jpg", date: "2023-05-20", place: "United States / Washington / Seattle", lat: 47.6062, lng: -122.3321, region: { country: "us", province: "washington", city: "seattle" }, tags: ["海边", "城市漫游"], note: "水面、天色和城市边界被风混在一起。" },
+        { id: "losangeles-sunset", title: "洛杉矶日落", type: "photo", image: "../static/assets/img/background.jpeg", date: "2023-04-12", place: "United States / California / Los Angeles", lat: 34.0522, lng: -118.2437, region: { country: "us", province: "california", city: "los-angeles" }, tags: ["日落", "城市漫游"] }
+      ],
+      routes: [
+        { id: "florida-coast", name: "Florida Coast Drive", points: [{ name: "Miami", at: "2025-03-12 09:00", lat: 25.7617, lng: -80.1918 }, { name: "Key Largo", at: "2025-03-12 11:20", lat: 25.0865, lng: -80.4473 }, { name: "Key West", at: "2025-03-12 17:40", lat: 24.5551, lng: -81.7800 }] },
+        { id: "pearl-river", name: "Pearl River Walk", points: [{ name: "Guangzhou", at: "2024-07-06 18:30", lat: 23.1291, lng: 113.2644 }, { name: "Hong Kong", at: "2024-02-11 12:30", lat: 22.3193, lng: 114.1694 }, { name: "Macau", at: "2024-02-11 18:00", lat: 22.1987, lng: 113.5439 }] }
+      ],
+      boundaries: {
+        country: [
+          { id: "us", name: "United States", osmRelationId: 148838, boundaryQuery: "United States", bounds: [[24.3, -125.0], [49.4, -66.8]] },
+          { id: "cn", name: "China", osmRelationId: 270056, boundaryQuery: "China", bounds: [[18.0, 73.5], [53.6, 135.1]] }
+        ],
+        province: [
+          { id: "florida", name: "Florida", osmRelationId: 162050, boundaryQuery: "Florida, United States", bounds: [[24.4, -87.7], [31.1, -79.8]] },
+          { id: "new-york", name: "New York", osmRelationId: 61320, boundaryQuery: "New York State, United States", bounds: [[40.4, -79.9], [45.1, -71.8]] },
+          { id: "guangdong", name: "Guangdong", boundaryQuery: "Guangdong, China", bounds: [[20.2, 109.6], [25.6, 117.2]] },
+          { id: "macau", name: "Macau", boundaryQuery: "Macau", bounds: [[22.10, 113.50], [22.23, 113.60]] },
+          { id: "hong-kong", name: "Hong Kong", boundaryQuery: "Hong Kong", bounds: [[22.13, 113.82], [22.57, 114.43]] },
+          { id: "beijing", name: "Beijing", boundaryQuery: "Beijing, China", bounds: [[39.4, 115.4], [41.1, 117.5]] },
+          { id: "shanghai", name: "Shanghai", boundaryQuery: "Shanghai, China", bounds: [[30.7, 120.8], [31.9, 122.1]] },
+          { id: "zhejiang", name: "Zhejiang", boundaryQuery: "Zhejiang, China", bounds: [[27.0, 118.0], [31.2, 123.0]] },
+          { id: "oregon", name: "Oregon", osmRelationId: 165476, boundaryQuery: "Oregon, United States", bounds: [[42.0, -124.8], [46.3, -116.5]] },
+          { id: "washington", name: "Washington", osmRelationId: 165479, boundaryQuery: "Washington, United States", bounds: [[45.5, -124.8], [49.1, -116.9]] },
+          { id: "california", name: "California", osmRelationId: 165475, boundaryQuery: "California, United States", bounds: [[32.5, -124.5], [42.1, -114.1]] }
+        ],
+        city: [
+          { id: "miami", name: "Miami", boundaryQuery: "Miami, Florida, United States", bounds: [[25.55, -80.43], [25.92, -80.05]] },
+          { id: "orlando", name: "Orlando", boundaryQuery: "Orlando, Florida, United States", bounds: [[28.34, -81.58], [28.68, -81.18]] },
+          { id: "new-york-city", name: "New York City", osmRelationId: 175905, boundaryQuery: "New York City, United States", bounds: [[40.49, -74.26], [40.92, -73.70]] },
+          { id: "guangzhou", name: "Guangzhou", boundaryQuery: "Guangzhou, Guangdong, China", bounds: [[22.85, 112.95], [23.38, 113.70]] },
+          { id: "shenzhen", name: "Shenzhen", boundaryQuery: "Shenzhen, Guangdong, China", bounds: [[22.39, 113.75], [22.86, 114.62]] },
+          { id: "macau", name: "Macau", boundaryQuery: "Macau", bounds: [[22.10, 113.50], [22.23, 113.60]] },
+          { id: "hong-kong", name: "Hong Kong", boundaryQuery: "Hong Kong", bounds: [[22.13, 113.82], [22.57, 114.43]] },
+          { id: "beijing", name: "Beijing", boundaryQuery: "Beijing, China", bounds: [[39.72, 116.10], [40.10, 116.72]] },
+          { id: "shanghai", name: "Shanghai", boundaryQuery: "Shanghai, China", bounds: [[30.96, 121.10], [31.48, 121.85]] },
+          { id: "hangzhou", name: "Hangzhou", boundaryQuery: "Hangzhou, Zhejiang, China", bounds: [[30.05, 119.85], [30.45, 120.40]] },
+          { id: "portland", name: "Portland", osmRelationId: 186579, boundaryQuery: "Portland, Oregon, United States", bounds: [[45.40, -122.85], [45.64, -122.45]] },
+          { id: "seattle", name: "Seattle", osmRelationId: 237385, boundaryQuery: "Seattle, Washington, United States", bounds: [[47.48, -122.45], [47.75, -122.20]] },
+          { id: "los-angeles", name: "Los Angeles", osmRelationId: 207359, boundaryQuery: "Los Angeles, California, United States", bounds: [[33.70, -118.67], [34.34, -118.15]] }
+        ]
+      }
+    };
+
+    const STORAGE_KEYS = {
+      customRecords: "seen.customRecords.v1",
+      customRoutes: "seen.customRoutes.v1",
+      hiddenRecords: "seen.hiddenRecords.v1",
+      deletedRecords: "seen.deletedRecords.v1",
+      boundaryCache: "seen.boundaryGeoJson.v1"
+    };
+    const state = { zoom: "country", activeTag: null, activeArea: null, activeRoute: null, featureIndex: 0, layerFilter: "all", detailImageIndex: 0, visibleRecords: 10, managerOpen: false, detailPool: [], detailPoolLabel: "", detailDragX: null, searchOpen: false, searchScope: "records", searchQuery: "", searchIndex: 0, searchResults: [], searchDragX: null };
+    const mapState = { map: null, tileLayer: null, boundaryLayer: null, routeLayers: [], pointLayers: [], recordMarkers: [], pickerMap: null, pickerTileLayer: null, pickerMarker: null, boundaryGeoJson: {}, pendingDeleteId: null, detailRecordId: null };
+    const boundarySources = {
+      country: "boundaries/countries.geojson",
+      province: "boundaries/provinces.geojson",
+      city: "boundaries/cities.geojson"
+    };
+    const byId = (id) => document.getElementById(id);
+    const slug = (value) => String(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const CHINA_TAIWAN_POLYGON = [[21.85, 120.02], [22.42, 120.78], [23.45, 120.42], [24.7, 121.02], [25.32, 121.64], [24.72, 122.08], [23.46, 121.68], [22.55, 121.18], [21.85, 120.02]];
+    const DEFAULT_CITY_COORDS = {
+      guangzhou: [23.1291, 113.2644], shenzhen: [22.5431, 114.0579], "hong-kong": [22.3193, 114.1694], macau: [22.1987, 113.5439], beijing: [39.9042, 116.4074], shanghai: [31.2304, 121.4737], hangzhou: [30.2741, 120.1551],
+      miami: [25.7617, -80.1918], orlando: [28.5383, -81.3792], "new-york-city": [40.7128, -74.006], portland: [45.5152, -122.6784], seattle: [47.6062, -122.3321], "los-angeles": [34.0522, -118.2437],
+      "taipei": [25.033, 121.5654], "kaohsiung": [22.6273, 120.3014], "washington": [38.9072, -77.0369]
+    };
+    const SEEN_I18N = {
+      zh: {
+        record_id: "记录 ID",
+        record_id_placeholder: "留空自动生成，必须唯一",
+        route_builder_title: "导航式经停点",
+        route_builder_subtitle: "用已有记录 ID 串联路线。",
+        route_id: "路线 ID",
+        route_id_placeholder: "留空自动生成，例如 route-pearl-river",
+        route_name: "路线名称",
+        route_name_placeholder: "例如：珠江夜行线",
+        title: "标题",
+        title_placeholder: "例如：雨后街角",
+        type: "类型",
+        photo_only: "纯图片",
+        photo_note: "图片 + 随笔",
+        date: "日期",
+        category: "归类",
+        region_record: "区域记录",
+        route_record: "路线记录",
+        country_region: "国家/地区",
+        province_state: "省/州",
+        city: "城市",
+        country_placeholder: "输入 China / United States 搜索",
+        province_placeholder: "输入 Guangdong / Florida 搜索",
+        city_placeholder: "输入 Guangzhou / Miami 搜索",
+        place: "地点",
+        place_placeholder: "选择城市后自动生成，也可手动微调",
+        latitude: "纬度",
+        longitude: "经度",
+        tags: "标签",
+        tags_placeholder: "海边, 夜色, 街角",
+        upload_image: "上传图片",
+        note: "随笔",
+        note_placeholder: "图片 + 随笔模式下填写路上的细节",
+        add_record: "添加记录",
+        clear_form: "清空表单",
+        use_map_center: "使用当前地图中心坐标",
+        add_waypoint: "添加经停点",
+        route_builder_help: "输入已有记录 ID，列表顺序会决定起点、经停点与终点。至少需要两个有效 ID。",
+        preview_empty: "输入记录 ID 后显示匹配记录。",
+        preview_missing: "未找到记录：",
+        start_placeholder: "选择起点记录 ID",
+        stop_placeholder: "添加经停记录 ID",
+        end_placeholder: "选择终点记录 ID"
+        ,route_management: "路线管理",
+        no_custom_routes: "暂无自建路线",
+        built_in_route: "内置路线",
+        custom_route: "自建路线",
+        edit_route: "编辑路线",
+        delete_route: "删除路线"
+      },
+      en: {
+        record_id: "Record ID",
+        record_id_placeholder: "Leave blank to auto-generate a unique ID",
+        route_builder_title: "Waypoint List",
+        route_builder_subtitle: "Connect existing records by ID.",
+        route_id: "Route ID",
+        route_id_placeholder: "Auto-generated if blank, e.g. route-pearl-river",
+        route_name: "Route name",
+        route_name_placeholder: "For example: Pearl River night walk",
+        title: "Title",
+        title_placeholder: "For example: Rainy street corner",
+        type: "Type",
+        photo_only: "Photo only",
+        photo_note: "Photo + note",
+        date: "Date",
+        category: "Category",
+        region_record: "Region record",
+        route_record: "Route record",
+        country_region: "Country/region",
+        province_state: "Province/state",
+        city: "City",
+        country_placeholder: "Search China / United States",
+        province_placeholder: "Search Guangdong / Florida",
+        city_placeholder: "Search Guangzhou / Miami",
+        place: "Place",
+        place_placeholder: "Auto-filled after city selection; editable",
+        latitude: "Latitude",
+        longitude: "Longitude",
+        tags: "Tags",
+        tags_placeholder: "seaside, night, street corner",
+        upload_image: "Upload images",
+        note: "Note",
+        note_placeholder: "Write travel details when using image + note mode",
+        add_record: "Add record",
+        clear_form: "Clear form",
+        use_map_center: "Use current map center",
+        add_waypoint: "Add waypoint",
+        route_builder_help: "Enter existing record IDs. The list order decides start, waypoints, and destination. At least two valid IDs are required.",
+        preview_empty: "Matched record details will appear here.",
+        preview_missing: "Record not found: ",
+        start_placeholder: "Choose start record ID",
+        stop_placeholder: "Add waypoint record ID",
+        end_placeholder: "Choose destination record ID",
+        route_management: "Route management",
+        no_custom_routes: "No custom routes yet",
+        built_in_route: "Built-in route",
+        custom_route: "Custom route",
+        edit_route: "Edit route",
+        delete_route: "Delete route"
+      }
+    };
+    const LOCALIZED_NAMES = {
+      zh: {
+        China: "中国", "United States": "美国", Taiwan: "台湾", Guangdong: "广东", Guangzhou: "广州", Shenzhen: "深圳", Beijing: "北京", Shanghai: "上海", Zhejiang: "浙江", Hangzhou: "杭州", "Hong Kong": "香港", Macau: "澳门",
+        Florida: "佛罗里达", Miami: "迈阿密", Orlando: "奥兰多", California: "加利福尼亚", "Los Angeles": "洛杉矶", "New York": "纽约州", "New York City": "纽约市", Oregon: "俄勒冈", Portland: "波特兰", Washington: "华盛顿州", Seattle: "西雅图"
+      }
+    };
+    const REGION_SOURCE = [
+      { country: "cn", countryName: "China", provinces: [
+        ["beijing", "Beijing", ["Beijing"]], ["tianjin", "Tianjin", ["Tianjin"]], ["hebei", "Hebei", ["Shijiazhuang", "Tangshan", "Qinhuangdao"]], ["shanxi", "Shanxi", ["Taiyuan", "Datong"]], ["inner-mongolia", "Inner Mongolia", ["Hohhot", "Baotou"]],
+        ["liaoning", "Liaoning", ["Shenyang", "Dalian"]], ["jilin", "Jilin", ["Changchun", "Jilin"]], ["heilongjiang", "Heilongjiang", ["Harbin", "Qiqihar"]], ["shanghai", "Shanghai", ["Shanghai"]], ["jiangsu", "Jiangsu", ["Nanjing", "Suzhou", "Wuxi"]],
+        ["zhejiang", "Zhejiang", ["Hangzhou", "Ningbo", "Wenzhou"]], ["anhui", "Anhui", ["Hefei", "Huangshan"]], ["fujian", "Fujian", ["Fuzhou", "Xiamen", "Quanzhou"]], ["jiangxi", "Jiangxi", ["Nanchang", "Jiujiang"]], ["shandong", "Shandong", ["Jinan", "Qingdao", "Yantai"]],
+        ["henan", "Henan", ["Zhengzhou", "Luoyang"]], ["hubei", "Hubei", ["Wuhan", "Yichang"]], ["hunan", "Hunan", ["Changsha", "Zhangjiajie"]], ["guangdong", "Guangdong", ["Guangzhou", "Shenzhen", "Zhuhai", "Foshan", "Dongguan"]], ["guangxi", "Guangxi", ["Nanning", "Guilin"]],
+        ["hainan", "Hainan", ["Haikou", "Sanya"]], ["chongqing", "Chongqing", ["Chongqing"]], ["sichuan", "Sichuan", ["Chengdu", "Mianyang"]], ["guizhou", "Guizhou", ["Guiyang"]], ["yunnan", "Yunnan", ["Kunming", "Dali", "Lijiang"]],
+        ["tibet", "Tibet", ["Lhasa"]], ["shaanxi", "Shaanxi", ["Xi'an", "Xianyang"]], ["gansu", "Gansu", ["Lanzhou", "Dunhuang"]], ["qinghai", "Qinghai", ["Xining"]], ["ningxia", "Ningxia", ["Yinchuan"]],
+        ["xinjiang", "Xinjiang", ["Urumqi", "Kashgar"]], ["hong-kong", "Hong Kong", ["Hong Kong"]], ["macau", "Macau", ["Macau"]], ["taiwan", "Taiwan", ["Taipei", "Kaohsiung"]]
+      ] },
+      { country: "us", countryName: "United States", provinces: [
+        ["alabama", "Alabama", ["Montgomery", "Birmingham"]], ["alaska", "Alaska", ["Juneau", "Anchorage"]], ["arizona", "Arizona", ["Phoenix", "Tucson"]], ["arkansas", "Arkansas", ["Little Rock"]], ["california", "California", ["Sacramento", "Los Angeles", "San Francisco", "San Diego"]],
+        ["colorado", "Colorado", ["Denver", "Colorado Springs"]], ["connecticut", "Connecticut", ["Hartford", "Bridgeport"]], ["delaware", "Delaware", ["Dover", "Wilmington"]], ["florida", "Florida", ["Tallahassee", "Miami", "Orlando", "Tampa"]], ["georgia", "Georgia", ["Atlanta", "Savannah"]],
+        ["hawaii", "Hawaii", ["Honolulu"]], ["idaho", "Idaho", ["Boise"]], ["illinois", "Illinois", ["Springfield", "Chicago"]], ["indiana", "Indiana", ["Indianapolis"]], ["iowa", "Iowa", ["Des Moines"]],
+        ["kansas", "Kansas", ["Topeka", "Wichita"]], ["kentucky", "Kentucky", ["Frankfort", "Louisville"]], ["louisiana", "Louisiana", ["Baton Rouge", "New Orleans"]], ["maine", "Maine", ["Augusta", "Portland"]], ["maryland", "Maryland", ["Annapolis", "Baltimore"]],
+        ["massachusetts", "Massachusetts", ["Boston"]], ["michigan", "Michigan", ["Lansing", "Detroit"]], ["minnesota", "Minnesota", ["Saint Paul", "Minneapolis"]], ["mississippi", "Mississippi", ["Jackson"]], ["missouri", "Missouri", ["Jefferson City", "Kansas City", "St. Louis"]],
+        ["montana", "Montana", ["Helena", "Billings"]], ["nebraska", "Nebraska", ["Lincoln", "Omaha"]], ["nevada", "Nevada", ["Carson City", "Las Vegas"]], ["new-hampshire", "New Hampshire", ["Concord", "Manchester"]], ["new-jersey", "New Jersey", ["Trenton", "Newark"]],
+        ["new-mexico", "New Mexico", ["Santa Fe", "Albuquerque"]], ["new-york", "New York", ["Albany", "New York City", "Buffalo"]], ["north-carolina", "North Carolina", ["Raleigh", "Charlotte"]], ["north-dakota", "North Dakota", ["Bismarck", "Fargo"]], ["ohio", "Ohio", ["Columbus", "Cleveland"]],
+        ["oklahoma", "Oklahoma", ["Oklahoma City", "Tulsa"]], ["oregon", "Oregon", ["Salem", "Portland"]], ["pennsylvania", "Pennsylvania", ["Harrisburg", "Philadelphia", "Pittsburgh"]], ["rhode-island", "Rhode Island", ["Providence"]], ["south-carolina", "South Carolina", ["Columbia", "Charleston"]],
+        ["south-dakota", "South Dakota", ["Pierre", "Sioux Falls"]], ["tennessee", "Tennessee", ["Nashville", "Memphis"]], ["texas", "Texas", ["Austin", "Houston", "Dallas", "San Antonio"]], ["utah", "Utah", ["Salt Lake City"]], ["vermont", "Vermont", ["Montpelier", "Burlington"]],
+        ["virginia", "Virginia", ["Richmond", "Virginia Beach"]], ["washington", "Washington", ["Olympia", "Seattle"]], ["west-virginia", "West Virginia", ["Charleston"]], ["wisconsin", "Wisconsin", ["Madison", "Milwaukee"]], ["wyoming", "Wyoming", ["Cheyenne"]],
+        ["district-of-columbia", "District of Columbia", ["Washington"]]
+      ] }
+    ];
+    const LOCATION_DATA = REGION_SOURCE.flatMap((country) => country.provinces.flatMap(([province, provinceName, cities]) => cities.map((cityName) => ({
+      country: country.country, countryName: country.countryName, province, provinceName, city: slug(cityName), cityName,
+      lat: DEFAULT_CITY_COORDS[slug(cityName)]?.[0] ?? null,
+      lng: DEFAULT_CITY_COORDS[slug(cityName)]?.[1] ?? null
+    }))));
+    const boundsToSoftPolygon = (bounds) => {
+      const south = bounds[0][0], west = bounds[0][1], north = bounds[1][0], east = bounds[1][1];
+      const latPad = (north - south) * 0.16;
+      const lngPad = (east - west) * 0.14;
+      return [[south + latPad, west], [south, west + lngPad * 1.8], [south + latPad * 0.7, east - lngPad], [south + latPad * 1.9, east], [north - latPad * 0.9, east - lngPad * 0.35], [north, east - lngPad * 1.8], [north - latPad * 0.8, west + lngPad * 0.8], [south + latPad * 1.4, west + lngPad * 0.25]];
+    };
+    const areaToLatLngs = (area) => area.polygon || (area.bounds ? boundsToSoftPolygon(area.bounds) : []);
+    const recordAreaIds = (record) => record.region ? Object.values(record.region) : [];
+    let customRecords = readJson(STORAGE_KEYS.customRecords, []);
+    let customRoutes = readJson(STORAGE_KEYS.customRoutes, []);
+    let hiddenRecordIds = new Set(readJson(STORAGE_KEYS.hiddenRecords, []));
+    let deletedRecordIds = new Set(readJson(STORAGE_KEYS.deletedRecords, []));
+    let boundaryCache = readJson(STORAGE_KEYS.boundaryCache, {});
+
+    function readJson(key, fallback) {
+      try {
+        return JSON.parse(localStorage.getItem(key)) || fallback;
+      } catch (error) {
+        return fallback;
+      }
+    }
+
+    function persistRecords() {
+      localStorage.setItem(STORAGE_KEYS.customRecords, JSON.stringify(customRecords));
+      localStorage.setItem(STORAGE_KEYS.customRoutes, JSON.stringify(customRoutes));
+      localStorage.setItem(STORAGE_KEYS.hiddenRecords, JSON.stringify([...hiddenRecordIds]));
+      localStorage.setItem(STORAGE_KEYS.deletedRecords, JSON.stringify([...deletedRecordIds]));
+    }
+
+    function persistBoundaryCache() {
+      localStorage.setItem(STORAGE_KEYS.boundaryCache, JSON.stringify(boundaryCache));
+    }
+
+    function allRecords() {
+      return SEEN_DATA.records.concat(customRecords).filter((record) => !deletedRecordIds.has(record.id));
+    }
+
+    function allRoutes() {
+      return SEEN_DATA.routes.concat(customRoutes);
+    }
+
+    function getRecordImages(record) {
+      return (record.images && record.images.length ? record.images : [record.image]).filter(Boolean);
+    }
+
+    function firstRecordImage(record) {
+      return getRecordImages(record)[0] || "../static/assets/img/background.jpeg";
+    }
+
+    function activeRecords() {
+      return allRecords().filter((record) => !hiddenRecordIds.has(record.id));
+    }
+
+    function recordsForArea(areaId) {
+      return activeRecords().filter((record) => recordAreaIds(record).includes(areaId));
+    }
+
+    function recordsForRoute(routeId) {
+      return activeRecords().filter((record) => record.routeId === routeId);
+    }
+
+    function routeForRecord(record) {
+      return record?.routeId ? allRoutes().find((route) => route.id === record.routeId) : null;
+    }
+
+    function orderedRecordsForRoute(routeId) {
+      const route = allRoutes().find((item) => item.id === routeId);
+      const records = recordsForRoute(routeId);
+      if (!route) return records;
+      const pointRecordIds = (route.points || []).map((point) => point.recordId).filter(Boolean);
+      return records.slice().sort((a, b) => {
+        const aPoint = pointRecordIds.indexOf(a.id);
+        const bPoint = pointRecordIds.indexOf(b.id);
+        if (aPoint !== -1 || bPoint !== -1) return (aPoint === -1 ? 999 : aPoint) - (bPoint === -1 ? 999 : bPoint);
+        return (a.segmentIndex ?? 999) - (b.segmentIndex ?? 999) || String(a.date || "").localeCompare(String(b.date || ""));
+      });
+    }
+
+    function getMetrics() {
+      const records = activeRecords();
+      const cities = new Set(records.flatMap((record) => record.region?.city ? [record.region.city] : []));
+      const routeDistance = allRoutes().reduce((sum, route) => sum + route.points.reduce((routeSum, point, index, points) => {
+        if (!index) return routeSum;
+        return routeSum + distanceKm(points[index - 1], point);
+      }, 0), 0) * 1.08;
+      return [
+        { label: "走过的路", value: Math.round(routeDistance).toLocaleString(), hint: "km / routes" },
+        { label: "所见的景", value: records.length.toString(), hint: "records" },
+        { label: "城市记录", value: cities.size.toString(), hint: "cities" },
+        { label: "旅途随笔", value: records.filter((record) => record.type === "note").length.toString(), hint: "notes" }
+      ];
+    }
+
+    function distanceKm(a, b) {
+      const rad = Math.PI / 180;
+      const dLat = (b.lat - a.lat) * rad;
+      const dLng = (b.lng - a.lng) * rad;
+      const lat1 = a.lat * rad;
+      const lat2 = b.lat * rad;
+      const h = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng / 2) ** 2;
+      return 6371 * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
+    }
+
+    function renderDashboard() {
+      byId("dashboard-grid").innerHTML = getMetrics().map((item) => `<div class="metric"><strong>${item.value}</strong><span>${item.label}<br>${item.hint}</span></div>`).join("");
+    }
+
+    function renderKeywords() {
+      const activeTags = [...new Set(SEEN_DATA.tags.concat(activeRecords().flatMap((record) => record.tags)))];
+      byId("keyword-track").innerHTML = activeTags.concat(activeTags).map((tag) => `<button class="seen-tag ${state.activeTag === tag ? "is-active" : ""}" type="button" data-tag="${tag}">#${tag}</button>`).join("");
+      byId("keyword-track").querySelectorAll("[data-tag]").forEach((button) => button.addEventListener("click", () => { state.activeTag = state.activeTag === button.dataset.tag ? null : button.dataset.tag; state.visibleRecords = 10; renderAll(); }));
+    }
+
+    function renderFeature() {
+      const records = activeRecords();
+      const record = records[state.featureIndex % Math.max(records.length, 1)];
+      byId("feature-count").textContent = `${records.length} records`;
+      if (!record) return;
+      byId("feature-photo").querySelector("img").src = firstRecordImage(record);
+      byId("feature-photo").querySelector("img").alt = record.title;
+      byId("feature-title").textContent = record.title;
+      byId("feature-note").textContent = record.note || `${formatRecordPlace(record)} / ${record.tags.join(" · ")}`;
+      byId("feature-tags").innerHTML = record.tags.map((tag) => `<button class="seen-tag" type="button" data-tag="${tag}">#${tag}</button>`).join("");
+      byId("feature-tags").querySelectorAll("[data-tag]").forEach((button) => button.addEventListener("click", () => { state.activeTag = button.dataset.tag; state.visibleRecords = 10; renderAll(); }));
+    }
+
+    // All filters meet here so tags, region clicks, route clicks, and future search inputs stay composable.
+    function filteredRecords() {
+      return activeRecords().filter((record) => {
+        const tagMatch = !state.activeTag || record.tags.includes(state.activeTag);
+        const areaMatch = !state.activeArea || recordAreaIds(record).includes(state.activeArea);
+        const routeMatch = !state.activeRoute || record.routeId === state.activeRoute;
+        return tagMatch && areaMatch && routeMatch;
+      });
+    }
+
+    function renderFilterBar() {
+      const parts = [];
+      if (state.activeTag) parts.push(`#${state.activeTag}`);
+      if (state.activeArea) parts.push(`区域：${state.activeArea}`);
+      if (state.activeRoute) parts.push(`路线：${allRoutes().find((route) => route.id === state.activeRoute)?.name || state.activeRoute}`);
+      byId("filter-title").textContent = parts.length ? parts.join(" / ") : "全部记录";
+      byId("filter-detail").textContent = `当前显示 ${filteredRecords().length} / ${activeRecords().length} 条记录。`;
+    }
+
+    function renderPosts() {
+      const records = filteredRecords();
+      const visible = records.slice(0, state.visibleRecords);
+      byId("load-more-wrap")?.remove();
+      byId("record-strip").innerHTML = visible.map((record) => {
+        const tags = record.tags.map((tag) => `<button class="seen-tag" type="button" data-tag="${tag}">#${tag}</button>`).join("");
+        const place = formatRecordPlace(record);
+        if (record.type === "note") return `<article class="post-card with-note" role="button" tabindex="0" data-open-record="${record.id}"><div class="post-photo"><img src="${firstRecordImage(record)}" alt="${record.title}"></div><div class="post-body"><div class="post-meta">${record.date} / ${place}</div><h3>${record.title}</h3><p class="post-note">${record.note}</p><div class="post-tags">${tags}</div></div></article>`;
+        return `<article class="post-card" role="button" tabindex="0" data-open-record="${record.id}"><div class="post-photo"><img src="${firstRecordImage(record)}" alt="${record.title}"></div><div class="post-body"><div class="post-meta">${record.date} / ${place}</div><h3>${record.title}</h3><div class="post-tags">${tags}</div></div></article>`;
+      }).join("") || `<article class="post-card seen-card"><h3>没有匹配记录</h3><p class="post-note">换一个标签、区域或路线即可恢复展示。</p></article>`;
+      if (records.length > visible.length) {
+        byId("record-strip").insertAdjacentHTML("afterend", `<div class="load-more-wrap" id="load-more-wrap"><button class="seen-action" id="load-more-records" type="button">继续展开 10 条</button></div>`);
+      }
+      byId("record-strip").querySelectorAll("[data-tag]").forEach((button) => button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        state.activeTag = state.activeTag === button.dataset.tag ? null : button.dataset.tag;
+        state.visibleRecords = 10;
+        renderAll();
+      }));
+      byId("record-strip").querySelectorAll("[data-open-record]").forEach((card) => {
+        card.addEventListener("click", () => openRecordDetail(card.dataset.openRecord, records, "全部记录"));
+        card.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openRecordDetail(card.dataset.openRecord, records, "全部记录");
+          }
+        });
+      });
+      byId("load-more-records")?.addEventListener("click", () => {
+        state.visibleRecords += 10;
+        renderPosts();
+      });
+    }
+
+    function maybeAutoLoadRecords() {
+      const trigger = byId("load-more-wrap");
+      if (!trigger) return;
+      const rect = trigger.getBoundingClientRect();
+      if (rect.top < window.innerHeight + 120) {
+        state.visibleRecords += 10;
+        renderPosts();
+      }
+    }
+
+    function openRecordDetail(recordId, pool = filteredRecords(), poolLabel = "") {
+      const record = allRecords().find((item) => item.id === recordId);
+      if (!record) return;
+      mapState.detailRecordId = recordId;
+      state.detailPool = (pool && pool.length ? pool : [record]).filter(Boolean);
+      if (!state.detailPool.some((item) => item.id === recordId)) state.detailPool.unshift(record);
+      state.detailPoolLabel = poolLabel;
+      state.detailImageIndex = 0;
+      renderDetailImage(record);
+      byId("detail-id").textContent = `ID: ${record.id}`;
+      byId("detail-meta").textContent = `${record.date} / ${formatRecordPlace(record)}`;
+      byId("detail-title").textContent = record.title;
+      byId("detail-note").textContent = record.note || "这是一条纯图片记录。";
+      byId("detail-tags").innerHTML = record.tags.map((tag) => `<button class="seen-tag" type="button" data-detail-tag="${tag}">#${tag}</button>`).join("");
+      byId("detail-tags").querySelectorAll("[data-detail-tag]").forEach((button) => button.addEventListener("click", () => {
+        state.activeTag = button.dataset.detailTag;
+        closeDialog("record-detail-dialog");
+        renderAll();
+      }));
+      renderDetailRecordSwitch();
+      renderRouteDock(record);
+      const dialog = byId("record-detail-dialog");
+      if (!dialog.open) dialog.showModal();
+    }
+
+    function switchDetailRecord(direction) {
+      const pool = state.detailPool.length ? state.detailPool : filteredRecords();
+      const currentIndex = pool.findIndex((record) => record.id === mapState.detailRecordId);
+      const nextIndex = currentIndex + direction;
+      if (nextIndex < 0 || nextIndex >= pool.length) return;
+      openRecordDetail(pool[nextIndex].id, pool, state.detailPoolLabel);
+    }
+
+    function renderDetailRecordSwitch() {
+      const pool = state.detailPool || [];
+      const currentIndex = pool.findIndex((record) => record.id === mapState.detailRecordId);
+      byId("prev-detail-record").disabled = currentIndex <= 0;
+      byId("next-detail-record").disabled = currentIndex < 0 || currentIndex >= pool.length - 1;
+    }
+
+    function renderRouteDock(record) {
+      const route = routeForRecord(record);
+      const dock = byId("route-dock");
+      if (!route) {
+        dock.classList.remove("is-visible");
+        dock.innerHTML = "";
+        return;
+      }
+      const routeRecords = orderedRecordsForRoute(route.id);
+      const activeIndex = Math.max(0, routeRecords.findIndex((item) => item.id === record.id));
+      const total = routeRecords.length;
+      dock.innerHTML = `
+        <div class="route-dock-info">
+          <div><strong>${escapeHtml(route.name)}</strong><span>Route ID · ${escapeHtml(route.id)}</span></div>
+          <div class="route-station-count">${activeIndex + 1} / ${total}<span>第 ${activeIndex + 1} 站 · 共 ${total} 站</span></div>
+        </div>
+        <div class="route-viewport" data-route-viewport>
+          <div class="route-track">
+            ${routeRecords.map((item, index) => `<div class="route-node-cell ${index === 0 || index === total - 1 ? "is-edge" : ""}"><button class="route-node ${item.id === record.id ? "is-active" : ""}" type="button" data-route-record="${item.id}" aria-label="${escapeHtml(item.title)}"></button></div>`).join("")}
+          </div>
+        </div>
+      `;
+      dock.style.setProperty("--active-index", activeIndex);
+      const step = window.matchMedia("(max-width: 720px)").matches ? 58 : 78;
+      dock.style.setProperty("--route-width", `${Math.max(total, 1) * step}px`);
+      dock.classList.add("is-visible");
+      requestAnimationFrame(() => {
+        const viewport = dock.querySelector("[data-route-viewport]");
+        if (viewport) dock.style.setProperty("--route-viewport-width", `${viewport.clientWidth}px`);
+      });
+      dock.querySelectorAll("[data-route-record]").forEach((button) => button.addEventListener("click", () => openRecordDetail(button.dataset.routeRecord, routeRecords, route.name)));
+      bindRouteDockDrag(dock, routeRecords, activeIndex);
+    }
+
+    function bindRouteDockDrag(dock, routeRecords, activeIndex) {
+      const viewport = dock.querySelector("[data-route-viewport]");
+      let startX = null;
+      viewport.addEventListener("pointerdown", (event) => {
+        startX = event.clientX;
+      });
+      viewport.addEventListener("pointerup", (event) => {
+        if (startX === null) return;
+        const delta = event.clientX - startX;
+        startX = null;
+        if (Math.abs(delta) < 42) return;
+        const nextIndex = activeIndex + (delta < 0 ? 1 : -1);
+        if (nextIndex < 0 || nextIndex >= routeRecords.length) return;
+        openRecordDetail(routeRecords[nextIndex].id, routeRecords, state.detailPoolLabel);
+      });
+    }
+
+    function renderDetailImage(record = allRecords().find((item) => item.id === mapState.detailRecordId)) {
+      if (!record) return;
+      const images = getRecordImages(record);
+      state.detailImageIndex = (state.detailImageIndex + images.length) % images.length;
+      byId("detail-image").src = images[state.detailImageIndex];
+      byId("detail-image").alt = record.title;
+      byId("detail-image-count").textContent = `${state.detailImageIndex + 1} / ${images.length}`;
+      byId("prev-detail-image").hidden = images.length < 2;
+      byId("next-detail-image").hidden = images.length < 2;
+    }
+
+    function renderHiddenRecords() {
+      const hidden = allRecords().filter((record) => hiddenRecordIds.has(record.id));
+      byId("hidden-records").innerHTML = hidden.length ? hidden.map((record) => `
+        <div class="drawer-item">
+          <div><strong>${record.title}</strong><span>${record.date} / ${formatRecordPlace(record)}</span></div>
+          <div class="form-actions">
+            <button class="seen-action" type="button" data-restore-record="${record.id}">恢复</button>
+            <button class="seen-action danger" type="button" data-delete-hidden-record="${record.id}">永久删除</button>
+          </div>
+        </div>
+      `).join("") : `<div class="drawer-item"><div><strong>暂无隐藏记录</strong><span>隐藏后的记录会出现在这里，可恢复或永久删除。</span></div></div>`;
+      byId("hidden-records").querySelectorAll("[data-restore-record]").forEach((button) => button.addEventListener("click", () => restoreRecord(button.dataset.restoreRecord)));
+      byId("hidden-records").querySelectorAll("[data-delete-hidden-record]").forEach((button) => button.addEventListener("click", () => requestDeleteRecord(button.dataset.deleteHiddenRecord)));
+    }
+
+    function searchableTextForRecord(record) {
+      return [record.id, record.title, formatRecordPlace(record), record.place, record.date, record.note, record.routeId, ...(record.tags || [])].filter(Boolean).join(" ");
+    }
+
+    function searchableTextForRoute(route) {
+      const linked = recordsForRoute(route.id).map((record) => `${record.id} ${record.title}`).join(" ");
+      const points = (route.points || []).map((point) => `${point.name} ${point.recordId || ""}`).join(" ");
+      return [route.id, route.name, route.tripMode, linked, points].filter(Boolean).join(" ");
+    }
+
+    function highlightText(value, query) {
+      const text = escapeHtml(value || "");
+      const q = String(query || "").trim();
+      if (!q) return text;
+      const escaped = q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      return text.replace(new RegExp(`(${escaped})`, "ig"), "<mark>$1</mark>");
+    }
+
+    function buildSearchResults() {
+      const query = state.searchQuery.trim().toLowerCase();
+      if (!query) return [];
+      if (state.searchScope === "routes") {
+        return allRoutes().filter((route) => searchableTextForRoute(route).toLowerCase().includes(query)).map((route) => ({ type: "route", route }));
+      }
+      return activeRecords().filter((record) => searchableTextForRecord(record).toLowerCase().includes(query)).map((record) => ({ type: "record", record }));
+    }
+
+    function renderSearch() {
+      const search = byId("floating-search");
+      search.classList.toggle("is-open", state.searchOpen);
+      document.body.classList.toggle("search-open", state.searchOpen);
+      state.searchResults = buildSearchResults();
+      if (state.searchIndex >= state.searchResults.length) state.searchIndex = Math.max(0, state.searchResults.length - 1);
+      const card = byId("search-card");
+      const counter = byId("search-result-count");
+      if (!state.searchQuery.trim()) {
+        card.innerHTML = `<h3>搜索所见</h3><p class="search-hit">输入记录 ID、路线 ID、标题、地点或标签。</p>`;
+        counter.textContent = "输入关键词开始搜索";
+        return;
+      }
+      if (!state.searchResults.length) {
+        card.innerHTML = `<h3>没有匹配结果</h3><p class="search-hit">换一个关键词或切换记录 / 路线范围。</p>`;
+        counter.textContent = "0 / 0";
+        return;
+      }
+      const result = state.searchResults[state.searchIndex];
+      if (result.type === "record") {
+        const record = result.record;
+        const route = routeForRecord(record);
+        card.innerHTML = `<div class="post-meta">记录 · ${highlightText(record.id, state.searchQuery)}</div><h3>${highlightText(record.title, state.searchQuery)}</h3><p class="search-hit">${highlightText(`${record.date} / ${formatRecordPlace(record)} / ${(record.tags || []).join(" · ")}`, state.searchQuery)}</p>${route ? `<p class="search-hit">路线 ID：${highlightText(route.id, state.searchQuery)} · ${highlightText(route.name, state.searchQuery)}</p>` : ""}`;
+      } else {
+        const route = result.route;
+        const related = recordsForRoute(route.id);
+        card.innerHTML = `<div class="post-meta">路线 · ${highlightText(route.id, state.searchQuery)}</div><h3>${highlightText(route.name, state.searchQuery)}</h3><p class="search-hit">${related.length} 条相关记录 · ${highlightText(related.map((record) => record.title).join(" / "), state.searchQuery)}</p>`;
+      }
+      counter.textContent = `${state.searchIndex + 1} / ${state.searchResults.length}`;
+    }
+
+    function openSearch() {
+      state.searchOpen = true;
+      renderSearch();
+      setTimeout(() => byId("global-search-input").focus(), 0);
+    }
+
+    function closeSearch() {
+      state.searchOpen = false;
+      renderSearch();
+    }
+
+    function moveSearchResult(direction) {
+      if (!state.searchResults.length) return;
+      const next = state.searchIndex + direction;
+      if (next < 0 || next >= state.searchResults.length) {
+        byId("search-result-count").textContent = direction < 0 ? "已经是第一个结果" : "已经是最后一个结果";
+        return;
+      }
+      state.searchIndex = next;
+      renderSearch();
+    }
+
+    function openCurrentSearchResult() {
+      const result = state.searchResults[state.searchIndex];
+      if (!result) return;
+      if (result.type === "record") {
+        openRecordDetail(result.record.id, state.searchResults.filter((item) => item.type === "record").map((item) => item.record), "搜索结果");
+        closeSearch();
+        return;
+      }
+      state.activeRoute = result.route.id;
+      state.visibleRecords = 10;
+      closeSearch();
+      renderAll();
+      const routeRecords = orderedRecordsForRoute(result.route.id);
+      if (routeRecords[0]) openRecordDetail(routeRecords[0].id, routeRecords, result.route.name);
+    }
+
+    function hideRecord(recordId) {
+      hiddenRecordIds.add(recordId);
+      persistRecords();
+      renderAll();
+    }
+
+    function restoreRecord(recordId) {
+      hiddenRecordIds.delete(recordId);
+      persistRecords();
+      renderAll();
+    }
+
+    function requestDeleteRecord(recordId) {
+      const record = allRecords().find((item) => item.id === recordId);
+      mapState.pendingDeleteId = recordId;
+      byId("delete-dialog-copy").textContent = record
+        ? `即将永久删除「${record.title}」。自建记录会从 localStorage 移除；内置示例会写入本浏览器删除标记。`
+        : "即将永久删除这条记录。";
+      const dialog = byId("delete-dialog");
+      if (!dialog.open) dialog.showModal();
+    }
+
+    function closeDialog(id) {
+      const dialog = byId(id);
+      if (dialog.open) dialog.close();
+      if (id === "record-detail-dialog") byId("route-dock").classList.remove("is-visible");
+    }
+
+    function permanentlyDeleteRecord(recordId) {
+      customRecords = customRecords.filter((record) => record.id !== recordId);
+      hiddenRecordIds.delete(recordId);
+      deletedRecordIds.add(recordId);
+      persistRecords();
+      renderAll();
+    }
+
+    function generateRecordId(title = "") {
+      const slug = String(title || "seen").toLowerCase().trim().replace(/[^a-z0-9\u4e00-\u9fa5]+/g, "-").replace(/^-|-$/g, "").slice(0, 28) || "seen";
+      return `${Date.now()}-${slug}`;
+    }
+
+    function ensureUniqueId(id) {
+      return !allRecords().some((record) => record.id === id) && !allRoutes().some((route) => route.id === id);
+    }
+
+    function matchBoundaryFeature(feature, area) {
+      const properties = feature.properties || {};
+      return [feature.id, properties.id, properties.seen_id, properties.slug, properties.name, properties.NAME, properties.Name]
+        .map((value) => String(value || "").toLowerCase())
+        .includes(String(area.id).toLowerCase()) || String(properties.name || properties.NAME || "").toLowerCase() === area.name.toLowerCase();
+    }
+
+    function normalizeBoundaryGeoJson(data, area) {
+      if (!data) return null;
+      if (data.type === "FeatureCollection") return data;
+      if (data.type === "Feature") return { type: "FeatureCollection", features: [data] };
+      if (data.type === "Polygon" || data.type === "MultiPolygon") {
+        return {
+          type: "FeatureCollection",
+          features: [{ type: "Feature", id: area.id, properties: { id: area.id, seen_id: area.id, name: area.name }, geometry: data }]
+        };
+      }
+      return null;
+    }
+
+    function mergeBoundaryFeature(level, area, geoJson) {
+      const normalized = normalizeBoundaryGeoJson(geoJson, area);
+      if (!normalized?.features?.length) return;
+      mapState.boundaryGeoJson[level] = mapState.boundaryGeoJson[level] || { type: "FeatureCollection", features: [] };
+      const features = normalized.features.map((feature) => ({
+        ...feature,
+        id: feature.id || area.id,
+        properties: { ...(feature.properties || {}), id: area.id, seen_id: area.id, name: area.name }
+      }));
+      mapState.boundaryGeoJson[level].features = mapState.boundaryGeoJson[level].features.filter((feature) => !matchBoundaryFeature(feature, area)).concat(features);
+    }
+
+    async function fetchBoundaryForArea(level, area) {
+      const cacheKey = `${level}:${area.id}`;
+      if (boundaryCache[cacheKey]) return boundaryCache[cacheKey];
+
+      const urls = [];
+      if (area.osmRelationId) urls.push(`https://polygons.openstreetmap.fr/get_geojson.py?id=${area.osmRelationId}&params=0`);
+      if (area.boundaryQuery) urls.push(`https://nominatim.openstreetmap.org/search?format=geojson&polygon_geojson=1&limit=1&q=${encodeURIComponent(area.boundaryQuery)}`);
+
+      for (const url of urls) {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) continue;
+          const geoJson = normalizeBoundaryGeoJson(await response.json(), area);
+          if (!geoJson?.features?.length) continue;
+          const serialized = JSON.stringify(geoJson);
+          if (serialized.length < 850000) {
+            boundaryCache[cacheKey] = geoJson;
+            persistBoundaryCache();
+          }
+          return geoJson;
+        } catch (error) {
+          console.info(`Seen boundary provider skipped for ${area.id}: ${url}`);
+        }
+      }
+      return null;
+    }
+
+    async function loadBoundaryGeoJson(level = state.zoom) {
+      mapState.boundaryGeoJson[level] = mapState.boundaryGeoJson[level] || { type: "FeatureCollection", features: [] };
+      try {
+        const response = await fetch(boundarySources[level]);
+        if (response.ok) mapState.boundaryGeoJson[level] = await response.json();
+      } catch (error) {
+        console.info(`Seen local boundary file not loaded for ${level}; remote provider/fallback will be used.`);
+      }
+
+      await Promise.all(SEEN_DATA.boundaries[level].map(async (area) => {
+        if (mapState.boundaryGeoJson[level]?.features?.some((feature) => matchBoundaryFeature(feature, area))) return;
+        const cacheKey = `${level}:${area.id}`;
+        if (boundaryCache[cacheKey]) {
+          mergeBoundaryFeature(level, area, boundaryCache[cacheKey]);
+          return;
+        }
+        const geoJson = await fetchBoundaryForArea(level, area);
+        if (geoJson) mergeBoundaryFeature(level, area, geoJson);
+      }));
+    }
+
+    function boundaryStyle(area, related) {
+      return {
+        className: `seen-boundary ${state.activeArea === area.id ? "seen-boundary-active" : ""}`,
+        color: state.activeArea === area.id ? "#e3b46f" : "#7dd3fc",
+        weight: state.activeArea === area.id ? 2.8 : 1.35,
+        fillColor: related.length ? "#7dd3fc" : "#ffffff",
+        fillOpacity: related.length ? 0.13 : 0.025,
+        opacity: related.length ? 0.82 : 0.32
+      };
+    }
+
+    function createBoundaryLayer(area, related) {
+      const geoJson = mapState.boundaryGeoJson[state.zoom];
+      const matchingFeatures = geoJson?.features?.filter((feature) => matchBoundaryFeature(feature, area)) || [];
+      let layer = matchingFeatures.length
+        ? L.geoJSON({ type: "FeatureCollection", features: matchingFeatures }, { style: boundaryStyle(area, related) })
+        : L.polygon(areaToLatLngs(area), boundaryStyle(area, related));
+
+      if (area.id === "cn") {
+        const taiwanLayer = L.polygon(CHINA_TAIWAN_POLYGON, boundaryStyle(area, related));
+        layer = L.featureGroup([layer, taiwanLayer]);
+      }
+
+      layer.bindTooltip(`<strong>${area.name}</strong><br>${related.length} 条区域记录`, { className: "seen-tooltip" });
+      layer.on("click", () => {
+          state.activeArea = state.activeArea === area.id ? null : area.id;
+          state.activeRoute = null;
+          state.visibleRecords = 10;
+          renderAll();
+        mapState.map.fitBounds(layer.getBounds(), { padding: [40, 40], maxZoom: zoomForLevel(state.zoom) });
+      });
+      return layer;
+    }
+
+    function routeWeights(isActive) {
+      const zoom = mapState.map?.getZoom() || zoomForLevel(state.zoom);
+      const zoomScale = zoom < 5 ? 0.28 : zoom < 7 ? 0.42 : zoom < 10 ? 0.7 : 1;
+      return {
+        case: Math.max(2, Math.round((isActive ? 11 : 8) * zoomScale)),
+        core: Math.max(1.5, (isActive ? 4.5 : 3.5) * zoomScale)
+      };
+    }
+
+    function initMap() {
+      if (typeof L === "undefined") {
+        byId("map-fallback").classList.add("is-visible");
+        return;
+      }
+      mapState.map = L.map("seen-map", { zoomControl: true, scrollWheelZoom: true, worldCopyJump: true }).setView([23.4, 113.6], 4);
+      setMapTileLayer();
+      mapState.boundaryLayer = L.layerGroup().addTo(mapState.map);
+      mapState.map.on("zoomend", renderMap);
+      renderMap();
+      loadBoundaryGeoJson().finally(() => renderMap());
+    }
+
+    function currentTheme() {
+      return document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+    }
+
+    function tileConfig() {
+      if (currentTheme() === "dark") {
+        return {
+          url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        };
+      }
+      return {
+        url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      };
+    }
+
+    function setMapTileLayer() {
+      const config = tileConfig();
+      if (mapState.map) {
+        if (mapState.tileLayer) mapState.tileLayer.remove();
+        mapState.tileLayer = L.tileLayer(config.url, { maxZoom: 19, attribution: config.attribution }).addTo(mapState.map);
+      }
+      if (mapState.pickerMap) {
+        if (mapState.pickerTileLayer) mapState.pickerTileLayer.remove();
+        mapState.pickerTileLayer = L.tileLayer(config.url, { maxZoom: 19, attribution: config.attribution }).addTo(mapState.pickerMap);
+      }
+    }
+
+    function initRecordPickerMap() {
+      if (typeof L === "undefined" || mapState.pickerMap) return;
+      mapState.pickerMap = L.map("record-picker-map", { zoomControl: true, scrollWheelZoom: true }).setView([23.1291, 113.2644], 5);
+      setMapTileLayer();
+      mapState.pickerMap.on("click", (event) => {
+        setPickerLocation(event.latlng.lat, event.latlng.lng);
+      });
+    }
+
+    function setPickerLocation(lat, lng) {
+      const form = byId("record-form");
+      form.elements.lat.value = Number(lat).toFixed(6);
+      form.elements.lng.value = Number(lng).toFixed(6);
+      if (!mapState.pickerMap) return;
+      const point = [Number(lat), Number(lng)];
+      mapState.pickerMap.setView(point, Math.max(mapState.pickerMap.getZoom(), 9));
+      if (!mapState.pickerMarker) {
+        mapState.pickerMarker = L.marker(point, {
+          icon: L.divIcon({ className: "", html: '<span class="record-node"></span>', iconSize: [18, 18], iconAnchor: [9, 9] })
+        }).addTo(mapState.pickerMap);
+      } else {
+        mapState.pickerMarker.setLatLng(point);
+      }
+    }
+
+    // Map renderer owns only visual interaction. Counts and filtering still come from normalized records above.
+    function renderMap() {
+      if (!mapState.map) return;
+      mapState.boundaryLayer.clearLayers();
+      mapState.routeLayers.forEach((layer) => layer.remove());
+      mapState.pointLayers.forEach((layer) => layer.remove());
+      mapState.recordMarkers.forEach((layer) => layer.remove());
+      mapState.routeLayers = [];
+      mapState.pointLayers = [];
+      mapState.recordMarkers = [];
+
+      if (state.layerFilter === "all") {
+        SEEN_DATA.boundaries[state.zoom].forEach((area) => {
+          const related = recordsForArea(area.id);
+          createBoundaryLayer(area, related).addTo(mapState.boundaryLayer);
+        });
+      }
+
+      if (state.layerFilter !== "points") allRoutes().forEach((route) => {
+        const latLngs = route.points.map((point) => [point.lat, point.lng]);
+        const routeRecords = recordsForRoute(route.id);
+        const isActive = state.activeRoute === route.id;
+        const weights = routeWeights(isActive);
+        const routeCase = L.polyline(latLngs, { className: "seen-route-case", color: "#06111a", weight: weights.case, opacity: 0.52 }).addTo(mapState.map);
+        const routeCore = L.polyline(latLngs, { className: `seen-route-core ${isActive ? "seen-route-active" : ""}`, color: isActive ? "#e89aa8" : "#7dd3fc", weight: weights.core, opacity: 0.95 }).bindTooltip(`<strong>${route.name}</strong><br>${routeRecords.length} 条路线记录 / ${route.points.length} 个坐标点`, { className: "seen-tooltip" }).addTo(mapState.map);
+        routeCore.on("click", () => {
+          state.activeRoute = state.activeRoute === route.id ? null : route.id;
+          state.activeArea = null;
+          state.visibleRecords = 10;
+          renderAll();
+          mapState.map.fitBounds(routeCore.getBounds(), { padding: [46, 46] });
+        });
+        mapState.routeLayers.push(routeCase, routeCore);
+        if (state.layerFilter === "routes") route.points.forEach((point) => {
+          const node = L.marker([point.lat, point.lng], {
+            icon: L.divIcon({ className: "", html: `<span class="waypoint-node ${isActive ? "is-active" : ""}"></span>`, iconSize: [14, 14], iconAnchor: [7, 7] })
+          }).bindTooltip(`<strong>${point.name}</strong><br>${point.at}`, { className: "seen-tooltip" }).addTo(mapState.map);
+          node.on("click", () => {
+            state.activeRoute = state.activeRoute === route.id ? null : route.id;
+            state.activeArea = null;
+            state.visibleRecords = 10;
+            renderAll();
+          });
+          mapState.pointLayers.push(node);
+        });
+      });
+
+      if (state.layerFilter !== "routes") filteredRecords().forEach((record) => {
+        const marker = L.marker([record.lat, record.lng], {
+          icon: L.divIcon({ className: "", html: '<span class="record-node"></span>', iconSize: [18, 18], iconAnchor: [9, 9] })
+        }).bindTooltip(`<strong>${record.title}</strong><br>${record.place}`, { className: "seen-tooltip" }).addTo(mapState.map);
+        marker.on("click", () => {
+          state.featureIndex = activeRecords().findIndex((item) => item.id === record.id);
+          renderFeature();
+        });
+        mapState.recordMarkers.push(marker);
+      });
+    }
+
+    function zoomForLevel(level) {
+      if (level === "country") return 4;
+      if (level === "province") return 7;
+      return 11;
+    }
+
+    function boundsForArea(area, level) {
+      const geoJson = mapState.boundaryGeoJson[level];
+      const matchingFeatures = geoJson?.features?.filter((feature) => matchBoundaryFeature(feature, area)) || [];
+      const bounds = matchingFeatures.length
+        ? L.geoJSON({ type: "FeatureCollection", features: matchingFeatures }).getBounds()
+        : L.latLngBounds(areaToLatLngs(area));
+      if (area.id === "cn") bounds.extend(L.latLngBounds(CHINA_TAIWAN_POLYGON));
+      return bounds;
+    }
+
+    function fitMapToLevel(level) {
+      if (!mapState.map) return;
+      const areas = SEEN_DATA.boundaries[level];
+      const bounds = areas.reduce((mergedBounds, area) => mergedBounds.extend(boundsForArea(area, level)), L.latLngBounds([]));
+      mapState.map.fitBounds(bounds, { padding: [36, 36], maxZoom: zoomForLevel(level) });
+    }
+
+    function populateRouteOptions() {
+      const routeSelect = byId("record-route");
+      if (routeSelect) routeSelect.innerHTML = allRoutes().map((route) => `<option value="${route.id}">${route.name}</option>`).join("");
+    }
+
+    async function readImagesAsDataUrls(fileList) {
+      const files = [...(fileList || [])];
+      return Promise.all(files.map((file) => new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        })));
+    }
+
+    function splitList(value) {
+      return String(value || "").split(/[\n,]+/).map((item) => item.trim()).filter(Boolean);
+    }
+
+    function currentLocale() {
+      return document.documentElement.lang?.startsWith("zh") ? "zh" : "en";
+    }
+
+    function seenText(key) {
+      return SEEN_I18N[currentLocale()]?.[key] || SEEN_I18N.en[key] || key;
+    }
+
+    function initialLocale() {
+      const storedLang = localStorage.getItem("lang");
+      if (storedLang) return storedLang;
+      return "en";
+    }
+
+    function initSeenLocalization() {
+      const fallbackLang = initialLocale();
+      document.documentElement.lang = fallbackLang;
+      document.body.setAttribute("data-page-top-title", fallbackLang.startsWith("zh") ? "所见" : "Seen");
+      if (!window.i18next || !window.i18nextHttpBackend) return;
+      i18next.use(i18nextHttpBackend).init({
+        lng: fallbackLang,
+        fallbackLng: "en",
+        debug: false,
+        backend: { loadPath: "/localizations_mainpage/{{lng}}.json" }
+      }, () => {
+        updateContent();
+      });
+    }
+
+    function applyLocalizedContent(el, value) {
+      if (el.dataset.i18nRender === "html") {
+        el.innerHTML = value;
+        return;
+      }
+      el.textContent = value;
+    }
+
+    function applyLocalizedAttributes(el) {
+      const attrConfig = el.getAttribute("data-i18n-attr");
+      if (!attrConfig || !window.i18next) return;
+      attrConfig.split(",").forEach((pair) => {
+        const parts = pair.split(":");
+        if (parts.length !== 2) return;
+        const attrName = parts[0].trim();
+        const key = parts[1].trim();
+        const value = i18next.t(key);
+        if (value !== key) el.setAttribute(attrName, value);
+      });
+    }
+
+    function updateContent() {
+      if (window.i18next?.language) document.documentElement.lang = i18next.language;
+      document.body.setAttribute("data-page-top-title", currentLocale() === "zh" ? "所见" : "Seen");
+      if (window.i18next) {
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          const value = i18next.t(key);
+          if (value !== key) applyLocalizedContent(el, value);
+          applyLocalizedAttributes(el);
+        });
+        document.querySelectorAll("[data-i18n-attr]:not([data-i18n])").forEach(applyLocalizedAttributes);
+      }
+      document.querySelectorAll("[data-seen-i18n]").forEach((el) => {
+        el.textContent = seenText(el.dataset.seenI18n);
+      });
+      document.querySelectorAll("[data-seen-i18n-attr]").forEach((el) => {
+        el.getAttribute("data-seen-i18n-attr").split(",").forEach((pair) => {
+          const parts = pair.split(":");
+          if (parts.length !== 2) return;
+          el.setAttribute(parts[0].trim(), seenText(parts[1].trim()));
+        });
+      });
+      applyNavbarText();
+      populateLocationSelectors();
+      renderAll();
+    }
+
+    window.updateContent = updateContent;
+
+    function displayName(name) {
+      return LOCALIZED_NAMES[currentLocale()]?.[name] || name;
+    }
+
+    function formatLocationFromRegion(region) {
+      if (!region) return "";
+      const location = LOCATION_DATA.find((item) => item.country === region.country && item.province === region.province && item.city === region.city);
+      if (!location) return "";
+      return [location.countryName, location.provinceName, location.cityName].map(displayName).join(" / ");
+    }
+
+    function formatRecordPlace(record) {
+      const regionPlace = formatLocationFromRegion(record.region);
+      if (regionPlace) return regionPlace;
+      if (record.routeId) {
+        const route = allRoutes().find((item) => item.id === record.routeId);
+        const point = route?.points?.find((item) => item.recordId === record.id) || route?.points?.[record.segmentIndex ?? 0];
+        if (route && point) return `${route.name} / ${point.name}`;
+      }
+      return record.place || "";
+    }
+
+    function selectedLocation() {
+      const form = byId("record-form");
+      return LOCATION_DATA.find((item) => item.country === form.elements.country.value && item.province === form.elements.province.value && item.city === form.elements.city.value);
+    }
+
+    function uniqueBy(items, key) {
+      return [...new Map(items.map((item) => [key(item), item])).values()];
+    }
+
+    function comboInput(kind) {
+      return byId(`record-${kind}-input`);
+    }
+
+    function comboList(kind) {
+      return byId(`${kind}-options`);
+    }
+
+    function optionMatches(item, query, fields) {
+      return !query || fields.map((field) => item[field]).join(" ").toLowerCase().includes(query);
+    }
+
+    function renderCombo(kind) {
+      const form = byId("record-form");
+      const query = comboInput(kind).value.trim().toLowerCase();
+      let items = [];
+      if (kind === "country") items = uniqueBy(LOCATION_DATA, (item) => item.country).filter((item) => optionMatches(item, query, ["countryName", "country"]));
+      if (kind === "province") items = form.elements.country.value
+        ? uniqueBy(LOCATION_DATA.filter((item) => item.country === form.elements.country.value), (item) => item.province).filter((item) => optionMatches(item, query, ["provinceName", "province"]))
+        : [];
+      if (kind === "city") items = form.elements.country.value && form.elements.province.value
+        ? LOCATION_DATA.filter((item) => item.country === form.elements.country.value && item.province === form.elements.province.value).filter((item) => optionMatches(item, query, ["cityName", "city"]))
+        : [];
+      items.sort((a, b) => a[`${kind}Name`].localeCompare(b[`${kind}Name`], "en"));
+      comboList(kind).innerHTML = items.map((item) => {
+        const value = item[kind];
+        const label = item[`${kind}Name`];
+        return `<button class="combo-option" type="button" data-combo-kind="${kind}" data-combo-value="${value}">${displayName(label)} <span class="post-meta">${label}</span></button>`;
+      }).join("") || `<button class="combo-option" type="button" disabled>${kind === "country" ? "没有匹配项" : "请先选择上一级"}</button>`;
+      comboList(kind).querySelectorAll("[data-combo-kind]").forEach((button) => button.addEventListener("click", () => selectCombo(kind, button.dataset.comboValue)));
+    }
+
+    function openCombo(kind) {
+      document.querySelectorAll(".combo").forEach((combo) => combo.classList.toggle("is-open", combo.dataset.combo === kind));
+      renderCombo(kind);
+    }
+
+    function closeCombos() {
+      document.querySelectorAll(".combo").forEach((combo) => combo.classList.remove("is-open"));
+    }
+
+    function selectCombo(kind, value) {
+      const form = byId("record-form");
+      if (kind === "country") {
+        const item = LOCATION_DATA.find((entry) => entry.country === value);
+        form.elements.country.value = item.country;
+        comboInput("country").value = displayName(item.countryName);
+        form.elements.province.value = "";
+        form.elements.city.value = "";
+        comboInput("province").value = "";
+        comboInput("city").value = "";
+        closeCombos();
+        return;
+      }
+      if (kind === "province") {
+        const item = LOCATION_DATA.find((entry) => entry.country === form.elements.country.value && entry.province === value);
+        form.elements.province.value = item.province;
+        comboInput("province").value = displayName(item.provinceName);
+        form.elements.city.value = "";
+        comboInput("city").value = "";
+        closeCombos();
+        return;
+      }
+      const item = LOCATION_DATA.find((entry) => entry.country === form.elements.country.value && entry.province === form.elements.province.value && entry.city === value);
+      if (!item) return;
+      form.elements.city.value = item.city;
+      comboInput("city").value = displayName(item.cityName);
+      applySelectedLocation();
+      closeCombos();
+    }
+
+    function populateLocationSelectors() {
+      ["country", "province", "city"].forEach((kind) => {
+        byId(`record-${kind}`).value = "";
+        comboInput(kind).value = "";
+        renderCombo(kind);
+      });
+      closeCombos();
+    }
+
+    function validateLocationSelection() {
+      const form = byId("record-form");
+      return !!(form.elements.country.value && form.elements.province.value && form.elements.city.value && selectedLocation());
+    }
+
+    function applySelectedLocation() {
+      const form = byId("record-form");
+      const location = selectedLocation();
+      if (!location) return;
+      form.elements.place.value = `${displayName(location.countryName)} / ${displayName(location.provinceName)} / ${displayName(location.cityName)}`;
+      if (typeof location.lat === "number" && typeof location.lng === "number") {
+        form.elements.lat.value = location.lat.toFixed(6);
+        form.elements.lng.value = location.lng.toFixed(6);
+        setPickerLocation(location.lat, location.lng);
+      }
+    }
+
+    function routePointType(index, total) {
+      if (index === 0) return "start";
+      if (index === total - 1) return "end";
+      return "stop";
+    }
+
+    function renderRoutePointTypes() {
+      const rows = [...document.querySelectorAll("#route-point-list .route-point-row")];
+      rows.forEach((row, index) => {
+        const type = routePointType(index, rows.length);
+        row.querySelector(".route-dot").className = `route-dot ${type}`;
+        row.querySelector(".route-row-label").textContent = type === "start" ? "开始点" : type === "end" ? "结束点" : "经停点";
+      });
+    }
+
+    function addRoutePointRow(point = {}) {
+      const list = byId("route-point-list");
+      const row = document.createElement("div");
+      row.className = "route-point-row";
+      row.innerHTML = `
+        <span class="route-dot"></span>
+        <label><div class="route-row-label">经停点</div><input name="routePointName" placeholder="名称" value="${point.name || ""}"></label>
+        <label><div class="route-row-label">纬度</div><input name="routePointLat" type="number" step="0.000001" placeholder="23.1291" value="${point.lat || ""}"></label>
+        <label><div class="route-row-label">经度</div><input name="routePointLng" type="number" step="0.000001" placeholder="113.2644" value="${point.lng || ""}"></label>
+        <label><div class="route-row-label">到达时间</div><input name="routePointAt" placeholder="2026-05-14 18:30" value="${point.at || ""}"></label>
+        <button class="seen-action remove-route-point" type="button">移除</button>
+      `;
+      row.querySelector(".remove-route-point").addEventListener("click", () => {
+        if (list.children.length <= 2) return;
+        row.remove();
+        renderRoutePointTypes();
+      });
+      list.appendChild(row);
+      renderRoutePointTypes();
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
+    }
+
+    function routeRoleText(type) {
+      if (type === "start") return "起点";
+      if (type === "end") return "终点";
+      return "经停点";
+    }
+
+    function findRecordById(recordId) {
+      return allRecords().find((record) => record.id === recordId);
+    }
+
+    function renderRouteRecordPreview(row) {
+      const input = row.querySelector('[name="routeRecordId"]');
+      const preview = row.querySelector(".route-record-preview");
+      const recordId = input.value.trim();
+      const record = findRecordById(recordId);
+      preview.classList.toggle("is-missing", !!recordId && !record);
+      if (!recordId) {
+        preview.innerHTML = `<span>${escapeHtml(seenText("preview_empty"))}</span>`;
+        return;
+      }
+      if (!record) {
+        preview.innerHTML = `<span>${escapeHtml(seenText("preview_missing"))}${escapeHtml(recordId)}</span>`;
+        return;
+      }
+      preview.innerHTML = `<strong>${escapeHtml(record.title)}</strong> · ${escapeHtml(record.date)} · ${Number(record.lat).toFixed(4)}, ${Number(record.lng).toFixed(4)}`;
+    }
+
+    function moveRouteRecordRow(row, direction) {
+      const list = byId("route-record-id-list");
+      if (direction < 0 && row.previousElementSibling) list.insertBefore(row, row.previousElementSibling);
+      if (direction > 0 && row.nextElementSibling) list.insertBefore(row.nextElementSibling, row);
+      renderRouteRecordTypes();
+    }
+
+    function addRouteRecordIdRow(value = "") {
+      const list = byId("route-record-id-list");
+      const row = document.createElement("div");
+      row.className = "route-point-row route-record-row";
+      row.innerHTML = `
+        <span class="route-stop-marker"></span>
+        <div class="route-input-shell">
+          <input name="routeRecordId" aria-label="经停记录 ID" placeholder="输入记录 ID" value="${escapeHtml(value)}" list="route-record-id-options">
+          <button class="icon-btn move-route-record-up" type="button" title="上移" aria-label="上移"><i class="bi-chevron-up"></i></button>
+          <button class="icon-btn remove-route-record-id" type="button" title="移除" aria-label="移除"><i class="bi-x-lg"></i></button>
+        </div>
+        <div class="route-record-preview"></div>
+      `;
+      row.querySelector('[name="routeRecordId"]').addEventListener("input", () => renderRouteRecordPreview(row));
+      row.querySelector(".move-route-record-up").addEventListener("click", () => moveRouteRecordRow(row, -1));
+      row.querySelector(".remove-route-record-id").addEventListener("click", () => {
+        if (list.children.length <= 2) return;
+        row.remove();
+        renderRouteRecordTypes();
+      });
+      list.appendChild(row);
+      renderRouteRecordPreview(row);
+      renderRouteRecordTypes();
+    }
+
+    function renderRouteRecordTypes() {
+      const rows = [...document.querySelectorAll("#route-record-id-list .route-point-row")];
+      rows.forEach((row, index) => {
+        const type = routePointType(index, rows.length);
+        row.classList.toggle("is-start", type === "start");
+        row.classList.toggle("is-end", type === "end");
+        row.querySelector(".move-route-record-up").disabled = index === 0;
+        row.querySelector('[name="routeRecordId"]').placeholder = type === "start" ? seenText("start_placeholder") : type === "end" ? seenText("end_placeholder") : seenText("stop_placeholder");
+        renderRouteRecordPreview(row);
+      });
+    }
+
+    function clearRouteRecordRows() {
+      byId("route-record-id-list").innerHTML = "";
+      addRouteRecordIdRow();
+      addRouteRecordIdRow();
+    }
+
+    function ensureRouteBuilders() {
+      if (!byId("route-record-id-list").children.length) {
+        addRouteRecordIdRow();
+        addRouteRecordIdRow();
+      }
+      renderRouteRecordIdOptions();
+    }
+
+    function renderRouteRecordIdOptions() {
+      let datalist = byId("route-record-id-options");
+      if (!datalist) {
+        datalist = document.createElement("datalist");
+        datalist.id = "route-record-id-options";
+        byId("record-form").appendChild(datalist);
+      }
+      datalist.innerHTML = allRecords().map((record) => `<option value="${escapeHtml(record.id)}">${escapeHtml(record.title)} / ${escapeHtml(record.place)}</option>`).join("");
+    }
+
+    function renderImagePreview() {
+      const preview = byId("image-preview-grid");
+      const files = [...byId("image-file").files];
+      preview.innerHTML = "";
+      files.slice(0, 8).forEach((file) => {
+        const img = document.createElement("img");
+        img.alt = file.name;
+        img.src = URL.createObjectURL(file);
+        img.onload = () => URL.revokeObjectURL(img.src);
+        preview.appendChild(img);
+      });
+    }
+
+    function parseManualWaypoints() {
+      return [...document.querySelectorAll("#route-point-list .route-point-row")].map((row) => {
+        const name = row.querySelector('[name="routePointName"]').value.trim();
+        const lat = Number(row.querySelector('[name="routePointLat"]').value);
+        const lng = Number(row.querySelector('[name="routePointLng"]').value);
+        const at = row.querySelector('[name="routePointAt"]').value.trim();
+        return { name, lat, lng, at };
+      }).filter((point) => point.name && !Number.isNaN(point.lat) && !Number.isNaN(point.lng));
+    }
+
+    function routeFromRecordIds() {
+      return [...document.querySelectorAll('[name="routeRecordId"]')].map((input) => input.value.trim()).filter(Boolean)
+        .map((id) => allRecords().find((record) => record.id === id)).filter(Boolean)
+        .map((record) => ({ name: record.title, at: record.date, lat: record.lat, lng: record.lng, recordId: record.id }));
+    }
+
+    function ensureRouteFromForm(formData, currentRecord) {
+      const routeSource = formData.get("routeSource");
+
+      const baseId = String(formData.get("newRouteId") || "").trim() || generateRecordId(formData.get("newRouteName") || currentRecord.title).replace(/^\d+-/, "route-");
+      const routeId = ensureUniqueId(baseId) && baseId !== currentRecord.id ? baseId : `${baseId}-route-${Date.now()}`;
+      let points = routeSource === "records" ? routeFromRecordIds() : parseManualWaypoints();
+      if (points.length < 2) return "";
+      const hasCurrentPoint = Number.isFinite(currentRecord.lat) && Number.isFinite(currentRecord.lng) && (currentRecord.lat !== 0 || currentRecord.lng !== 0);
+      if (!points.length && hasCurrentPoint) points = [{ name: currentRecord.title, at: currentRecord.date, lat: currentRecord.lat, lng: currentRecord.lng, recordId: currentRecord.id }];
+      if (hasCurrentPoint && !points.some((point) => point.recordId === currentRecord.id || (point.lat === currentRecord.lat && point.lng === currentRecord.lng))) {
+        points.push({ name: currentRecord.title, at: currentRecord.date, lat: currentRecord.lat, lng: currentRecord.lng, recordId: currentRecord.id });
+      }
+      if (!points.length) points = [{ name: currentRecord.title, at: currentRecord.date, lat: 0, lng: 0, recordId: currentRecord.id }];
+      customRoutes.unshift({
+        id: routeId,
+        name: String(formData.get("newRouteName") || currentRecord.title || routeId).trim(),
+        tripMode: formData.get("tripMode"),
+        points
+      });
+      populateRouteOptions();
+      return routeId;
+    }
+
+    async function addRecordFromForm(event) {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const formData = new FormData(form);
+      const category = formData.get("category");
+      const uploadedImages = await readImagesAsDataUrls(form.elements.imageFile.files);
+      const images = uploadedImages;
+      const image = images[0] || "../static/assets/img/background.jpeg";
+      const tags = splitList(formData.get("tags"));
+      const recordId = String(formData.get("recordId") || "").trim() || generateRecordId(formData.get("title"));
+      if (category === "region" && !validateLocationSelection()) {
+        byId("record-id-status").textContent = "请从国家/省州/城市候选中选择地点。";
+        return;
+      }
+      if (category === "region" && (!form.elements.lat.value || !form.elements.lng.value)) {
+        byId("record-id-status").textContent = "请在管理地图上选点，或填写经纬度。";
+        return;
+      }
+      if (!ensureUniqueId(recordId)) {
+        byId("record-id-status").textContent = `ID 已存在：${recordId}`;
+        return;
+      }
+      const record = {
+        id: recordId,
+        custom: true,
+        title: String(formData.get("title")).trim(),
+        type: formData.get("type"),
+        image,
+        images: images.length ? images : [image],
+        date: formData.get("date"),
+        place: String(formData.get("place") || formData.get("newRouteName") || formData.get("routeId") || "Route point").trim(),
+        lat: Number(formData.get("lat")),
+        lng: Number(formData.get("lng")),
+        tags,
+        note: String(formData.get("note") || "").trim()
+      };
+      if (category === "route") {
+        record.routeId = ensureRouteFromForm(formData, record);
+        if (!record.routeId) {
+          byId("record-id-status").textContent = "路线至少需要两个有效点或两个有效记录 ID。";
+          return;
+        }
+        record.segmentIndex = 0;
+        const route = allRoutes().find((item) => item.id === record.routeId);
+        const routePoint = route?.points?.[record.segmentIndex] || route?.points?.[0];
+        if (routePoint) {
+          record.lat = routePoint.lat;
+          record.lng = routePoint.lng;
+          record.place = `${route.name} / ${routePoint.name}`;
+        }
+      } else {
+        record.region = {
+          country: String(formData.get("country") || "").trim(),
+          province: String(formData.get("province") || "").trim(),
+          city: String(formData.get("city") || "").trim()
+        };
+      }
+      if (!record.title || Number.isNaN(record.lat) || Number.isNaN(record.lng)) return;
+      SEEN_DATA.tags = [...new Set(SEEN_DATA.tags.concat(tags))];
+      customRecords.unshift(record);
+      state.featureIndex = 0;
+      persistRecords();
+      form.reset();
+      byId("record-id-status").textContent = "创建时会检查重复。";
+      byId("record-id").value = generateRecordId("seen");
+      byId("image-preview-grid").innerHTML = "";
+      populateLocationSelectors();
+      updateRecordFormFields();
+      renderAll();
+      if (mapState.map) mapState.map.setView([record.lat, record.lng], 10);
+    }
+
+    function updateRecordFormFields() {
+      const category = byId("record-category").value;
+      const routeSource = byId("route-source").value;
+      const type = byId("record-type").value;
+      document.querySelectorAll(".route-builder.is-hidden input, .route-builder.is-hidden select, .route-builder.is-hidden textarea, .route-builder.is-hidden button").forEach((control) => {
+        control.disabled = true;
+      });
+      document.querySelectorAll("[data-field-group]").forEach((field) => {
+        const groupMismatch = field.dataset.fieldGroup !== category;
+        const sourceMismatch = field.dataset.routeSource && field.dataset.routeSource !== routeSource;
+        const hidden = groupMismatch || sourceMismatch;
+        field.classList.toggle("is-hidden", hidden);
+        const controls = field.matches("input, select, textarea, button") ? [field] : [...field.querySelectorAll("input, select, textarea, button")];
+        controls.forEach((control) => { control.disabled = hidden; });
+      });
+      byId("use-map-center").hidden = category !== "region";
+      byId("use-map-center").disabled = category !== "region";
+      document.querySelectorAll("[data-note-field]").forEach((field) => {
+        const hidden = type !== "note";
+        field.classList.toggle("is-hidden", hidden);
+        field.querySelectorAll("textarea").forEach((control) => { control.disabled = hidden; });
+      });
+    }
+
+    function openManager() {
+      state.managerOpen = true;
+      const body = byId("manager-body");
+      body.hidden = false;
+      byId("toggle-manager").textContent = "收起管理";
+      byId("record-category").value = byId("record-category").value || "region";
+      byId("route-source").value = "records";
+      ensureRouteBuilders();
+      updateRecordFormFields();
+      initRecordPickerMap();
+      setTimeout(() => {
+        updateRecordFormFields();
+        mapState.pickerMap?.invalidateSize();
+      }, 0);
+    }
+
+    function closeManager() {
+      state.managerOpen = false;
+      byId("manager-body").hidden = true;
+      byId("toggle-manager").textContent = "展开管理";
+      closeCombos();
+    }
+
+    function bindStaticEvents() {
+      byId("shuffle-feature").addEventListener("click", () => {
+        state.featureIndex = (state.featureIndex + 1) % Math.max(activeRecords().length, 1);
+        renderFeature();
+      });
+      byId("clear-filter").addEventListener("click", () => {
+        state.activeTag = null;
+        state.activeArea = null;
+        state.activeRoute = null;
+        state.visibleRecords = 10;
+        renderAll();
+      });
+      byId("reset-map").addEventListener("click", () => fitMapToLevel(state.zoom));
+      byId("toggle-manager").addEventListener("click", () => {
+        state.managerOpen ? closeManager() : openManager();
+      });
+      byId("record-form").addEventListener("submit", addRecordFromForm);
+      byId("record-form").addEventListener("reset", () => setTimeout(() => {
+        populateLocationSelectors();
+        byId("record-id").value = generateRecordId("seen");
+        byId("image-preview-grid").innerHTML = "";
+        updateRecordFormFields();
+      }, 0));
+      byId("record-category").addEventListener("change", updateRecordFormFields);
+      byId("record-type").addEventListener("change", updateRecordFormFields);
+      byId("route-source").addEventListener("change", updateRecordFormFields);
+      byId("add-route-point")?.addEventListener("click", () => addRoutePointRow());
+      byId("add-route-record-id").addEventListener("click", () => addRouteRecordIdRow());
+      byId("clear-route-record-ids").addEventListener("click", clearRouteRecordRows);
+      byId("image-file").addEventListener("change", renderImagePreview);
+      byId("generate-record-id").addEventListener("click", () => {
+        byId("record-id").value = generateRecordId(byId("record-form").elements.title.value);
+        byId("record-id-status").textContent = "已生成，提交时仍会检查唯一性。";
+      });
+      ["country", "province", "city"].forEach((kind) => {
+        comboInput(kind).addEventListener("focus", () => openCombo(kind));
+        comboInput(kind).addEventListener("input", () => {
+          const form = byId("record-form");
+          form.elements[kind].value = "";
+          if (kind === "country") {
+            form.elements.province.value = "";
+            form.elements.city.value = "";
+            comboInput("province").value = "";
+            comboInput("city").value = "";
+          }
+          if (kind === "province") {
+            form.elements.city.value = "";
+            comboInput("city").value = "";
+          }
+          openCombo(kind);
+        });
+      });
+      document.addEventListener("click", (event) => {
+        if (!event.target.closest(".combo")) closeCombos();
+      });
+      window.addEventListener("scroll", maybeAutoLoadRecords, { passive: true });
+      window.addEventListener("resize", () => {
+        const record = allRecords().find((item) => item.id === mapState.detailRecordId);
+        if (record && byId("record-detail-dialog").open) renderRouteDock(record);
+      });
+      byId("use-map-center").addEventListener("click", () => {
+        if (!mapState.map) return;
+        const center = mapState.map.getCenter();
+        byId("record-form").elements.lat.value = center.lat.toFixed(6);
+        byId("record-form").elements.lng.value = center.lng.toFixed(6);
+      });
+      byId("cancel-delete").addEventListener("click", () => closeDialog("delete-dialog"));
+      byId("confirm-delete").addEventListener("click", () => {
+        if (mapState.pendingDeleteId) permanentlyDeleteRecord(mapState.pendingDeleteId);
+        mapState.pendingDeleteId = null;
+        closeDialog("delete-dialog");
+        closeDialog("record-detail-dialog");
+      });
+      byId("record-detail-dialog").addEventListener("click", (event) => {
+        if (event.target === byId("record-detail-dialog")) closeDialog("record-detail-dialog");
+      });
+      byId("record-detail-dialog").addEventListener("close", () => byId("route-dock").classList.remove("is-visible"));
+      byId("record-detail-dialog").querySelector(".detail-card").addEventListener("pointerdown", (event) => {
+        if (event.target.closest("button")) return;
+        state.detailDragX = event.clientX;
+      });
+      byId("record-detail-dialog").querySelector(".detail-card").addEventListener("pointerup", (event) => {
+        if (state.detailDragX === null) return;
+        const delta = event.clientX - state.detailDragX;
+        state.detailDragX = null;
+        if (Math.abs(delta) > 56) switchDetailRecord(delta < 0 ? -1 : 1);
+      });
+      byId("prev-detail-record").addEventListener("click", () => switchDetailRecord(-1));
+      byId("next-detail-record").addEventListener("click", () => switchDetailRecord(1));
+      byId("prev-detail-image").addEventListener("click", () => { state.detailImageIndex -= 1; renderDetailImage(); });
+      byId("next-detail-image").addEventListener("click", () => { state.detailImageIndex += 1; renderDetailImage(); });
+      byId("hide-detail-record").addEventListener("click", () => {
+        if (!mapState.detailRecordId) return;
+        const record = allRecords().find((item) => item.id === mapState.detailRecordId);
+        if (!window.confirm(`确认隐藏「${record?.title || mapState.detailRecordId}」？隐藏后可在管理区恢复。`)) return;
+        hideRecord(mapState.detailRecordId);
+        closeDialog("record-detail-dialog");
+      });
+      byId("delete-detail-record").addEventListener("click", () => {
+        if (!mapState.detailRecordId) return;
+        closeDialog("record-detail-dialog");
+        requestDeleteRecord(mapState.detailRecordId);
+      });
+      byId("floating-search").addEventListener("click", (event) => {
+        if (!state.searchOpen) openSearch();
+        event.stopPropagation();
+      });
+      document.addEventListener("click", (event) => {
+        if (state.searchOpen && !event.target.closest("#floating-search")) closeSearch();
+      });
+      byId("global-search-input").addEventListener("input", (event) => {
+        state.searchQuery = event.target.value;
+        state.searchIndex = 0;
+        renderSearch();
+      });
+      byId("global-search-input").addEventListener("keydown", (event) => {
+        if (event.key === "Enter") openCurrentSearchResult();
+        if (event.key === "Escape") closeSearch();
+      });
+      document.querySelectorAll("[data-search-scope]").forEach((button) => button.addEventListener("click", () => {
+        state.searchScope = button.dataset.searchScope;
+        state.searchIndex = 0;
+        document.querySelectorAll("[data-search-scope]").forEach((item) => item.classList.toggle("is-active", item === button));
+        renderSearch();
+      }));
+      byId("prev-search-result").addEventListener("click", () => moveSearchResult(-1));
+      byId("next-search-result").addEventListener("click", () => moveSearchResult(1));
+      byId("search-card").addEventListener("click", openCurrentSearchResult);
+      byId("search-card").addEventListener("pointerdown", (event) => { state.searchDragX = event.clientX; });
+      byId("search-card").addEventListener("pointerup", (event) => {
+        if (state.searchDragX === null) return;
+        const delta = event.clientX - state.searchDragX;
+        state.searchDragX = null;
+        if (Math.abs(delta) > 42) moveSearchResult(delta < 0 ? -1 : 1);
+      });
+      document.querySelectorAll("[data-zoom]").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.zoom = button.dataset.zoom;
+          state.activeArea = null;
+          state.activeRoute = null;
+          document.querySelectorAll("[data-zoom]").forEach((item) => item.classList.toggle("is-active", item === button));
+          renderAll();
+          fitMapToLevel(state.zoom);
+          loadBoundaryGeoJson(state.zoom).finally(() => {
+            renderAll();
+            fitMapToLevel(state.zoom);
+          });
+        });
+      });
+      document.querySelectorAll("[data-layer-filter]").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.layerFilter = button.dataset.layerFilter;
+          document.querySelectorAll("[data-layer-filter]").forEach((item) => item.classList.toggle("is-active", item === button));
+          renderMap();
+        });
+        button.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            button.click();
+          }
+        });
+      });
+      new MutationObserver(() => {
+        setMapTileLayer();
+      }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    }
+
+    function renderAll() {
+      renderRouteRecordIdOptions();
+      renderKeywords();
+      renderFeature();
+      renderDashboard();
+      renderFilterBar();
+      renderPosts();
+      renderHiddenRecords();
+      renderMap();
+    }
+
+    function applyNavbarText() {
+      const pageTitle = document.getElementById("page-top-title");
+      if (pageTitle) pageTitle.textContent = currentLocale() === "zh" ? "所见" : "Seen";
+    }
+
+    fetch("../navbar.html").then((response) => response.text()).then((html) => { byId("navbar").innerHTML = html; applyNavbarText(); updateContent(); }).catch((error) => console.error("Error loading navbar:", error));
+    fetch("../floatingButtons.html")
+      .then((response) => response.text())
+      .then((html) => {
+        const container = byId("floating-buttons-container");
+        container.innerHTML = html;
+        updateContent();
+        container.querySelectorAll("script").forEach((oldScript) => {
+          const newScript = document.createElement("script");
+          newScript.textContent = oldScript.textContent;
+          document.body.appendChild(newScript);
+        });
+      })
+      .catch((error) => console.error("Error loading floating buttons:", error));
+    initSeenLocalization();
+    populateRouteOptions();
+    populateLocationSelectors();
+    ensureRouteBuilders();
+    byId("record-id").value = generateRecordId("seen");
+    bindStaticEvents();
+    openManager();
+    renderAll();
+    initMap();
+  </script>
+</body>
+</html>

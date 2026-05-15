@@ -171,7 +171,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="Dapao's Personal Website" />
     <meta name="author" content="hdp" />
-    <title id="website-title"></title>
+    <title id="website-title" data-i18n="website-title"></title>
 
     <!-- Icon -->
     <link rel="icon" type="image/x-icon" href="static/assets/icon.png" />
@@ -191,6 +191,7 @@
 
     <!-- Bootstrap core JS-->
     <script type="text/javascript" src="static/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="static/js/theme.js"></script>
 
     <!-- For Compatibility -->
 <!--    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>-->
@@ -213,21 +214,12 @@
 <body id="page-top">
 <!-- Navigation -->
 <div id="navbar"></div>
-<script>
-    // 动态加载 navbar.html
-    fetch('navbar.html')
-      .then(response => response.text())
-      .then(data => {
-          document.getElementById('navbar').innerHTML = data;
-      })
-      .catch(error => console.error('Error loading navbar:', error));
-</script>
 
 <!-- Top Section -->
 <section class="top-section" style="background-image: url('static/assets/img/background.png');">
     <div class="top-section-content">
         <div class="container px-5">
-            <h2 id="top-section-bg-text" class="text-white display-3 lh-1 font-alt">
+            <h2 id="top-section-bg-text" class="text-white display-3 lh-1 font-alt" data-i18n="top-section-bg-text" data-i18n-render="html">
                 <b>Live long and prosper.<br>生生不息 繁荣昌盛</b>
             </h2>
         </div>
@@ -246,7 +238,7 @@
 <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="home">
     <div class="container px-5">
         <header>
-            <h2 id="home-subtitle">Xinjie Huang&ensp;|&ensp;黄大炮</h2>
+            <h2 id="home-subtitle" data-i18n="home-subtitle" data-i18n-render="html">Xinjie Huang&ensp;|&ensp;黄大炮</h2>
         </header>
 
         <a href="https://github.com/cmdSTARMO" target="_blank">
@@ -262,11 +254,11 @@
         </a><br><br>
         <!--                <div class="main-body" id="home-md"></div>-->
         <div class="experience-card" style="background-color: #f8f9fa; padding: 16px; border-radius: 8px;">
-            <h4 class="fw-bold" style="margin: 0; position: relative; top: 5px;" id="update-title">
+            <h4 class="fw-bold" style="margin: 0; position: relative; top: 5px;" id="update-title" data-i18n="update-title" data-i18n-render="html">
                 Update <span class="online-dot"></span>
             </h4>
             <div style="margin-top: 16px;">
-                <p style="margin: 0; font-weight: 628;" id="update-announce"></p>
+                <p style="margin: 0; font-weight: 628;" id="update-announce" data-i18n="update-announce" data-i18n-render="html"></p>
             </div>
             <!--            <br>-->
             <!--            <div>-->
@@ -291,10 +283,10 @@
 
         <div class="experience-card" style="background-color: #f8f9fa;">
             <!-- 自我介绍 -->
-            <h4 class="fw-bold" style="position: relative; top: 5px;" id="intro-title">
+            <h4 class="fw-bold" style="position: relative; top: 5px;" id="intro-title" data-i18n="intro-title">
                 Intro
             </h4>
-            <p id="intro-content">
+            <p id="intro-content" data-i18n="intro-content" data-i18n-render="html">
                 Hi there! Hope this finds you well.<br><br>
                 I'm currently pursuing a Master's Degree in Financial Mathematics, at Miami Herbert Business School, University of Miami in Miami, Florida.<br><br>
                 I’m a results-oriented quantitative analyst with a strong foundation in time series analysis and quantitative finance. I have hands-on experience conducting real-time simulated backtesting of various trading strategies using Alpaca API and Python, and further optimizing algorithmic trading practices by integrating machine learning techniques based on backtesting results. Through extensive industry research, I have developed a solid understanding of agricultural and precious metals markets. I am proficient in multiple programming languages and databases, enabling efficient data mining, analysis, and visualization using Excel and Excel VBA. Additionally, I have contributed to multiple investment projects, gaining valuable hands-on experience in the field.
@@ -304,7 +296,7 @@
             <div class="custom-divider"></div>
             <br>
 
-            <h4 class="fw-bold" style="position: relative; top: 5px;" id="edu-title">
+            <h4 class="fw-bold" style="position: relative; top: 5px;" id="edu-title" data-i18n="edu-title">
                 Education
             </h4>
             <br>
@@ -313,31 +305,31 @@
             <div class="d-flex align-items-center mb-2">
                 <img src="static/assets/img/um_logo.png" alt="University Logo" class="me-3 circular-image">
                 <div>
-                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="edu-mhbs-title">
+                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="edu-mhbs-title" data-i18n="edu-mhbs-title">
                         University of Miami Herbert Business School
                     </h5>
                 </div>
             </div>
             <br>
-            <h6 class="fw-bold" id="edu-mhbs-degree">M.Sc. in Financial Mathematics&nbsp;&nbsp;<span class="online-dot"></span></h6>
-            <p class="text-muted" id="edu-mhbs-periodnbase">
+            <h6 class="fw-bold" id="edu-mhbs-degree" data-i18n="edu-mhbs-degree" data-i18n-render="html">M.Sc. in Financial Mathematics&nbsp;&nbsp;<span class="online-dot"></span></h6>
+            <p class="text-muted" id="edu-mhbs-periodnbase" data-i18n="edu-mhbs-periodnbase" data-i18n-render="html">
                 Aug. 2024 - May 2025 (expected)<br>
                 Miami, Florida, United States
             </p>
-            <p id="edu-mhbs-classes">
+            <p id="edu-mhbs-classes" data-i18n="edu-mhbs-classes" data-i18n-render="html">
                 <b>Main Classes: </b>Real Estate Finance | Mathematics of Financial Derivatives | Behavioral Finance | Quantitative Finance and Market Microstructure | Fixed Income | Financial Modeling | Advanced Financial Modeling | PE & VC | Wealth Management<br>
             </p>
             <div class="d-flex align-items-center mb-2">
                 <img src="static/assets/img/gdufe_logo.png" alt="University Logo" class="me-3 circular-image">
                 <div>
-                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="edu-gdufe-title">
+                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="edu-gdufe-title" data-i18n="edu-gdufe-title">
                         Guangdong University of Finance and Economics
                     </h5>
                 </div>
             </div>
             <br>
-            <h6 class="fw-bold" id="edu-gdufe-degree">B.Sc. in Financial Engineering&nbsp;&nbsp;<span class="past-dot"></span></h6>
-            <p class="text-muted" id="edu-gdufe-periodnbase">
+            <h6 class="fw-bold" id="edu-gdufe-degree" data-i18n="edu-gdufe-degree" data-i18n-render="html">B.Sc. in Financial Engineering&nbsp;&nbsp;<span class="past-dot"></span></h6>
+            <p class="text-muted" id="edu-gdufe-periodnbase" data-i18n="edu-gdufe-periodnbase" data-i18n-render="html">
                 Sep. 2020 – Jun. 2024<br>
                 Guangzhou, Guangdong, China
             </p>
@@ -348,7 +340,7 @@
             <br>
 
             <!-- 联系方式 -->
-            <h4 class="fw-bold" style="position: relative; top: 5px;" id="email-title">
+            <h4 class="fw-bold" style="position: relative; top: 5px;" id="email-title" data-i18n="email-title">
                 Emails
             </h4>
             <p>huangdapao@huangdapao.com<br>xxh497@miami.edu</p>
@@ -359,10 +351,10 @@
             <br>
 
             <!-- 个人兴趣关键字 -->
-            <h4 class="fw-bold" style="position: relative; top: 5px;" id="personal-key-word-title">
+            <h4 class="fw-bold" style="position: relative; top: 5px;" id="personal-key-word-title" data-i18n="personal-key-word-title">
                 Personal Interests Keywords
             </h4>
-            <p id="personal-key-word">Python, Excel VBA, Stata, Matlab, Tableau, Commodities...</p>
+            <p id="personal-key-word" data-i18n="personal-key-word">Python, Excel VBA, Stata, Matlab, Tableau, Commodities...</p>
         </div>
     </div>
 </section>
@@ -372,7 +364,7 @@
 <section class="bg-gradient-primary-to-secondary-gray mt5 md5" id="experiences">
     <div class="container px-5">
         <header>
-            <h2 id="experiences-subtitle"><i class="bi bi-pencil-fill"></i>&nbsp;EXPERIENCES</h2>
+            <h2 id="experiences-subtitle" data-i18n="experiences-subtitle" data-i18n-render="html"><i class="bi bi-pencil-fill"></i>&nbsp;EXPERIENCES</h2>
         </header>
 
         <!-- University of Miami Herbert Business School Experience -->
@@ -380,23 +372,23 @@
             <div class="d-flex align-items-center mb-2">
                 <img src="static/assets/img/um_logo.png" alt="University of Miami" class="me-3 circular-image" style="">
                 <div>
-                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="experiences-mhbs-smcf-a-title">
+                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="experiences-mhbs-smcf-a-title" data-i18n="experiences-mhbs-smcf-a-title">
                         University of Miami Herbert Business School
                     </h5>
                 </div>
 
             </div>
             <br>
-            <h6 class="fw-bold" id="experiences-mhbs-smcf-a-position">Student Managed Conviction Fund | Analyst&nbsp;&nbsp;<span class="online-dot"></span></h6>
-            <p class="text-muted" id="experiences-mhbs-smcf-a-periodnbase">
+            <h6 class="fw-bold" id="experiences-mhbs-smcf-a-position" data-i18n="experiences-mhbs-smcf-a-position" data-i18n-render="html">Student Managed Conviction Fund | Analyst&nbsp;&nbsp;<span class="online-dot"></span></h6>
+            <p class="text-muted" id="experiences-mhbs-smcf-a-periodnbase" data-i18n="experiences-mhbs-smcf-a-periodnbase" data-i18n-render="html">
                 Aug 2024 - Present <br>
                 Miami, Florida, United States · On-site
             </p>
-            <p id="experiences-mhbs-smcf-a-detail">
+            <p id="experiences-mhbs-smcf-a-detail" data-i18n="experiences-mhbs-smcf-a-detail" data-i18n-render="html">
                 1. Present as an analyst in Finance & Real Estate Sector, evaluate stocks in the sector and generate reports.<br><br>
                 2. Authored valuation reports on an individual stock, with recommended stock successfully included in the initial live portfolio.<br><br>
             </p>
-            <p id="experiences-mhbs-smcf-a-skill"><strong>Skills:</strong> Pricing Analysis, Financial Concepts, Market Pricing, Macroeconomics Analysis, P/E P/B Ratio Evaluation, DCF, DDM</p>
+            <p id="experiences-mhbs-smcf-a-skill" data-i18n="experiences-mhbs-smcf-a-skill" data-i18n-render="html"><strong>Skills:</strong> Pricing Analysis, Financial Concepts, Market Pricing, Macroeconomics Analysis, P/E P/B Ratio Evaluation, DCF, DDM</p>
         </div>
 
         <!-- Curveway Confluence Big Data Investment Center Experience -->
@@ -404,19 +396,19 @@
             <div class="d-flex align-items-center mb-2">
                 <img src="static/assets/img/cc_logo.JPG" alt="Curveway Confluence Big Data Investment Center" class="me-3 circular-image" style="">
                 <div >
-                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="experiences-cc-lyn-title">
+                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="experiences-cc-lyn-title" data-i18n="experiences-cc-lyn-title">
                         Curveway Confluence Big Data Investment Center
                     </h5>
                 </div>
             </div>
             <br>
             <!-- Systems Maintenance Specialist Role -->
-            <h6 class="fw-bold me-3" id="experiences-cc-sms-position">Systems Maintenance Specialist&nbsp;&nbsp;<span class="online-dot"></span></h6>
-            <p class="text-muted" id="experiences-cc-sms-periodnbase">
+            <h6 class="fw-bold me-3" id="experiences-cc-sms-position" data-i18n="experiences-cc-sms-position" data-i18n-render="html">Systems Maintenance Specialist&nbsp;&nbsp;<span class="online-dot"></span></h6>
+            <p class="text-muted" id="experiences-cc-sms-periodnbase" data-i18n="experiences-cc-sms-periodnbase" data-i18n-render="html">
                 Freelance<br>
                 Jul 2024 - Present<br>
                 Remote</p>
-            <p id="experiences-cc-sms-detail">
+            <p id="experiences-cc-sms-detail" data-i18n="experiences-cc-sms-detail" data-i18n-render="html">
                 1. Developed an automated quantitative monitoring system integrated with Lark bot, enabling real-time stock price and quantitative indicator alerts for multiple China Mainland listed companies, along with scheduled market data distribution and global market brief report. <br><br>
                 2. Built a multi-term bond yield analysis system based on partial data from Chinese and U.S. bond markets, integrating Nelson-Siegel fitting and forward rate calculations to identify arbitrage opportunities and optimize fixed-income strategies. <br><br>
                 3. Developed and tested a machine learning-based S&P 500 return forecasting system, incorporating multi-term lag features, PCA for dimensionality reduction, and genetic algorithm optimization. Evaluated linear regression, FFNN, and LSTM models through backtesting and visualized PCA insights using Excel and matplotlib to support stock market analysis. <br><br>
@@ -425,7 +417,7 @@
                 6. Participated in the development and maintenance of the company's website and email system. <br><br>
                 7. Continuously optimized the company’s quantitative analysis system, adding market data processing and factor analysis modules. <br><br>
             </p>
-            <p id="experiences-cc-sms-skill">
+            <p id="experiences-cc-sms-skill" data-i18n="experiences-cc-sms-skill" data-i18n-render="html">
                 <strong>Skills:</strong> Python, Financial Concepts, HTML, JavaScript, Raspberry Pi, HTML, C++, Website Development, CSS, Quantitative Finance
             </p>
 
@@ -434,19 +426,19 @@
             <div class="custom-divider"></div>
             <br>
             <!-- Investment Analysis Assistant Role -->
-            <h6 class="fw-bold" id="experiences-cc-iaa-position">Investment Analysis Assistant&nbsp;&nbsp;<span class="past-dot"></span></h6>
-            <p class="text-muted" id="experiences-cc-iaa-periodnbase">
+            <h6 class="fw-bold" id="experiences-cc-iaa-position" data-i18n="experiences-cc-iaa-position" data-i18n-render="html">Investment Analysis Assistant&nbsp;&nbsp;<span class="past-dot"></span></h6>
+            <p class="text-muted" id="experiences-cc-iaa-periodnbase" data-i18n="experiences-cc-iaa-periodnbase" data-i18n-render="html">
                 Internship<br>
                 Dec 2023 - Jul 2024<br>
                 Guangzhou, Guangdong, China · On-site</p>
-            <p id="experiences-cc-iaa-detail">
+            <p id="experiences-cc-iaa-detail" data-i18n="experiences-cc-iaa-detail" data-i18n-render="html">
                 1. Built a model using Python to update, cross-verify, and analyze data.<br><br>
                 2. Used PCA to predict trends in Southeast Asian markets.<br><br>
                 3. Completed commodity analysis on gold and eggs.<br><br>
                 4. Developed a quantitative analysis system, a mail subscription & bot push system, and a stock recommendation system.<br><br>
             </p>
-            <p id="experiences-cc-iaa-skill"><strong>Skills:</strong> Python, Data Analysis, SQL, VBA Excel, Financial Concepts, Quantitative Analytics, Commodity Pricing, Tableau, Industry Analysis, Quantitative Research</p>
-            <p id="click-guide"><strong>Click</strong> on the pictures below to see details:</p>
+            <p id="experiences-cc-iaa-skill" data-i18n="experiences-cc-iaa-skill" data-i18n-render="html"><strong>Skills:</strong> Python, Data Analysis, SQL, VBA Excel, Financial Concepts, Quantitative Analytics, Commodity Pricing, Tableau, Industry Analysis, Quantitative Research</p>
+            <p id="click-guide" data-i18n="click-guide" data-i18n-render="html"><strong>Click</strong> on the pictures below to see details:</p>
             <section class="files_a_card-list">
                 <article class="files_a_card">
                     <!-- 背景图片 -->
@@ -454,12 +446,12 @@
 
                     <!-- 卡片内容 -->
                     <div class="files_a_card-header">
-                        <p id="experiences-cc-project1-time">Nov 29th 2023</p>
-                        <h2 id="experiences-cc-project1-title">Gold's 30 Years-2023112715360001-PRDV</h2>
+                        <p id="experiences-cc-project1-time" data-i18n="experiences-cc-project1-time">Nov 29th 2023</p>
+                        <h2 id="experiences-cc-project1-title" data-i18n="experiences-cc-project1-title">Gold's 30 Years-2023112715360001-PRDV</h2>
                     </div>
                     <div class="files_a_tags">
-                        <a href="filess/黄金未来30年-2023112715360001.pdf" id="project1-download-hint">Download</a>&nbsp;
-                        <a href="filess/黄金未来30年-2023112715360001.pdf" id="project1-preview-hint">Web Preview (Preparing)</a>
+                        <a href="filess/黄金未来30年-2023112715360001.pdf" id="project1-download-hint" data-i18n="project1-download-hint">Download</a>&nbsp;
+                        <a href="filess/黄金未来30年-2023112715360001.pdf" id="project1-preview-hint" data-i18n="project1-preview-hint">Web Preview (Preparing)</a>
                     </div>
                 </article>
 
@@ -467,13 +459,13 @@
                     <div class="files_a_card-background" style="background-image: url('filess/filess_pic/恒大：债与票-2023122721570002.png');"></div>
 
                     <div class="files_a_card-header">
-                        <p id="experiences-cc-project2-time">Dec 27th 2023</p>
-                        <h2 id="experiences-cc-project2-title">Evergrande's dusk: bonds and commercial bills-2023122721570002-PRDV</h2>
+                        <p id="experiences-cc-project2-time" data-i18n="experiences-cc-project2-time">Dec 27th 2023</p>
+                        <h2 id="experiences-cc-project2-title" data-i18n="experiences-cc-project2-title">Evergrande's dusk: bonds and commercial bills-2023122721570002-PRDV</h2>
                     </div>
 
                     <div class="files_a_tags">
-                        <a href="filess/恒大：债与票-2023122721570002.pdf" id="project2-download-hint">Download</a>&nbsp;
-                        <a href="filess/恒大：债与票-2023122721570002.pdf" id="project2-preview-hint">Web Preview (Preparing)</a>
+                        <a href="filess/恒大：债与票-2023122721570002.pdf" id="project2-download-hint" data-i18n="project2-download-hint">Download</a>&nbsp;
+                        <a href="filess/恒大：债与票-2023122721570002.pdf" id="project2-preview-hint" data-i18n="project2-preview-hint">Web Preview (Preparing)</a>
                     </div>
                 </article>
             </section>
@@ -484,25 +476,25 @@
             <div class="d-flex align-items-center mb-2">
                 <img src="static/assets/img/pdx_logo.png" alt="Paradox Interactive" class="me-3 circular-image" style="">
                 <div>
-                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="experiences-pdx-title">
+                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="experiences-pdx-title" data-i18n="experiences-pdx-title">
                         Paradox Interactive
                     </h5>
                 </div>
             </div>
             <br>
-            <h6 class="fw-bold" id="experiences-pdx-ca-position">China Community Ambassador&nbsp;&nbsp;<span class="online-dot"></span></h6>
-            <p class="text-muted" id="experiences-pdx-ca-periodnbase">
+            <h6 class="fw-bold" id="experiences-pdx-ca-position" data-i18n="experiences-pdx-ca-position" data-i18n-render="html">China Community Ambassador&nbsp;&nbsp;<span class="online-dot"></span></h6>
+            <p class="text-muted" id="experiences-pdx-ca-periodnbase" data-i18n="experiences-pdx-ca-periodnbase" data-i18n-render="html">
                 Freelance<br>
                 May 2024 - Present<br>
                 Remote
             </p>
-            <p id="experiences-pdx-ca-detail">
+            <p id="experiences-pdx-ca-detail" data-i18n="experiences-pdx-ca-detail" data-i18n-render="html">
                 1. Monitor multi-platforms’ reviews for the game Stellaris using semantic analysis to gather player feedback and produce weekly reports to support game optimization and market strategies.<br><br>
                 2. Liaise between the Stellaris development team and Chinese players to ensure accurate information delivery.<br><br>
                 3. Plan engagement activities to boost player participation and satisfaction and manage community relations.<br><br>
                 4. Successfully managed a PR crisis by providing decision-makers with comprehensive information and well-founded recommendations to support effective decision-making.
             </p>
-            <p id="experiences-pdx-ca-skill">
+            <p id="experiences-pdx-ca-skill" data-i18n="experiences-pdx-ca-skill" data-i18n-render="html">
                 <strong>Skills:</strong> Community Management, Data Crawling & Analysis, Translation, Technical Writing
             </p>
         </div>
@@ -512,25 +504,25 @@
             <div class="d-flex align-items-center mb-2">
                 <img src="static/assets/img/haid_logo.png" alt="haid_logo" class="me-3 circular-image" style="">
                 <div>
-                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="experiences-haid-ci-title">
+                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="experiences-haid-ci-title" data-i18n="experiences-haid-ci-title">
                         Guangdong Haid Group Co., Limited
                     </h5>
                 </div>
 
             </div>
             <br>
-            <h6 class="fw-bold" id="experiences-haid-ci-position">Commodity Intern&nbsp;&nbsp;<span class="past-dot"></span></h6>
-            <p class="text-muted" id="experiences-haid-ci-periodnbase">
+            <h6 class="fw-bold" id="experiences-haid-ci-position" data-i18n="experiences-haid-ci-position" data-i18n-render="html">Commodity Intern&nbsp;&nbsp;<span class="past-dot"></span></h6>
+            <p class="text-muted" id="experiences-haid-ci-periodnbase" data-i18n="experiences-haid-ci-periodnbase" data-i18n-render="html">
                 Internship<br>
                 Jul 2023 - Nov 2023<br>
                 On-site · Guangzhou, Guangdong, China
             </p>
-            <p id="experiences-haid-ci-detail">
+            <p id="experiences-haid-ci-detail" data-i18n="experiences-haid-ci-detail" data-i18n-render="html">
                 1. Refined hedging models and analyzed data for the hog farming department.<br><br>
                 2. Used Python and VBA for daily automatic updates of reports.<br><br>
                 3. Conducted on-site research on hog farming enterprises.<br><br>
             </p>
-            <p id="experiences-haid-ci-skill">
+            <p id="experiences-haid-ci-skill" data-i18n="experiences-haid-ci-skill" data-i18n-render="html">
                 <strong>Skills:</strong> Commodity Markets, Python, Data Analysis, VBA Excel, Financial Concepts, Pricing Strategy, Commodity Pricing, Industry Analysis
             </p>
         </div>
@@ -540,23 +532,23 @@
             <div class="d-flex align-items-center mb-2">
                 <img src="static/assets/img/sw_logo.jpg" alt="SusallWave Digital Technology Co., Ltd." class="me-3 circular-image">
                 <div>
-                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="experiences-suswave-title">
+                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="experiences-suswave-title" data-i18n="experiences-suswave-title">
                         SusallWave Digital Technology Co., Ltd.
                     </h5>
                 </div>
             </div>
             <br>
-            <h6 class="fw-bold" id="experiences-suswave-rai-position">ESG Risk Analysis Intern&nbsp;&nbsp;<span class="past-dot"></span></h6>
-            <p class="text-muted" id="experiences-suswave-rai-periodnbase">
+            <h6 class="fw-bold" id="experiences-suswave-rai-position" data-i18n="experiences-suswave-rai-position" data-i18n-render="html">ESG Risk Analysis Intern&nbsp;&nbsp;<span class="past-dot"></span></h6>
+            <p class="text-muted" id="experiences-suswave-rai-periodnbase" data-i18n="experiences-suswave-rai-periodnbase" data-i18n-render="html">
                 Internship<br>
                 Mar 2023 - May 2023<br>
                 On-site · Guangdong, China
             </p>
-            <p id="experiences-suswave-rai-detail">
+            <p id="experiences-suswave-rai-detail" data-i18n="experiences-suswave-rai-detail" data-i18n-render="html">
                 1. Extracted 3000+ negative information pieces from government websites using Requests and Selenium.<br><br>
                 2. Conducted correlation analysis among companies using Python and Apriori algorithm.<br><br>
             </p>
-            <p id="experiences-suswave-rai-skill">
+            <p id="experiences-suswave-rai-skill" data-i18n="experiences-suswave-rai-skill" data-i18n-render="html">
                 <strong>Skills:</strong> Web Crawling, Python, Data Analysis
             </p>
         </div>
@@ -566,23 +558,23 @@
             <div class="d-flex align-items-center mb-2">
                 <img src="static/assets/img/cop_logo.jpg" alt="CnOpenData" class="me-3 circular-image">
                 <div>
-                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="experiences-cop-title">
+                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="experiences-cop-title" data-i18n="experiences-cop-title">
                         CnOpenData
                     </h5>
                 </div>
             </div>
             <br>
-            <h6 class="fw-bold" id="experiences-cop-da-position">Data Assistant&nbsp;&nbsp;<span class="past-dot"></span></h6>
-            <p class="text-muted" id="experiences-cop-da-periodnbase">
+            <h6 class="fw-bold" id="experiences-cop-da-position" data-i18n="experiences-cop-da-position" data-i18n-render="html">Data Assistant&nbsp;&nbsp;<span class="past-dot"></span></h6>
+            <p class="text-muted" id="experiences-cop-da-periodnbase" data-i18n="experiences-cop-da-periodnbase" data-i18n-render="html">
                 Internship<br>
                 Oct 2022 - Apr 2023<br>
                 Remote · Guangzhou, Guangdong, China
             </p>
-            <p id="experiences-cop-da-detail">
+            <p id="experiences-cop-da-detail" data-i18n="experiences-cop-da-detail" data-i18n-render="html">
                 1. Expanded industry database categories and improved data for six databases.<br><br>
                 2. Used Python to collect, organize, and normalize 169,700 index entries.<br><br>
             </p>
-            <p id="experiences-cop-da-skill">
+            <p id="experiences-cop-da-skill" data-i18n="experiences-cop-da-skill" data-i18n-render="html">
                 <strong>Skills:</strong> Data Mining, Python, Data Analysis, SQL
             </p>
         </div>
@@ -594,25 +586,25 @@
 <section class="bg-gradient-primary-to-secondary-light mt5 md5" id="publications">
     <div class="container px-5">
         <header>
-            <h2 id="publications-subtitle"><i class="bi bi-file-text-fill"></i>&nbsp;PUBLICATIONS</h2>
+            <h2 id="publications-subtitle" data-i18n="publications-subtitle" data-i18n-render="html"><i class="bi bi-file-text-fill"></i>&nbsp;PUBLICATIONS</h2>
         </header>
         <!-- Artificial Intelligence and Quantitative Finance Book Contribution -->
         <div class="experience-card" style="background-color: #f8f9fa;">
             <div class="d-flex align-items-center mb-2">
                 <div>
-                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="publications-ainqf-title">
+                    <h5 class="fw-bold" style="position: relative; top: 5px;" id="publications_1-ainqf-title" data-i18n="publications_1-ainqf-title" data-i18n-render="html">
                         <em>Artificial Intelligence and Quantitative Finance</em>
                     </h5>
                 </div>
             </div>
             <br>
-            <h6 class="fw-bold" id="publications-ainqf-what">Chapter Author - Chapter 7: Principal Component Analysis (PCA)&nbsp;&nbsp;<span class="past-dot"></span></h6>
-            <p class="text-muted" id="publications-ainqf-info">
+            <h6 class="fw-bold" id="publications_1-ainqf-what" data-i18n="publications_1-ainqf-what" data-i18n-render="html">Chapter Author - Chapter 7: Principal Component Analysis (PCA)&nbsp;&nbsp;<span class="past-dot"></span></h6>
+            <p class="text-muted" id="publications_1-ainqf-info" data-i18n="publications_1-ainqf-info" data-i18n-render="html">
                 Book Contribution<br>
                 Publisher: Tsinghua University Press<br>
                 Expected Publication: February 2025
             </p>
-            <p id="publications-ainqf-detail">
+            <p id="publications_1-ainqf-detail" data-i18n="publications_1-ainqf-detail">
                 Authored Chapter 7, titled “Principal Component Analysis (PCA),” which explores PCA as a dimensionality reduction technique for extracting essential information from high-dimensional datasets. The chapter includes the theoretical foundation, practical implementation, and applications in financial data processing, such as data cleaning, standardization, feature extraction, risk management, and portfolio construction. Python code examples and visual aids are provided to enhance understanding and practical application.
             </p>
         </div>
@@ -624,16 +616,16 @@
 <section class="bg-gradient-primary-to-secondary-gray mt5 md5" id="awards">
     <div class="container px-5">
         <header>
-            <h2 id="awards-subtitle"><i class="bi bi-award-fill"></i>&nbsp;AWARDS</h2>
+            <h2 id="awards-subtitle" data-i18n="awards-subtitle" data-i18n-render="html"><i class="bi bi-award-fill"></i>&nbsp;AWARDS</h2>
         </header>
         <!--            <div class="main-body" id="awards-md"></div>-->
 
         <!-- Card 6: Mathematical Contest in Modeling -->
         <div class="experience-card" style="background-color: #f8f9fa;">
-            <h5 class="fw-bold">2022 Contemporary Undergraduate Mathematical Contest in Modeling | Captain&nbsp;&nbsp;<span class="past-dot"></span></h5>
-            <p class="text-muted">Jul 2022 - Sep 2022</p>
-            <p><strong>Selected Prompt:</strong> Compositional Analysis and Identification of Glass Artifacts</p>
-            <ul>
+            <h5 class="fw-bold" id="awards_1-title" data-i18n="awards_1-title" data-i18n-render="html">2022 Contemporary Undergraduate Mathematical Contest in Modeling | Captain&nbsp;&nbsp;<span class="past-dot"></span></h5>
+            <p class="text-muted" id="awards_1-periodnbase" data-i18n="awards_1-periodnbase">Jul 2022 - Sep 2022</p>
+            <p id="awards_1-detail" data-i18n="awards_1-detail" data-i18n-render="html"><strong>Selected Prompt:</strong> Compositional Analysis and Identification of Glass Artifacts</p>
+            <ul id="awards_1-detail_extension" data-i18n="awards_1-detail_extension" data-i18n-render="html">
                 <li>Analyzed the correlation between surface weathering of glass artifacts and several traits of glass.</li>
                 <li>Studied correlations and differences between chemical components and various types of glass artifacts.</li>
                 <li>Utilized independent sample t-tests to identify patterns in the chemical content of weathered and non-weathered samples based on glass type.</li>
@@ -653,30 +645,30 @@
 
         <!-- Card 8: "Ruihua Insurance Cup" Competition -->
         <div class="experience-card" style="background-color: #f8f9fa;">
-            <h5 class="fw-bold">"Ruihua Insurance Cup" Internet Insurance Product Design Competition - Third Prize&nbsp;&nbsp;<span class="past-dot"></span></h5>
-            <p class="text-muted">Jun 2022 - Jun 2022</p>
-            <p>Ranked 4th out of 20 teams.</p>
+            <h5 class="fw-bold" id="awards_2-title" data-i18n="awards_2-title" data-i18n-render="html">"Ruihua Insurance Cup" Internet Insurance Product Design Competition - Third Prize&nbsp;&nbsp;<span class="past-dot"></span></h5>
+            <p class="text-muted" id="awards_2-periodnbase" data-i18n="awards_2-periodnbase">Jun 2022 - Jun 2022</p>
+            <p id="awards_2-detail" data-i18n="awards_2-detail">Ranked 4th out of 20 teams.</p>
         </div>
 
         <!-- Card 9: 1st Case Analysis Competition -->
         <div class="experience-card" style="background-color: #f8f9fa;">
-            <h5 class="fw-bold">Second Prize in the 1st Case Analysis Competition at Guangdong University of Finance and Economics&nbsp;&nbsp;<span class="past-dot"></span></h5>
-            <p class="text-muted">Jun 2021 - Jun 2021</p>
-            <p>Ranked 2nd out of 136 teams.</p>
+            <h5 class="fw-bold" id="awards_3-title" data-i18n="awards_3-title" data-i18n-render="html">Second Prize in the 1st Case Analysis Competition at Guangdong University of Finance and Economics&nbsp;&nbsp;<span class="past-dot"></span></h5>
+            <p class="text-muted" id="awards_3-periodnbase" data-i18n="awards_3-periodnbase">Jun 2021 - Jun 2021</p>
+            <p id="awards_3-detail" data-i18n="awards_3-detail">Ranked 2nd out of 136 teams.</p>
         </div>
 
         <!-- Card 10: "Chuangyi China · Meiling Cup" -->
         <div class="experience-card" style="background-color: #f8f9fa;">
-            <h5 class="fw-bold">Semi-finalist in "Chuangyi China · Meiling Cup"&nbsp;&nbsp;<span class="past-dot"></span></h5>
-            <p class="text-muted">Jun 2021 - Sep 2021</p>
-            <p>Ranked within the top 50 out of 277 teams.</p>
+            <h5 class="fw-bold" id="awards_4-title" data-i18n="awards_4-title" data-i18n-render="html">Semi-finalist in "Chuangyi China · Meiling Cup"&nbsp;&nbsp;<span class="past-dot"></span></h5>
+            <p class="text-muted" id="awards_4-periodnbase" data-i18n="awards_4-periodnbase">Jun 2021 - Sep 2021</p>
+            <p id="awards_4-detail" data-i18n="awards_4-detail">Ranked within the top 50 out of 277 teams.</p>
         </div>
 
         <!-- Card 11: 2021 Liby Innovation Challenge -->
         <div class="experience-card" style="background-color: #f8f9fa;">
-            <h5 class="fw-bold">Third Prize in the 2021 Liby Innovation Challenge&nbsp;&nbsp;<span class="past-dot"></span></h5>
-            <p class="text-muted">Jun 2021 - Sep 2021</p>
-            <p>Ranked 3rd out of 246 teams.</p>
+            <h5 class="fw-bold" id="awards_5-title" data-i18n="awards_5-title" data-i18n-render="html">Third Prize in the 2021 Liby Innovation Challenge&nbsp;&nbsp;<span class="past-dot"></span></h5>
+            <p class="text-muted" id="awards_5-periodnbase" data-i18n="awards_5-periodnbase">Jun 2021 - Sep 2021</p>
+            <p id="awards_5-detail" data-i18n="awards_5-detail">Ranked 3rd out of 246 teams.</p>
         </div>
     </div>
 </section>
@@ -686,7 +678,7 @@
 <section class="bg-gradient-primary-to-secondary-white mt5 md5" id="projects">
     <div class="container px-5">
         <header>
-            <h2 id="projects-subtitle">
+            <h2 id="projects-subtitle" data-i18n="projects-subtitle" data-i18n-render="html">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-motherboard-fill" viewBox="0 0 16 16">
                     <path d="M5 7h3V4H5z"/>
                     <path d="M1 2a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-2H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 9H1V8H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6H1V5H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 2zm11 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zm2 0a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zM3.5 10a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1zM4 4h-.5a.5.5 0 0 0 0 1H4v1h-.5a.5.5 0 0 0 0 1H4a1 1 0 0 0 1 1v.5a.5.5 0 0 0 1 0V8h1v.5a.5.5 0 0 0 1 0V8a1 1 0 0 0 1-1h.5a.5.5 0 0 0 0-1H9V5h.5a.5.5 0 0 0 0-1H9a1 1 0 0 0-1-1v-.5a.5.5 0 0 0-1 0V3H6v-.5a.5.5 0 0 0-1 0V3a1 1 0 0 0-1 1m7 7.5v1a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5"/>
@@ -697,37 +689,37 @@
 
         <!-- Card 2: Dynamic Risk Management Portfolio System -->
         <div class="experience-card" style="background-color: #f8f9fa;">
-            <h5 class="fw-bold">Dynamic Risk Management Portfolio System&nbsp;&nbsp;<span class="online-dot"></span></h5>
-            <p class="text-muted">Sep 2024 - Present</p>
+            <h5 class="fw-bold" data-i18n="projects-risk-system-title" data-i18n-render="html">Dynamic Risk Management Portfolio System&nbsp;&nbsp;<span class="online-dot"></span></h5>
+            <p class="text-muted" data-i18n="projects-risk-system-period">Sep 2024 - Present</p>
             <p>
-                The system selects the top 30 stocks in each sector using multiple risk assessment indicators and various scoring methods to build portfolios. Data is updated every third weekend of each month, portfolio performance is evaluated, new portfolios are constructed, and continuous improvements are made.
+                <span data-i18n="projects-risk-system-detail">The system selects the top 30 stocks in each sector using multiple risk assessment indicators and various scoring methods to build portfolios. Data is updated every third weekend of each month, portfolio performance is evaluated, new portfolios are constructed, and continuous improvements are made.</span>
             </p>
         </div>
 
         <!-- Card 3: Global Market Insights and Smart Stock Recommendation -->
         <div class="experience-card" style="background-color: #f8f9fa;">
-            <h5 class="fw-bold">Global Market Insights and Smart Stock Recommendation&nbsp;&nbsp;<span class="online-dot"></span></h5>
-            <p class="text-muted">Jan 2024 - Present</p>
+            <h5 class="fw-bold" data-i18n="projects-global-market-title" data-i18n-render="html">Global Market Insights and Smart Stock Recommendation&nbsp;&nbsp;<span class="online-dot"></span></h5>
+            <p class="text-muted" data-i18n="projects-global-market-period">Jan 2024 - Present</p>
             <p>
-                This Python-based system leverages real-time data ingestion, feature engineering, and machine learning models to generate personalized stock recommendations. It processes market trends, historical data, and user profiles, delivering daily global market reports and recommendations via automated email.
+                <span data-i18n="projects-global-market-detail">This Python-based system leverages real-time data ingestion, feature engineering, and machine learning models to generate personalized stock recommendations. It processes market trends, historical data, and user profiles, delivering daily global market reports and recommendations via automated email.</span>
             </p>
         </div>
 
         <!-- Card 4: Ensemble Learning for Quantitative Investment -->
         <div class="experience-card" style="background-color: #f8f9fa;">
-            <h5 class="fw-bold">Ensemble Learning for Quantitative Investment&nbsp;&nbsp;<span class="past-dot"></span></h5>
-            <p class="text-muted">Dec 2023 - Jun 2024</p>
+            <h5 class="fw-bold" data-i18n="projects-ensemble-title" data-i18n-render="html">Ensemble Learning for Quantitative Investment&nbsp;&nbsp;<span class="past-dot"></span></h5>
+            <p class="text-muted" data-i18n="projects-ensemble-period">Dec 2023 - Jun 2024</p>
             <p>
-                Utilized deep learning models such as LSTM, RNN, and Transformer for ensemble learning to optimize quantitative investment strategies with enhanced accuracy and efficiency.
+                <span data-i18n="projects-ensemble-detail">Utilized deep learning models such as LSTM, RNN, and Transformer for ensemble learning to optimize quantitative investment strategies with enhanced accuracy and efficiency.</span>
             </p>
         </div>
 
         <!-- Card 5: Research on Hog Futures and Spot Hog Prices -->
         <div class="experience-card" style="background-color: #f8f9fa;">
-            <h5 class="fw-bold">Research on Hog Futures and Spot Hog Prices&nbsp;&nbsp;<span class="past-dot"></span></h5>
-            <p class="text-muted">Dec 2023 - May 2024</p>
+            <h5 class="fw-bold" data-i18n="projects-hog-research-title" data-i18n-render="html">Research on Hog Futures and Spot Hog Prices&nbsp;&nbsp;<span class="past-dot"></span></h5>
+            <p class="text-muted" data-i18n="projects-hog-research-period">Dec 2023 - May 2024</p>
             <p>
-                Selected appropriate variables and constructed a VAR model based on collected weekly average data. Employed cointegration tests, Granger causality tests, and impulse response analysis to investigate the short-term volatility patterns of hog futures on spot hog prices in China, and conducted risk measurement.
+                <span data-i18n="projects-hog-research-detail">Selected appropriate variables and constructed a VAR model based on collected weekly average data. Employed cointegration tests, Granger causality tests, and impulse response analysis to investigate the short-term volatility patterns of hog futures on spot hog prices in China, and conducted risk measurement.</span>
             </p>
         </div>
     </div>
@@ -739,13 +731,13 @@
 
 <!-- 添加目录容器 -->
 <div id="toc-container">
-    <h3><i class="bi bi-list-ul"></i>目录</h3>
+    <h3 data-i18n="toc-title" data-i18n-render="html"><i class="bi bi-list-ul"></i>目录</h3>
     <div id="toc-close"><i class="bi bi-x"></i></div>
     <ul id="toc-list"></ul>
 </div>
 
 <!-- 添加目录切换按钮 -->
-<button id="toc-toggle" title="显示/隐藏目录">
+<button id="toc-toggle" title="显示/隐藏目录" data-i18n-attr="title:toc-toggle-title">
     <i class="bi bi-list"></i>
 </button>
 
@@ -869,10 +861,8 @@
       .then(response => response.text())
       .then(data => {
           document.getElementById('navbar').innerHTML = data;
-          // 从当前页面读取 data-page-top-title 属性，并更新 navbar 中的标题
-          const pageTitle = document.body.getAttribute('data-page-top-title');
-          if (pageTitle) {
-              document.getElementById('page-top-title').innerHTML = pageTitle;
+          if (typeof updateContent === 'function') {
+              updateContent({ refreshTOC: false });
           }
       })
       .catch(error => console.error('Error loading navbar:', error));
@@ -940,6 +930,9 @@
         var container = document.getElementById('floating-buttons-container');
         container.innerHTML = html;
         // 提取并执行内联的 script 标签
+        if (typeof updateContent === 'function') {
+          updateContent({ refreshTOC: false });
+        }
         var scripts = container.querySelectorAll('script');
         scripts.forEach(oldScript => {
           var newScript = document.createElement('script');
@@ -954,30 +947,64 @@
     i18next
       .use(i18nextHttpBackend)
       .init({
-        lng: localStorage.getItem('lang') || 'en',  // 默认中文
+        lng: localStorage.getItem('lang') || 'en',
         fallbackLng: 'en',
         debug: false,
         backend: {
-          loadPath: '/localizations_mainpage/{{lng}}.json' // 独特路径
+          loadPath: '/localizations_mainpage/{{lng}}.json'
         }
       }, function(err, t) {
         if (err) console.error(err);
         updateContent();
       });
 
-    function updateContent() {
-  // 获取当前语言下的翻译资源对象
-  const translations = i18next.getResourceBundle(i18next.language, 'translation');
-  for (const key in translations) {
-    if (translations.hasOwnProperty(key)) {
-      const el = document.getElementById(key);
-      if (el) {
-        // 如果翻译中包含 HTML 标签，则用 innerHTML，否则用 textContent
-        el.innerHTML = translations[key];
+    function applyLocalizedContent(el, value) {
+      if (el.dataset.i18nRender === 'html') {
+        el.innerHTML = value;
+        return;
+      }
+      el.textContent = value;
+    }
+
+    function applyLocalizedAttributes(el) {
+      const attrConfig = el.getAttribute('data-i18n-attr');
+      if (!attrConfig) return;
+
+      attrConfig.split(',').forEach(function(pair) {
+        const parts = pair.split(':');
+        if (parts.length !== 2) return;
+        const attrName = parts[0].trim();
+        const key = parts[1].trim();
+        const value = i18next.t(key);
+        if (value !== key) {
+          el.setAttribute(attrName, value);
+        }
+      });
+    }
+
+    function updateContent(options) {
+      const settings = Object.assign({ refreshTOC: true }, options || {});
+      document.documentElement.lang = i18next.language;
+      document.body.setAttribute('data-page-top-title', i18next.t('page-top-title'));
+
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        const key = el.getAttribute('data-i18n');
+        const value = i18next.t(key);
+        if (value !== key) {
+          applyLocalizedContent(el, value);
+        }
+        applyLocalizedAttributes(el);
+      });
+
+      document.querySelectorAll('[data-i18n-attr]:not([data-i18n])').forEach(function(el) {
+        applyLocalizedAttributes(el);
+      });
+
+      if (settings.refreshTOC && typeof initTOC === 'function') {
+        initTOC();
+        highlightCurrentSection();
       }
     }
-  }
-}
 </script>
 </body>
 </html>

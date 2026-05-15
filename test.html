@@ -5,11 +5,14 @@
     border-radius: 8px;
     margin-bottom: 20px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: var(--site-card-bg, #f8f9fa);
+    border: 1px solid var(--site-card-border, rgba(10, 10, 39, 0.1));
+    color: var(--site-text-color, #212529);
+    box-shadow: 0 14px 34px rgba(31, 41, 55, 0.12);
   }
   .experience-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 18px 44px rgba(31, 41, 55, 0.18);
     cursor: pointer;
   }
   .experience-card p {
@@ -22,8 +25,13 @@
     top: 10px;
     right: 10px;
     font-size: 16px;
-    color: #999;
+    color: var(--site-muted-color, #6b7280);
     cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .close-icon:hover {
+    color: #a65d66;
+    transform: scale(1.08);
   }
   /* 默认折叠状态：只显示两行文字 */
   .experience-card.collapsible p {
@@ -39,11 +47,17 @@
   /* 切换按钮 */
   .toggle-btn {
     background-color: transparent;
-    border: none;
-    color: #007bff;
+    border: 1px solid rgba(81, 118, 106, 0.38);
+    border-radius: 999px;
+    color: #51766a;
     cursor: pointer;
-    padding: 0;
+    padding: 6px 12px;
     font-size: 14px;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .toggle-btn:hover {
+    background: rgba(81, 118, 106, 0.12);
+    border-color: rgba(81, 118, 106, 0.7);
   }
 </style>
 

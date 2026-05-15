@@ -31,7 +31,7 @@
 
     <!-- Bootstrap core JS-->
     <script type="text/javascript" src="../../../static/js/bootstrap.bundle.min.js"></script>
-
+    <script type="text/javascript" src="../../../static/js/theme.js"></script>
     <!-- For Compatability -->
 <!--    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>-->
 
@@ -158,6 +158,23 @@
             </div>
         </div>
     </footer>
+
+    <div id="floating-buttons-container"></div>
+    <script>
+        fetch('../../../floatingButtons.html')
+            .then(response => response.text())
+            .then(html => {
+                var container = document.getElementById('floating-buttons-container');
+                container.innerHTML = html;
+                var scripts = container.querySelectorAll('script');
+                scripts.forEach(oldScript => {
+                    var newScript = document.createElement('script');
+                    newScript.textContent = oldScript.textContent;
+                    document.body.appendChild(newScript);
+                });
+            })
+            .catch(error => console.error('Error loading floating buttons:', error));
+    </script>
 
 </body>
 

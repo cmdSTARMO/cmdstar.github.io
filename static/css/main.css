@@ -1,7 +1,78 @@
 @import "./styles.css";
 
 :root{
+    --site-font-family: "Times New Roman", "Microsoft YaHei", "微软雅黑", SimSun, serif;
+    --site-bg: #f7f8fb;
+    --site-section-bg: #ffffff;
+    --site-section-muted-bg: #f0f0f0;
+    --site-card-bg: #f8f9fa;
+    --site-card-border: rgba(10, 10, 39, 0.1);
+    --site-text-color: #212529;
+    --site-muted-color: #5f6672;
+    --site-link-color: #2937f0;
+    --site-link-hover-color: #1f29bf;
+    --site-code-bg: rgba(0, 0, 0, 0.05);
+    --site-code-color: #26325f;
+    --site-blockquote-bg: #f9f9f9;
+    --site-blockquote-border: #ccc;
+    --site-footer-bg: #0a0a27;
     --h-title-color:#0a0a27;
+    --bs-body-font-family: var(--site-font-family);
+    --bs-body-color: var(--site-text-color);
+    --bs-body-bg: var(--site-bg);
+    --bs-link-color: var(--site-link-color);
+    --bs-link-hover-color: var(--site-link-hover-color);
+}
+
+html[data-theme="dark"] {
+    --site-bg: #0f1117;
+    --site-section-bg: #151922;
+    --site-section-muted-bg: #1d2330;
+    --site-card-bg: #1b2030;
+    --site-card-border: rgba(232, 237, 247, 0.14);
+    --site-text-color: #e8edf7;
+    --site-muted-color: #aab3c2;
+    --site-link-color: #9dadff;
+    --site-link-hover-color: #c8d1ff;
+    --site-code-bg: rgba(157, 173, 255, 0.14);
+    --site-code-color: #dfe5ff;
+    --site-blockquote-bg: #1d2330;
+    --site-blockquote-border: #3d4658;
+    --site-footer-bg: #0a0a27;
+    --h-title-color: #eef2ff;
+    --bs-body-color: var(--site-text-color);
+    --bs-body-bg: var(--site-bg);
+    --bs-link-color: var(--site-link-color);
+    --bs-link-hover-color: var(--site-link-hover-color);
+    --bs-border-color: var(--site-card-border);
+}
+
+body {
+    font-family: var(--site-font-family);
+    background-color: var(--site-bg);
+    color: var(--site-text-color);
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6,
+.font-alt,
+#mainNav .navbar-brand,
+section header h2 {
+    font-family: var(--site-font-family) !important;
+    letter-spacing: 0;
+}
+
+a {
+    color: var(--site-link-color);
+}
+
+a:hover {
+    color: var(--site-link-hover-color);
 }
 
 .header {
@@ -11,7 +82,7 @@
 }
 
 .bg-bottom {
-    background-color: var(--h-title-color);
+    background-color: var(--site-footer-bg);
 }
 
 .top-section {
@@ -42,7 +113,6 @@
 }
 
 section header h2{
-    font-family: "Kanit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
     color: var(--h-title-color);
     font-size: 2.3rem;
     line-height: 4rem;
@@ -55,11 +125,11 @@ section .main-body{
 }
 
 .bg-gradient-primary-to-secondary-light {
-    background: linear-gradient(45deg, #fcfcfc, #ffffff) !important;
+    background: linear-gradient(45deg, var(--site-section-bg), var(--site-bg)) !important;
 }
 
 .bg-gradient-primary-to-secondary-gray {
-    background: linear-gradient(45deg, #f0f0f0, #f1f1f1) !important;
+    background: linear-gradient(45deg, var(--site-section-muted-bg), var(--site-bg)) !important;
 }
 
 .on-top {
@@ -134,15 +204,16 @@ section .main-body{
 
 
 .home-card {
-    background-color: white; /* 背景为白色 */
+    background-color: var(--site-card-bg); /* 背景为白色 */
     border-radius: 15px; /* 圆角 */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影，使其看起来像浮动的小卡片 */
     padding: 20px; /* 内边距，让内容更美观 */
     margin-top: 20px; /* 顶部间距 */
+    color: var(--site-text-color);
 }
 
 .home-card .card-header {
-    border-bottom: 1px solid #ddd; /* 卡片顶部的分割线 */
+    border-bottom: 1px solid var(--site-card-border); /* 卡片顶部的分割线 */
     padding-bottom: 10px; /* 顶部内边距 */
     margin-bottom: 15px; /* 使标题与内容之间有间距 */
 }
@@ -211,11 +282,11 @@ section .main-body{
 }
 
 .Primer_Brand__Text-module__Text___pecHN {
-   font-family: "Mona Sans", sans-serif;
+   font-family: var(--site-font-family);
 }
 
 .Primer_Brand__Text-module__Text-font--mona-sans___GpzSG {
-   font-family: "Mona Sans";
+   font-family: var(--site-font-family);
 }
 
 .Primer_Brand__Text-module__Text--default___DChoE {
@@ -524,4 +595,230 @@ a {
     border: 0;
     padding-top: 1px;
     background: linear-gradient(to right, transparent, #d0d0d5, transparent);
+}
+
+.experience-card:not(.theme-preserve-surface),
+.home-card:not(.theme-preserve-surface),
+.card:not(.theme-preserve-surface),
+.dropdown-menu:not(.theme-preserve-surface),
+.modal-content:not(.theme-preserve-surface),
+.accordion-item:not(.theme-preserve-surface),
+.list-group-item:not(.theme-preserve-surface),
+.glass-card:not(.theme-preserve-surface) {
+    background-color: var(--site-card-bg) !important;
+    color: var(--site-text-color) !important;
+    border-color: var(--site-card-border) !important;
+}
+
+.theme-preserve-surface {
+    color: rgba(255, 255, 255, 0.82) !important;
+}
+
+.theme-preserve-surface,
+.theme-preserve-surface .small,
+.theme-preserve-surface small,
+.theme-preserve-surface .text-muted,
+.theme-preserve-surface .card-text,
+footer,
+footer .small,
+footer small,
+footer .text-muted,
+.bg-bottom,
+.bg-bottom .small,
+.bg-bottom small,
+.bg-bottom .text-muted {
+    color: inherit !important;
+}
+
+footer,
+.bg-bottom {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.theme-preserve-surface .text-white,
+.theme-preserve-surface .text-white-50,
+footer .text-white,
+footer .text-white-50,
+.bg-bottom .text-white,
+.bg-bottom .text-white-50 {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+footer a,
+.bg-bottom a {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+footer a:hover,
+.bg-bottom a:hover {
+    color: #ffffff !important;
+}
+
+.card-header,
+.modal-header,
+.modal-footer,
+.list-group-item + .list-group-item {
+    border-color: var(--site-card-border) !important;
+}
+
+.text-muted,
+.card-text,
+.small,
+small {
+    color: var(--site-muted-color) !important;
+}
+
+.experience-card:not(.theme-preserve-surface) .card-title,
+.home-card:not(.theme-preserve-surface) .card-title,
+.card:not(.theme-preserve-surface) .card-title,
+.glass-card:not(.theme-preserve-surface) .card-title,
+.list-group-item:not(.theme-preserve-surface) .card-title,
+.experience-card:not(.theme-preserve-surface) h1,
+.experience-card:not(.theme-preserve-surface) h2,
+.experience-card:not(.theme-preserve-surface) h3,
+.experience-card:not(.theme-preserve-surface) h4,
+.experience-card:not(.theme-preserve-surface) h5,
+.experience-card:not(.theme-preserve-surface) h6,
+.home-card:not(.theme-preserve-surface) h1,
+.home-card:not(.theme-preserve-surface) h2,
+.home-card:not(.theme-preserve-surface) h3,
+.home-card:not(.theme-preserve-surface) h4,
+.home-card:not(.theme-preserve-surface) h5,
+.home-card:not(.theme-preserve-surface) h6,
+.card:not(.theme-preserve-surface) h1,
+.card:not(.theme-preserve-surface) h2,
+.card:not(.theme-preserve-surface) h3,
+.card:not(.theme-preserve-surface) h4,
+.card:not(.theme-preserve-surface) h5,
+.card:not(.theme-preserve-surface) h6,
+.glass-card:not(.theme-preserve-surface) h1,
+.glass-card:not(.theme-preserve-surface) h2,
+.glass-card:not(.theme-preserve-surface) h3,
+.glass-card:not(.theme-preserve-surface) h4,
+.glass-card:not(.theme-preserve-surface) h5,
+.glass-card:not(.theme-preserve-surface) h6 {
+    color: var(--site-text-color) !important;
+}
+
+.experience-card:not(.theme-preserve-surface) .card-text,
+.home-card:not(.theme-preserve-surface) .card-text,
+.card:not(.theme-preserve-surface) .card-text,
+.glass-card:not(.theme-preserve-surface) .card-text,
+.list-group-item:not(.theme-preserve-surface) .card-text,
+.experience-card:not(.theme-preserve-surface) .card-date,
+.home-card:not(.theme-preserve-surface) .card-date,
+.card:not(.theme-preserve-surface) .card-date,
+.glass-card:not(.theme-preserve-surface) .card-date,
+.list-group-item:not(.theme-preserve-surface) .card-date {
+    color: var(--site-muted-color) !important;
+}
+
+.experience-card:not(.theme-preserve-surface) .card-tag,
+.home-card:not(.theme-preserve-surface) .card-tag,
+.card:not(.theme-preserve-surface) .card-tag,
+.glass-card:not(.theme-preserve-surface) .card-tag,
+.list-group-item:not(.theme-preserve-surface) .card-tag {
+    background: var(--site-section-muted-bg) !important;
+    color: var(--site-text-color) !important;
+    border: 1px solid var(--site-card-border);
+}
+
+.theme-preserve-surface .card-title,
+.theme-preserve-surface .card-text,
+.theme-preserve-surface .card-date,
+.theme-preserve-surface .card-tag {
+    color: rgba(255, 255, 255, 0.82) !important;
+}
+
+.main-body,
+.vp-content,
+#article-md,
+section,
+aside {
+    color: var(--site-text-color);
+}
+
+.bg-white:not(.theme-preserve-surface),
+.bg-light:not(.theme-preserve-surface),
+.bg-body:not(.theme-preserve-surface) {
+    background-color: var(--site-section-bg) !important;
+}
+
+.text-dark,
+.text-body {
+    color: var(--site-text-color) !important;
+}
+
+#mainNav {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    color: #ffffff;
+}
+
+#mainNav .navbar-brand,
+#mainNav .navbar-toggler,
+#mainNav .navbar-nav .nav-item .nav-link {
+    color: #ffffff !important;
+}
+
+.files_a_card-list {
+    background: var(--site-section-bg);
+}
+
+.files_a_card-list::-webkit-scrollbar-thumb {
+    background: var(--site-card-border);
+}
+
+.files_a_card-list::-webkit-scrollbar-track {
+    background: var(--site-section-muted-bg);
+}
+
+.files_a_card {
+    background: var(--site-card-bg);
+    box-shadow: -1rem 0 3rem rgba(0, 0, 0, 0.16);
+}
+
+html[data-theme="dark"] .files_a_card {
+    box-shadow: -1rem 0 3rem rgba(0, 0, 0, 0.42);
+}
+
+.table {
+    --bs-table-color: var(--site-text-color);
+    --bs-table-bg: var(--site-card-bg);
+    --bs-table-border-color: var(--site-card-border);
+    --bs-table-striped-color: var(--site-text-color);
+    --bs-table-striped-bg: rgba(0, 0, 0, 0.03);
+    --bs-table-hover-color: var(--site-text-color);
+    --bs-table-hover-bg: rgba(0, 0, 0, 0.05);
+}
+
+html[data-theme="dark"] .table {
+    --bs-table-striped-bg: rgba(255, 255, 255, 0.04);
+    --bs-table-hover-bg: rgba(255, 255, 255, 0.07);
+}
+
+input,
+textarea,
+select,
+.form-control,
+.form-select {
+    background-color: var(--site-card-bg);
+    color: var(--site-text-color);
+    border-color: var(--site-card-border);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--site-muted-color);
+}
+
+:not(pre) > code {
+  background-color: var(--site-code-bg) !important;
+  color: var(--site-code-color) !important;
+}
+
+.custom-blockquote,
+blockquote {
+  border-left-color: var(--site-blockquote-border) !important;
+  color: var(--site-muted-color) !important;
+  background: var(--site-blockquote-bg) !important;
 }
