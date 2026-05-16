@@ -1,0 +1,46 @@
+{
+  "id": "shenzhen-market_test",
+  "title": "深圳市场清晨",
+  "created_at": "2024-07-08T00:00:00.000Z",
+  "updated_at": "2026-05-16T11:34:38.698Z",
+  "route_id": null,
+  "route_index": null,
+  "tags": [
+    "市场",
+    "城市漫游"
+  ],
+  "location": {
+    "place": "China / Guangdong / Shenzhen",
+    "lat": 22.5431,
+    "lng": 114.0579,
+    "region": {
+      "country": "cn",
+      "province": "guangdong",
+      "city": "shenzhen"
+    }
+  },
+  "cover": "assets/image-2.jpg",
+  "assets": [
+    {
+      "path": "assets/image-3.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-4.jpg",
+      "type": "image"
+    }
+  ],
+  "favorite": false,
+  "archived": false,
+  "type": "photo",
+  "date": "2024-07-08",
+  "place": "China / Guangdong / Shenzhen",
+  "lat": 22.5431,
+  "lng": 114.0579,
+  "region": {
+    "country": "cn",
+    "province": "guangdong",
+    "city": "shenzhen"
+  },
+  "note": ""
+}

@@ -1,0 +1,12 @@
+{
+  "id": "florida-coast_test",
+  "name": "Florida Coast Drive",
+  "date": "2026-05-17",
+  "created_at": "2026-05-16T00:00:00.000Z",
+  "updated_at": "2026-05-16T11:34:24.958Z",
+  "records": [
+    "miami-bay-dusk_test",
+    "key-largo-blue_test",
+    "keywest-road_test"
+  ]
+}

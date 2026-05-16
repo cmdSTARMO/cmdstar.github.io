@@ -1,0 +1,38 @@
+{
+  "id": "miami-bay-dusk_test",
+  "title": "海湾边的傍晚",
+  "created_at": "2025-04-18T00:00:00.000Z",
+  "updated_at": "2026-05-16T11:34:24.958Z",
+  "route_id": "florida-coast_test",
+  "route_index": 0,
+  "tags": [
+    "海边",
+    "日落",
+    "城市漫游"
+  ],
+  "location": {
+    "place": "United States / Florida / Miami",
+    "lat": 25.7617,
+    "lng": -80.1918,
+    "region": {
+      "country": "us",
+      "province": "florida",
+      "city": "miami"
+    }
+  },
+  "cover": "cover.jpg",
+  "assets": [],
+  "favorite": false,
+  "archived": false,
+  "type": "note",
+  "date": "2025-04-18",
+  "place": "United States / Florida / Miami",
+  "lat": 25.7617,
+  "lng": -80.1918,
+  "region": {
+    "country": "us",
+    "province": "florida",
+    "city": "miami"
+  },
+  "note": "风从海湾吹过来，玻璃幕墙把落日切成几块。"
+}

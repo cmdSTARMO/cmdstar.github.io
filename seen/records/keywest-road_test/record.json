@@ -1,0 +1,29 @@
+{
+  "id": "keywest-road_test",
+  "title": "从海上公路看见云",
+  "created_at": "2025-03-12T00:00:00.000Z",
+  "updated_at": "2026-05-16T11:34:24.958Z",
+  "route_id": "florida-coast_test",
+  "route_index": 2,
+  "tags": [
+    "公路",
+    "海边"
+  ],
+  "location": {
+    "place": "United States / Florida / Key West",
+    "lat": 24.5551,
+    "lng": -81.78,
+    "region": null
+  },
+  "cover": "cover.jpg",
+  "assets": [],
+  "favorite": false,
+  "archived": false,
+  "type": "note",
+  "date": "2025-03-12",
+  "place": "United States / Florida / Key West",
+  "lat": 24.5551,
+  "lng": -81.78,
+  "region": null,
+  "note": "这条记录挂在路线段上，适合描述两个坐标之间发生的事情。"
+}

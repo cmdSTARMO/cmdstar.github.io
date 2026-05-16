@@ -1,0 +1,37 @@
+{
+  "id": "hangzhou-lake_test",
+  "title": "湖边雨后",
+  "created_at": "2023-09-24T00:00:00.000Z",
+  "updated_at": "2026-05-16T00:00:00.000Z",
+  "route_id": null,
+  "route_index": null,
+  "tags": [
+    "雨后",
+    "城市漫游"
+  ],
+  "location": {
+    "place": "China / Zhejiang / Hangzhou",
+    "lat": 30.2741,
+    "lng": 120.1551,
+    "region": {
+      "country": "cn",
+      "province": "zhejiang",
+      "city": "hangzhou"
+    }
+  },
+  "cover": "cover.jpg",
+  "assets": [],
+  "favorite": false,
+  "archived": false,
+  "type": "note",
+  "date": "2023-09-24",
+  "place": "China / Zhejiang / Hangzhou",
+  "lat": 30.2741,
+  "lng": 120.1551,
+  "region": {
+    "country": "cn",
+    "province": "zhejiang",
+    "city": "hangzhou"
+  },
+  "note": "湿润的空气让远处的轮廓变得很轻。"
+}

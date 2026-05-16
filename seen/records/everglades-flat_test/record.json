@@ -1,0 +1,37 @@
+{
+  "id": "everglades-flat_test",
+  "title": "湿地边缘",
+  "created_at": "2025-02-02T00:00:00.000Z",
+  "updated_at": "2026-05-16T11:34:25.226Z",
+  "route_id": "longest-test",
+  "route_index": 0,
+  "tags": [
+    "山路",
+    "日落"
+  ],
+  "location": {
+    "place": "United States / Florida / Everglades",
+    "lat": 25.2866,
+    "lng": -80.8987,
+    "region": {
+      "country": "us",
+      "province": "florida",
+      "city": "miami"
+    }
+  },
+  "cover": "cover.jpg",
+  "assets": [],
+  "favorite": false,
+  "archived": false,
+  "type": "photo",
+  "date": "2025-02-02",
+  "place": "United States / Florida / Everglades",
+  "lat": 25.2866,
+  "lng": -80.8987,
+  "region": {
+    "country": "us",
+    "province": "florida",
+    "city": "miami"
+  },
+  "note": ""
+}

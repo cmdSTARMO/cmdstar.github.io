@@ -98,6 +98,8 @@
     }
 
     .seen-shell { width: min(1480px, calc(100% - 40px)); margin: 0 auto; padding: 112px 0 44px; }
+    .seen-particle-field { position: relative; height: 86px; margin: -30px 0 18px; border-radius: 8px; overflow: visible; background: transparent; }
+    .seen-particle-field canvas { width: 100%; height: 100%; display: block; }
     .seen-hero { display: grid; grid-template-columns: minmax(300px, 0.8fr) minmax(560px, 1.2fr); gap: 18px; align-items: stretch; }
     .seen-panel { border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface); box-shadow: var(--seen-shadow); backdrop-filter: blur(22px) saturate(1.18); -webkit-backdrop-filter: blur(22px) saturate(1.18); }
     .seen-left { display: grid; gap: 18px; grid-template-rows: minmax(430px, 1fr) auto; }
@@ -122,6 +124,8 @@
     .icon-btn:hover { transform: translateY(-1px); border-color: rgba(227, 180, 111, 0.72); background: rgba(227, 180, 111, 0.14); }
     .dashboard-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
     .metric { border: 1px solid var(--seen-border); border-radius: 8px; padding: 12px; background: var(--seen-input-bg); min-height: 88px; }
+    .metric[role="button"] { cursor: pointer; text-align: left; transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease; }
+    .metric[role="button"]:hover { transform: translateY(-2px); border-color: rgba(125, 211, 252, 0.5); background: rgba(125, 211, 252, 0.12); }
     .metric strong { display: block; font-size: 1.45rem; line-height: 1; margin-bottom: 10px; color: var(--seen-text); }
     .metric span { color: var(--seen-muted); font-size: 0.82rem; line-height: 1.35; display: block; }
     .seen-map-panel { display: grid; grid-template-rows: auto minmax(560px, 1fr) auto; min-height: 760px; }
@@ -146,11 +150,16 @@
     .seen-route-core { stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 10 14; animation: seenRouteFlow 1.4s linear infinite; filter: drop-shadow(0 0 8px rgba(125, 211, 252, 0.55)); }
     .seen-route-active { filter: drop-shadow(0 0 14px rgba(232, 154, 168, 0.72)); }
     @keyframes seenRouteFlow { to { stroke-dashoffset: -24; } }
-    .waypoint-node { position: relative; display: block; width: 14px; height: 14px; border-radius: 999px; background: radial-gradient(circle, #ffffff 0 16%, var(--seen-cyan) 18% 48%, rgba(125, 211, 252, 0.18) 52% 100%); border: 1px solid rgba(255, 255, 255, 0.78); box-shadow: 0 0 0 6px rgba(125, 211, 252, 0.12), 0 0 18px rgba(125, 211, 252, 0.7); }
-    .waypoint-node.is-active { background: radial-gradient(circle, #ffffff 0 16%, var(--seen-rose) 18% 48%, rgba(232, 154, 168, 0.2) 52% 100%); box-shadow: 0 0 0 7px rgba(232, 154, 168, 0.14), 0 0 22px rgba(232, 154, 168, 0.78); }
-    .record-node { position: relative; display: block; width: 18px; height: 18px; border-radius: 999px; background: radial-gradient(circle, #ffffff 0 18%, var(--seen-green) 20% 45%, rgba(138, 195, 173, 0.18) 48% 100%); border: 1px solid rgba(255, 255, 255, 0.78); box-shadow: 0 0 0 7px rgba(138, 195, 173, 0.12), 0 0 18px rgba(138, 195, 173, 0.72); animation: seenPointPulse 2.2s ease-in-out infinite; }
-    .record-node::after { content: ""; position: absolute; inset: 5px; border-radius: inherit; border: 1px solid rgba(255, 255, 255, 0.72); }
-    @keyframes seenPointPulse { 0%, 100% { transform: scale(0.94); opacity: 0.86; } 50% { transform: scale(1.08); opacity: 1; } }
+    .waypoint-node { position: relative; display: block; width: 12px; height: 12px; border-radius: 999px; background: #58b7ff; border: 1px solid rgba(255, 255, 255, 0.86); box-shadow: 0 0 14px rgba(88, 183, 255, 0.82); }
+    .waypoint-node::before { content: ""; position: absolute; inset: -7px; border-radius: inherit; border: 2px solid rgba(88, 183, 255, 0.62); animation: seenWaypointRing 1.9s ease-out infinite; }
+    .waypoint-node.is-active { background: #7dd3fc; box-shadow: 0 0 0 7px rgba(125, 211, 252, 0.16), 0 0 22px rgba(125, 211, 252, 0.84); }
+    @keyframes seenWaypointRing { 0% { transform: scale(0.45); opacity: 0.8; } 100% { transform: scale(1.55); opacity: 0; } }
+    .record-node { position: relative; display: block; width: 10px; height: 10px; border-radius: 999px; background: #5bd28f; border: 1px solid rgba(255, 255, 255, 0.86); box-shadow: 0 0 12px rgba(91, 210, 143, 0.86); }
+    .record-node.is-far { width: 7px; height: 7px; }
+    .record-node.is-mid { width: 9px; height: 9px; }
+    .record-node::before { content: ""; position: absolute; inset: -7px; border-radius: inherit; border: 2px solid rgba(91, 210, 143, 0.68); animation: seenPointRing 1.8s ease-out infinite; }
+    .record-node::after { content: ""; position: absolute; inset: -2px; border-radius: inherit; border: 1px solid rgba(91, 210, 143, 0.42); animation: seenPointRing 1.8s ease-out infinite 0.42s; }
+    @keyframes seenPointRing { 0% { transform: scale(0.45); opacity: 0.88; } 70% { opacity: 0.18; } 100% { transform: scale(1.65); opacity: 0; } }
     .leaflet-tooltip.seen-tooltip { border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-tooltip-bg); color: var(--seen-tooltip-text); box-shadow: 0 14px 34px rgba(0, 0, 0, 0.26); backdrop-filter: blur(12px); }
     .leaflet-tooltip.seen-tooltip strong { color: var(--seen-tooltip-text); }
     .leaflet-tooltip-top.seen-tooltip::before { border-top-color: var(--seen-tooltip-bg); }
@@ -172,14 +181,28 @@
     .management-head h2 { margin: 0; font-size: 1.15rem; letter-spacing: 0; }
     .management-head p { margin: 4px 0 0; color: var(--seen-muted); font-size: 0.9rem; line-height: 1.6; }
     .record-form { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
-    .record-form label { display: grid; gap: 6px; color: var(--seen-muted); font-size: 0.78rem; }
+    .record-form label, .date-field { display: grid; gap: 6px; color: var(--seen-muted); font-size: 0.78rem; }
     .record-form .is-hidden { display: none; }
     .record-form input, .record-form select, .record-form textarea { width: 100%; border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-input-bg); color: var(--seen-text); padding: 9px 10px; font: inherit; font-size: 0.9rem; }
     .record-form input:focus, .record-form select:focus, .record-form textarea:focus, .combo input:focus { outline: 0; border-color: rgba(125, 211, 252, 0.62); box-shadow: 0 0 0 3px rgba(125, 211, 252, 0.14); }
-    .record-form select, .record-form input[type="date"] { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--seen-muted) 50%), linear-gradient(135deg, var(--seen-muted) 50%, transparent 50%); background-position: calc(100% - 15px) 52%, calc(100% - 10px) 52%; background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; padding-right: 28px; color-scheme: light; }
-    .record-form input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0; cursor: pointer; }
-    html[data-theme="dark"] .record-form select, html[data-theme="dark"] .record-form input[type="date"] { color-scheme: dark; }
+    .record-form select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--seen-muted) 50%), linear-gradient(135deg, var(--seen-muted) 50%, transparent 50%); background-position: calc(100% - 15px) 52%, calc(100% - 10px) 52%; background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; padding-right: 30px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3); }
+    .record-form select:hover, .combo input:hover { border-color: rgba(125, 211, 252, 0.46); background-color: rgba(255, 255, 255, 0.82); }
+    html[data-theme="dark"] .record-form select:hover, html[data-theme="dark"] .combo input:hover { background-color: rgba(255, 255, 255, 0.1); }
+    html[data-theme="dark"] .record-form select { color-scheme: dark; }
     .record-form option { background: var(--seen-surface-solid); color: var(--seen-text); }
+    .date-picker { position: relative; }
+    .date-display { width: 100%; border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-input-bg); color: var(--seen-text); padding: 9px 10px; font: inherit; font-size: 0.9rem; text-align: left; cursor: pointer; }
+    .calendar-panel { position: absolute; left: 0; top: calc(100% + 7px); z-index: 30; display: none; width: 288px; border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface-solid); box-shadow: var(--seen-shadow); padding: 10px; }
+    .date-picker.is-open .calendar-panel { display: block; }
+    .calendar-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+    .calendar-title { color: var(--seen-text); font-size: 0.9rem; font-weight: 600; }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+    .calendar-weekday, .calendar-day { min-width: 0; height: 30px; display: grid; place-items: center; border-radius: 7px; font-size: 0.78rem; }
+    .calendar-weekday { color: var(--seen-muted); }
+    .calendar-day { border: 0; background: transparent; color: var(--seen-text); cursor: pointer; }
+    .calendar-day:hover { background: rgba(125, 211, 252, 0.14); }
+    .calendar-day.is-selected { background: rgba(138, 195, 173, 0.24); color: var(--seen-text); box-shadow: inset 0 0 0 1px rgba(138, 195, 173, 0.54); }
+    .calendar-day.is-muted { color: transparent; pointer-events: none; }
     .record-form textarea { min-height: 84px; resize: vertical; }
     .combo { position: relative; display: grid; gap: 6px; }
     .combo > span { color: var(--seen-muted); font-size: 0.78rem; }
@@ -225,6 +248,13 @@
     .load-more-wrap { display: flex; justify-content: center; margin: 16px 0 0; }
     .image-preview-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
     .image-preview-grid img { width: 76px; height: 58px; border-radius: 8px; border: 1px solid var(--seen-border); object-fit: cover; background: #111820; }
+    .image-preview-item { position: relative; width: 76px; height: 58px; border-radius: 8px; overflow: hidden; border: 1px solid var(--seen-border); background: #111820; }
+    .image-preview-item img { width: 100%; height: 100%; border: 0; border-radius: 0; }
+    .image-remove { position: absolute; right: 4px; top: 4px; width: 22px; height: 22px; border: 0; border-radius: 999px; background: rgba(7, 11, 16, 0.72); color: #fff; display: none; align-items: center; justify-content: center; cursor: pointer; padding: 0; line-height: 1; }
+    .image-remove i { display: block; font-size: 0.82rem; line-height: 1; }
+    .image-preview-item:hover .image-remove { display: grid; }
+    .image-preview-more { position: relative; cursor: pointer; }
+    .image-preview-more::after { content: attr(data-more); position: absolute; inset: 0; display: grid; place-items: center; background: rgba(7, 11, 16, 0.58); color: #fff; font-weight: 700; font-size: 1.05rem; }
     .form-wide { grid-column: span 2; }
     .form-full { grid-column: 1 / -1; }
     .form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
@@ -236,8 +266,36 @@
     .drawer-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-input-bg); padding: 10px 12px; }
     .drawer-item strong { display: block; font-size: 0.92rem; }
     .drawer-item span { color: var(--seen-muted); font-size: 0.8rem; }
+    body.route-modal-open .seen-shell { filter: blur(12px); transform: scale(0.992); pointer-events: none; transition: filter 0.24s ease, transform 0.24s ease; }
+    .route-browser { width: min(920px, calc(100% - 34px)); max-height: min(760px, calc(100vh - 40px)); border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface-solid); color: var(--seen-text); box-shadow: var(--seen-shadow); padding: 0; overflow: hidden; }
+    .route-browser::backdrop { background: rgba(3, 8, 12, 0.58); backdrop-filter: blur(12px); }
+    .photo-browser { width: min(860px, calc(100% - 34px)); max-height: min(760px, calc(100vh - 40px)); border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface-solid); color: var(--seen-text); box-shadow: var(--seen-shadow); padding: 0; overflow: hidden; }
+    .photo-browser::backdrop { background: rgba(3, 8, 12, 0.58); backdrop-filter: blur(12px); }
+    .photo-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; padding: 14px; overflow: auto; max-height: 660px; }
+    .photo-grid .image-preview-item { width: 100%; height: auto; aspect-ratio: 4 / 3; }
+    .route-browser-shell { display: grid; grid-template-rows: auto minmax(0, 1fr); max-height: min(760px, calc(100vh - 40px)); }
+    .route-browser-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 18px; border-bottom: 1px solid var(--seen-line); }
+    .route-browser-head h2 { margin: 0; font-size: 1.18rem; line-height: 1.3; }
+    .route-browser-head p { margin: 3px 0 0; color: var(--seen-muted); font-size: 0.84rem; }
+    .route-browser-list { display: grid; gap: 10px; padding: 14px; overflow: auto; }
+    .route-card { display: grid; grid-template-columns: minmax(0, 2fr) minmax(160px, 0.78fr); gap: 12px; align-items: stretch; border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-input-bg); padding: 12px; }
+    .route-card h3 { margin: 0 0 6px; font-size: 1.02rem; line-height: 1.3; }
+    .route-card p { margin: 0; color: var(--seen-muted); font-size: 0.84rem; line-height: 1.55; }
+    .route-card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; min-width: 0; }
+    .route-card-actions .seen-action { border-radius: 8px; min-height: 64px; }
+    .route-editor { display: none; grid-column: 1 / -1; gap: 10px; border-top: 1px solid var(--seen-line); padding-top: 12px; }
+    .route-card.is-editing .route-editor { display: grid; }
+    .route-editor label { display: grid; gap: 6px; color: var(--seen-muted); font-size: 0.78rem; }
+    .route-editor input, .route-editor textarea { width: 100%; border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-input-bg); color: var(--seen-text); padding: 9px 10px; font: inherit; font-size: 0.9rem; }
+    .route-editor textarea { min-height: 122px; resize: vertical; }
     .seen-dialog { width: min(420px, calc(100% - 32px)); border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface-solid); color: var(--seen-text); box-shadow: var(--seen-shadow); padding: 0; }
     .seen-dialog::backdrop { background: rgba(3, 8, 12, 0.62); backdrop-filter: blur(8px); }
+    .toast-stack { position: fixed; right: 18px; top: 86px; z-index: 12000; display: grid; gap: 8px; width: min(340px, calc(100% - 36px)); }
+    .seen-toast { display: grid; grid-template-columns: 10px minmax(0, 1fr); gap: 10px; align-items: start; border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface-solid); color: var(--seen-text); box-shadow: var(--seen-shadow); padding: 11px 12px; }
+    .seen-toast::before { content: ""; width: 9px; height: 9px; border-radius: 999px; margin-top: 5px; background: var(--seen-green); box-shadow: 0 0 0 5px rgba(138, 195, 173, 0.14); }
+    .seen-toast.error::before { background: var(--seen-rose); box-shadow: 0 0 0 5px rgba(232, 154, 168, 0.14); }
+    .seen-toast strong { display: block; font-size: 0.9rem; line-height: 1.35; }
+    .seen-toast span { display: block; margin-top: 2px; color: var(--seen-muted); font-size: 0.78rem; line-height: 1.45; }
     .dialog-card { padding: 18px; }
     .dialog-card h2 { margin: 0 0 8px; font-size: 1.12rem; letter-spacing: 0; }
     .dialog-card p { margin: 0; color: var(--seen-muted); line-height: 1.7; font-size: 0.92rem; }
@@ -255,8 +313,10 @@
     .post-note { margin: 8px 0 0; color: var(--seen-muted); font-size: 0.9rem; line-height: 1.7; }
     .post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
     .post-tags .seen-tag { padding: 5px 8px; font-size: 0.76rem; }
-    .detail-dialog { width: min(860px, calc(100% - 32px)); max-height: min(820px, calc(100vh - 32px)); overflow: visible; }
-    .detail-card { position: relative; display: grid; grid-template-columns: minmax(260px, 0.95fr) minmax(280px, 1.05fr); gap: 0; padding: 0; overflow: hidden; max-height: calc(100vh - 140px); }
+    .detail-dialog { width: min(860px, calc(100% - 32px)); max-height: min(820px, calc(100vh - 32px)); overflow: visible; border-radius: 12px; }
+    .detail-card { position: relative; display: grid; grid-template-columns: minmax(260px, 0.95fr) minmax(280px, 1.05fr); gap: 0; padding: 0; overflow: hidden; max-height: calc(100vh - 140px); border-radius: 12px; }
+    .detail-media, .detail-copy { transition: opacity 220ms ease, transform 220ms cubic-bezier(0.16, 1, 0.3, 1); }
+    .detail-card.is-switching .detail-media, .detail-card.is-switching .detail-copy { opacity: 0.52; transform: translateY(4px) scale(0.992); }
     .detail-card img { width: 100%; height: 100%; min-height: 360px; object-fit: cover; display: block; background: #111820; }
     .detail-media { position: relative; background: #111820; }
     .detail-media img { width: 100%; height: 100%; min-height: 360px; object-fit: cover; display: block; }
@@ -285,17 +345,34 @@
     }
     .data-note { margin: 18px 0 0; color: var(--seen-muted); font-size: 0.9rem; line-height: 1.8; }
     body.search-open .seen-shell { filter: blur(12px); transform: scale(0.992); pointer-events: none; transition: filter 0.24s ease, transform 0.24s ease; }
-    .floating-search { position: fixed; left: 50%; bottom: 24px; z-index: 10020; width: 124px; transform: translateX(-50%); transition: inset 0.28s ease, width 0.28s ease, transform 0.28s ease; }
+    .floating-search { position: fixed; left: 50%; bottom: 24px; z-index: 10020; width: 46px; transform: translateX(-50%); transition: inset 0.28s ease, width 0.28s ease, transform 0.28s ease; }
     .search-glass { border: 1px solid var(--seen-border); border-radius: 999px; background: linear-gradient(110deg, rgba(125, 211, 252, 0.18), rgba(138, 195, 173, 0.18), rgba(232, 154, 168, 0.12)), var(--seen-surface); box-shadow: 0 18px 54px rgba(3, 9, 14, 0.22); backdrop-filter: blur(20px) saturate(1.16); -webkit-backdrop-filter: blur(20px) saturate(1.16); overflow: hidden; }
-    .floating-search.is-open { top: 50%; bottom: auto; width: min(640px, calc(100% - 36px)); transform: translate(-50%, -50%); }
+    .floating-search.is-open { left: 50%; right: auto; top: 50%; bottom: auto; width: min(640px, calc(100% - 36px)); transform: translate(-50%, -50%); }
     .floating-search.is-open .search-glass { border-radius: 22px; }
     .search-main { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; align-items: center; gap: 6px; min-height: 42px; padding: 6px 12px; }
     .search-main i { color: var(--seen-muted); font-size: 1.05rem; }
     .search-main input { border: 0; outline: 0; background: transparent; color: var(--seen-text); font: inherit; min-width: 0; }
-    .floating-search:not(.is-open) .search-main { grid-template-columns: 22px auto; justify-content: center; min-height: 38px; padding: 5px 12px; }
+    .floating-search:not(.is-open) .search-main { grid-template-columns: 1fr; justify-content: center; place-items: center; min-height: 46px; padding: 0; }
     .floating-search:not(.is-open) .search-main input { display: none; }
     .floating-search:not(.is-open) .search-scope { display: none; }
-    .floating-search:not(.is-open) .search-main::after { content: "搜索"; color: var(--seen-text); font-size: 0.92rem; }
+    .floating-search:not(.is-open):hover { width: 132px; }
+    .floating-search:not(.is-open):hover .search-main { grid-template-columns: 22px auto; padding: 0 13px; justify-content: start; }
+    .floating-search:not(.is-open):hover .search-main::after { content: "搜索"; color: var(--seen-text); font-size: 0.9rem; }
+    .draft-box { position: fixed; right: 20px; bottom: 215px; z-index: 10030; display: grid; gap: 8px; justify-items: end; }
+    .draft-button { position: relative; width: 46px; height: 46px; border-radius: 999px; border: 1px solid var(--seen-border); background: var(--seen-surface); color: var(--seen-text); box-shadow: var(--seen-shadow); padding: 0; cursor: pointer; backdrop-filter: blur(18px); display: grid; place-items: center; }
+    .draft-button strong { display: grid; place-items: center; font-size: 0; }
+    .draft-button i { font-size: 1.05rem; }
+    .draft-badge { position: absolute; right: -4px; top: -5px; min-width: 18px; height: 18px; border-radius: 999px; background: #e5484d; color: #fff; display: none; place-items: center; padding: 0 5px; font-size: 0.68rem; line-height: 1; border: 2px solid var(--seen-surface-solid); }
+    .draft-badge.is-visible { display: grid; }
+    .draft-dot { display: none; }
+    .draft-panel { display: none; width: min(360px, calc(100vw - 36px)); border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface-solid); box-shadow: var(--seen-shadow); padding: 12px; }
+    .draft-box:hover .draft-panel, .draft-box.is-open .draft-panel { display: grid; gap: 10px; }
+    .draft-panel h3 { margin: 0; font-size: 1rem; }
+    .draft-panel p { margin: 0; color: var(--seen-muted); font-size: 0.82rem; line-height: 1.5; }
+    .draft-list { display: grid; gap: 6px; max-height: 220px; overflow: auto; }
+    .draft-item { display: grid; grid-template-columns: minmax(0, 1fr) 24px; gap: 8px; align-items: center; border: 1px solid var(--seen-border); border-radius: 7px; padding: 7px 8px; color: var(--seen-muted); font-size: 0.78rem; }
+    .draft-item button { width: 22px; height: 22px; border: 0; border-radius: 999px; background: rgba(232, 154, 168, 0.14); color: var(--seen-rose); opacity: 0; cursor: pointer; }
+    .draft-item:hover button { opacity: 1; }
     .search-scope { display: inline-flex; gap: 3px; border: 1px solid var(--seen-border); border-radius: 999px; padding: 3px; background: rgba(255,255,255,0.32); }
     .search-scope button { border: 0; border-radius: 999px; padding: 5px 9px; background: transparent; color: var(--seen-muted); cursor: pointer; font: inherit; font-size: 0.76rem; }
     .search-scope button.is-active { background: var(--seen-surface-solid); color: var(--seen-text); }
@@ -307,36 +384,43 @@
     .search-hit { color: var(--seen-muted); font-size: 0.86rem; line-height: 1.55; }
     mark { border-radius: 4px; background: rgba(227, 180, 111, 0.34); color: inherit; padding: 0 2px; }
     .search-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; color: var(--seen-muted); font-size: 0.8rem; }
-    .detail-switch { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; }
-    .detail-switch:hover { transform: translateY(-50%); }
-    .detail-switch.prev { left: 10px; }
-    .detail-switch.next { right: 10px; }
-    .route-dock { --route-step: 78px; --active-index: 0; --route-width: 0px; --route-viewport-width: 0px; display: none; position: fixed; left: 50%; bottom: 22px; z-index: 4; width: min(620px, calc(100% - 36px)); transform: translateX(-50%); border: 1px solid var(--seen-border); border-radius: 26px; background: var(--seen-surface); box-shadow: 0 18px 54px rgba(3, 9, 14, 0.26); backdrop-filter: blur(22px) saturate(1.16); -webkit-backdrop-filter: blur(22px) saturate(1.16); padding: 12px 14px 13px; overflow: hidden; }
+    .detail-switch { position: fixed; top: 50%; transform: translateY(-50%); z-index: 10003; width: 34px; height: 96px; border-radius: 999px; background: rgba(7, 11, 16, 0.58); color: #fff; border-color: rgba(255,255,255,0.22); }
+    .detail-switch:hover { transform: translateY(-50%); background: rgba(7, 11, 16, 0.78); }
+    .detail-switch.prev { left: max(12px, calc(50% - 488px)); }
+    .detail-switch.next { right: max(12px, calc(50% - 488px)); }
+    .image-nav { opacity: 0; transition: opacity 0.2s ease; }
+    .detail-media:hover .image-nav { opacity: 1; }
+    .image-nav .icon-btn { background: rgba(7, 11, 16, 0.68); color: #fff; border-color: rgba(255,255,255,0.26); box-shadow: 0 10px 30px rgba(0,0,0,0.28); }
+    .route-dock { --route-step: 78px; --active-index: 0; --route-width: 0px; --route-viewport-width: 0px; display: none; position: fixed; left: 50%; bottom: 22px; z-index: 4; width: min(620px, calc(100% - 36px)); transform: translateX(-50%); border: 1px solid var(--seen-border); border-radius: 26px; background: var(--seen-surface); box-shadow: 0 18px 54px rgba(3, 9, 14, 0.26); backdrop-filter: blur(22px) saturate(1.16); -webkit-backdrop-filter: blur(22px) saturate(1.16); padding: 12px 14px 13px; overflow: visible; }
     .route-dock.is-visible { display: block; }
     .route-dock-info { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: start; margin-bottom: 10px; }
     .route-dock-info strong { display: block; color: var(--seen-text); font-size: 0.96rem; line-height: 1.24; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .route-dock-info span { display: block; margin-top: 3px; color: var(--seen-muted); font-size: 0.73rem; line-height: 1.35; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .route-station-count { text-align: right; color: var(--seen-text); font-size: 0.86rem; line-height: 1.25; white-space: nowrap; }
     .route-station-count span { color: var(--seen-muted); font-size: 0.72rem; }
-    .route-viewport { position: relative; height: 50px; overflow: hidden; touch-action: pan-y; cursor: grab; mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%); -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%); }
+    .route-viewport { position: relative; height: 62px; overflow: visible; touch-action: pan-y; cursor: grab; mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%); -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%); }
     .route-viewport:active { cursor: grabbing; }
-    .route-track { display: flex; align-items: center; width: var(--route-width); height: 100%; transform: translateX(calc((var(--route-viewport-width) - var(--route-step)) / 2 - (var(--active-index) * var(--route-step)))); transition: transform 620ms cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
-    .route-node-cell { position: relative; width: var(--route-step); height: 50px; flex: 0 0 var(--route-step); display: grid; place-items: center; }
+    .route-track { display: flex; align-items: center; width: var(--route-width); height: 100%; transform: translateX(calc((var(--route-viewport-width) - var(--route-step)) / 2 - (var(--active-index) * var(--route-step)))); transition: transform 760ms cubic-bezier(0.22, 1.18, 0.36, 1); will-change: transform; }
+    .route-node-cell { position: relative; width: var(--route-step); height: 62px; flex: 0 0 var(--route-step); display: grid; place-items: center; }
     .route-node-cell:not(:last-child)::after { content: ""; position: absolute; left: calc(50% + 17px); width: calc(var(--route-step) - 34px); top: 50%; height: 3px; transform: translateY(-50%); background-image: radial-gradient(circle, currentColor 1.4px, transparent 1.6px); background-size: 11px 3px; background-repeat: repeat-x; color: var(--seen-muted); opacity: 0.62; pointer-events: none; }
-    .route-node { width: 17px; height: 17px; border: 2px solid rgba(82, 97, 104, 0.72); border-radius: 999px; background: var(--seen-surface-solid); color: transparent; cursor: pointer; transition: transform 460ms cubic-bezier(0.16, 1, 0.3, 1), border-color 260ms ease, box-shadow 260ms ease, background 260ms ease, opacity 260ms ease; }
+    .route-node { width: 14px; height: 14px; border: 2px solid rgba(82, 97, 104, 0.72); border-radius: 999px; background: var(--seen-surface-solid); color: transparent; cursor: pointer; transition: transform 460ms cubic-bezier(0.16, 1, 0.3, 1), border-color 260ms ease, box-shadow 260ms ease, background 260ms ease, opacity 260ms ease; }
     .route-node:hover { transform: scale(1.16); border-color: var(--seen-blue); }
-    .route-node.is-active { transform: scale(1.42); border-color: var(--seen-cyan); background: #fff; box-shadow: 0 0 0 7px rgba(125, 211, 252, 0.14), 0 0 22px rgba(125, 211, 252, 0.54); animation: routeNodeArrive 520ms cubic-bezier(0.16, 1, 0.3, 1); }
-    @keyframes routeNodeArrive { 0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(125, 211, 252, 0); } 62% { transform: scale(1.56); } 100% { transform: scale(1.42); } }
+    .route-node.is-active { position: relative; width: 12px; height: 12px; border-color: rgba(255,255,255,0.98); background: #21ff82; box-shadow: 0 0 20px rgba(33, 255, 130, 1), 0 0 0 6px rgba(33, 255, 130, 0.24); animation: routeNodeBreathe 1.7s ease-out infinite; }
+    .route-node.is-active::before { content: ""; position: absolute; inset: -8px; border-radius: inherit; border: 2px solid rgba(33, 255, 130, 0.86); animation: routeNodeRing 1.7s ease-out infinite; }
+    @keyframes routeNodeBreathe { 0%, 100% { transform: scale(1); filter: brightness(1); } 50% { transform: scale(1.16); filter: brightness(1.18); } }
+    @keyframes routeNodeRing { 0% { transform: scale(0.42); opacity: 0.9; } 100% { transform: scale(1.72); opacity: 0; } }
     .route-node-cell.is-edge .route-node { opacity: 0.52; }
     @media (max-width: 1180px) { .seen-hero, .record-strip { grid-template-columns: 1fr; } .seen-map-panel { min-height: auto; } }
     @media (max-width: 920px) { .record-form { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media (max-width: 920px) { .route-builder-meta { padding-left: 0; } }
-    @media (max-width: 720px) { .seen-shell { width: min(100% - 24px, 1480px); padding-top: 92px; } .seen-left, .dashboard-grid, .record-form { grid-template-columns: 1fr; } .form-wide { grid-column: auto; } .map-toolbar, .filter-bar, .management-head { align-items: flex-start; flex-direction: column; } .map-controls, .zoom-tabs { width: 100%; justify-content: space-between; } .zoom-tabs button { flex: 1; } .post-card.with-note, .detail-card { grid-template-columns: 1fr; } .detail-card { max-height: calc(100vh - 172px); overflow: auto; } .detail-card img { min-height: 220px; max-height: 38vh; } .detail-copy { overflow: visible; } .drawer-item { align-items: flex-start; flex-direction: column; } .route-dock { --route-step: 58px; bottom: 10px; width: min(360px, calc(100% - 20px)); padding: 10px 12px; border-radius: 22px; } .route-dock-info { margin-bottom: 6px; } .route-dock-info strong { font-size: 0.86rem; } .route-dock-info span, .route-station-count span { font-size: 0.68rem; } .route-station-count { font-size: 0.78rem; } .route-viewport { height: 40px; } .route-node-cell { height: 40px; } .floating-search { bottom: 14px; } }
+    @media (max-width: 960px) { .detail-switch.prev { left: 8px; } .detail-switch.next { right: 8px; } }
+    @media (max-width: 720px) { .seen-shell { width: min(100% - 24px, 1480px); padding-top: 92px; } .seen-left, .dashboard-grid, .record-form { grid-template-columns: 1fr; } .form-wide { grid-column: auto; } .map-toolbar, .filter-bar, .management-head { align-items: flex-start; flex-direction: column; } .map-controls, .zoom-tabs { width: 100%; justify-content: space-between; } .zoom-tabs button { flex: 1; } .post-card.with-note, .detail-card, .route-card { grid-template-columns: 1fr; } .detail-card { max-height: calc(100vh - 172px); overflow: auto; } .detail-card img { min-height: 220px; max-height: 38vh; } .detail-copy { overflow: visible; } .drawer-item { align-items: flex-start; flex-direction: column; } .detail-switch, .image-nav { display: none; } .route-dock { --route-step: 58px; bottom: 10px; width: min(360px, calc(100% - 20px)); padding: 10px 12px; border-radius: 22px; } .route-dock-info { margin-bottom: 6px; } .route-dock-info strong { font-size: 0.86rem; } .route-dock-info span, .route-station-count span { font-size: 0.68rem; } .route-station-count { font-size: 0.78rem; } .route-viewport { height: 52px; } .route-node-cell { height: 52px; } .floating-search { bottom: 14px; } .draft-box { bottom: 215px; } }
   </style>
 </head>
 <body id="page-top" class="seen-page">
   <div id="navbar"></div>
   <main class="seen-shell">
+    <div class="seen-particle-field" aria-hidden="true"><canvas id="seen-particle-canvas"></canvas></div>
     <section class="seen-hero" aria-label="所见首页">
       <div class="seen-left">
         <article class="seen-panel seen-card">
@@ -389,15 +473,27 @@
       <div class="management-head">
         <div>
           <h2>记录管理</h2>
-          <p>前端临时工作台：新增记录写入 localStorage；上传图片会转成本地 data URL；隐藏可恢复，永久删除会在本浏览器中移除。</p>
+          <p>只读展示工作台：部署后的网页只读取文件系统归档；创建和编辑请在本地运行 scripts/seen-archive.mjs。</p>
         </div>
         <button class="seen-action" id="toggle-manager" type="button">展开管理</button>
       </div>
       <div id="manager-body" hidden>
         <form class="record-form" id="record-form">
-          <label><span data-seen-i18n="title">标题</span><input name="title" required placeholder="例如：雨后街角" data-seen-i18n-attr="placeholder:title_placeholder"></label>
-          <label><span data-seen-i18n="type">类型</span><select name="type" id="record-type"><option value="photo" data-seen-i18n="photo_only">纯图片</option><option value="note" data-seen-i18n="photo_note">图片 + 随笔</option></select></label>
-          <label><span data-seen-i18n="date">日期</span><input name="date" type="date" required></label>
+          <label class="form-wide" data-field-group="region"><span data-seen-i18n="title">标题</span><input name="title" required placeholder="例如：雨后街角" data-seen-i18n-attr="placeholder:title_placeholder"></label>
+          <input name="type" id="record-type" type="hidden" value="note">
+          <div class="date-field date-picker" id="record-date-picker">
+            <span data-seen-i18n="date">日期</span>
+            <input name="date" id="record-date" type="hidden" required>
+            <button class="date-display" id="record-date-display" type="button">选择日期</button>
+            <div class="calendar-panel" id="record-calendar-panel">
+              <div class="calendar-head">
+                <button class="icon-btn" id="calendar-prev" type="button" aria-label="上个月"><i class="bi-chevron-left"></i></button>
+                <span class="calendar-title" id="calendar-title"></span>
+                <button class="icon-btn" id="calendar-next" type="button" aria-label="下个月"><i class="bi-chevron-right"></i></button>
+              </div>
+              <div class="calendar-grid" id="calendar-grid"></div>
+            </div>
+          </div>
           <label><span data-seen-i18n="category">归类</span><select name="category" id="record-category"><option value="region" data-seen-i18n="region_record">区域记录</option><option value="route" data-seen-i18n="route_record">路线记录</option></select></label>
           <label class="form-wide" data-field-group="region"><span data-seen-i18n="record_id">记录 ID</span><input name="recordId" id="record-id" placeholder="留空自动生成，必须唯一" data-seen-i18n-attr="placeholder:record_id_placeholder"></label>
           <div class="form-wide form-actions">
@@ -436,26 +532,26 @@
               <p class="route-builder-help" data-seen-i18n="route_builder_help">输入已有记录 ID，列表顺序会决定起点、经停点与终点。至少需要两个有效 ID。</p>
             </div>
           </div>
-          <label class="form-wide"><span data-seen-i18n="tags">标签</span><input name="tags" placeholder="海边, 夜色, 街角" data-seen-i18n-attr="placeholder:tags_placeholder"></label>
-          <label class="form-wide"><span data-seen-i18n="upload_image">上传图片</span><input name="imageFile" id="image-file" type="file" accept="image/*" multiple></label>
-          <div class="form-wide image-preview-grid" id="image-preview-grid"></div>
+          <label class="form-wide" data-field-group="region"><span data-seen-i18n="tags">标签</span><input name="tags" placeholder="海边, 夜色, 街角" data-seen-i18n-attr="placeholder:tags_placeholder"></label>
+          <label class="form-wide" data-field-group="region"><span data-seen-i18n="upload_image">上传图片</span><input name="imageFile" id="image-file" type="file" accept="image/*" multiple></label>
+          <div class="form-wide image-preview-grid" id="image-preview-grid" data-field-group="region"></div>
           <div class="form-full" data-field-group="region">
             <div class="manager-map-wrap"><div class="manager-map" id="record-picker-map"></div></div>
             <p class="manager-map-hint">点击管理地图可直接写入经纬度；切换地点候选时地图会同步移动到该城市。</p>
           </div>
-          <label class="form-full" data-note-field><span data-seen-i18n="note">随笔</span><textarea name="note" placeholder="图片 + 随笔模式下填写路上的细节" data-seen-i18n-attr="placeholder:note_placeholder"></textarea></label>
+          <label class="form-full" data-note-field data-field-group="region"><span data-seen-i18n="note">随笔</span><textarea name="note" placeholder="图片 + 随笔模式下填写路上的细节" data-seen-i18n-attr="placeholder:note_placeholder"></textarea></label>
           <div class="form-full form-actions">
             <button class="seen-action primary" type="submit" data-seen-i18n="add_record">添加记录</button>
             <button class="seen-action" id="use-map-center" type="button" data-seen-i18n="use_map_center">使用当前地图中心坐标</button>
             <button class="seen-action" type="reset" data-seen-i18n="clear_form">清空表单</button>
           </div>
         </form>
-        <div class="drawer-list" id="route-manager"></div>
+        <div class="drawer-list" id="archive-status"></div>
         <div class="drawer-list" id="hidden-records"></div>
       </div>
     </section>
     <section class="record-strip" id="record-strip" aria-label="照片与游记列表"></section>
-    <p class="data-note">维护建议：真实记录只存最底层条目。区域照片使用 region.country/province/city + lat/lng；路线记录使用 routeId + segmentIndex + lat/lng。页面会自动计算 dashboard、标签、区域高亮、路线计数和卡片筛选。</p>
+    <p class="data-note">维护建议：真实记录落在 Seen/records/&lt;record_id&gt;/，路线落在 Seen/routes/&lt;route_id&gt;.json，索引落在 Seen/indexes/。页面运行时会维护 records_index / routes_index，并用 Route.records 的顺序驱动导航条。</p>
   </main>
   <dialog class="seen-dialog detail-dialog" id="record-detail-dialog">
     <div class="detail-card">
@@ -476,6 +572,7 @@
         <p class="post-note" id="detail-note"></p>
         <div class="post-tags" id="detail-tags"></div>
         <div class="detail-actions">
+          <button class="seen-action" id="edit-detail-record" type="button" title="编辑" aria-label="编辑"><i class="bi-pencil"></i>编辑</button>
           <button class="seen-action" id="hide-detail-record" type="button" title="隐藏" aria-label="隐藏"><i class="bi-eye-slash"></i>隐藏</button>
           <button class="seen-action danger" id="delete-detail-record" type="button" title="永久删除" aria-label="永久删除"><i class="bi-trash"></i>永久删除</button>
         </div>
@@ -483,6 +580,69 @@
     </div>
     <div class="route-dock" id="route-dock" aria-live="polite"></div>
   </dialog>
+  <dialog class="photo-browser" id="photo-browser-dialog">
+    <div class="route-browser-shell">
+      <div class="route-browser-head">
+        <div>
+          <h2>待上传照片</h2>
+          <p id="photo-browser-summary">当前记录暂存的图片。</p>
+        </div>
+        <button class="icon-btn" id="close-photo-browser" type="button" aria-label="关闭"><i class="bi-x-lg"></i></button>
+      </div>
+      <div class="photo-grid" id="photo-browser-grid"></div>
+    </div>
+  </dialog>
+  <dialog class="route-browser" id="record-editor-dialog">
+    <div class="route-browser-shell">
+      <div class="route-browser-head">
+        <div>
+          <h2>编辑记录</h2>
+          <p id="record-editor-summary">修改记录内容与照片。</p>
+        </div>
+        <button class="icon-btn" id="close-record-editor" type="button" aria-label="关闭"><i class="bi-x-lg"></i></button>
+      </div>
+      <form class="route-browser-list record-form" id="record-editor-form">
+        <input name="id" type="hidden">
+        <label class="form-wide">标题<input name="title" required></label>
+        <label class="form-wide">地点 / 原文地址<input name="place"></label>
+        <label>日期<input name="date"></label>
+        <label>标签<input name="tags"></label>
+        <label class="form-full">随笔<textarea name="note"></textarea></label>
+        <label class="form-wide">新增照片<input name="images" id="record-editor-images" type="file" accept="image/*" multiple></label>
+        <div class="form-full image-preview-grid" id="record-editor-image-grid"></div>
+        <div class="form-full form-actions">
+          <button class="seen-action primary" type="submit">保存编辑</button>
+          <button class="seen-action" type="button" id="cancel-record-editor">取消</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+  <dialog class="route-browser" id="route-browser-dialog">
+    <div class="route-browser-shell">
+      <div class="route-browser-head">
+        <div>
+          <h2>路线</h2>
+          <p id="route-browser-summary">按路线时间排序展示。</p>
+        </div>
+        <button class="seen-action" id="connect-archive" type="button">连接归档目录</button>
+        <button class="icon-btn" id="close-route-browser" type="button" aria-label="关闭"><i class="bi-x-lg"></i></button>
+      </div>
+      <div class="route-browser-list" id="route-browser-list"></div>
+    </div>
+  </dialog>
+  <div class="toast-stack" id="toast-stack"></div>
+  <div class="draft-box" id="draft-box">
+    <div class="draft-panel">
+      <h3>草稿箱</h3>
+      <p id="draft-summary">暂无待提交变更。</p>
+      <div class="draft-list" id="draft-list"></div>
+      <div class="form-actions">
+        <button class="seen-action" id="draft-connect" type="button">连接归档目录</button>
+        <button class="seen-action primary" id="draft-commit" type="button">提交全部</button>
+      </div>
+    </div>
+    <button class="draft-button" id="draft-toggle" type="button" title="草稿箱" aria-label="草稿箱"><strong><i class="bi-inbox"></i><span class="draft-dot"></span><span id="draft-count">0</span></strong><span class="draft-badge" id="draft-badge">0</span></button>
+  </div>
   <div class="floating-search" id="floating-search">
     <div class="search-glass">
       <div class="search-main">
@@ -506,7 +666,7 @@
   <dialog class="seen-dialog" id="delete-dialog">
     <div class="dialog-card">
       <h2>永久删除记录？</h2>
-      <p id="delete-dialog-copy">这会把自建记录从本地数据中移除；内置示例会写入本浏览器的删除标记，刷新后也不会恢复。</p>
+      <p id="delete-dialog-copy">提交到本地归档后，会移除记录目录、索引和路线引用。</p>
       <div class="dialog-actions">
         <button class="seen-action" id="cancel-delete" type="button">取消</button>
         <button class="seen-action danger" id="confirm-delete" type="button">永久删除</button>
@@ -515,36 +675,11 @@
   </dialog>
   <div id="floating-buttons-container"></div>
   <script>
-    // Data boundary: replace this object with fetch("posts.yml") or generated JSON later.
-    // The UI consumes normalized records, route definitions, and boundary definitions only.
+    // Static geographic boundaries stay in-page; records and routes are loaded from the archive filesystem.
     const SEEN_DATA = {
-      tags: ["海边", "城市漫游", "夜色", "公路", "博物馆", "咖啡", "日落", "山路", "街角", "校园", "桥", "建筑", "雨后", "市场"],
-      records: [
-        { id: "miami-bay-dusk", title: "海湾边的傍晚", type: "note", image: "../static/assets/img/background.jpeg", date: "2025-04-18", place: "United States / Florida / Miami", lat: 25.7617, lng: -80.1918, region: { country: "us", province: "florida", city: "miami" }, tags: ["海边", "日落", "城市漫游"], note: "风从海湾吹过来，玻璃幕墙把落日切成几块。" },
-        { id: "miami-campus", title: "校园午后的树影", type: "photo", image: "../static/assets/img/photo.png", date: "2025-04-20", place: "United States / Florida / Coral Gables", lat: 25.7215, lng: -80.2793, region: { country: "us", province: "florida", city: "miami" }, tags: ["校园", "建筑"] },
-        { id: "keywest-road", title: "从海上公路看见云", type: "note", image: "../static/assets/blog-header.jpg", date: "2025-03-12", place: "United States / Florida / Key West", lat: 24.5551, lng: -81.7800, routeId: "florida-coast", segmentIndex: 1, tags: ["公路", "海边"], note: "这条记录挂在路线段上，适合描述两个坐标之间发生的事情。" },
-        { id: "key-largo-blue", title: "Key Largo 的蓝", type: "photo", image: "../static/assets/img/background.jpeg", date: "2025-03-12", place: "United States / Florida / Key Largo", lat: 25.0865, lng: -80.4473, routeId: "florida-coast", segmentIndex: 0, tags: ["海边", "公路"] },
-        { id: "everglades-flat", title: "湿地边缘", type: "photo", image: "../static/assets/img/background.png", date: "2025-02-02", place: "United States / Florida / Everglades", lat: 25.2866, lng: -80.8987, region: { country: "us", province: "florida", city: "miami" }, tags: ["山路", "日落"] },
-        { id: "orlando-night", title: "奥兰多夜色", type: "note", image: "../static/assets/blog-header.jpg", date: "2025-01-18", place: "United States / Florida / Orlando", lat: 28.5383, lng: -81.3792, region: { country: "us", province: "florida", city: "orlando" }, tags: ["夜色", "城市漫游"], note: "灯光把街区切成很清楚的层次。" },
-        { id: "newyork-window", title: "纽约窗口", type: "photo", image: "../static/assets/img/photo.png", date: "2024-12-22", place: "United States / New York / New York", lat: 40.7128, lng: -74.0060, region: { country: "us", province: "new-york", city: "new-york-city" }, tags: ["建筑", "城市漫游"] },
-        { id: "brooklyn-bridge", title: "桥上的风", type: "note", image: "../static/assets/img/background.jpeg", date: "2024-12-23", place: "United States / New York / Brooklyn", lat: 40.7061, lng: -73.9969, region: { country: "us", province: "new-york", city: "new-york-city" }, tags: ["桥", "街角"], note: "桥面上每个人都走得很快，河面反而显得安静。" },
-        { id: "guangzhou-rain", title: "旧街和雨后的灯", type: "photo", image: "../static/assets/img/background.png", date: "2024-07-06", place: "China / Guangdong / Guangzhou", lat: 23.1291, lng: 113.2644, region: { country: "cn", province: "guangdong", city: "guangzhou" }, tags: ["街角", "夜色", "雨后"] },
-        { id: "guangzhou-river", title: "珠江边的慢走", type: "note", image: "../static/assets/blog-header.jpg", date: "2024-07-06", place: "China / Guangdong / Guangzhou", lat: 23.1080, lng: 113.3186, routeId: "pearl-river", segmentIndex: 0, tags: ["桥", "夜色"], note: "路线记录可以在这一段插入多条照片或随笔。" },
-        { id: "shenzhen-market", title: "深圳市场清晨", type: "photo", image: "../static/assets/img/photo.png", date: "2024-07-08", place: "China / Guangdong / Shenzhen", lat: 22.5431, lng: 114.0579, region: { country: "cn", province: "guangdong", city: "shenzhen" }, tags: ["市场", "城市漫游"] },
-        { id: "macau-density", title: "窗口里的城市密度", type: "photo", image: "../static/assets/img/photo.png", date: "2024-02-09", place: "China / Macau / Macau", lat: 22.1987, lng: 113.5439, region: { country: "cn", province: "macau", city: "macau" }, tags: ["城市漫游", "街角"] },
-        { id: "macau-walk", title: "澳门步行线", type: "note", image: "../static/assets/img/background.jpeg", date: "2024-02-10", place: "China / Macau / Macau", lat: 22.1919, lng: 113.5380, routeId: "pearl-river", segmentIndex: 1, tags: ["建筑", "街角"], note: "街巷很窄，但每个转角都有不同的垂直层次。" },
-        { id: "hongkong-harbour", title: "海港夜色", type: "photo", image: "../static/assets/blog-header.jpg", date: "2024-02-11", place: "China / Hong Kong / Hong Kong", lat: 22.3193, lng: 114.1694, region: { country: "cn", province: "hong-kong", city: "hong-kong" }, tags: ["海边", "夜色"] },
-        { id: "beijing-museum", title: "博物馆里的下午", type: "note", image: "../static/assets/img/background.png", date: "2023-10-03", place: "China / Beijing / Beijing", lat: 39.9042, lng: 116.4074, region: { country: "cn", province: "beijing", city: "beijing" }, tags: ["博物馆", "建筑"], note: "展厅的光线比想象中柔和，适合慢慢看。" },
-        { id: "shanghai-coffee", title: "上海咖啡店窗口", type: "photo", image: "../static/assets/img/photo.png", date: "2023-09-22", place: "China / Shanghai / Shanghai", lat: 31.2304, lng: 121.4737, region: { country: "cn", province: "shanghai", city: "shanghai" }, tags: ["咖啡", "街角"] },
-        { id: "hangzhou-lake", title: "湖边雨后", type: "note", image: "../static/assets/img/background.jpeg", date: "2023-09-24", place: "China / Zhejiang / Hangzhou", lat: 30.2741, lng: 120.1551, region: { country: "cn", province: "zhejiang", city: "hangzhou" }, tags: ["雨后", "城市漫游"], note: "湿润的空气让远处的轮廓变得很轻。" },
-        { id: "portland-corner", title: "Portland 的街角", type: "photo", image: "../static/assets/img/background.png", date: "2023-05-17", place: "United States / Oregon / Portland", lat: 45.5152, lng: -122.6784, region: { country: "us", province: "oregon", city: "portland" }, tags: ["街角", "咖啡"] },
-        { id: "seattle-ferry", title: "渡轮上的风", type: "note", image: "../static/assets/blog-header.jpg", date: "2023-05-20", place: "United States / Washington / Seattle", lat: 47.6062, lng: -122.3321, region: { country: "us", province: "washington", city: "seattle" }, tags: ["海边", "城市漫游"], note: "水面、天色和城市边界被风混在一起。" },
-        { id: "losangeles-sunset", title: "洛杉矶日落", type: "photo", image: "../static/assets/img/background.jpeg", date: "2023-04-12", place: "United States / California / Los Angeles", lat: 34.0522, lng: -118.2437, region: { country: "us", province: "california", city: "los-angeles" }, tags: ["日落", "城市漫游"] }
-      ],
-      routes: [
-        { id: "florida-coast", name: "Florida Coast Drive", points: [{ name: "Miami", at: "2025-03-12 09:00", lat: 25.7617, lng: -80.1918 }, { name: "Key Largo", at: "2025-03-12 11:20", lat: 25.0865, lng: -80.4473 }, { name: "Key West", at: "2025-03-12 17:40", lat: 24.5551, lng: -81.7800 }] },
-        { id: "pearl-river", name: "Pearl River Walk", points: [{ name: "Guangzhou", at: "2024-07-06 18:30", lat: 23.1291, lng: 113.2644 }, { name: "Hong Kong", at: "2024-02-11 12:30", lat: 22.3193, lng: 114.1694 }, { name: "Macau", at: "2024-02-11 18:00", lat: 22.1987, lng: 113.5439 }] }
-      ],
+      tags: [],
+      records: [],
+      routes: [],
       boundaries: {
         country: [
           { id: "us", name: "United States", osmRelationId: 148838, boundaryQuery: "United States", bounds: [[24.3, -125.0], [49.4, -66.8]] },
@@ -584,11 +719,25 @@
     const STORAGE_KEYS = {
       customRecords: "seen.customRecords.v1",
       customRoutes: "seen.customRoutes.v1",
+      routeDrafts: "seen.routeDrafts.v1",
+      recordDrafts: "seen.recordDrafts.v1",
+      pendingDeletes: "seen.pendingDeletes.v1",
+      archiveIndexes: "seen.archiveIndexes.v1",
       hiddenRecords: "seen.hiddenRecords.v1",
       deletedRecords: "seen.deletedRecords.v1",
       boundaryCache: "seen.boundaryGeoJson.v1"
     };
-    const state = { zoom: "country", activeTag: null, activeArea: null, activeRoute: null, featureIndex: 0, layerFilter: "all", detailImageIndex: 0, visibleRecords: 10, managerOpen: false, detailPool: [], detailPoolLabel: "", detailDragX: null, searchOpen: false, searchScope: "records", searchQuery: "", searchIndex: 0, searchResults: [], searchDragX: null };
+    const SEEN_ARCHIVE = {
+      schemaVersion: 1,
+      root: "Seen",
+      urlRoot: ".",
+      recordsDir: "records",
+      routesDir: "routes",
+      indexesDir: "indexes",
+      assetsDir: "assets",
+      cacheDir: "cache"
+    };
+    const state = { zoom: "country", activeTag: null, activeArea: null, activeRoute: null, featureIndex: 0, layerFilter: "all", detailImageIndex: 0, visibleRecords: 10, visibleRoutes: 10, managerOpen: false, detailPool: [], detailPoolLabel: "", detailMode: "default", detailDragX: null, searchOpen: false, searchScope: "records", searchQuery: "", searchIndex: 0, searchResults: [], searchDragX: null, calendarMonth: new Date(), pendingImages: [], editingImages: [], archiveHandle: null };
     const mapState = { map: null, tileLayer: null, boundaryLayer: null, routeLayers: [], pointLayers: [], recordMarkers: [], pickerMap: null, pickerTileLayer: null, pickerMarker: null, boundaryGeoJson: {}, pendingDeleteId: null, detailRecordId: null };
     const boundarySources = {
       country: "boundaries/countries.geojson",
@@ -597,6 +746,7 @@
     };
     const byId = (id) => document.getElementById(id);
     const slug = (value) => String(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const cssIdent = (value) => window.CSS?.escape ? CSS.escape(value) : String(value).replace(/["\\]/g, "\\$&");
     const CHINA_TAIWAN_POLYGON = [[21.85, 120.02], [22.42, 120.78], [23.45, 120.42], [24.7, 121.02], [25.32, 121.64], [24.72, 122.08], [23.46, 121.68], [22.55, 121.18], [21.85, 120.02]];
     const DEFAULT_CITY_COORDS = {
       guangzhou: [23.1291, 113.2644], shenzhen: [22.5431, 114.0579], "hong-kong": [22.3193, 114.1694], macau: [22.1987, 113.5439], beijing: [39.9042, 116.4074], shanghai: [31.2304, 121.4737], hangzhou: [30.2741, 120.1551],
@@ -708,6 +858,13 @@
     const LOCALIZED_NAMES = {
       zh: {
         China: "中国", "United States": "美国", Taiwan: "台湾", Guangdong: "广东", Guangzhou: "广州", Shenzhen: "深圳", Beijing: "北京", Shanghai: "上海", Zhejiang: "浙江", Hangzhou: "杭州", "Hong Kong": "香港", Macau: "澳门",
+        Tianjin: "天津", Hebei: "河北", Shijiazhuang: "石家庄", Tangshan: "唐山", Qinhuangdao: "秦皇岛", Shanxi: "山西", Taiyuan: "太原", Datong: "大同", "Inner Mongolia": "内蒙古", Hohhot: "呼和浩特", Baotou: "包头",
+        Liaoning: "辽宁", Shenyang: "沈阳", Dalian: "大连", Jilin: "吉林", Changchun: "长春", Heilongjiang: "黑龙江", Harbin: "哈尔滨", Qiqihar: "齐齐哈尔", Jiangsu: "江苏", Nanjing: "南京", Suzhou: "苏州", Wuxi: "无锡",
+        Ningbo: "宁波", Wenzhou: "温州", Anhui: "安徽", Hefei: "合肥", Huangshan: "黄山", Fujian: "福建", Fuzhou: "福州", Xiamen: "厦门", Quanzhou: "泉州", Jiangxi: "江西", Nanchang: "南昌", Jiujiang: "九江",
+        Shandong: "山东", Jinan: "济南", Qingdao: "青岛", Yantai: "烟台", Henan: "河南", Zhengzhou: "郑州", Luoyang: "洛阳", Hubei: "湖北", Wuhan: "武汉", Yichang: "宜昌", Hunan: "湖南", Changsha: "长沙", Zhangjiajie: "张家界",
+        Zhuhai: "珠海", Foshan: "佛山", Dongguan: "东莞", Guangxi: "广西", Nanning: "南宁", Guilin: "桂林", Hainan: "海南", Haikou: "海口", Sanya: "三亚", Chongqing: "重庆", Sichuan: "四川", Chengdu: "成都", Mianyang: "绵阳",
+        Guizhou: "贵州", Guiyang: "贵阳", Yunnan: "云南", Kunming: "昆明", Dali: "大理", Lijiang: "丽江", Tibet: "西藏", Lhasa: "拉萨", Shaanxi: "陕西", "Xi'an": "西安", Xianyang: "咸阳", Gansu: "甘肃", Lanzhou: "兰州", Dunhuang: "敦煌",
+        Qinghai: "青海", Xining: "西宁", Ningxia: "宁夏", Yinchuan: "银川", Xinjiang: "新疆", Urumqi: "乌鲁木齐", Kashgar: "喀什", Taipei: "台北", Kaohsiung: "高雄",
         Florida: "佛罗里达", Miami: "迈阿密", Orlando: "奥兰多", California: "加利福尼亚", "Los Angeles": "洛杉矶", "New York": "纽约州", "New York City": "纽约市", Oregon: "俄勒冈", Portland: "波特兰", Washington: "华盛顿州", Seattle: "西雅图"
       }
     };
@@ -740,6 +897,82 @@
       lat: DEFAULT_CITY_COORDS[slug(cityName)]?.[0] ?? null,
       lng: DEFAULT_CITY_COORDS[slug(cityName)]?.[1] ?? null
     }))));
+    const normalizeAreaToken = (value) => String(value || "").trim().toLowerCase().replace(/特别行政区|壮族自治区|回族自治区|维吾尔自治区|自治区|省|市|州|区/g, "").replace(/[\s_]+/g, "-").replace(/[^a-z0-9\u4e00-\u9fa5-]+/g, "").replace(/^-|-$/g, "");
+    const areaAliases = (values) => values.flatMap((value) => {
+      const raw = String(value || "").trim();
+      const localized = LOCALIZED_NAMES.zh?.[raw] || "";
+      return [raw, localized, slug(raw), normalizeAreaToken(raw), normalizeAreaToken(localized)].filter(Boolean);
+    });
+    const AREA_ALIAS_MAP = new Map();
+    const registerAreaAlias = (level, id, values) => {
+      areaAliases([id, ...values]).forEach((alias) => AREA_ALIAS_MAP.set(`${level}:${normalizeAreaToken(alias)}`, id));
+    };
+    LOCATION_DATA.forEach((item) => {
+      registerAreaAlias("country", item.country, [item.countryName]);
+      registerAreaAlias("province", item.province, [item.provinceName]);
+      registerAreaAlias("city", item.city, [item.cityName]);
+    });
+    const resolveAreaId = (level, value) => AREA_ALIAS_MAP.get(`${level}:${normalizeAreaToken(value)}`) || normalizeAreaToken(value);
+    const locationForRegion = (region = {}) => LOCATION_DATA.find((item) =>
+      item.country === resolveAreaId("country", region.country) &&
+      item.province === resolveAreaId("province", region.province) &&
+      item.city === resolveAreaId("city", region.city)
+    );
+    const inferRegionFromPlace = (place = "") => {
+      const normalizedPlace = normalizeAreaToken(place);
+      if (!normalizedPlace) return null;
+      return LOCATION_DATA.find((item) => areaAliases([item.city, item.cityName]).some((alias) => normalizedPlace.includes(normalizeAreaToken(alias)))) || null;
+    };
+    const normalizeRegion = (region, record = {}) => {
+      const source = region || record.location?.region || null;
+      const hasSource = source && Object.values(source).some(Boolean);
+      const inferred = hasSource ? locationForRegion(source) : inferRegionFromPlace(record.place || record.location?.place);
+      if (inferred) return { country: inferred.country, province: inferred.province, city: inferred.city };
+      if (!hasSource) return null;
+      return {
+        country: resolveAreaId("country", source.country),
+        province: resolveAreaId("province", source.province),
+        city: resolveAreaId("city", source.city)
+      };
+    };
+    const staticBoundaryArea = (level, id) => SEEN_DATA.boundaries[level].find((area) => area.id === id);
+    const cityBounds = (lat, lng) => [[lat - 0.18, lng - 0.22], [lat + 0.18, lng + 0.22]];
+    const provinceBoundsFromLocations = (provinceId) => {
+      const points = LOCATION_DATA.filter((item) => item.province === provinceId).map((item) => ({
+        lat: typeof item.lat === "number" ? item.lat : boundaryCache[`geocode:${item.city}`]?.lat,
+        lng: typeof item.lng === "number" ? item.lng : boundaryCache[`geocode:${item.city}`]?.lng
+      })).filter((item) => typeof item.lat === "number" && typeof item.lng === "number");
+      if (!points.length) return null;
+      const lats = points.map((item) => item.lat), lngs = points.map((item) => item.lng);
+      return [[Math.min(...lats) - 0.85, Math.min(...lngs) - 0.85], [Math.max(...lats) + 0.85, Math.max(...lngs) + 0.85]];
+    };
+    function dynamicBoundaryArea(level, id) {
+      const existing = staticBoundaryArea(level, id);
+      if (existing) return existing;
+      if (level === "country") {
+        const location = LOCATION_DATA.find((item) => item.country === id);
+        return location ? { id, name: location.countryName, boundaryQuery: location.countryName } : null;
+      }
+      if (level === "province") {
+        const location = LOCATION_DATA.find((item) => item.province === id);
+        return location ? { id, name: location.provinceName, boundaryQuery: `${location.provinceName}, ${location.countryName}`, bounds: provinceBoundsFromLocations(id) } : null;
+      }
+      const location = LOCATION_DATA.find((item) => item.city === id);
+      const cachedPoint = boundaryCache[`geocode:${id}`];
+      const lat = typeof location?.lat === "number" ? location.lat : cachedPoint?.lat;
+      const lng = typeof location?.lng === "number" ? location.lng : cachedPoint?.lng;
+      return location ? { id, name: location.cityName, boundaryQuery: `${location.cityName}, ${location.provinceName}, ${location.countryName}`, bounds: typeof lat === "number" && typeof lng === "number" ? cityBounds(lat, lng) : null } : null;
+    }
+    function boundaryAreasForLevel(level) {
+      const ids = new Set(SEEN_DATA.boundaries[level].map((area) => area.id));
+      activeRecords().forEach((record) => {
+        const region = normalizeRegion(record.region, record);
+        const id = region?.[level];
+        if (id) ids.add(id);
+      });
+      if (state.activeArea) ids.add(state.activeArea);
+      return [...ids].map((id) => dynamicBoundaryArea(level, id)).filter(Boolean);
+    }
     const boundsToSoftPolygon = (bounds) => {
       const south = bounds[0][0], west = bounds[0][1], north = bounds[1][0], east = bounds[1][1];
       const latPad = (north - south) * 0.16;
@@ -747,9 +980,15 @@
       return [[south + latPad, west], [south, west + lngPad * 1.8], [south + latPad * 0.7, east - lngPad], [south + latPad * 1.9, east], [north - latPad * 0.9, east - lngPad * 0.35], [north, east - lngPad * 1.8], [north - latPad * 0.8, west + lngPad * 0.8], [south + latPad * 1.4, west + lngPad * 0.25]];
     };
     const areaToLatLngs = (area) => area.polygon || (area.bounds ? boundsToSoftPolygon(area.bounds) : []);
-    const recordAreaIds = (record) => record.region ? Object.values(record.region) : [];
+    const recordAreaIds = (record) => record.region ? Object.values(record.region).filter(Boolean) : [];
+    let archiveRecords = [];
+    let archiveRoutes = [];
     let customRecords = readJson(STORAGE_KEYS.customRecords, []);
     let customRoutes = readJson(STORAGE_KEYS.customRoutes, []);
+    let routeDrafts = readJson(STORAGE_KEYS.routeDrafts, []);
+    let recordDrafts = readJson(STORAGE_KEYS.recordDrafts, []);
+    let pendingDeletes = readJson(STORAGE_KEYS.pendingDeletes, []);
+    let archiveIndexes = readJson(STORAGE_KEYS.archiveIndexes, { records: [], routes: [], updated_at: null });
     let hiddenRecordIds = new Set(readJson(STORAGE_KEYS.hiddenRecords, []));
     let deletedRecordIds = new Set(readJson(STORAGE_KEYS.deletedRecords, []));
     let boundaryCache = readJson(STORAGE_KEYS.boundaryCache, {});
@@ -763,22 +1002,294 @@
     }
 
     function persistRecords() {
+      syncRouteBindings();
+      archiveIndexes = buildArchiveIndexes();
       localStorage.setItem(STORAGE_KEYS.customRecords, JSON.stringify(customRecords));
       localStorage.setItem(STORAGE_KEYS.customRoutes, JSON.stringify(customRoutes));
+      localStorage.setItem(STORAGE_KEYS.routeDrafts, JSON.stringify(routeDrafts));
+      localStorage.setItem(STORAGE_KEYS.recordDrafts, JSON.stringify(recordDrafts));
+      localStorage.setItem(STORAGE_KEYS.pendingDeletes, JSON.stringify(pendingDeletes));
+      localStorage.setItem(STORAGE_KEYS.archiveIndexes, JSON.stringify(archiveIndexes));
       localStorage.setItem(STORAGE_KEYS.hiddenRecords, JSON.stringify([...hiddenRecordIds]));
       localStorage.setItem(STORAGE_KEYS.deletedRecords, JSON.stringify([...deletedRecordIds]));
+    }
+
+    function showToast(title, message = "", type = "ok") {
+      const stack = byId("toast-stack");
+      if (!stack) return;
+      const toast = document.createElement("div");
+      toast.className = `seen-toast ${type === "error" ? "error" : ""}`;
+      toast.innerHTML = `<div><strong>${escapeHtml(title)}</strong><span>${escapeHtml(message)}</span></div>`;
+      stack.appendChild(toast);
+      setTimeout(() => toast.remove(), 3600);
+    }
+
+    function draftItems() {
+      return [
+        ...customRecords.map((record) => ({ type: "记录", id: record.id })),
+        ...recordDrafts.map((record) => ({ type: "记录编辑", id: record.id })),
+        ...routeDrafts.map((route) => ({ type: "路线", id: route.id })),
+        ...[...hiddenRecordIds].map((id) => ({ type: "隐藏", id })),
+        ...pendingDeletes.map((id) => ({ type: "删除", id }))
+      ];
+    }
+
+    function renderDraftBox() {
+      const items = draftItems();
+      byId("draft-count").textContent = items.length;
+      byId("draft-badge").textContent = items.length;
+      byId("draft-badge").classList.toggle("is-visible", items.length > 0);
+      byId("draft-summary").textContent = items.length ? `${items.length} 项待提交到本地归档。` : "暂无待提交变更。";
+      byId("draft-list").innerHTML = items.map((item) => `<div class="draft-item"><span>${escapeHtml(item.type)} · ${escapeHtml(item.id)}</span><button type="button" data-drop-draft-type="${escapeHtml(item.type)}" data-drop-draft-id="${escapeHtml(item.id)}"><i class="bi-x-lg"></i></button></div>`).join("");
+      byId("draft-list").querySelectorAll("[data-drop-draft-id]").forEach((button) => {
+        button.addEventListener("click", () => removeDraftItem(button.dataset.dropDraftType, button.dataset.dropDraftId));
+      });
+    }
+
+    function initHeroParticles() {
+      const canvas = byId("seen-particle-canvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const colors = ["rgba(125,211,252,0.9)", "rgba(138,195,173,0.9)", "rgba(227,180,111,0.82)", "rgba(232,154,168,0.82)"];
+      const particles = Array.from({ length: 7 }, (_, index) => ({ x: Math.random(), y: Math.random(), vx: (Math.random() - 0.5) * 0.0032, vy: (Math.random() - 0.5) * 0.0038, color: colors[index % colors.length] }));
+      const resize = () => {
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.max(1, Math.floor(rect.width * devicePixelRatio));
+        canvas.height = Math.max(1, Math.floor(rect.height * devicePixelRatio));
+      };
+      const draw = () => {
+        const w = canvas.width, h = canvas.height;
+        const pad = 8 * devicePixelRatio;
+        const innerW = Math.max(1, w - pad * 2);
+        const innerH = Math.max(1, h - pad * 2);
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach((p) => {
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0 || p.x > 1) p.vx *= -1;
+          if (p.y < 0 || p.y > 1) p.vy *= -1;
+        });
+        for (let i = 0; i < particles.length; i += 1) {
+          for (let j = i + 1; j < particles.length; j += 1) {
+            const a = particles[i], b = particles[j];
+            const dx = (a.x - b.x) * innerW, dy = (a.y - b.y) * innerH;
+            const d = Math.hypot(dx, dy);
+            if (d < 20 * devicePixelRatio) {
+              const tx = a.vx; const ty = a.vy;
+              a.vx = b.vx; a.vy = b.vy; b.vx = tx; b.vy = ty;
+            }
+          }
+        }
+        particles.forEach((p) => {
+          const x = pad + p.x * innerW;
+          const y = pad + p.y * innerH;
+          ctx.fillStyle = p.color;
+          ctx.beginPath(); ctx.arc(x, y, 4.2 * devicePixelRatio, 0, Math.PI * 2); ctx.fill();
+        });
+        requestAnimationFrame(draw);
+      };
+      resize();
+      window.addEventListener("resize", resize);
+      draw();
+    }
+
+    function removeDraftItem(type, id) {
+      if (type === "记录") customRecords = customRecords.filter((record) => record.id !== id);
+      if (type === "记录编辑") recordDrafts = recordDrafts.filter((record) => record.id !== id);
+      if (type === "路线") routeDrafts = routeDrafts.filter((route) => route.id !== id);
+      if (type === "隐藏") hiddenRecordIds.delete(id);
+      if (type === "删除") {
+        pendingDeletes = pendingDeletes.filter((item) => item !== id);
+        deletedRecordIds.delete(id);
+      }
+      persistRecords();
+      renderAll();
+      showToast("草稿已撤销", id);
     }
 
     function persistBoundaryCache() {
       localStorage.setItem(STORAGE_KEYS.boundaryCache, JSON.stringify(boundaryCache));
     }
 
+    function uniqueById(items) {
+      return [...new Map(items.filter(Boolean).map((item) => [item.id, item])).values()];
+    }
+
+    function uniqueValues(items) {
+      return [...new Set(items.filter(Boolean))];
+    }
+
+    function normalizeRecord(record) {
+      const routeId = record.route_id ?? record.routeId ?? null;
+      const routeIndex = record.route_index ?? record.routeIndex ?? record.segmentIndex ?? null;
+      const withArchiveBase = (assetPath) => {
+        if (!assetPath || /^(https?:|data:|\.{0,2}\/)/.test(String(assetPath))) return assetPath;
+        if (String(assetPath).startsWith("records/")) return archiveUrl(assetPath);
+        if (!record.__archive_base) return assetPath;
+        return archiveUrl(`${record.__archive_base}/${assetPath}`);
+      };
+      const assetImages = (record.assets || []).map((asset) => asset.src || asset.path).filter(Boolean);
+      const cover = withArchiveBase(record.cover || record.image || record.images?.[0] || assetImages[0]) || "../static/assets/img/background.jpeg";
+      const images = uniqueValues((record.images && record.images.length ? record.images : [record.cover || record.image, ...assetImages]).filter(Boolean).map(withArchiveBase));
+      const region = normalizeRegion(record.region, record);
+      return {
+        ...record,
+        routeId,
+        route_id: routeId,
+        routeIndex,
+        route_index: routeIndex,
+        segmentIndex: routeIndex,
+        image: cover,
+        images: images && images.length ? images : [cover],
+        lat: Number(record.lat ?? record.location?.lat),
+        lng: Number(record.lng ?? record.location?.lng),
+        place: record.place || record.location?.place || "",
+        region,
+        tags: record.tags || [],
+        favorite: Boolean(record.favorite),
+        archived: Boolean(record.archived)
+      };
+    }
+
+    function recordsById() {
+      return new Map(allRecords().map((record) => [record.id, record]));
+    }
+
+    function normalizeRoute(route) {
+      const recordIds = (route.records || (route.points || []).map((point) => point.recordId).filter(Boolean)).filter(Boolean);
+      const lookup = recordsById();
+      const points = route.points && route.points.length ? route.points : recordIds.map((recordId) => {
+        const record = lookup.get(recordId);
+        return record ? { name: record.title, at: record.date, lat: record.lat, lng: record.lng, recordId } : null;
+      }).filter(Boolean);
+      return {
+        ...route,
+        records: recordIds,
+        points,
+        date: route.date || route.route_date || route.created_at?.slice?.(0, 10) || null,
+        created_at: route.created_at || route.createdAt || null,
+        updated_at: route.updated_at || route.updatedAt || null
+      };
+    }
+
     function allRecords() {
-      return SEEN_DATA.records.concat(customRecords).filter((record) => !deletedRecordIds.has(record.id));
+      return uniqueById(SEEN_DATA.records.concat(archiveRecords, customRecords, recordDrafts).map(normalizeRecord)).filter((record) => !deletedRecordIds.has(record.id) && !record.deleted);
     }
 
     function allRoutes() {
-      return SEEN_DATA.routes.concat(customRoutes);
+      return uniqueById(SEEN_DATA.routes.concat(archiveRoutes, customRoutes, routeDrafts).map(normalizeRoute));
+    }
+
+    function buildArchiveIndexes() {
+      const now = new Date().toISOString();
+      return {
+        schema_version: SEEN_ARCHIVE.schemaVersion,
+        root: SEEN_ARCHIVE.root,
+        updated_at: now,
+        records: allRecords().map((record) => ({
+          id: record.id,
+          title: record.title,
+          path: `records/${record.id}/record.json`,
+          route_id: record.routeId || null,
+          route_index: record.routeIndex ?? null,
+          tags: record.tags || [],
+          created_at: record.created_at || record.date || null,
+          updated_at: record.updated_at || null,
+          archived: Boolean(record.archived)
+        })),
+        routes: allRoutes().map((route) => ({
+          id: route.id,
+          name: route.name,
+          path: `routes/${route.id}.json`,
+          total_count: (route.records || []).length,
+          date: route.date || route.route_date || null,
+          created_at: route.created_at || null,
+          updated_at: route.updated_at || null
+        }))
+      };
+    }
+
+    function archiveRecordIndexItems(excludedIds = new Set()) {
+      return allRecords().filter((record) => !excludedIds.has(record.id) && !record.deleted).map((item) => ({
+        id: item.id,
+        title: item.title,
+        path: `records/${item.id}/record.json`,
+        content_path: `records/${item.id}/content.md`,
+        route_id: item.routeId || null,
+        route_index: item.routeIndex ?? null,
+        tags: item.tags || [],
+        location: item.location || {},
+        cover: `records/${item.id}/${item.cover || "cover.jpg"}`,
+        created_at: item.created_at || null,
+        updated_at: item.updated_at || null,
+        favorite: Boolean(item.favorite),
+        archived: Boolean(item.archived)
+      }));
+    }
+
+    function archiveRouteIndexItems() {
+      return allRoutes().map((item) => ({
+        id: item.id,
+        name: item.name,
+        path: `routes/${item.id}.json`,
+        total_count: (item.records || []).length,
+        date: item.date || item.route_date || null,
+        created_at: item.created_at || null,
+        updated_at: item.updated_at || null
+      }));
+    }
+
+    function syncRouteBindings() {
+      allRoutes().forEach((route) => {
+        const recordIds = route.records && route.records.length ? route.records : (route.points || []).map((point) => point.recordId).filter(Boolean);
+        route.records = recordIds;
+        recordIds.forEach((recordId, index) => {
+          [SEEN_DATA.records, archiveRecords, customRecords, recordDrafts].forEach((collection) => {
+            const record = collection.find((item) => item.id === recordId);
+            if (!record) return;
+            record.routeId = route.id;
+            record.route_id = route.id;
+            record.routeIndex = index;
+            record.route_index = index;
+            record.segmentIndex = index;
+          });
+        });
+      });
+      allRecords().forEach((record) => {
+        if (!record.routeId) return;
+        const route = allRoutes().find((item) => item.id === record.routeId);
+        if (!route || !route.records?.includes(record.id)) {
+          record.routeId = null;
+          record.route_id = null;
+          record.routeIndex = null;
+          record.route_index = null;
+          record.segmentIndex = null;
+        }
+      });
+    }
+
+    function archiveUrl(path) {
+      const cleanPath = String(path || "").replace(/^\/+/, "");
+      return SEEN_ARCHIVE.urlRoot === "." ? cleanPath : `${SEEN_ARCHIVE.urlRoot}/${cleanPath}`;
+    }
+
+    async function loadArchiveFiles() {
+      try {
+        const [recordsIndex, routesIndex] = await Promise.all([
+          fetch(archiveUrl("indexes/records_index.json")).then((response) => response.ok ? response.json() : null).catch(() => null),
+          fetch(archiveUrl("indexes/routes_index.json")).then((response) => response.ok ? response.json() : null).catch(() => null)
+        ]);
+        const recordEntries = recordsIndex?.records || [];
+        const routeEntries = routesIndex?.routes || [];
+        archiveRecords = (await Promise.all(recordEntries.map((entry) => fetch(archiveUrl(entry.path))
+          .then((response) => response.ok ? response.json() : null)
+          .then((record) => record ? { ...record, __archive_base: String(entry.path || "").replace(/\/record\.json$/, "") } : null)
+          .catch(() => null)))).filter(Boolean);
+        archiveRoutes = (await Promise.all(routeEntries.map((entry) => fetch(archiveUrl(entry.path)).then((response) => response.ok ? response.json() : null).catch(() => null)))).filter(Boolean);
+        syncRouteBindings();
+        archiveIndexes = buildArchiveIndexes();
+      } catch (error) {
+        console.warn("Seen archive files could not be loaded.", error);
+      }
     }
 
     function getRecordImages(record) {
@@ -809,12 +1320,12 @@
       const route = allRoutes().find((item) => item.id === routeId);
       const records = recordsForRoute(routeId);
       if (!route) return records;
-      const pointRecordIds = (route.points || []).map((point) => point.recordId).filter(Boolean);
+      const pointRecordIds = (route.records && route.records.length ? route.records : (route.points || []).map((point) => point.recordId)).filter(Boolean);
       return records.slice().sort((a, b) => {
         const aPoint = pointRecordIds.indexOf(a.id);
         const bPoint = pointRecordIds.indexOf(b.id);
         if (aPoint !== -1 || bPoint !== -1) return (aPoint === -1 ? 999 : aPoint) - (bPoint === -1 ? 999 : bPoint);
-        return (a.segmentIndex ?? 999) - (b.segmentIndex ?? 999) || String(a.date || "").localeCompare(String(b.date || ""));
+        return (a.routeIndex ?? a.segmentIndex ?? 999) - (b.routeIndex ?? b.segmentIndex ?? 999) || String(a.date || "").localeCompare(String(b.date || ""));
       });
     }
 
@@ -843,14 +1354,484 @@
       return 6371 * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
     }
 
+    function routeDistanceKm(route) {
+      return (route.points || []).reduce((sum, point, index, points) => {
+        if (!index) return sum;
+        return sum + distanceKm(points[index - 1], point);
+      }, 0) * 1.08;
+    }
+
     function renderDashboard() {
-      byId("dashboard-grid").innerHTML = getMetrics().map((item) => `<div class="metric"><strong>${item.value}</strong><span>${item.label}<br>${item.hint}</span></div>`).join("");
+      byId("dashboard-grid").innerHTML = getMetrics().map((item, index) => `<div class="metric" ${index === 0 ? 'role="button" tabindex="0" data-open-routes' : ""}><strong>${item.value}</strong><span>${item.label}<br>${item.hint}</span></div>`).join("");
+      byId("dashboard-grid").querySelectorAll("[data-open-routes]").forEach((card) => {
+        card.addEventListener("click", openRouteBrowser);
+        card.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openRouteBrowser();
+          }
+        });
+      });
     }
 
     function renderKeywords() {
       const activeTags = [...new Set(SEEN_DATA.tags.concat(activeRecords().flatMap((record) => record.tags)))];
       byId("keyword-track").innerHTML = activeTags.concat(activeTags).map((tag) => `<button class="seen-tag ${state.activeTag === tag ? "is-active" : ""}" type="button" data-tag="${tag}">#${tag}</button>`).join("");
       byId("keyword-track").querySelectorAll("[data-tag]").forEach((button) => button.addEventListener("click", () => { state.activeTag = state.activeTag === button.dataset.tag ? null : button.dataset.tag; state.visibleRecords = 10; renderAll(); }));
+    }
+
+    function renderArchiveStatus() {
+      const el = byId("archive-status");
+      if (!el) return;
+      el.innerHTML = `
+        <div class="drawer-item">
+          <div>
+            <strong>Seen 文件系统归档</strong>
+            <span>${archiveRecords.length} 个文件 Record / ${archiveRoutes.length} 条文件 Route。浏览器端保持只读，写入由本地 Node 管理器完成。</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function routeStartTime(route) {
+      const records = orderedRecordsForRoute(route.id);
+      return route.date || route.route_date || route.created_at?.slice?.(0, 10) || records[0]?.date || "";
+    }
+
+    function sortedRoutes() {
+      return allRoutes().slice().sort((a, b) => String(routeStartTime(b)).localeCompare(String(routeStartTime(a))));
+    }
+
+    function openRouteBrowser() {
+      state.visibleRoutes = 10;
+      renderRouteBrowser();
+      document.body.classList.add("route-modal-open");
+      const dialog = byId("route-browser-dialog");
+      if (!dialog.open) dialog.showModal();
+    }
+
+    function closeRouteBrowser() {
+      document.body.classList.remove("route-modal-open");
+      const dialog = byId("route-browser-dialog");
+      if (dialog.open) dialog.close();
+    }
+
+    function renderRouteBrowser() {
+      const routes = sortedRoutes();
+      byId("route-browser-summary").textContent = `${routes.length} 条路线，按路线日期排序。`;
+      const visible = routes.slice(0, state.visibleRoutes);
+      byId("route-browser-list").innerHTML = visible.map((route) => {
+        const records = orderedRecordsForRoute(route.id);
+        const distance = Math.round(routeDistanceKm(route)).toLocaleString();
+        return `
+          <article class="route-card" data-route-card="${escapeHtml(route.id)}">
+            <div>
+              <h3>${escapeHtml(route.name)}</h3>
+              <p>${escapeHtml(route.id)}</p>
+              <p>${distance} km / ${(route.records || []).length} 站 / ${routeStartTime(route) || "未记录时间"}</p>
+            </div>
+            <div class="route-card-actions">
+              <button class="seen-action primary" type="button" data-view-route="${escapeHtml(route.id)}">查看</button>
+              <button class="seen-action" type="button" data-edit-route="${escapeHtml(route.id)}">编辑</button>
+            </div>
+            <div class="route-editor" data-route-editor="${escapeHtml(route.id)}">
+              <label>路线名称<input data-route-name="${escapeHtml(route.id)}" value="${escapeHtml(route.name)}"></label>
+              <label>路线日期<input data-route-date="${escapeHtml(route.id)}" type="date" value="${escapeHtml(routeStartTime(route))}"></label>
+              <label>节点 Record ID<textarea data-route-records="${escapeHtml(route.id)}">${escapeHtml((route.records || []).join("\n"))}</textarea></label>
+              <div class="form-actions">
+                <button class="seen-action primary" type="button" data-save-route="${escapeHtml(route.id)}">保存路线</button>
+                <button class="seen-action" type="button" data-cancel-route-edit="${escapeHtml(route.id)}">收起</button>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("") || `<article class="route-card"><div><h3>暂无路线</h3><p>创建路线后会出现在这里。</p></div></article>`;
+      if (routes.length > visible.length) {
+        byId("route-browser-list").insertAdjacentHTML("beforeend", `<button class="seen-action" id="load-more-routes" type="button">继续展开 10 条路线</button>`);
+      }
+      bindRouteBrowserEvents();
+    }
+
+    function bindRouteBrowserEvents() {
+      byId("route-browser-list").querySelectorAll("[data-view-route]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const routeRecords = orderedRecordsForRoute(button.dataset.viewRoute);
+          if (!routeRecords[0]) return;
+          closeRouteBrowser();
+          openRecordDetail(routeRecords[0].id, routeRecords, allRoutes().find((route) => route.id === button.dataset.viewRoute)?.name || "");
+        });
+      });
+      byId("route-browser-list").querySelectorAll("[data-edit-route]").forEach((button) => {
+        button.addEventListener("click", () => {
+          byId("route-browser-list").querySelector(`[data-route-card="${cssIdent(button.dataset.editRoute)}"]`)?.classList.add("is-editing");
+        });
+      });
+      byId("route-browser-list").querySelectorAll("[data-cancel-route-edit]").forEach((button) => {
+        button.addEventListener("click", () => {
+          byId("route-browser-list").querySelector(`[data-route-card="${cssIdent(button.dataset.cancelRouteEdit)}"]`)?.classList.remove("is-editing");
+        });
+      });
+      byId("route-browser-list").querySelectorAll("[data-save-route]").forEach((button) => {
+        button.addEventListener("click", () => saveRouteDraft(button.dataset.saveRoute));
+      });
+      byId("load-more-routes")?.addEventListener("click", () => {
+        state.visibleRoutes += 10;
+        renderRouteBrowser();
+      });
+    }
+
+    function saveRouteDraft(routeId) {
+      const route = allRoutes().find((item) => item.id === routeId);
+      if (!route) return;
+      const name = byId("route-browser-list").querySelector(`[data-route-name="${cssIdent(routeId)}"]`).value.trim() || route.name;
+      const date = byId("route-browser-list").querySelector(`[data-route-date="${cssIdent(routeId)}"]`)?.value || route.date || routeStartTime(route);
+      const recordIds = byId("route-browser-list").querySelector(`[data-route-records="${cssIdent(routeId)}"]`).value
+        .split(/[\n,]+/).map((id) => id.trim()).filter(Boolean);
+      const validIds = recordIds.filter((id) => allRecords().some((record) => record.id === id));
+      const now = new Date().toISOString();
+      const draft = { ...route, name, date, records: validIds, points: [], updated_at: now };
+      routeDrafts = routeDrafts.filter((item) => item.id !== routeId).concat(draft);
+      persistRecords();
+      renderAll();
+      renderRouteBrowser();
+      persistRouteToArchive(routeId).then((written) => {
+        showToast(written ? "路线已写入归档" : "路线已保存到浏览器", written ? `${routeId} 的 JSON 与索引已更新。` : "连接本地归档目录后可直接写入 routes/ 与 records/。");
+      }).catch((error) => showToast("路线写入失败", error.message, "error"));
+    }
+
+    async function connectArchiveDirectory() {
+      if (!window.showDirectoryPicker) {
+        showToast("当前浏览器不支持直接写入", "请用 Chromium 本地访问，或继续使用 Node 脚本。", "error");
+        return null;
+      }
+      state.archiveHandle = await window.showDirectoryPicker({ mode: "readwrite" });
+      showToast("已连接归档目录", "后续路线编辑和记录创建会尝试直接写入文件。");
+      return state.archiveHandle;
+    }
+
+    async function archiveRootHandle() {
+      if (state.archiveHandle) return state.archiveHandle;
+      return connectArchiveDirectory();
+    }
+
+    async function readArchiveJson(relativePath) {
+      const handle = await archiveRootHandle();
+      const parts = relativePath.split("/").filter(Boolean);
+      let dir = handle;
+      for (const part of parts.slice(0, -1)) dir = await dir.getDirectoryHandle(part);
+      const file = await (await dir.getFileHandle(parts.at(-1))).getFile();
+      return JSON.parse(await file.text());
+    }
+
+    async function writeArchiveJson(relativePath, data) {
+      const handle = await archiveRootHandle();
+      const parts = relativePath.split("/").filter(Boolean);
+      let dir = handle;
+      for (const part of parts.slice(0, -1)) dir = await dir.getDirectoryHandle(part, { create: true });
+      const fileHandle = await dir.getFileHandle(parts.at(-1), { create: true });
+      const writable = await fileHandle.createWritable();
+      await writable.write(`${JSON.stringify(data, null, 2)}\n`);
+      await writable.close();
+    }
+
+    async function persistRouteToArchive(routeId) {
+      if (!window.showDirectoryPicker) return false;
+      if (!state.archiveHandle) return false;
+      const route = allRoutes().find((item) => item.id === routeId);
+      if (!route) return false;
+      const now = new Date().toISOString();
+      let previousRecords = [];
+      try {
+        previousRecords = (await readArchiveJson(`routes/${route.id}.json`)).records || [];
+      } catch (error) {
+        previousRecords = [];
+      }
+      await writeArchiveJson(`routes/${route.id}.json`, {
+        id: route.id,
+        name: route.name,
+        date: route.date || routeStartTime(route) || now.slice(0, 10),
+        created_at: route.created_at || now,
+        updated_at: now,
+        records: route.records || []
+      });
+      await Promise.all(previousRecords.filter((recordId) => !(route.records || []).includes(recordId)).map(async (recordId) => {
+        try {
+          const record = await readArchiveJson(`records/${recordId}/record.json`);
+          if (record.route_id === route.id) {
+            record.route_id = null;
+            record.route_index = null;
+            record.updated_at = now;
+            await writeArchiveJson(`records/${recordId}/record.json`, record);
+          }
+        } catch (error) {
+          console.warn(`Seen route detach skipped for ${recordId}`, error);
+        }
+      }));
+      await Promise.all((route.records || []).map(async (recordId, index) => {
+        const record = await readArchiveJson(`records/${recordId}/record.json`);
+        record.route_id = route.id;
+        record.route_index = index;
+        record.updated_at = now;
+        await writeArchiveJson(`records/${recordId}/record.json`, record);
+      }));
+      await writeArchiveJson("indexes/routes_index.json", {
+        schema_version: 1,
+        updated_at: now,
+        routes: archiveRouteIndexItems()
+      });
+      await writeArchiveJson("indexes/records_index.json", {
+        schema_version: 1,
+        updated_at: now,
+        records: archiveRecordIndexItems()
+      });
+      return true;
+    }
+
+    function dataUrlToBlob(dataUrl) {
+      const [meta, data] = dataUrl.split(",");
+      const mime = meta.match(/data:(.*?);base64/)?.[1] || "application/octet-stream";
+      const binary = atob(data);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+      return new Blob([bytes], { type: mime });
+    }
+
+    async function writeArchiveBlob(relativePath, blob) {
+      const handle = await archiveRootHandle();
+      const parts = relativePath.split("/").filter(Boolean);
+      let dir = handle;
+      for (const part of parts.slice(0, -1)) dir = await dir.getDirectoryHandle(part, { create: true });
+      const fileHandle = await dir.getFileHandle(parts.at(-1), { create: true });
+      const writable = await fileHandle.createWritable();
+      await writable.write(blob);
+      await writable.close();
+    }
+
+    async function writeArchiveText(relativePath, text) {
+      await writeArchiveBlob(relativePath, new Blob([text], { type: "text/plain;charset=utf-8" }));
+    }
+
+    async function removeArchiveEntry(relativePath) {
+      const handle = await archiveRootHandle();
+      const parts = relativePath.split("/").filter(Boolean);
+      let dir = handle;
+      for (const part of parts.slice(0, -1)) dir = await dir.getDirectoryHandle(part);
+      await dir.removeEntry(parts.at(-1), { recursive: true });
+    }
+
+    async function writeArchiveIndexes(excludedRecordIds = new Set()) {
+      const now = new Date().toISOString();
+      await writeArchiveJson("indexes/routes_index.json", {
+        schema_version: 1,
+        updated_at: now,
+        routes: archiveRouteIndexItems()
+      });
+      await writeArchiveJson("indexes/records_index.json", {
+        schema_version: 1,
+        updated_at: now,
+        records: archiveRecordIndexItems(excludedRecordIds)
+      });
+    }
+
+    async function persistRecordToArchive(record, images) {
+      if (!window.showDirectoryPicker || !state.archiveHandle) return false;
+      const coverName = images[0]?.name || "cover.jpg";
+      const metadata = {
+        id: record.id,
+        title: record.title,
+        created_at: record.created_at || new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+        route_id: record.route_id || null,
+        route_index: record.route_index ?? null,
+        tags: record.tags || [],
+        location: { place: record.place, lat: record.lat, lng: record.lng, region: record.region || null },
+        cover: coverName,
+        assets: images.slice(1).map((image) => ({ path: `assets/${image.name}`, type: image.file?.type || "" })),
+        favorite: false,
+        archived: false,
+        type: record.type || "note",
+        date: record.date,
+        place: record.place,
+        lat: record.lat,
+        lng: record.lng,
+        region: record.region || null,
+        note: record.note || ""
+      };
+      await writeArchiveJson(`records/${record.id}/record.json`, metadata);
+      await writeArchiveText(`records/${record.id}/content.md`, `# ${record.title}\n\n${record.note || ""}\n`);
+      if (images[0]) await writeArchiveBlob(`records/${record.id}/${coverName}`, dataUrlToBlob(images[0].src));
+      await Promise.all(images.slice(1).map((image) => writeArchiveBlob(`records/${record.id}/assets/${image.name}`, dataUrlToBlob(image.src))));
+      await writeArchiveJson("indexes/records_index.json", {
+        schema_version: 1,
+        updated_at: new Date().toISOString(),
+        records: archiveRecordIndexItems()
+      });
+      if (record.routeId) await persistRouteToArchive(record.routeId);
+      return true;
+    }
+
+    async function persistRecordMetadataToArchive(record) {
+      if (!window.showDirectoryPicker || !state.archiveHandle) return false;
+      const existing = await readArchiveJson(`records/${record.id}/record.json`).catch(() => ({}));
+      const selectedImages = (record.images || []).filter(Boolean);
+      const usedImagePaths = new Set(selectedImages
+        .filter((src) => !String(src).startsWith("data:"))
+        .map((src) => {
+          const normalized = String(src).replace(/\\/g, "/").replace(/^\.?\//, "");
+          const archivePrefix = `records/${record.id}/`;
+          return normalized.startsWith(archivePrefix) ? normalized.slice(archivePrefix.length) : normalized;
+        }));
+      const nextAssetPath = () => {
+        let index = 2;
+        while (usedImagePaths.has(`assets/image-${index}.jpg`) || usedImagePaths.has(`image-${index}.jpg`)) index += 1;
+        const path = `assets/image-${index}.jpg`;
+        usedImagePaths.add(path);
+        return path;
+      };
+      const imagePathForArchive = (src, index) => {
+        const value = String(src || "");
+        if (value.startsWith("data:")) {
+          if (index === 0 && !usedImagePaths.has("cover.jpg")) {
+            usedImagePaths.add("cover.jpg");
+            return "cover.jpg";
+          }
+          return nextAssetPath();
+        }
+        const normalized = value.replace(/\\/g, "/").replace(/^\.?\//, "");
+        const archivePrefix = `records/${record.id}/`;
+        return normalized.startsWith(archivePrefix) ? normalized.slice(archivePrefix.length) : normalized;
+      };
+      const imagePaths = selectedImages.length ? selectedImages.map(imagePathForArchive) : [existing.cover || record.cover || "cover.jpg"];
+      const cover = imagePaths[0] || "cover.jpg";
+      const assets = imagePaths.slice(1).map((path) => ({ path, type: "image" }));
+      const { image, images, __archive_base, routeId, routeIndex, segmentIndex, custom, ...recordData } = record;
+      await writeArchiveJson(`records/${record.id}/record.json`, {
+        ...existing,
+        ...recordData,
+        cover,
+        assets,
+        route_id: record.routeId || record.route_id || null,
+        route_index: record.routeIndex ?? record.route_index ?? null,
+        updated_at: new Date().toISOString()
+      });
+      if (record.note !== undefined) await writeArchiveText(`records/${record.id}/content.md`, `# ${record.title}\n\n${record.note || ""}\n`);
+      await Promise.all(selectedImages.map((src, index) => String(src).startsWith("data:")
+        ? writeArchiveBlob(`records/${record.id}/${imagePaths[index]}`, dataUrlToBlob(src))
+        : Promise.resolve()));
+      return true;
+    }
+
+    async function commitAllDrafts() {
+      if (!state.archiveHandle) await connectArchiveDirectory();
+      for (const record of customRecords) {
+        const images = (record.images || []).filter((src) => String(src).startsWith("data:")).map((src, index) => ({ src, name: index ? `image-${index + 1}.jpg` : "cover.jpg" }));
+        await persistRecordToArchive(record, images);
+      }
+      for (const record of recordDrafts) await persistRecordMetadataToArchive(record);
+      for (const route of routeDrafts) await persistRouteToArchive(route.id);
+      for (const id of hiddenRecordIds) {
+        const record = allRecords().find((item) => item.id === id);
+        if (record) await persistRecordMetadataToArchive({ ...record, archived: true });
+      }
+      for (const id of [...pendingDeletes]) {
+        await removeRecordFromArchive(id).catch((error) => console.warn(`Delete skipped for ${id}`, error));
+      }
+      customRecords = [];
+      recordDrafts = [];
+      routeDrafts = [];
+      pendingDeletes = [];
+      hiddenRecordIds = new Set();
+      deletedRecordIds = new Set();
+      persistRecords();
+      renderAll();
+      renderDraftBox();
+      showToast("草稿已提交", "待提交变更已写入本地归档。");
+    }
+
+    async function removeRecordFromArchive(recordId) {
+      if (!window.showDirectoryPicker || !state.archiveHandle) return false;
+      const affectedRouteIds = [];
+      for (const route of allRoutes()) {
+        if (!(route.records || []).includes(recordId)) continue;
+        affectedRouteIds.push(route.id);
+        route.records = route.records.filter((id) => id !== recordId);
+        routeDrafts = routeDrafts.filter((item) => item.id !== route.id).concat(route);
+        await persistRouteToArchive(route.id);
+      }
+      await removeArchiveEntry(`records/${recordId}`).catch(async () => {
+        const record = await readArchiveJson(`records/${recordId}/record.json`).catch(() => null);
+        if (!record) return;
+        record.archived = true;
+        record.deleted = true;
+        record.route_id = null;
+        record.route_index = null;
+        record.updated_at = new Date().toISOString();
+        await writeArchiveJson(`records/${recordId}/record.json`, record);
+      });
+      archiveRecords = archiveRecords.filter((record) => record.id !== recordId);
+      customRecords = customRecords.filter((record) => record.id !== recordId);
+      recordDrafts = recordDrafts.filter((record) => record.id !== recordId);
+      routeDrafts = routeDrafts.filter((route) => !affectedRouteIds.includes(route.id));
+      hiddenRecordIds.delete(recordId);
+      deletedRecordIds.delete(recordId);
+      pendingDeletes = pendingDeletes.filter((id) => id !== recordId);
+      await writeArchiveIndexes(new Set([recordId]));
+      persistRecords();
+      renderDraftBox();
+      return true;
+    }
+
+    function initDatePicker() {
+      const picker = byId("record-date-picker");
+      if (!picker || picker.dataset.ready) return;
+      byId("record-date-display").addEventListener("click", () => picker.classList.toggle("is-open"));
+      byId("calendar-prev").addEventListener("click", () => {
+        state.calendarMonth = new Date(state.calendarMonth.getFullYear(), state.calendarMonth.getMonth() - 1, 1);
+        renderCalendar();
+      });
+      byId("calendar-next").addEventListener("click", () => {
+        state.calendarMonth = new Date(state.calendarMonth.getFullYear(), state.calendarMonth.getMonth() + 1, 1);
+        renderCalendar();
+      });
+      document.addEventListener("click", (event) => {
+        if (!event.target.closest("#record-date-picker")) picker.classList.remove("is-open");
+      });
+      picker.dataset.ready = "true";
+      setRecordDate(new Date());
+    }
+
+    function dateValue(date) {
+      return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+    }
+
+    function setRecordDate(date) {
+      byId("record-date").value = dateValue(date);
+      byId("record-date-display").textContent = dateValue(date);
+      state.calendarMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+      renderCalendar();
+    }
+
+    function renderCalendar() {
+      const selected = byId("record-date").value;
+      const month = state.calendarMonth;
+      byId("calendar-title").textContent = `${month.getFullYear()} 年 ${month.getMonth() + 1} 月`;
+      const first = new Date(month.getFullYear(), month.getMonth(), 1);
+      const days = new Date(month.getFullYear(), month.getMonth() + 1, 0).getDate();
+      const blanks = first.getDay();
+      const weekdays = ["日", "一", "二", "三", "四", "五", "六"].map((day) => `<span class="calendar-weekday">${day}</span>`);
+      const blankCells = Array.from({ length: blanks }, () => `<span class="calendar-day is-muted"></span>`);
+      const dayCells = Array.from({ length: days }, (_, index) => {
+        const date = new Date(month.getFullYear(), month.getMonth(), index + 1);
+        const value = dateValue(date);
+        return `<button class="calendar-day ${value === selected ? "is-selected" : ""}" type="button" data-calendar-date="${value}">${index + 1}</button>`;
+      });
+      byId("calendar-grid").innerHTML = weekdays.concat(blankCells, dayCells).join("");
+      byId("calendar-grid").querySelectorAll("[data-calendar-date]").forEach((button) => {
+        button.addEventListener("click", () => {
+          setRecordDate(new Date(`${button.dataset.calendarDate}T00:00:00`));
+          byId("record-date-picker").classList.remove("is-open");
+        });
+      });
     }
 
     function renderFeature() {
@@ -929,10 +1910,11 @@
       }
     }
 
-    function openRecordDetail(recordId, pool = filteredRecords(), poolLabel = "") {
+    function openRecordDetail(recordId, pool = filteredRecords(), poolLabel = "", options = {}) {
       const record = allRecords().find((item) => item.id === recordId);
       if (!record) return;
       mapState.detailRecordId = recordId;
+      state.detailMode = options.mode || "default";
       state.detailPool = (pool && pool.length ? pool : [record]).filter(Boolean);
       if (!state.detailPool.some((item) => item.id === recordId)) state.detailPool.unshift(record);
       state.detailPoolLabel = poolLabel;
@@ -949,6 +1931,10 @@
         renderAll();
       }));
       renderDetailRecordSwitch();
+      const mapMode = state.detailMode === "map";
+      byId("hide-detail-record").hidden = mapMode;
+      byId("delete-detail-record").hidden = mapMode;
+      byId("edit-detail-record").hidden = mapMode;
       renderRouteDock(record);
       const dialog = byId("record-detail-dialog");
       if (!dialog.open) dialog.showModal();
@@ -959,12 +1945,39 @@
       const currentIndex = pool.findIndex((record) => record.id === mapState.detailRecordId);
       const nextIndex = currentIndex + direction;
       if (nextIndex < 0 || nextIndex >= pool.length) return;
-      openRecordDetail(pool[nextIndex].id, pool, state.detailPoolLabel);
+      transitionDetailRecord(pool[nextIndex].id, pool, state.detailPoolLabel);
+    }
+
+    function transitionDetailRecord(recordId, pool, poolLabel) {
+      const card = byId("record-detail-dialog").querySelector(".detail-card");
+      animateRouteDockTravel(recordId, pool);
+      if (!card) {
+        openRecordDetail(recordId, pool, poolLabel);
+        return;
+      }
+      card.classList.add("is-switching");
+      window.setTimeout(() => {
+        openRecordDetail(recordId, pool, poolLabel);
+        requestAnimationFrame(() => card.classList.remove("is-switching"));
+      }, 130);
+    }
+
+    function animateRouteDockTravel(recordId, pool = []) {
+      const dock = byId("route-dock");
+      const nextIndex = pool.findIndex((record) => record.id === recordId);
+      if (!dock || nextIndex < 0 || !dock.classList.contains("is-visible")) return;
+      dock.classList.add("is-moving");
+      dock.style.setProperty("--active-index", nextIndex);
+      window.setTimeout(() => dock.classList.remove("is-moving"), 640);
     }
 
     function renderDetailRecordSwitch() {
       const pool = state.detailPool || [];
       const currentIndex = pool.findIndex((record) => record.id === mapState.detailRecordId);
+      const mapMode = state.detailMode === "map";
+      byId("prev-detail-record").hidden = mapMode;
+      byId("next-detail-record").hidden = mapMode;
+      if (mapMode) return;
       byId("prev-detail-record").disabled = currentIndex <= 0;
       byId("next-detail-record").disabled = currentIndex < 0 || currentIndex >= pool.length - 1;
     }
@@ -977,9 +1990,10 @@
         dock.innerHTML = "";
         return;
       }
-      const routeRecords = orderedRecordsForRoute(route.id);
-      const activeIndex = Math.max(0, routeRecords.findIndex((item) => item.id === record.id));
-      const total = routeRecords.length;
+      const navigatorData = routeNavigatorData(route.id, record.id);
+      const routeRecords = navigatorData.records;
+      const activeIndex = navigatorData.current_index;
+      const total = navigatorData.total_count;
       dock.innerHTML = `
         <div class="route-dock-info">
           <div><strong>${escapeHtml(route.name)}</strong><span>Route ID · ${escapeHtml(route.id)}</span></div>
@@ -999,8 +2013,24 @@
         const viewport = dock.querySelector("[data-route-viewport]");
         if (viewport) dock.style.setProperty("--route-viewport-width", `${viewport.clientWidth}px`);
       });
-      dock.querySelectorAll("[data-route-record]").forEach((button) => button.addEventListener("click", () => openRecordDetail(button.dataset.routeRecord, routeRecords, route.name)));
+      dock.querySelectorAll("[data-route-record]").forEach((button) => button.addEventListener("click", () => transitionDetailRecord(button.dataset.routeRecord, routeRecords, route.name)));
       bindRouteDockDrag(dock, routeRecords, activeIndex);
+    }
+
+    function routeNavigatorData(routeId, currentRecordId, windowSize = 7) {
+      const records = orderedRecordsForRoute(routeId);
+      const currentIndex = Math.max(0, records.findIndex((record) => record.id === currentRecordId));
+      const half = Math.floor(windowSize / 2);
+      const start = Math.max(0, Math.min(currentIndex - half, records.length - windowSize));
+      const visibleRecords = records.slice(start, start + windowSize);
+      return {
+        current_index: currentIndex,
+        total_count: records.length,
+        previous_record: records[currentIndex - 1] || null,
+        next_record: records[currentIndex + 1] || null,
+        visible_window: visibleRecords.map((item, offset) => ({ record: item, route_index: start + offset })),
+        records
+      };
     }
 
     function bindRouteDockDrag(dock, routeRecords, activeIndex) {
@@ -1016,7 +2046,7 @@
         if (Math.abs(delta) < 42) return;
         const nextIndex = activeIndex + (delta < 0 ? 1 : -1);
         if (nextIndex < 0 || nextIndex >= routeRecords.length) return;
-        openRecordDetail(routeRecords[nextIndex].id, routeRecords, state.detailPoolLabel);
+        transitionDetailRecord(routeRecords[nextIndex].id, routeRecords, state.detailPoolLabel);
       });
     }
 
@@ -1145,6 +2175,9 @@
     function hideRecord(recordId) {
       hiddenRecordIds.add(recordId);
       persistRecords();
+      persistRecordMetadataToArchive({ ...allRecords().find((record) => record.id === recordId), archived: true }).then((written) => {
+        showToast(written ? "记录已隐藏并写入" : "隐藏已进草稿箱", recordId);
+      }).catch(() => showToast("隐藏已进草稿箱", recordId));
       renderAll();
     }
 
@@ -1158,8 +2191,8 @@
       const record = allRecords().find((item) => item.id === recordId);
       mapState.pendingDeleteId = recordId;
       byId("delete-dialog-copy").textContent = record
-        ? `即将永久删除「${record.title}」。自建记录会从 localStorage 移除；内置示例会写入本浏览器删除标记。`
-        : "即将永久删除这条记录。";
+        ? `即将删除「${record.title}」。提交到本地归档后会移除记录目录、索引和路线引用。`
+        : "即将删除这条记录。";
       const dialog = byId("delete-dialog");
       if (!dialog.open) dialog.showModal();
     }
@@ -1171,11 +2204,40 @@
     }
 
     function permanentlyDeleteRecord(recordId) {
+      removeRecordFromRoutes(recordId);
       customRecords = customRecords.filter((record) => record.id !== recordId);
+      recordDrafts = recordDrafts.filter((record) => record.id !== recordId);
       hiddenRecordIds.delete(recordId);
       deletedRecordIds.add(recordId);
+      if (!pendingDeletes.includes(recordId)) pendingDeletes.push(recordId);
       persistRecords();
+      if (state.archiveHandle) {
+        removeRecordFromArchive(recordId).then(() => {
+          showToast("记录已删除", recordId);
+          renderAll();
+        }).catch(() => showToast("删除已进草稿箱", recordId));
+      } else {
+        showToast("删除已进草稿箱", "打开草稿箱后可一并提交到本地归档。");
+      }
       renderAll();
+    }
+
+    function removeRecordFromRoutes(recordId) {
+      [SEEN_DATA.routes, archiveRoutes, customRoutes].forEach((routes) => routes.forEach((route) => {
+        route.records = (route.records || []).filter((id) => id !== recordId);
+        route.points = (route.points || []).filter((point) => point.recordId !== recordId);
+        route.updated_at = new Date().toISOString();
+      }));
+      [SEEN_DATA.records, archiveRecords, customRecords, recordDrafts].forEach((records) => {
+        const record = records.find((item) => item.id === recordId);
+        if (!record) return;
+        record.routeId = null;
+        record.route_id = null;
+        record.routeIndex = null;
+        record.route_index = null;
+        record.segmentIndex = null;
+      });
+      syncRouteBindings();
     }
 
     function generateRecordId(title = "") {
@@ -1189,9 +2251,9 @@
 
     function matchBoundaryFeature(feature, area) {
       const properties = feature.properties || {};
-      return [feature.id, properties.id, properties.seen_id, properties.slug, properties.name, properties.NAME, properties.Name]
-        .map((value) => String(value || "").toLowerCase())
-        .includes(String(area.id).toLowerCase()) || String(properties.name || properties.NAME || "").toLowerCase() === area.name.toLowerCase();
+      const candidates = [feature.id, properties.id, properties.seen_id, properties.slug, properties.name, properties.NAME, properties.Name, properties.name_en, properties.NAME_EN]
+        .map(normalizeAreaToken);
+      return candidates.includes(normalizeAreaToken(area.id)) || candidates.includes(normalizeAreaToken(area.name));
     }
 
     function normalizeBoundaryGeoJson(data, area) {
@@ -1255,7 +2317,7 @@
         console.info(`Seen local boundary file not loaded for ${level}; remote provider/fallback will be used.`);
       }
 
-      await Promise.all(SEEN_DATA.boundaries[level].map(async (area) => {
+      await Promise.all(boundaryAreasForLevel(level).map(async (area) => {
         if (mapState.boundaryGeoJson[level]?.features?.some((feature) => matchBoundaryFeature(feature, area))) return;
         const cacheKey = `${level}:${area.id}`;
         if (boundaryCache[cacheKey]) {
@@ -1281,9 +2343,11 @@
     function createBoundaryLayer(area, related) {
       const geoJson = mapState.boundaryGeoJson[state.zoom];
       const matchingFeatures = geoJson?.features?.filter((feature) => matchBoundaryFeature(feature, area)) || [];
+      const fallbackPolygon = areaToLatLngs(area);
+      if (!matchingFeatures.length && !fallbackPolygon.length) return L.layerGroup();
       let layer = matchingFeatures.length
         ? L.geoJSON({ type: "FeatureCollection", features: matchingFeatures }, { style: boundaryStyle(area, related) })
-        : L.polygon(areaToLatLngs(area), boundaryStyle(area, related));
+        : L.polygon(fallbackPolygon, boundaryStyle(area, related));
 
       if (area.id === "cn") {
         const taiwanLayer = L.polygon(CHINA_TAIWAN_POLYGON, boundaryStyle(area, related));
@@ -1370,7 +2434,7 @@
       mapState.pickerMap.setView(point, Math.max(mapState.pickerMap.getZoom(), 9));
       if (!mapState.pickerMarker) {
         mapState.pickerMarker = L.marker(point, {
-          icon: L.divIcon({ className: "", html: '<span class="record-node"></span>', iconSize: [18, 18], iconAnchor: [9, 9] })
+          icon: L.divIcon({ className: "", html: '<span class="record-node"></span>', iconSize: [10, 10], iconAnchor: [5, 5] })
         }).addTo(mapState.pickerMap);
       } else {
         mapState.pickerMarker.setLatLng(point);
@@ -1387,9 +2451,11 @@
       mapState.routeLayers = [];
       mapState.pointLayers = [];
       mapState.recordMarkers = [];
+      const mapZoom = mapState.map?.getZoom() || zoomForLevel(state.zoom);
+      const nodeClass = mapZoom <= 4 ? "record-node is-far" : mapZoom < 7 ? "record-node is-mid" : "record-node";
 
       if (state.layerFilter === "all") {
-        SEEN_DATA.boundaries[state.zoom].forEach((area) => {
+        boundaryAreasForLevel(state.zoom).forEach((area) => {
           const related = recordsForArea(area.id);
           createBoundaryLayer(area, related).addTo(mapState.boundaryLayer);
         });
@@ -1402,13 +2468,17 @@
         const weights = routeWeights(isActive);
         const routeCase = L.polyline(latLngs, { className: "seen-route-case", color: "#06111a", weight: weights.case, opacity: 0.52 }).addTo(mapState.map);
         const routeCore = L.polyline(latLngs, { className: `seen-route-core ${isActive ? "seen-route-active" : ""}`, color: isActive ? "#e89aa8" : "#7dd3fc", weight: weights.core, opacity: 0.95 }).bindTooltip(`<strong>${route.name}</strong><br>${routeRecords.length} 条路线记录 / ${route.points.length} 个坐标点`, { className: "seen-tooltip" }).addTo(mapState.map);
-        routeCore.on("click", () => {
+        const openRoute = () => {
           state.activeRoute = state.activeRoute === route.id ? null : route.id;
           state.activeArea = null;
           state.visibleRecords = 10;
           renderAll();
           mapState.map.fitBounds(routeCore.getBounds(), { padding: [46, 46] });
-        });
+        };
+        routeCase.on("click", openRoute);
+        routeCore.on("click", openRoute);
+        routeCase.bringToFront();
+        routeCore.bringToFront();
         mapState.routeLayers.push(routeCase, routeCore);
         if (state.layerFilter === "routes") route.points.forEach((point) => {
           const node = L.marker([point.lat, point.lng], {
@@ -1426,11 +2496,12 @@
 
       if (state.layerFilter !== "routes") filteredRecords().forEach((record) => {
         const marker = L.marker([record.lat, record.lng], {
-          icon: L.divIcon({ className: "", html: '<span class="record-node"></span>', iconSize: [18, 18], iconAnchor: [9, 9] })
+          icon: L.divIcon({ className: "", html: `<span class="${nodeClass}"></span>`, iconSize: [10, 10], iconAnchor: [5, 5] })
         }).bindTooltip(`<strong>${record.title}</strong><br>${record.place}`, { className: "seen-tooltip" }).addTo(mapState.map);
         marker.on("click", () => {
           state.featureIndex = activeRecords().findIndex((item) => item.id === record.id);
           renderFeature();
+          openRecordDetail(record.id, [record], "地图记录", { mode: "map" });
         });
         mapState.recordMarkers.push(marker);
       });
@@ -1454,8 +2525,9 @@
 
     function fitMapToLevel(level) {
       if (!mapState.map) return;
-      const areas = SEEN_DATA.boundaries[level];
-      const bounds = areas.reduce((mergedBounds, area) => mergedBounds.extend(boundsForArea(area, level)), L.latLngBounds([]));
+      const areas = boundaryAreasForLevel(level);
+      const bounds = areas.reduce((mergedBounds, area) => areaToLatLngs(area).length || mapState.boundaryGeoJson[level]?.features?.some((feature) => matchBoundaryFeature(feature, area)) ? mergedBounds.extend(boundsForArea(area, level)) : mergedBounds, L.latLngBounds([]));
+      if (!bounds.isValid()) return;
       mapState.map.fitBounds(bounds, { padding: [36, 36], maxZoom: zoomForLevel(level) });
     }
 
@@ -1468,7 +2540,7 @@
       const files = [...(fileList || [])];
       return Promise.all(files.map((file) => new Promise((resolve, reject) => {
           const reader = new FileReader();
-          reader.onload = () => resolve(reader.result);
+          reader.onload = () => resolve({ file, src: reader.result, name: file.name });
           reader.onerror = reject;
           reader.readAsDataURL(file);
         })));
@@ -1563,7 +2635,7 @@
 
     function formatLocationFromRegion(region) {
       if (!region) return "";
-      const location = LOCATION_DATA.find((item) => item.country === region.country && item.province === region.province && item.city === region.city);
+      const location = locationForRegion(region);
       if (!location) return "";
       return [location.countryName, location.provinceName, location.cityName].map(displayName).join(" / ");
     }
@@ -1659,6 +2731,23 @@
       closeCombos();
     }
 
+    async function geocodeLocation(location) {
+      const cacheKey = `geocode:${location.city}`;
+      if (boundaryCache[cacheKey]) return boundaryCache[cacheKey];
+      const query = `${location.cityName}, ${location.provinceName}, ${location.countryName}`;
+      const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`).catch(() => null);
+      if (!response?.ok) return null;
+      const result = (await response.json())[0];
+      if (!result) return null;
+      const point = { lat: Number(result.lat), lng: Number(result.lon) };
+      if (Number.isFinite(point.lat) && Number.isFinite(point.lng)) {
+        boundaryCache[cacheKey] = point;
+        persistBoundaryCache();
+        return point;
+      }
+      return null;
+    }
+
     function populateLocationSelectors() {
       ["country", "province", "city"].forEach((kind) => {
         byId(`record-${kind}`).value = "";
@@ -1682,6 +2771,13 @@
         form.elements.lat.value = location.lat.toFixed(6);
         form.elements.lng.value = location.lng.toFixed(6);
         setPickerLocation(location.lat, location.lng);
+      } else {
+        geocodeLocation(location).then((point) => {
+          if (!point) return;
+          form.elements.lat.value = point.lat.toFixed(6);
+          form.elements.lng.value = point.lng.toFixed(6);
+          setPickerLocation(point.lat, point.lng);
+        });
       }
     }
 
@@ -1822,15 +2918,106 @@
 
     function renderImagePreview() {
       const preview = byId("image-preview-grid");
-      const files = [...byId("image-file").files];
-      preview.innerHTML = "";
-      files.slice(0, 8).forEach((file) => {
-        const img = document.createElement("img");
-        img.alt = file.name;
-        img.src = URL.createObjectURL(file);
-        img.onload = () => URL.revokeObjectURL(img.src);
-        preview.appendChild(img);
+      const visible = state.pendingImages.slice(0, 8);
+      preview.innerHTML = visible.map((image, index) => {
+        const more = state.pendingImages.length > 8 && index === 7 ? ` data-more="+${state.pendingImages.length - 7}"` : "";
+        return `<div class="image-preview-item ${more ? "image-preview-more" : ""}"${more} data-image-index="${index}"><img src="${image.src}" alt="${escapeHtml(image.name)}"><button class="image-remove" type="button" data-remove-image="${index}"><i class="bi-x-lg"></i></button></div>`;
+      }).join("");
+      preview.querySelectorAll("[data-remove-image]").forEach((button) => {
+        button.addEventListener("click", (event) => {
+          event.stopPropagation();
+          state.pendingImages.splice(Number(button.dataset.removeImage), 1);
+          renderImagePreview();
+        });
       });
+      preview.querySelector(".image-preview-more")?.addEventListener("click", openPhotoBrowser);
+    }
+
+    function openPhotoBrowser() {
+      byId("photo-browser-summary").textContent = `${state.pendingImages.length} å¼ å¾…ä¸Šä¼ ç…§ç‰‡`;
+      byId("photo-browser-grid").innerHTML = state.pendingImages.map((image, index) => `
+        <div class="image-preview-item">
+          <img src="${image.src}" alt="${escapeHtml(image.name)}">
+          <button class="image-remove" type="button" data-remove-photo-dialog="${index}"><i class="bi-x-lg"></i></button>
+        </div>
+      `).join("");
+      byId("photo-browser-grid").querySelectorAll("[data-remove-photo-dialog]").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.pendingImages.splice(Number(button.dataset.removePhotoDialog), 1);
+          renderImagePreview();
+          openPhotoBrowser();
+        });
+      });
+      const dialog = byId("photo-browser-dialog");
+      if (!dialog.open) dialog.showModal();
+    }
+
+    function openRecordEditor(record) {
+      const form = byId("record-editor-form");
+      form.elements.id.value = record.id;
+      form.elements.title.value = record.title || "";
+      form.elements.place.value = record.place || "";
+      form.elements.date.value = record.date || "";
+      form.elements.tags.value = (record.tags || []).join(", ");
+      form.elements.note.value = record.note || "";
+      state.editingImages = getRecordImages(record).map((src, index) => ({ src, name: `image-${index + 1}` }));
+      renderRecordEditorImages();
+      const dialog = byId("record-editor-dialog");
+      if (!dialog.open) dialog.showModal();
+    }
+
+    function renderRecordEditorImages() {
+      byId("record-editor-image-grid").innerHTML = state.editingImages.map((image, index) => `
+        <div class="image-preview-item">
+          <img src="${image.src}" alt="${escapeHtml(image.name)}">
+          <button class="image-remove" type="button" data-remove-edit-image="${index}"><i class="bi-x-lg"></i></button>
+        </div>
+      `).join("");
+      byId("record-editor-image-grid").querySelectorAll("[data-remove-edit-image]").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.editingImages.splice(Number(button.dataset.removeEditImage), 1);
+          renderRecordEditorImages();
+        });
+      });
+    }
+
+    async function saveRecordEditor(event) {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const record = allRecords().find((item) => item.id === form.elements.id.value);
+      if (!record) return;
+      const next = {
+        ...record,
+        title: form.elements.title.value.trim() || record.title,
+        place: form.elements.place.value.trim(),
+        date: form.elements.date.value.trim() || record.date,
+        tags: splitList(form.elements.tags.value),
+        note: form.elements.note.value.trim(),
+        images: state.editingImages.map((image) => image.src),
+        image: state.editingImages[0]?.src || record.image,
+        updated_at: new Date().toISOString()
+      };
+      recordDrafts = recordDrafts.filter((item) => item.id !== next.id).concat(next);
+      persistRecords();
+      byId("record-editor-dialog").close();
+      renderAll();
+      renderDraftBox();
+      requestAnimationFrame(() => openRecordDetail(next.id, state.detailPool, state.detailPoolLabel));
+      if (!state.archiveHandle) {
+        showToast("记录编辑已进草稿箱", next.id);
+        return;
+      }
+      persistRecordMetadataToArchive(next).then((written) => {
+        if (written) {
+          recordDrafts = recordDrafts.filter((item) => item.id !== next.id);
+          archiveRecords = archiveRecords.filter((item) => item.id !== next.id).concat({ ...next, __archive_base: `records/${next.id}` });
+          persistRecords();
+          renderAll();
+          showToast("记录已写入", next.id);
+        } else {
+          showToast("记录编辑已进草稿箱", next.id);
+        }
+      }).catch(() => showToast("记录编辑已进草稿箱", next.id));
     }
 
     function parseManualWaypoints() {
@@ -1851,9 +3038,11 @@
 
     function ensureRouteFromForm(formData, currentRecord) {
       const routeSource = formData.get("routeSource");
-
-      const baseId = String(formData.get("newRouteId") || "").trim() || generateRecordId(formData.get("newRouteName") || currentRecord.title).replace(/^\d+-/, "route-");
-      const routeId = ensureUniqueId(baseId) && baseId !== currentRecord.id ? baseId : `${baseId}-route-${Date.now()}`;
+      const now = new Date().toISOString();
+      const requestedId = String(formData.get("newRouteId") || "").trim();
+      const fallbackName = currentRecord?.title || formData.get("newRouteName") || "route";
+      const baseId = requestedId || generateRecordId(formData.get("newRouteName") || fallbackName).replace(/^\d+-/, "route-");
+      let routeId = baseId === currentRecord?.id ? `${baseId}-route-${Date.now()}` : baseId;
       let points = routeSource === "records" ? routeFromRecordIds() : parseManualWaypoints();
       if (points.length < 2) return "";
       const hasCurrentPoint = Number.isFinite(currentRecord.lat) && Number.isFinite(currentRecord.lng) && (currentRecord.lat !== 0 || currentRecord.lng !== 0);
@@ -1862,14 +3051,75 @@
         points.push({ name: currentRecord.title, at: currentRecord.date, lat: currentRecord.lat, lng: currentRecord.lng, recordId: currentRecord.id });
       }
       if (!points.length) points = [{ name: currentRecord.title, at: currentRecord.date, lat: 0, lng: 0, recordId: currentRecord.id }];
-      customRoutes.unshift({
-        id: routeId,
-        name: String(formData.get("newRouteName") || currentRecord.title || routeId).trim(),
-        tripMode: formData.get("tripMode"),
-        points
+      const recordIds = points.map((point) => point.recordId).filter(Boolean);
+      const routeName = String(formData.get("newRouteName") || currentRecord.title || routeId).trim();
+      const existingRoute = allRoutes().find((route) => route.id === routeId);
+      if (existingRoute && !customRoutes.some((route) => route.id === routeId)) {
+        routeId = `${baseId}-route-${Date.now()}`;
+      }
+      let route = customRoutes.find((item) => item.id === routeId);
+      if (!route) {
+        route = { id: routeId, name: routeName, tripMode: formData.get("tripMode"), records: [], points: [], created_at: now };
+        customRoutes.unshift(route);
+      }
+      route.name = routeName || route.name;
+      route.date = formData.get("date") || route.date || now.slice(0, 10);
+      route.records = [...new Set([...(route.records || []), ...recordIds])];
+      route.points = route.records.map((recordId) => points.find((point) => point.recordId === recordId)).filter(Boolean);
+      route.updated_at = now;
+      route.records.forEach((recordId, index) => {
+        const linkedRecord = customRecords.find((item) => item.id === recordId) || SEEN_DATA.records.find((item) => item.id === recordId) || archiveRecords.find((item) => item.id === recordId);
+        if (!linkedRecord) return;
+        linkedRecord.routeId = route.id;
+        linkedRecord.route_id = route.id;
+        linkedRecord.routeIndex = index;
+        linkedRecord.route_index = index;
+        linkedRecord.segmentIndex = index;
       });
       populateRouteOptions();
       return routeId;
+    }
+
+    async function createRouteFromForm(form, formData) {
+      const points = routeFromRecordIds();
+      if (points.length < 2) {
+        byId("record-id-status").textContent = "路线至少需要两个有效记录 ID。";
+        showToast("路线未创建", "请至少串联两个已有记录 ID。", "error");
+        return null;
+      }
+      const requestedId = String(formData.get("newRouteId") || "").trim();
+      const routeName = String(formData.get("newRouteName") || requestedId || "未命名路线").trim();
+      const routeId = requestedId || generateRecordId(routeName).replace(/^\d+-/, "route-");
+      if (allRoutes().some((route) => route.id === routeId)) {
+        byId("record-id-status").textContent = `路线 ID 已存在：${routeId}`;
+        showToast("路线未创建", `路线 ID 已存在：${routeId}`, "error");
+        return null;
+      }
+      const now = new Date().toISOString();
+      const route = {
+        id: routeId,
+        name: routeName,
+        created_at: now,
+        updated_at: now,
+        date: formData.get("date") || now.slice(0, 10),
+        records: points.map((point) => point.recordId).filter(Boolean),
+        points
+      };
+      customRoutes.unshift(route);
+      syncRouteBindings();
+      persistRecords();
+      try {
+        const written = await persistRouteToArchive(route.id);
+        showToast(written ? "路线已写入归档" : "路线已保存到浏览器", written ? `${route.id} 已生成路线文件。` : "连接本地归档目录后可直接生成 route.json。");
+      } catch (error) {
+        showToast("路线写入失败", error.message, "error");
+      }
+      form.reset();
+      clearRouteRecordRows();
+      setRecordDate(new Date());
+      updateRecordFormFields();
+      renderAll();
+      return route;
     }
 
     async function addRecordFromForm(event) {
@@ -1877,21 +3127,28 @@
       const form = event.currentTarget;
       const formData = new FormData(form);
       const category = formData.get("category");
-      const uploadedImages = await readImagesAsDataUrls(form.elements.imageFile.files);
-      const images = uploadedImages;
+      if (category === "route") {
+        await createRouteFromForm(form, formData);
+        return;
+      }
+      const images = state.pendingImages.map((image) => image.src);
       const image = images[0] || "../static/assets/img/background.jpeg";
       const tags = splitList(formData.get("tags"));
       const recordId = String(formData.get("recordId") || "").trim() || generateRecordId(formData.get("title"));
-      if (category === "region" && !validateLocationSelection()) {
-        byId("record-id-status").textContent = "请从国家/省州/城市候选中选择地点。";
+      const hasManualLocation = Boolean(String(formData.get("place") || "").trim() && form.elements.lat.value && form.elements.lng.value);
+      if (category === "region" && !validateLocationSelection() && !hasManualLocation) {
+        byId("record-id-status").textContent = "请选择地点候选，或手动填写地点与经纬度。";
+        showToast("记录未创建", "请选择地点候选，或手动填写地点与经纬度。", "error");
         return;
       }
       if (category === "region" && (!form.elements.lat.value || !form.elements.lng.value)) {
         byId("record-id-status").textContent = "请在管理地图上选点，或填写经纬度。";
+        showToast("记录未创建", "请在管理地图上选点，或填写经纬度。", "error");
         return;
       }
       if (!ensureUniqueId(recordId)) {
         byId("record-id-status").textContent = `ID 已存在：${recordId}`;
+        showToast("记录未创建", `ID 已存在：${recordId}`, "error");
         return;
       }
       const record = {
@@ -1908,35 +3165,27 @@
         tags,
         note: String(formData.get("note") || "").trim()
       };
-      if (category === "route") {
-        record.routeId = ensureRouteFromForm(formData, record);
-        if (!record.routeId) {
-          byId("record-id-status").textContent = "路线至少需要两个有效点或两个有效记录 ID。";
-          return;
-        }
-        record.segmentIndex = 0;
-        const route = allRoutes().find((item) => item.id === record.routeId);
-        const routePoint = route?.points?.[record.segmentIndex] || route?.points?.[0];
-        if (routePoint) {
-          record.lat = routePoint.lat;
-          record.lng = routePoint.lng;
-          record.place = `${route.name} / ${routePoint.name}`;
-        }
-      } else {
-        record.region = {
-          country: String(formData.get("country") || "").trim(),
-          province: String(formData.get("province") || "").trim(),
-          city: String(formData.get("city") || "").trim()
-        };
-      }
+      const selectedRegion = {
+        country: String(formData.get("country") || "").trim(),
+        province: String(formData.get("province") || "").trim(),
+        city: String(formData.get("city") || "").trim()
+      };
+      record.region = normalizeRegion(selectedRegion, record) || normalizeRegion(null, record);
       if (!record.title || Number.isNaN(record.lat) || Number.isNaN(record.lng)) return;
       SEEN_DATA.tags = [...new Set(SEEN_DATA.tags.concat(tags))];
       customRecords.unshift(record);
       state.featureIndex = 0;
       persistRecords();
+      try {
+        const written = await persistRecordToArchive(record, state.pendingImages);
+        showToast(written ? "记录已写入归档" : "记录已保存到浏览器", written ? `${record.id} 已生成文件。` : "连接本地归档目录后可直接生成 record.json / content.md / cover。");
+      } catch (error) {
+        showToast("记录写入失败", error.message, "error");
+      }
       form.reset();
       byId("record-id-status").textContent = "创建时会检查重复。";
       byId("record-id").value = generateRecordId("seen");
+      state.pendingImages = [];
       byId("image-preview-grid").innerHTML = "";
       populateLocationSelectors();
       updateRecordFormFields();
@@ -1945,6 +3194,7 @@
     }
 
     function updateRecordFormFields() {
+      const form = byId("record-form");
       const category = byId("record-category").value;
       const routeSource = byId("route-source").value;
       const type = byId("record-type").value;
@@ -1962,10 +3212,11 @@
       byId("use-map-center").hidden = category !== "region";
       byId("use-map-center").disabled = category !== "region";
       document.querySelectorAll("[data-note-field]").forEach((field) => {
-        const hidden = type !== "note";
+        const hidden = category !== "region";
         field.classList.toggle("is-hidden", hidden);
         field.querySelectorAll("textarea").forEach((control) => { control.disabled = hidden; });
       });
+      form.elements.title.required = category === "region";
     }
 
     function openManager() {
@@ -1973,7 +3224,7 @@
       const body = byId("manager-body");
       body.hidden = false;
       byId("toggle-manager").textContent = "收起管理";
-      byId("record-category").value = byId("record-category").value || "region";
+      byId("record-category").value = "region";
       byId("route-source").value = "records";
       ensureRouteBuilders();
       updateRecordFormFields();
@@ -2010,17 +3261,42 @@
       byId("record-form").addEventListener("submit", addRecordFromForm);
       byId("record-form").addEventListener("reset", () => setTimeout(() => {
         populateLocationSelectors();
+        setRecordDate(new Date());
         byId("record-id").value = generateRecordId("seen");
+        state.pendingImages = [];
         byId("image-preview-grid").innerHTML = "";
         updateRecordFormFields();
       }, 0));
       byId("record-category").addEventListener("change", updateRecordFormFields);
-      byId("record-type").addEventListener("change", updateRecordFormFields);
       byId("route-source").addEventListener("change", updateRecordFormFields);
       byId("add-route-point")?.addEventListener("click", () => addRoutePointRow());
       byId("add-route-record-id").addEventListener("click", () => addRouteRecordIdRow());
       byId("clear-route-record-ids").addEventListener("click", clearRouteRecordRows);
-      byId("image-file").addEventListener("change", renderImagePreview);
+      byId("image-file").addEventListener("change", async () => {
+        const files = [...byId("image-file").files];
+        if (!files.length) return;
+        state.pendingImages = state.pendingImages.concat(await readImagesAsDataUrls(files));
+        renderImagePreview();
+        byId("image-file").value = "";
+      });
+      byId("close-photo-browser").addEventListener("click", () => byId("photo-browser-dialog").close());
+      byId("photo-browser-dialog").addEventListener("click", (event) => {
+        if (event.target === byId("photo-browser-dialog")) byId("photo-browser-dialog").close();
+      });
+      byId("record-editor-form").addEventListener("submit", saveRecordEditor);
+      byId("record-editor-images").addEventListener("change", async () => {
+        const files = [...byId("record-editor-images").files];
+        if (!files.length) return;
+        state.editingImages = state.editingImages.concat(await readImagesAsDataUrls(files));
+        byId("record-editor-images").value = "";
+        renderRecordEditorImages();
+      });
+      byId("close-record-editor").addEventListener("click", () => byId("record-editor-dialog").close());
+      byId("cancel-record-editor").addEventListener("click", () => byId("record-editor-dialog").close());
+      byId("record-editor-dialog").addEventListener("click", (event) => {
+        if (event.target === byId("record-editor-dialog")) byId("record-editor-dialog").close();
+      });
+      byId("connect-archive").addEventListener("click", () => connectArchiveDirectory().catch((error) => showToast("连接失败", error.message, "error")));
       byId("generate-record-id").addEventListener("click", () => {
         byId("record-id").value = generateRecordId(byId("record-form").elements.title.value);
         byId("record-id-status").textContent = "已生成，提交时仍会检查唯一性。";
@@ -2068,6 +3344,11 @@
         if (event.target === byId("record-detail-dialog")) closeDialog("record-detail-dialog");
       });
       byId("record-detail-dialog").addEventListener("close", () => byId("route-dock").classList.remove("is-visible"));
+      byId("close-route-browser").addEventListener("click", closeRouteBrowser);
+      byId("route-browser-dialog").addEventListener("click", (event) => {
+        if (event.target === byId("route-browser-dialog")) closeRouteBrowser();
+      });
+      byId("route-browser-dialog").addEventListener("close", () => document.body.classList.remove("route-modal-open"));
       byId("record-detail-dialog").querySelector(".detail-card").addEventListener("pointerdown", (event) => {
         if (event.target.closest("button")) return;
         state.detailDragX = event.clientX;
@@ -2094,6 +3375,15 @@
         closeDialog("record-detail-dialog");
         requestDeleteRecord(mapState.detailRecordId);
       });
+      byId("edit-detail-record").addEventListener("click", () => {
+        const record = allRecords().find((item) => item.id === mapState.detailRecordId);
+        if (!record) return;
+        openRecordEditor(record);
+      });
+      byId("draft-toggle").addEventListener("click", () => byId("draft-box").classList.toggle("is-open"));
+      byId("draft-box").addEventListener("mouseleave", () => byId("draft-box").classList.remove("is-open"));
+      byId("draft-connect").addEventListener("click", () => connectArchiveDirectory().then(renderDraftBox).catch((error) => showToast("连接失败", error.message, "error")));
+      byId("draft-commit").addEventListener("click", () => commitAllDrafts().catch((error) => showToast("提交失败", error.message, "error")));
       byId("floating-search").addEventListener("click", (event) => {
         if (!state.searchOpen) openSearch();
         event.stopPropagation();
@@ -2159,6 +3449,7 @@
     }
 
     function renderAll() {
+      renderArchiveStatus();
       renderRouteRecordIdOptions();
       renderKeywords();
       renderFeature();
@@ -2167,6 +3458,7 @@
       renderPosts();
       renderHiddenRecords();
       renderMap();
+      renderDraftBox();
     }
 
     function applyNavbarText() {
@@ -2188,15 +3480,21 @@
         });
       })
       .catch((error) => console.error("Error loading floating buttons:", error));
-    initSeenLocalization();
-    populateRouteOptions();
-    populateLocationSelectors();
-    ensureRouteBuilders();
-    byId("record-id").value = generateRecordId("seen");
-    bindStaticEvents();
-    openManager();
-    renderAll();
-    initMap();
+    async function bootSeen() {
+      initSeenLocalization();
+      await loadArchiveFiles();
+      populateRouteOptions();
+      populateLocationSelectors();
+      ensureRouteBuilders();
+      initDatePicker();
+      byId("record-id").value = generateRecordId("seen");
+      bindStaticEvents();
+      initHeroParticles();
+      renderAll();
+      initMap();
+    }
+
+    bootSeen();
   </script>
 </body>
 </html>
