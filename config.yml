@@ -1,1 +1,10 @@
-copyright-text: '&copy; Dapao Huang 2023-2026. All Rights Reserved.'
+footer:
+  copyright: "&copy; Dapao Huang 2023-2026. All Rights Reserved."
+
+  github:
+    text: "Github"
+    link: "https://github.com/cmdSTARMO"
+
+  license:
+    text: "License"
+    link: "https://github.com/cmdSTARMO/cmdstar.github.io/blob/main/LICENSE"

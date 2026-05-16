@@ -2,7 +2,7 @@
   "id": "newyork-window_test",
   "title": "纽约窗口",
   "created_at": "2024-12-22T00:00:00.000Z",
-  "updated_at": "2026-05-16T00:00:00.000Z",
+  "updated_at": "2026-05-16T14:00:15.068Z",
   "route_id": null,
   "route_index": null,
   "tags": [
@@ -24,7 +24,7 @@
   "favorite": false,
   "archived": false,
   "type": "photo",
-  "date": "2024-12-22",
+  "date": "2002-12-22",
   "place": "United States / New York / New York",
   "lat": 40.7128,
   "lng": -74.006,
@@ -33,5 +33,5 @@
     "province": "new-york",
     "city": "new-york-city"
   },
-  "note": ""
+  "note": "恭喜你发现了测试集！"
 }

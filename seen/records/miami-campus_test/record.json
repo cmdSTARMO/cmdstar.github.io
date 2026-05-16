@@ -2,7 +2,7 @@
   "id": "miami-campus_test",
   "title": "校园午后的树影",
   "created_at": "2025-04-20T00:00:00.000Z",
-  "updated_at": "2026-05-16T00:00:00.000Z",
+  "updated_at": "2026-05-16T14:00:15.172Z",
   "route_id": null,
   "route_index": null,
   "tags": [
@@ -24,7 +24,7 @@
   "favorite": false,
   "archived": false,
   "type": "photo",
-  "date": "2025-04-20",
+  "date": "2002-04-20",
   "place": "United States / Florida / Coral Gables",
   "lat": 25.7215,
   "lng": -80.2793,
@@ -33,5 +33,5 @@
     "province": "florida",
     "city": "miami"
   },
-  "note": ""
+  "note": "恭喜你发现了测试集！"
 }

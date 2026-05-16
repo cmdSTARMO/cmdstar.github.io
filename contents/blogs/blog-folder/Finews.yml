@@ -1,7 +1,7 @@
 title: "从0开始！如何整出自己的飞书财经新闻小助手"
 page-top-title: "博客"
 author: "黄大炮"
-description: "这是关于飞书与爬虫的一篇博客文章，详细介绍了……"
+description: "一篇面向新手的Python实战教程，通过Requests、BeautifulSoup与飞书机器人相结合，手把手实现“自动抓取财经热点并定时推送到飞书群聊”的轻量级财经资讯系统。内容兼顾爬虫原理讲解与实际部署流程，适合作为自动化与金融信息工具开发的入门案例。"
 top-section-bg-text: "从0开始！如何整出自己的飞书财经新闻小助手"
 top-section: "blog-folder/Finews_pics/IM_2.jpeg"
 article-date: "2025-04-04 黄大炮 & 曲径共融数据部"

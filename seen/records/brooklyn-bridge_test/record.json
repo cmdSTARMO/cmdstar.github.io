@@ -2,7 +2,7 @@
   "id": "brooklyn-bridge_test",
   "title": "桥上的风",
   "created_at": "2024-12-23T00:00:00.000Z",
-  "updated_at": "2026-05-16T11:34:25.226Z",
+  "updated_at": "2026-05-16T15:10:00.081Z",
   "route_id": "longest-test",
   "route_index": 1,
   "tags": [
@@ -24,7 +24,7 @@
   "favorite": false,
   "archived": false,
   "type": "note",
-  "date": "2024-12-23",
+  "date": "2003-02-02",
   "place": "United States / New York / Brooklyn",
   "lat": 40.7061,
   "lng": -73.9969,
@@ -33,5 +33,5 @@
     "province": "new-york",
     "city": "new-york-city"
   },
-  "note": "桥面上每个人都走得很快，河面反而显得安静。"
+  "note": "桥面上每个人都走得很快，河面反而显得安静。\n恭喜你发现了测试集！"
 }
