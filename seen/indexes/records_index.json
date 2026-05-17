@@ -1,7 +1,116 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-05-16T11:34:25.226Z",
+  "updated_at": "2026-05-17T05:38:05.097Z",
   "records": [
+    {
+      "id": "1778927924556-seen",
+      "title": "呼和浩特测试",
+      "path": "records/1778927924556-seen/record.json",
+      "content_path": "records/1778927924556-seen/content.md",
+      "route_id": null,
+      "route_index": null,
+      "tags": [
+        "呼和浩特"
+      ],
+      "location": {
+        "place": "中国 / 内蒙古 / 呼和浩特",
+        "lat": 40.818453,
+        "lng": 111.660194,
+        "region": {
+          "country": "cn",
+          "province": "inner-mongolia",
+          "city": "hohhot"
+        }
+      },
+      "cover": "records/1778927924556-seen/assets/image-2.jpg",
+      "created_at": "2026-05-16T10:51:05.733Z",
+      "updated_at": "2026-05-16T11:15:56.244Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "id": "1778944886402-在路上-sfo",
+      "title": "在路上！旧金山版",
+      "path": "records/1778944886402-在路上-sfo/record.json",
+      "content_path": "records/1778944886402-在路上-sfo/content.md",
+      "route_id": null,
+      "route_index": null,
+      "tags": [
+        "窗户",
+        "鸟瞰"
+      ],
+      "location": {
+        "place": "美国 / 加利福尼亚 / San Francisco",
+        "lat": 37.62465,
+        "lng": -122.389927,
+        "region": {
+          "country": "us",
+          "province": "california",
+          "city": "san-francisco"
+        }
+      },
+      "cover": "records/1778944886402-在路上-sfo/cover.jpg",
+      "created_at": "2026-05-16T15:21:47.792Z",
+      "updated_at": "2026-05-16T15:23:15.755Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "id": "1778945827426-bill-baggs-park",
+      "title": "Bill Baggs Park",
+      "path": "records/1778945827426-bill-baggs-park/record.json",
+      "content_path": "records/1778945827426-bill-baggs-park/content.md",
+      "route_id": null,
+      "route_index": null,
+      "tags": [
+        "海边",
+        "鸟",
+        "落日",
+        "人像"
+      ],
+      "location": {
+        "place": "美国 / 佛罗里达 / 迈阿密",
+        "lat": 25.674098,
+        "lng": -80.156937,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "miami"
+        }
+      },
+      "cover": "records/1778945827426-bill-baggs-park/cover.jpg",
+      "created_at": "2026-05-16T15:39:02.148Z",
+      "updated_at": "2026-05-16T15:54:39.583Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "id": "1778946696723-south-pointe-beach-海滩",
+      "title": "South Pointe Beach 海滩！",
+      "path": "records/1778946696723-south-pointe-beach-海滩/record.json",
+      "content_path": "records/1778946696723-south-pointe-beach-海滩/content.md",
+      "route_id": null,
+      "route_index": null,
+      "tags": [
+        "海边",
+        "日出"
+      ],
+      "location": {
+        "place": "美国 / 佛罗里达 / 迈阿密",
+        "lat": 25.764067,
+        "lng": -80.130179,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "miami"
+        }
+      },
+      "cover": "records/1778946696723-south-pointe-beach-海滩/cover.jpg",
+      "created_at": "2026-05-16T15:51:45.917Z",
+      "updated_at": "2026-05-16T15:51:45.917Z",
+      "favorite": false,
+      "archived": false
+    },
     {
       "id": "brooklyn-bridge_test",
       "title": "桥上的风",
@@ -25,7 +134,7 @@
       },
       "cover": "records/brooklyn-bridge_test/cover.jpg",
       "created_at": "2024-12-23T00:00:00.000Z",
-      "updated_at": "2026-05-16T11:01:03.270Z",
+      "updated_at": "2026-05-16T11:34:25.226Z",
       "favorite": false,
       "archived": false
     },
@@ -52,7 +161,7 @@
       },
       "cover": "records/everglades-flat_test/cover.jpg",
       "created_at": "2025-02-02T00:00:00.000Z",
-      "updated_at": "2026-05-16T11:01:03.270Z",
+      "updated_at": "2026-05-16T15:09:59.360Z",
       "favorite": false,
       "archived": false
     },
@@ -80,7 +189,7 @@
       },
       "cover": "records/guangzhou-rain_test/cover.jpg",
       "created_at": "2024-07-06T00:00:00.000Z",
-      "updated_at": "2026-05-16T11:01:03.270Z",
+      "updated_at": "2026-05-16T11:34:25.226Z",
       "favorite": false,
       "archived": false
     },
@@ -130,7 +239,7 @@
       },
       "cover": "records/hangzhou-lake_test/cover.jpg",
       "created_at": "2023-09-24T00:00:00.000Z",
-      "updated_at": "2026-05-16T00:00:00.000Z",
+      "updated_at": "2026-05-16T15:10:01.826Z",
       "favorite": false,
       "archived": false
     },
@@ -180,7 +289,7 @@
       },
       "cover": "records/key-largo-blue_test/cover.jpg",
       "created_at": "2025-03-12T00:00:00.000Z",
-      "updated_at": "2026-05-16T10:58:29.733Z",
+      "updated_at": "2026-05-16T11:34:24.958Z",
       "favorite": false,
       "archived": false
     },
@@ -203,7 +312,7 @@
       },
       "cover": "records/keywest-road_test/cover.jpg",
       "created_at": "2025-03-12T00:00:00.000Z",
-      "updated_at": "2026-05-16T10:58:29.733Z",
+      "updated_at": "2026-05-16T11:34:24.958Z",
       "favorite": false,
       "archived": false
     },
@@ -308,7 +417,7 @@
       },
       "cover": "records/miami-bay-dusk_test/cover.jpg",
       "created_at": "2025-04-18T00:00:00.000Z",
-      "updated_at": "2026-05-16T10:58:29.733Z",
+      "updated_at": "2026-05-16T11:34:24.958Z",
       "favorite": false,
       "archived": false
     },
@@ -497,33 +606,7 @@
       },
       "cover": "records/shenzhen-market_test/assets/image-2.jpg",
       "created_at": "2024-07-08T00:00:00.000Z",
-      "updated_at": "2026-05-16T11:29:04.317Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "1778927924556-seen",
-      "title": "呼和浩特测试",
-      "path": "records/1778927924556-seen/record.json",
-      "content_path": "records/1778927924556-seen/content.md",
-      "route_id": null,
-      "route_index": null,
-      "tags": [
-        "呼和浩特"
-      ],
-      "location": {
-        "place": "中国 / 内蒙古 / 呼和浩特",
-        "lat": 40.818453,
-        "lng": 111.660194,
-        "region": {
-          "country": "cn",
-          "province": "inner-mongolia",
-          "city": "hohhot"
-        }
-      },
-      "cover": "records/1778927924556-seen/assets/image-2.jpg",
-      "created_at": "2026-05-16T10:51:05.733Z",
-      "updated_at": "2026-05-16T11:15:56.244Z",
+      "updated_at": "2026-05-16T11:34:38.698Z",
       "favorite": false,
       "archived": false
     }

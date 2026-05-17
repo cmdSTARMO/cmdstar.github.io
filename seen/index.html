@@ -17,6 +17,59 @@
   <script src="https://unpkg.com/i18next-http-backend@1.4.1/i18nextHttpBackend.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <style>
+    // 加载全局配置
+    function loadConfig() {
+      const configPath = '/config.yml';
+
+      loadYAML(configPath)
+        .then(config => {
+
+          if (!config || !config.footer) return;
+
+          /*
+           * Copyright
+           */
+          if (config.footer.copyright) {
+            document.getElementById('copyright-text').innerHTML =
+              config.footer.copyright;
+          }
+
+          /*
+           * Github
+           */
+          if (config.footer.github) {
+
+            const githubLink =
+              document.getElementById('github-link');
+
+            githubLink.innerText =
+              config.footer.github.text || 'Github';
+
+            githubLink.href =
+              config.footer.github.link || '#';
+          }
+
+          /*
+           * License
+           */
+          if (config.footer.license) {
+
+            const licenseLink =
+              document.getElementById('license-link');
+
+            licenseLink.innerText =
+              config.footer.license.text || 'License';
+
+            licenseLink.href =
+              config.footer.license.link || '#';
+          }
+
+        })
+        .catch(error => {
+          console.error('加载全局配置失败:', error);
+        });
+    }
+
     :root {
       --seen-bg: #070b10;
       --seen-surface: rgba(255, 255, 255, 0.74);
@@ -674,6 +727,21 @@
     </div>
   </dialog>
   <div id="floating-buttons-container"></div>
+
+  <!-- 页脚部分，从全局配置中加载版权信息 -->
+  <footer class="bg-bottom text-center py-5">
+      <div class="container px-5">
+          <div class="text-white-50 small">
+              <div id="copyright-text">
+                  &copy; Dapao Huang 2023-2026. All Rights Reserved.
+              </div>
+              <a id="github-link" href="https://github.com/cmdSTARMO">Github</a>
+              <span class="mx-1">&middot;</span>
+              <a id="license-link" href="https://github.com/cmdSTARMO/cmdstar.github.io/blob/main/LICENSE">License</a>
+          </div>
+      </div>
+  </footer>
+
   <script>
     // Static geographic boundaries stay in-page; records and routes are loaded from the archive filesystem.
     const SEEN_DATA = {
@@ -1304,6 +1372,14 @@
       return allRecords().filter((record) => !hiddenRecordIds.has(record.id));
     }
 
+    function recordTimeValue(record) {
+      return Date.parse(record.date || record.created_at || record.updated_at || "") || 0;
+    }
+
+    function sortRecordsByDateDesc(records) {
+      return records.slice().sort((a, b) => recordTimeValue(b) - recordTimeValue(a) || String(b.created_at || "").localeCompare(String(a.created_at || "")));
+    }
+
     function recordsForArea(areaId) {
       return activeRecords().filter((record) => recordAreaIds(record).includes(areaId));
     }
@@ -1849,12 +1925,12 @@
 
     // All filters meet here so tags, region clicks, route clicks, and future search inputs stay composable.
     function filteredRecords() {
-      return activeRecords().filter((record) => {
+      return sortRecordsByDateDesc(activeRecords().filter((record) => {
         const tagMatch = !state.activeTag || record.tags.includes(state.activeTag);
         const areaMatch = !state.activeArea || recordAreaIds(record).includes(state.activeArea);
         const routeMatch = !state.activeRoute || record.routeId === state.activeRoute;
         return tagMatch && areaMatch && routeMatch;
-      });
+      }));
     }
 
     function renderFilterBar() {
