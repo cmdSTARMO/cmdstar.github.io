@@ -1,0 +1,112 @@
+{
+  "id": "1778945827426-bill-baggs-park",
+  "title": "Bill Baggs Park",
+  "created_at": "2026-05-16T15:39:02.148Z",
+  "updated_at": "2026-05-16T15:54:39.583Z",
+  "route_id": null,
+  "route_index": null,
+  "tags": [
+    "海边",
+    "鸟",
+    "落日",
+    "人像"
+  ],
+  "location": {
+    "place": "美国 / 佛罗里达 / 迈阿密",
+    "lat": 25.674098,
+    "lng": -80.156937,
+    "region": {
+      "country": "us",
+      "province": "florida",
+      "city": "miami"
+    }
+  },
+  "cover": "cover.jpg",
+  "assets": [
+    {
+      "path": "assets/image-2.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-3.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-4.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-5.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-6.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-7.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-8.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-9.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-10.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-11.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-12.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-13.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-14.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-15.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-16.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-17.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-18.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-19.jpg",
+      "type": "image"
+    }
+  ],
+  "favorite": false,
+  "archived": false,
+  "type": "note",
+  "date": "2025-12-21",
+  "place": "美国 / 佛罗里达 / 迈阿密",
+  "lat": 25.674098,
+  "lng": -80.156937,
+  "region": {
+    "country": "us",
+    "province": "florida",
+    "city": "miami"
+  },
+  "note": "鸥 你说海的那边到底是什么\n\n据闻是候鸟公园//不过走半天鸟也没拍到几只，但是拍到了满意的鸟和夕阳 :)"
+}
