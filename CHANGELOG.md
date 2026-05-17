@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.46](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.45...v1.1.46) (2026-05-17)
+
+
+### 🐞 Fixes
+
+* **data:** 所见Seen1.2.2版本测试，上传了些许记录，但是照片查看尚有优化空间~ 推迟上线时间~ ([755c0e1](https://github.com/cmdSTARMO/cmdstar.github.io/commit/755c0e155c7fead71eeac1ebb6f9b74750661177))
+
 ## [1.1.45](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.44...v1.1.45) (2026-05-17)
 
 
