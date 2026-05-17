@@ -413,50 +413,11 @@
     // 加载全局配置
     function loadConfig() {
       const configPath = '/config.yml';
-
       loadYAML(configPath)
         .then(config => {
-
-          if (!config || !config.footer) return;
-
-          /*
-           * Copyright
-           */
-          if (config.footer.copyright) {
-            document.getElementById('copyright-text').innerHTML =
-              config.footer.copyright;
+          if (config && config.footer && config.footer.copyright) {
+            document.getElementById('copyright-text').innerHTML = config.footer.copyright;
           }
-
-          /*
-           * Github
-           */
-          if (config.footer.github) {
-
-            const githubLink =
-              document.getElementById('github-link');
-
-            githubLink.innerText =
-              config.footer.github.text || 'Github';
-
-            githubLink.href =
-              config.footer.github.link || '#';
-          }
-
-          /*
-           * License
-           */
-          if (config.footer.license) {
-
-            const licenseLink =
-              document.getElementById('license-link');
-
-            licenseLink.innerText =
-              config.footer.license.text || 'License';
-
-            licenseLink.href =
-              config.footer.license.link || '#';
-          }
-
         })
         .catch(error => {
           console.error('加载全局配置失败:', error);

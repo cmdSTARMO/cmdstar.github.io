@@ -2,7 +2,7 @@
   "id": "seattle-ferry_test",
   "title": "渡轮上的风",
   "created_at": "2023-05-20T00:00:00.000Z",
-  "updated_at": "2026-05-16T14:00:14.858Z",
+  "updated_at": "2026-05-16T00:00:00.000Z",
   "route_id": null,
   "route_index": null,
   "tags": [
@@ -24,7 +24,7 @@
   "favorite": false,
   "archived": false,
   "type": "note",
-  "date": "2001-05-01",
+  "date": "2023-05-20",
   "place": "United States / Washington / Seattle",
   "lat": 47.6062,
   "lng": -122.3321,
@@ -33,5 +33,5 @@
     "province": "washington",
     "city": "seattle"
   },
-  "note": "水面、天色和城市边界被风混在一起。   恭喜你发现了测试集！"
+  "note": "水面、天色和城市边界被风混在一起。"
 }

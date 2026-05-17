@@ -2,7 +2,7 @@
   "id": "shenzhen-market_test",
   "title": "深圳市场清晨",
   "created_at": "2024-07-08T00:00:00.000Z",
-  "updated_at": "2026-05-16T14:00:14.648Z",
+  "updated_at": "2026-05-16T11:34:38.698Z",
   "route_id": null,
   "route_index": null,
   "tags": [
@@ -20,11 +20,20 @@
     }
   },
   "cover": "assets/image-2.jpg",
-  "assets": [],
+  "assets": [
+    {
+      "path": "assets/image-3.jpg",
+      "type": "image"
+    },
+    {
+      "path": "assets/image-4.jpg",
+      "type": "image"
+    }
+  ],
   "favorite": false,
   "archived": false,
   "type": "photo",
-  "date": "2001-07-08",
+  "date": "2024-07-08",
   "place": "China / Guangdong / Shenzhen",
   "lat": 22.5431,
   "lng": 114.0579,
@@ -33,5 +42,5 @@
     "province": "guangdong",
     "city": "shenzhen"
   },
-  "note": "恭喜你发现了测试集！"
+  "note": ""
 }

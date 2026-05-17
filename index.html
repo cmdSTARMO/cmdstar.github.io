@@ -869,6 +869,10 @@
 </script>
 <!-- 内联 JavaScript -->
 <script>
+    // 定义配置与内容路径 独特路径
+    const content_dir = '/';
+    const config_file = 'config.yml';
+
     window.addEventListener('DOMContentLoaded', event => {
 
       // Activate Bootstrap scrollspy on the main nav element
@@ -891,55 +895,16 @@
         });
       });
 
-    // 读取 YAML 配置文件，用于更新 footer 信息
-    fetch('/config.yml')
-      .then(response => response.text())
-      .then(text => {
-
-        const yml = jsyaml.load(text);
-
-        if (!yml || !yml.footer) return;
-
-        /*
-         * Copyright
-         */
-        if (yml.footer.copyright) {
-          document.getElementById('copyright-text').innerHTML =
-            yml.footer.copyright;
-        }
-
-        /*
-         * Github
-         */
-        if (yml.footer.github) {
-
-          const githubLink =
-            document.getElementById('github-link');
-
-          githubLink.innerText =
-            yml.footer.github.text || 'Github';
-
-          githubLink.href =
-            yml.footer.github.link || '#';
-        }
-
-        /*
-         * License
-         */
-        if (yml.footer.license) {
-
-          const licenseLink =
-            document.getElementById('license-link');
-
-          licenseLink.innerText =
-            yml.footer.license.text || 'License';
-
-          licenseLink.href =
-            yml.footer.license.link || '#';
-        }
-
-      })
-      .catch(error => console.log(error));
+      // 读取 YAML 配置文件，仅用于更新 footer 中的版权信息
+      fetch(content_dir + config_file)
+        .then(response => response.text())
+        .then(text => {
+          const yml = jsyaml.load(text);
+          if (yml && yml['copyright-text']) {
+            document.getElementById('copyright-text').innerHTML = yml['copyright-text'];
+          }
+        })
+        .catch(error => console.log(error));
 
       // 使用 Marked 解析 Markdown 内容，并在页面中渲染
       marked.use({ mangle: false, headerIds: false });

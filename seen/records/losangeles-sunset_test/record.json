@@ -2,7 +2,7 @@
   "id": "losangeles-sunset_test",
   "title": "洛杉矶日落",
   "created_at": "2023-04-12T00:00:00.000Z",
-  "updated_at": "2026-05-16T15:10:01.385Z",
+  "updated_at": "2026-05-16T00:00:00.000Z",
   "route_id": null,
   "route_index": null,
   "tags": [
@@ -24,7 +24,7 @@
   "favorite": false,
   "archived": false,
   "type": "photo",
-  "date": "2003-04-12",
+  "date": "2023-04-12",
   "place": "United States / California / Los Angeles",
   "lat": 34.0522,
   "lng": -118.2437,
@@ -33,5 +33,5 @@
     "province": "california",
     "city": "los-angeles"
   },
-  "note": "恭喜你发现了测试集！"
+  "note": ""
 }
