@@ -214,15 +214,20 @@
     .calendar-day.is-selected { background: rgba(138, 195, 173, 0.24); color: var(--seen-text); box-shadow: inset 0 0 0 1px rgba(138, 195, 173, 0.54); }
     .calendar-day.is-muted { color: transparent; pointer-events: none; }
     .record-form textarea { min-height: 84px; resize: vertical; }
-    .combo { position: relative; display: grid; gap: 6px; }
+    .combo { position: relative; display: grid; gap: 6px; z-index: 80; }
+    .combo.is-open { z-index: 5000; }
     .combo > span { color: var(--seen-muted); font-size: 0.78rem; }
-    .combo input { padding-right: 34px; border-radius: 8px; background: var(--seen-input-bg); color: var(--seen-text); }
+    .combo input { padding-right: 62px; border-radius: 8px; background: var(--seen-input-bg); color: var(--seen-text); }
     .combo::after { content: ""; position: absolute; right: 13px; bottom: 16px; width: 7px; height: 7px; border-right: 1px solid var(--seen-muted); border-bottom: 1px solid var(--seen-muted); transform: rotate(45deg); pointer-events: none; }
-    .combo-list { position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 20; display: none; max-height: 230px; overflow: auto; border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface-solid); box-shadow: var(--seen-shadow); padding: 6px; }
+    .combo-clear { position: absolute; right: 32px; bottom: 8px; width: 25px; height: 25px; border: 0; border-radius: 999px; display: none; place-items: center; background: rgba(23, 32, 37, 0.08); color: var(--seen-muted); cursor: pointer; padding: 0; }
+    .combo-clear i { font-size: 0.76rem; line-height: 1; }
+    .combo.has-value .combo-clear { display: grid; }
+    .combo-clear:hover { color: var(--seen-text); background: rgba(125, 211, 252, 0.16); }
+    .combo-list { position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 6000; display: none; max-height: 230px; overflow: auto; border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface-solid); box-shadow: var(--seen-shadow); padding: 6px; }
     .combo.is-open .combo-list { display: grid; gap: 4px; }
     .combo-option { border: 0; border-radius: 6px; background: transparent; color: var(--seen-text); padding: 8px 9px; text-align: left; cursor: pointer; font: inherit; font-size: 0.88rem; }
     .combo-option:hover, .combo-option.is-active { background: rgba(125, 211, 252, 0.14); }
-    .manager-map-wrap { position: relative; min-height: 280px; border: 1px solid var(--seen-border); border-radius: 8px; overflow: hidden; background: #091016; }
+    .manager-map-wrap { position: relative; z-index: 1; min-height: 280px; border: 1px solid var(--seen-border); border-radius: 8px; overflow: hidden; background: #091016; }
     .manager-map { min-height: 280px; height: 100%; }
     .manager-map-hint { margin: 8px 0 0; color: var(--seen-muted); font-size: 0.82rem; }
     .route-builder { border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface-solid); padding: 0; overflow: hidden; }
@@ -370,6 +375,10 @@
     .detail-id { margin-top: 4px; color: var(--seen-muted); font-size: 0.78rem; word-break: break-all; }
     .detail-copy h2 { margin: 6px 0 8px; font-size: 1.5rem; line-height: 1.25; letter-spacing: 0; }
     .detail-copy .post-tags { margin-top: 14px; }
+    .route-relations { display: grid; gap: 8px; margin-top: 12px; }
+    .route-relation-btn { border: 1px solid var(--seen-border); border-radius: 999px; background: rgba(125, 211, 252, 0.12); color: var(--seen-text); padding: 8px 11px; text-align: left; cursor: pointer; font: inherit; font-size: 0.82rem; line-height: 1.35; }
+    .route-relation-btn strong { font-weight: 700; }
+    .route-relation-btn:hover { border-color: rgba(125, 211, 252, 0.5); background: rgba(125, 211, 252, 0.18); }
     .detail-actions { position: absolute; right: 14px; bottom: 14px; display: flex; gap: 8px; margin: 0; }
     .detail-actions .seen-action {
       width: 34px;
@@ -437,8 +446,42 @@
     .image-nav { opacity: 0; transition: opacity 0.2s ease; }
     .detail-media:hover .image-nav { opacity: 1; }
     .image-nav .icon-btn { background: rgba(7, 11, 16, 0.68); color: #fff; border-color: rgba(255,255,255,0.26); box-shadow: 0 10px 30px rgba(0,0,0,0.28); }
-    .route-dock { --route-step: 78px; --active-index: 0; --route-width: 0px; --route-viewport-width: 0px; display: none; position: fixed; left: 50%; bottom: clamp(34px, 5vh, 58px); z-index: 4; width: min(620px, calc(100% - 36px)); transform: translateX(-50%); border: 1px solid var(--seen-border); border-radius: 26px; background: var(--seen-surface); box-shadow: 0 18px 54px rgba(3, 9, 14, 0.26); backdrop-filter: blur(22px) saturate(1.16); -webkit-backdrop-filter: blur(22px) saturate(1.16); padding: 12px 14px 13px; overflow: visible; }
+    .route-dock { --route-step: 78px; --active-index: 0; --route-width: 0px; --route-viewport-width: 0px; display: none; position: fixed; left: 50%; bottom: clamp(34px, 5vh, 58px); z-index: 4; width: min(620px, calc(100% - 36px)); transform: translateX(-50%); filter: drop-shadow(0 18px 54px rgba(3, 9, 14, 0.28)); overflow: visible; }
     .route-dock.is-visible { display: block; }
+    .sub-dock-display { position: relative; z-index: 1; min-height: 108px; border: 1px solid var(--seen-border); border-bottom: 0; border-radius: 24px 24px 0 0; overflow: hidden; background: var(--seen-surface); backdrop-filter: blur(22px) saturate(1.16); -webkit-backdrop-filter: blur(22px) saturate(1.16); }
+    .sub-dock-panel { display: none; min-height: 108px; }
+    .sub-dock-panel.is-active { display: block; }
+    .sub-dock-panel[data-sub-panel="route"] { padding: 14px 14px 10px; }
+    .sub-dock-map { width: 100%; height: 188px; background: #05080c; cursor: grab; touch-action: none; }
+    .sub-dock-map, .sub-dock-map .leaflet-container, .sub-dock-map .leaflet-pane { pointer-events: auto; }
+    .sub-dock-map:active { cursor: grabbing; }
+    .dock-reset { position: absolute; right: 10px; top: 10px; z-index: 700; min-width: 66px; height: 30px; border: 1px solid rgba(255,255,255,0.22); border-radius: 999px; background: rgba(7, 11, 16, 0.62); color: #fff; display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 0 10px; cursor: pointer; font: inherit; font-size: 0.72rem; font-weight: 700; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    .dock-reset:hover { background: rgba(7, 11, 16, 0.82); }
+    .ios-alert-actions { position: relative; z-index: 2; display: grid; min-height: 50px; margin-top: -1px; border-top: 1px solid rgba(82, 97, 104, 0.18); border-radius: 0 0 24px 24px; overflow: hidden; background: rgba(248, 251, 249, 0.56); backdrop-filter: blur(22px) saturate(1.16); -webkit-backdrop-filter: blur(22px) saturate(1.16); }
+    .ios-alert-actions.two-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ios-action-btn { min-width: 0; min-height: 50px; border: 0; background: transparent; color: var(--seen-blue); cursor: pointer; font: inherit; font-size: 0.9rem; font-weight: 700; letter-spacing: 0; transition: background 0.18s ease, color 0.18s ease; }
+    .ios-action-btn + .ios-action-btn { border-left: 1px solid rgba(82, 97, 104, 0.18); }
+    .ios-action-btn:hover { background: rgba(125, 211, 252, 0.12); }
+    .ios-action-btn.is-active { color: var(--seen-text); background: rgba(255, 255, 255, 0.52); }
+    html[data-theme="dark"] .ios-alert-actions { background: rgba(14, 20, 26, 0.64); border-top-color: rgba(229, 238, 236, 0.12); }
+    html[data-theme="dark"] .ios-action-btn + .ios-action-btn { border-left-color: rgba(229, 238, 236, 0.12); }
+    html[data-theme="dark"] .ios-action-btn.is-active { color: #fff; background: rgba(255, 255, 255, 0.08); }
+    .ios-sub-actions { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+    .ios-sub-actions span { transition: color 0.18s ease; }
+    .ios-sub-actions .divider { color: rgba(82, 97, 104, 0.5); font-weight: 500; }
+    .ios-action-btn .sub-point, .ios-action-btn .sub-route-map { color: var(--seen-muted); }
+    .ios-action-btn.is-active .sub-point { color: var(--seen-text); }
+    .ios-action-btn.is-active .sub-route-map { color: rgba(82, 97, 104, 0.58); }
+    .ios-action-btn.is-active.state-route-map .sub-point { color: rgba(82, 97, 104, 0.58); }
+    .ios-action-btn.is-active.state-route-map .sub-route-map { color: var(--seen-text); }
+    html[data-theme="dark"] .ios-action-btn.is-active .sub-point { color: #fff; }
+    html[data-theme="dark"] .ios-action-btn.is-active .sub-route-map { color: rgba(255, 255, 255, 0.58); }
+    html[data-theme="dark"] .ios-action-btn.is-active.state-route-map .sub-point { color: rgba(255, 255, 255, 0.58); }
+    html[data-theme="dark"] .ios-action-btn.is-active.state-route-map .sub-route-map { color: #fff; }
+    .seen-point-marker { display: grid; place-items: center; border-radius: 999px; }
+    .seen-point-marker span { width: 10px; height: 10px; border-radius: 999px; background: #21ff82; box-shadow: 0 0 0 6px rgba(33, 255, 130, 0.18), 0 0 18px rgba(33, 255, 130, 0.72); animation: routeNodeBreathe 1.8s ease-in-out infinite; }
+    .seen-point-marker.is-muted span { width: 8px; height: 8px; background: rgba(160, 169, 179, 0.84); box-shadow: 0 0 0 4px rgba(160, 169, 179, 0.14); animation: none; }
+    .sub-dock-map .leaflet-control-attribution { display: none; }
     .route-dock-info { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: start; margin-bottom: 10px; }
     .route-dock-info strong { display: block; color: var(--seen-text); font-size: 0.96rem; line-height: 1.24; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .route-dock-info span { display: block; margin-top: 3px; color: var(--seen-muted); font-size: 0.73rem; line-height: 1.35; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -460,7 +503,7 @@
     @media (max-width: 920px) { .record-form { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media (max-width: 920px) { .route-builder-meta { padding-left: 0; } }
     @media (max-width: 960px) { .detail-switch.prev { left: 8px; } .detail-switch.next { right: 8px; } }
-    @media (max-width: 720px) { .seen-shell { width: min(100% - 24px, 1480px); padding-top: max(62px, calc(var(--seen-nav-height, 0px) + 10px)); } .seen-particle-field { height: 28px; margin-bottom: 2px; } .seen-left, .record-form { grid-template-columns: 1fr; } .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .form-wide { grid-column: auto; } .map-toolbar, .filter-bar, .management-head { align-items: flex-start; flex-direction: column; } .map-controls, .zoom-tabs { width: 100%; justify-content: space-between; } .zoom-tabs button { flex: 1; } .post-card.with-note, .detail-card, .route-card { grid-template-columns: 1fr; } .detail-card { max-height: calc(100vh - 285px); overflow: auto; } .detail-card img { min-height: 220px; max-height: 30vh; } .detail-copy { overflow: visible; } .drawer-item { align-items: flex-start; flex-direction: column; } .detail-switch, .image-nav { display: none; } .route-dock { --route-step: 58px; bottom: clamp(42px, 8vh, 82px); width: min(360px, calc(100% - 20px)); padding: 10px 12px; border-radius: 22px; } .route-dock-info { margin-bottom: 6px; } .route-dock-info strong { font-size: 0.86rem; } .route-dock-info span, .route-station-count span { font-size: 0.68rem; } .route-station-count { font-size: 0.78rem; } .route-viewport { height: 52px; } .route-node-cell { height: 52px; } .floating-search { bottom: 14px; } .draft-box { bottom: 215px; } .manager-fab { bottom: 269px; } }
+    @media (max-width: 720px) { .seen-shell { width: min(100% - 24px, 1480px); padding-top: max(62px, calc(var(--seen-nav-height, 0px) + 10px)); } .seen-particle-field { height: 28px; margin-bottom: 2px; } .seen-left, .record-form { grid-template-columns: 1fr; } .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .form-wide { grid-column: auto; } .map-toolbar, .filter-bar, .management-head { align-items: flex-start; flex-direction: column; } .map-controls, .zoom-tabs { width: 100%; justify-content: space-between; } .zoom-tabs button { flex: 1; } .post-card.with-note, .detail-card, .route-card { grid-template-columns: 1fr; } .detail-card { max-height: calc(100vh - 285px); overflow: auto; } .detail-card img { min-height: 220px; max-height: 30vh; } .detail-copy { overflow: visible; } .drawer-item { align-items: flex-start; flex-direction: column; } .detail-switch, .image-nav { display: none; } .route-dock { --route-step: 58px; bottom: clamp(42px, 8vh, 82px); width: min(360px, calc(100% - 20px)); padding: 0; border-radius: 22px; } .route-dock-info { margin-bottom: 6px; } .route-dock-info strong { font-size: 0.86rem; } .route-dock-info span, .route-station-count span { font-size: 0.68rem; } .route-station-count { font-size: 0.78rem; } .route-viewport { height: 52px; } .route-node-cell { height: 52px; } .floating-search { bottom: 14px; } .draft-box { bottom: 215px; } .manager-fab { bottom: 269px; } }
     @media (max-width: 720px) {
       .seen-shell { width: min(100% - 18px, 1480px); padding-top: max(62px, calc(var(--seen-nav-height, 0px) + 10px)); }
       .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
@@ -481,9 +524,9 @@
       .post-meta { font-size: 0.7rem; }
       .post-tags { gap: 4px; }
       .post-tags .seen-tag { padding: 4px 6px; font-size: 0.68rem; }
-      .detail-dialog[open] { width: min(100% - 18px, 860px); max-height: calc(100vh - 112px); margin-top: clamp(60px, 13vh, 120px); margin-bottom: auto; }
+      .detail-dialog[open] { width: min(100% - 18px, 860px); max-height: calc(100vh - 112px); margin-top: clamp(60px, 6vh, 120px); margin-bottom: auto; }
       .detail-card { max-height: calc(100vh - 285px); border-radius: 12px; }
-      .detail-dialog.has-route-dock .detail-card { max-height: calc(100vh - 340px); }
+      .detail-dialog.has-route-dock .detail-card { max-height: calc(93vh - 340px); }
       .detail-card img, .detail-media img { min-height: 210px; max-height: 30vh; object-fit: contain; }
       .detail-copy { padding: 16px 16px 62px; }
       .route-dock { bottom: clamp(42px, 8vh, 82px); }
@@ -571,13 +614,13 @@
             <span class="post-meta" id="record-id-status">创建时会检查重复。</span>
           </div>
           <div class="combo" data-field-group="region" data-combo="country">
-            <span data-seen-i18n="country_region">国家/地区</span><input id="record-country-input" autocomplete="off" placeholder="输入 China / United States 搜索" data-seen-i18n-attr="placeholder:country_placeholder"><input name="country" id="record-country" type="hidden"><div class="combo-list" id="country-options"></div>
+            <span data-seen-i18n="country_region">国家/地区</span><input id="record-country-input" autocomplete="off" placeholder="输入 China / United States 搜索" data-seen-i18n-attr="placeholder:country_placeholder"><input name="country" id="record-country" type="hidden"><div class="combo-list" id="country-options"></div><button class="combo-clear" type="button" data-clear-combo="country" aria-label="清除国家/地区"><i class="bi-x-lg"></i></button>
           </div>
           <div class="combo" data-field-group="region" data-combo="province">
-            <span data-seen-i18n="province_state">省/州</span><input id="record-province-input" autocomplete="off" placeholder="输入 Guangdong / Florida 搜索" data-seen-i18n-attr="placeholder:province_placeholder"><input name="province" id="record-province" type="hidden"><div class="combo-list" id="province-options"></div>
+            <span data-seen-i18n="province_state">省/州</span><input id="record-province-input" autocomplete="off" placeholder="输入 Guangdong / Florida 搜索" data-seen-i18n-attr="placeholder:province_placeholder"><input name="province" id="record-province" type="hidden"><div class="combo-list" id="province-options"></div><button class="combo-clear" type="button" data-clear-combo="province" aria-label="清除省/州"><i class="bi-x-lg"></i></button>
           </div>
           <div class="combo" data-field-group="region" data-combo="city">
-            <span data-seen-i18n="city">城市</span><input id="record-city-input" autocomplete="off" placeholder="输入 Guangzhou / Miami 搜索" data-seen-i18n-attr="placeholder:city_placeholder"><input name="city" id="record-city" type="hidden"><div class="combo-list" id="city-options"></div>
+            <span data-seen-i18n="city">城市</span><input id="record-city-input" autocomplete="off" placeholder="输入 Guangzhou / Miami 搜索" data-seen-i18n-attr="placeholder:city_placeholder"><input name="city" id="record-city" type="hidden"><div class="combo-list" id="city-options"></div><button class="combo-clear" type="button" data-clear-combo="city" aria-label="清除城市"><i class="bi-x-lg"></i></button>
           </div>
           <label data-field-group="region"><span data-seen-i18n="place">地点</span><input name="place" required placeholder="选择城市后自动生成，也可手动微调" data-seen-i18n-attr="placeholder:place_placeholder"></label>
           <label data-field-group="region"><span data-seen-i18n="latitude">纬度</span><input name="lat" type="number" step="0.000001" placeholder="23.1291"></label>
@@ -593,6 +636,7 @@
               <div class="route-builder-meta">
                 <label><span data-seen-i18n="route_id">路线 ID</span><input name="newRouteId" placeholder="留空自动生成，例如 route-pearl-river" data-seen-i18n-attr="placeholder:route_id_placeholder"></label>
                 <label><span data-seen-i18n="route_name">路线名称</span><input name="newRouteName" placeholder="例如：珠江夜行线" data-seen-i18n-attr="placeholder:route_name_placeholder"></label>
+                <label><span>父记录 ID（可选）</span><input name="parentRecordId" placeholder="绑定后成为这条记录的子路线"></label>
               </div>
               <div class="route-point-list" id="route-record-id-list"></div>
               <button class="route-add-btn" id="add-route-record-id" type="button">
@@ -645,6 +689,7 @@
         <h2 id="detail-title"></h2>
         <p class="post-note" id="detail-note"></p>
         <div class="post-tags" id="detail-tags"></div>
+        <div class="route-relations" id="route-relations"></div>
         <div class="detail-actions">
           <button class="seen-action" id="edit-detail-record" type="button" title="编辑" aria-label="编辑"><i class="bi-pencil"></i>编辑</button>
           <button class="seen-action" id="hide-detail-record" type="button" title="隐藏" aria-label="隐藏"><i class="bi-eye-slash"></i>隐藏</button>
@@ -693,6 +738,7 @@
         <label class="form-wide">地点 / 原文地址<input name="place"></label>
         <label>日期<input name="date"></label>
         <label>标签<input name="tags"></label>
+        <label class="form-wide">该记录包含的子路线 ID<input name="childRouteId" list="route-id-options" placeholder="留空则不绑定子路线"></label>
         <label class="form-full">随笔<textarea name="note"></textarea></label>
         <label class="form-wide">新增照片<input name="images" id="record-editor-images" type="file" accept="image/*" multiple></label>
         <div class="form-full image-preview-grid" id="record-editor-image-grid"></div>
@@ -888,6 +934,7 @@
       hiddenRecords: "seen.hiddenRecords.v1",
       deletedRecords: "seen.deletedRecords.v1",
       deletedRoutes: "seen.deletedRoutes.v1",
+      customLocations: "seen.customLocations.v1",
       boundaryCache: "seen.boundaryGeoJson.v1"
     };
     const SEEN_ARCHIVE = {
@@ -900,8 +947,8 @@
       assetsDir: "assets",
       cacheDir: "cache"
     };
-    const state = { zoom: "country", activeTag: null, activeArea: null, activeRoute: null, featureIndex: 0, layerFilter: "all", detailImageIndex: 0, visibleRecords: 10, visibleRoutes: 10, managerOpen: false, detailPool: [], detailPoolLabel: "", detailMode: "default", detailDrag: null, detailImageDrag: null, imageViewerDrag: null, viewerPointers: new Map(), viewerGesture: null, viewerScale: 1, viewerPanX: 0, viewerPanY: 0, viewerOriginalMode: false, suppressImageClick: false, suppressViewerClick: false, searchOpen: false, searchScope: "records", searchQuery: "", searchIndex: 0, searchResults: [], searchDragX: null, calendarMonth: new Date(), pendingImages: [], editingImages: [], archiveHandle: null, pageScrollY: 0, detailTouchY: null };
-    const mapState = { map: null, tileLayer: null, boundaryLayer: null, routeLayers: [], pointLayers: [], recordMarkers: [], pickerMap: null, pickerTileLayer: null, pickerMarker: null, boundaryGeoJson: {}, pendingDeleteId: null, detailRecordId: null };
+    const state = { zoom: "country", activeTag: null, activeArea: null, activeRoute: null, featureIndex: 0, layerFilter: "all", detailImageIndex: 0, visibleRecords: 10, visibleRoutes: 10, managerOpen: false, detailPool: [], detailPoolLabel: "", detailMode: "default", detailDrag: null, detailImageDrag: null, imageViewerDrag: null, viewerPointers: new Map(), viewerGesture: null, viewerScale: 1, viewerPanX: 0, viewerPanY: 0, viewerOriginalMode: false, suppressImageClick: false, suppressViewerClick: false, searchOpen: false, searchScope: "records", searchQuery: "", searchIndex: 0, searchResults: [], searchDragX: null, calendarMonth: new Date(), pendingImages: [], editingImages: [], archiveHandle: null, pageScrollY: 0, detailTouchY: null, dockMode: "route", dockMapMode: "point", geoLookup: {} };
+    const mapState = { map: null, tileLayer: null, boundaryLayer: null, routeLayers: [], pointLayers: [], recordMarkers: [], pickerMap: null, pickerTileLayer: null, pickerMarker: null, dockMap: null, dockTileLayer: null, dockLayers: [], boundaryGeoJson: {}, pendingDeleteId: null, detailRecordId: null };
     const boundarySources = {
       country: "boundaries/countries.geojson",
       province: "boundaries/provinces.geojson",
@@ -913,8 +960,8 @@
     const CHINA_TAIWAN_POLYGON = [[21.85, 120.02], [22.42, 120.78], [23.45, 120.42], [24.7, 121.02], [25.32, 121.64], [24.72, 122.08], [23.46, 121.68], [22.55, 121.18], [21.85, 120.02]];
     const DEFAULT_CITY_COORDS = {
       guangzhou: [23.1291, 113.2644], shenzhen: [22.5431, 114.0579], "hong-kong": [22.3193, 114.1694], macau: [22.1987, 113.5439], beijing: [39.9042, 116.4074], shanghai: [31.2304, 121.4737], hangzhou: [30.2741, 120.1551],
-      miami: [25.7617, -80.1918], orlando: [28.5383, -81.3792], "new-york-city": [40.7128, -74.006], portland: [45.5152, -122.6784], seattle: [47.6062, -122.3321], "los-angeles": [34.0522, -118.2437],
-      "taipei": [25.033, 121.5654], "kaohsiung": [22.6273, 120.3014], "washington": [38.9072, -77.0369]
+      miami: [25.7617, -80.1918], orlando: [28.5383, -81.3792], tampa: [27.9506, -82.4572], "fort-myers": [26.6406, -81.8723], "key-west": [24.5551, -81.78], "new-york-city": [40.7128, -74.006], portland: [45.5152, -122.6784], seattle: [47.6062, -122.3321], "los-angeles": [34.0522, -118.2437],
+      "taipei": [25.033, 121.5654], "kaohsiung": [22.6273, 120.3014], "washington": [38.9072, -77.0369], yangjiang: [21.8579, 111.9826], zhongshan: [22.5176, 113.3928], huizhou: [23.1115, 114.4152], jiangmen: [22.5787, 113.0819], zhanjiang: [21.2707, 110.3594], maoming: [21.6627, 110.9255], shantou: [23.3541, 116.6819], chaozhou: [23.6567, 116.6226], jieyang: [23.5497, 116.3727], shaoguan: [24.8104, 113.5975], qingyuan: [23.6818, 113.0561], yunfu: [22.9151, 112.0445], meizhou: [24.2886, 116.1226], heyuan: [23.7437, 114.7007], shanwei: [22.7857, 115.3751], zhaoqing: [23.0472, 112.4651]
     };
     const SEEN_I18N = {
       zh: {
@@ -1025,10 +1072,10 @@
         Liaoning: "辽宁", Shenyang: "沈阳", Dalian: "大连", Jilin: "吉林", Changchun: "长春", Heilongjiang: "黑龙江", Harbin: "哈尔滨", Qiqihar: "齐齐哈尔", Jiangsu: "江苏", Nanjing: "南京", Suzhou: "苏州", Wuxi: "无锡",
         Ningbo: "宁波", Wenzhou: "温州", Anhui: "安徽", Hefei: "合肥", Huangshan: "黄山", Fujian: "福建", Fuzhou: "福州", Xiamen: "厦门", Quanzhou: "泉州", Jiangxi: "江西", Nanchang: "南昌", Jiujiang: "九江",
         Shandong: "山东", Jinan: "济南", Qingdao: "青岛", Yantai: "烟台", Henan: "河南", Zhengzhou: "郑州", Luoyang: "洛阳", Hubei: "湖北", Wuhan: "武汉", Yichang: "宜昌", Hunan: "湖南", Changsha: "长沙", Zhangjiajie: "张家界",
-        Zhuhai: "珠海", Foshan: "佛山", Dongguan: "东莞", Guangxi: "广西", Nanning: "南宁", Guilin: "桂林", Hainan: "海南", Haikou: "海口", Sanya: "三亚", Chongqing: "重庆", Sichuan: "四川", Chengdu: "成都", Mianyang: "绵阳",
+        Zhuhai: "珠海", Foshan: "佛山", Dongguan: "东莞", Yangjiang: "阳江", Zhongshan: "中山", Huizhou: "惠州", Jiangmen: "江门", Zhanjiang: "湛江", Maoming: "茂名", Shantou: "汕头", Chaozhou: "潮州", Jieyang: "揭阳", Shaoguan: "韶关", Qingyuan: "清远", Yunfu: "云浮", Meizhou: "梅州", Heyuan: "河源", Shanwei: "汕尾", Zhaoqing: "肇庆", Guangxi: "广西", Nanning: "南宁", Guilin: "桂林", Hainan: "海南", Haikou: "海口", Sanya: "三亚", Chongqing: "重庆", Sichuan: "四川", Chengdu: "成都", Mianyang: "绵阳",
         Guizhou: "贵州", Guiyang: "贵阳", Yunnan: "云南", Kunming: "昆明", Dali: "大理", Lijiang: "丽江", Tibet: "西藏", Lhasa: "拉萨", Shaanxi: "陕西", "Xi'an": "西安", Xianyang: "咸阳", Gansu: "甘肃", Lanzhou: "兰州", Dunhuang: "敦煌",
         Qinghai: "青海", Xining: "西宁", Ningxia: "宁夏", Yinchuan: "银川", Xinjiang: "新疆", Urumqi: "乌鲁木齐", Kashgar: "喀什", Taipei: "台北", Kaohsiung: "高雄",
-        Florida: "佛罗里达", Miami: "迈阿密", Orlando: "奥兰多", California: "加利福尼亚", "Los Angeles": "洛杉矶", "New York": "纽约州", "New York City": "纽约市", Oregon: "俄勒冈", Portland: "波特兰", Washington: "华盛顿州", Seattle: "西雅图"
+        Florida: "佛罗里达", Miami: "迈阿密", Orlando: "奥兰多", Tampa: "坦帕", "Fort Myers": "迈尔斯堡", "Key West": "基韦斯特", California: "加利福尼亚", "Los Angeles": "洛杉矶", "New York": "纽约州", "New York City": "纽约市", Oregon: "俄勒冈", Portland: "波特兰", Washington: "华盛顿州", Seattle: "西雅图"
       }
     };
     const REGION_SOURCE = [
@@ -1036,14 +1083,14 @@
         ["beijing", "Beijing", ["Beijing"]], ["tianjin", "Tianjin", ["Tianjin"]], ["hebei", "Hebei", ["Shijiazhuang", "Tangshan", "Qinhuangdao"]], ["shanxi", "Shanxi", ["Taiyuan", "Datong"]], ["inner-mongolia", "Inner Mongolia", ["Hohhot", "Baotou"]],
         ["liaoning", "Liaoning", ["Shenyang", "Dalian"]], ["jilin", "Jilin", ["Changchun", "Jilin"]], ["heilongjiang", "Heilongjiang", ["Harbin", "Qiqihar"]], ["shanghai", "Shanghai", ["Shanghai"]], ["jiangsu", "Jiangsu", ["Nanjing", "Suzhou", "Wuxi"]],
         ["zhejiang", "Zhejiang", ["Hangzhou", "Ningbo", "Wenzhou"]], ["anhui", "Anhui", ["Hefei", "Huangshan"]], ["fujian", "Fujian", ["Fuzhou", "Xiamen", "Quanzhou"]], ["jiangxi", "Jiangxi", ["Nanchang", "Jiujiang"]], ["shandong", "Shandong", ["Jinan", "Qingdao", "Yantai"]],
-        ["henan", "Henan", ["Zhengzhou", "Luoyang"]], ["hubei", "Hubei", ["Wuhan", "Yichang"]], ["hunan", "Hunan", ["Changsha", "Zhangjiajie"]], ["guangdong", "Guangdong", ["Guangzhou", "Shenzhen", "Zhuhai", "Foshan", "Dongguan"]], ["guangxi", "Guangxi", ["Nanning", "Guilin"]],
+        ["henan", "Henan", ["Zhengzhou", "Luoyang"]], ["hubei", "Hubei", ["Wuhan", "Yichang"]], ["hunan", "Hunan", ["Changsha", "Zhangjiajie"]], ["guangdong", "Guangdong", ["Guangzhou", "Shenzhen", "Zhuhai", "Foshan", "Dongguan", "Yangjiang", "Zhongshan", "Huizhou", "Jiangmen", "Zhanjiang", "Maoming", "Shantou", "Chaozhou", "Jieyang", "Shaoguan", "Qingyuan", "Yunfu", "Meizhou", "Heyuan", "Shanwei", "Zhaoqing"]], ["guangxi", "Guangxi", ["Nanning", "Guilin"]],
         ["hainan", "Hainan", ["Haikou", "Sanya"]], ["chongqing", "Chongqing", ["Chongqing"]], ["sichuan", "Sichuan", ["Chengdu", "Mianyang"]], ["guizhou", "Guizhou", ["Guiyang"]], ["yunnan", "Yunnan", ["Kunming", "Dali", "Lijiang"]],
         ["tibet", "Tibet", ["Lhasa"]], ["shaanxi", "Shaanxi", ["Xi'an", "Xianyang"]], ["gansu", "Gansu", ["Lanzhou", "Dunhuang"]], ["qinghai", "Qinghai", ["Xining"]], ["ningxia", "Ningxia", ["Yinchuan"]],
         ["xinjiang", "Xinjiang", ["Urumqi", "Kashgar"]], ["hong-kong", "Hong Kong", ["Hong Kong"]], ["macau", "Macau", ["Macau"]], ["taiwan", "Taiwan", ["Taipei", "Kaohsiung"]]
       ] },
       { country: "us", countryName: "United States", provinces: [
         ["alabama", "Alabama", ["Montgomery", "Birmingham"]], ["alaska", "Alaska", ["Juneau", "Anchorage"]], ["arizona", "Arizona", ["Phoenix", "Tucson"]], ["arkansas", "Arkansas", ["Little Rock"]], ["california", "California", ["Sacramento", "Los Angeles", "San Francisco", "San Diego"]],
-        ["colorado", "Colorado", ["Denver", "Colorado Springs"]], ["connecticut", "Connecticut", ["Hartford", "Bridgeport"]], ["delaware", "Delaware", ["Dover", "Wilmington"]], ["florida", "Florida", ["Tallahassee", "Miami", "Orlando", "Tampa"]], ["georgia", "Georgia", ["Atlanta", "Savannah"]],
+        ["colorado", "Colorado", ["Denver", "Colorado Springs"]], ["connecticut", "Connecticut", ["Hartford", "Bridgeport"]], ["delaware", "Delaware", ["Dover", "Wilmington"]], ["florida", "Florida", ["Tallahassee", "Miami", "Orlando", "Tampa", "Fort Myers", "Key West"]], ["georgia", "Georgia", ["Atlanta", "Savannah"]],
         ["hawaii", "Hawaii", ["Honolulu"]], ["idaho", "Idaho", ["Boise"]], ["illinois", "Illinois", ["Springfield", "Chicago"]], ["indiana", "Indiana", ["Indianapolis"]], ["iowa", "Iowa", ["Des Moines"]],
         ["kansas", "Kansas", ["Topeka", "Wichita"]], ["kentucky", "Kentucky", ["Frankfort", "Louisville"]], ["louisiana", "Louisiana", ["Baton Rouge", "New Orleans"]], ["maine", "Maine", ["Augusta", "Portland"]], ["maryland", "Maryland", ["Annapolis", "Baltimore"]],
         ["massachusetts", "Massachusetts", ["Boston"]], ["michigan", "Michigan", ["Lansing", "Detroit"]], ["minnesota", "Minnesota", ["Saint Paul", "Minneapolis"]], ["mississippi", "Mississippi", ["Jackson"]], ["missouri", "Missouri", ["Jefferson City", "Kansas City", "St. Louis"]],
@@ -1060,6 +1107,18 @@
       lat: DEFAULT_CITY_COORDS[slug(cityName)]?.[0] ?? null,
       lng: DEFAULT_CITY_COORDS[slug(cityName)]?.[1] ?? null
     }))));
+    const customLocationEntries = readJson(STORAGE_KEYS.customLocations, []);
+    customLocationEntries.forEach(addLocationEntry);
+    function addLocationEntry(entry) {
+      if (!entry?.country || !entry?.province || !entry?.city) return null;
+      const existing = LOCATION_DATA.find((item) => item.country === entry.country && item.province === entry.province && item.city === entry.city);
+      if (existing) {
+        Object.assign(existing, Object.fromEntries(Object.entries(entry).filter(([, value]) => value !== undefined && value !== null && value !== "")));
+        return existing;
+      }
+      LOCATION_DATA.push(entry);
+      return entry;
+    }
     const normalizeAreaToken = (value) => String(value || "").trim().toLowerCase().replace(/特别行政区|壮族自治区|回族自治区|维吾尔自治区|自治区|省|市|州|区/g, "").replace(/[\s_]+/g, "-").replace(/[^a-z0-9一-龥-]+/g, "").replace(/^-|-$/g, "");
     const areaAliases = (values) => values.flatMap((value) => {
       const raw = String(value || "").trim();
@@ -1075,6 +1134,14 @@
       registerAreaAlias("province", item.province, [item.provinceName]);
       registerAreaAlias("city", item.city, [item.cityName]);
     });
+    function registerDynamicLocation(entry) {
+      const item = addLocationEntry(entry);
+      if (!item) return null;
+      registerAreaAlias("country", item.country, [item.countryName]);
+      registerAreaAlias("province", item.province, [item.provinceName]);
+      registerAreaAlias("city", item.city, [item.cityName]);
+      return item;
+    }
     const resolveAreaId = (level, value) => AREA_ALIAS_MAP.get(`${level}:${normalizeAreaToken(value)}`) || normalizeAreaToken(value);
     const locationForRegion = (region = {}) => LOCATION_DATA.find((item) =>
       item.country === resolveAreaId("country", region.country) &&
@@ -1177,6 +1244,7 @@
       localStorage.setItem(STORAGE_KEYS.hiddenRecords, JSON.stringify([...hiddenRecordIds]));
       localStorage.setItem(STORAGE_KEYS.deletedRecords, JSON.stringify([...deletedRecordIds]));
       localStorage.setItem(STORAGE_KEYS.deletedRoutes, JSON.stringify([...deletedRouteIds]));
+      localStorage.setItem(STORAGE_KEYS.customLocations, JSON.stringify(customLocationEntries));
     }
 
     function showToast(title, message = "", type = "ok") {
@@ -1330,6 +1398,8 @@
       }).filter(Boolean);
       return {
         ...route,
+        parent_record_id: route.parent_record_id || route.parentRecordId || null,
+        parentRecordId: route.parent_record_id || route.parentRecordId || null,
         records: recordIds,
         points,
         date: route.date || route.route_date || route.created_at?.slice?.(0, 10) || null,
@@ -1367,6 +1437,7 @@
           id: route.id,
           name: route.name,
           path: `routes/${route.id}.json`,
+          parent_record_id: route.parentRecordId || null,
           total_count: (route.records || []).length,
           date: route.date || route.route_date || null,
           created_at: route.created_at || null,
@@ -1397,6 +1468,7 @@
         id: item.id,
         name: item.name,
         path: `routes/${item.id}.json`,
+        parent_record_id: item.parentRecordId || null,
         total_count: (item.records || []).length,
         date: item.date || item.route_date || null,
         created_at: item.created_at || null,
@@ -1545,19 +1617,35 @@
       return activeRecords().filter((record) => recordAreaIds(record).includes(areaId));
     }
 
+    function routeRecordIds(route) {
+      return (route?.records && route.records.length ? route.records : (route?.points || []).map((point) => point.recordId)).filter(Boolean);
+    }
+
+    function recordBelongsToRoute(record, route) {
+      if (!record || !route) return false;
+      return record.routeId === route.id || record.route_id === route.id || routeRecordIds(route).includes(record.id);
+    }
+
+    function routesForRecord(record) {
+      if (!record) return [];
+      return allRoutes().filter((route) => recordBelongsToRoute(record, route));
+    }
+
     function recordsForRoute(routeId) {
-      return activeRecords().filter((record) => record.routeId === routeId);
+      const route = allRoutes().find((item) => item.id === routeId);
+      return activeRecords().filter((record) => recordBelongsToRoute(record, route));
     }
 
     function routeForRecord(record) {
-      return record?.routeId ? allRoutes().find((route) => route.id === record.routeId) : null;
+      const routes = routesForRecord(record);
+      return routes.find((route) => route.id === record?.routeId || route.id === record?.route_id) || routes[0] || null;
     }
 
     function orderedRecordsForRoute(routeId) {
       const route = allRoutes().find((item) => item.id === routeId);
       const records = recordsForRoute(routeId);
       if (!route) return records;
-      const pointRecordIds = (route.records && route.records.length ? route.records : (route.points || []).map((point) => point.recordId)).filter(Boolean);
+      const pointRecordIds = routeRecordIds(route);
       return records.slice().sort((a, b) => {
         const aPoint = pointRecordIds.indexOf(a.id);
         const bPoint = pointRecordIds.indexOf(b.id);
@@ -1677,6 +1765,7 @@
             <div class="route-editor" data-route-editor="${escapeHtml(route.id)}">
               <label>路线名称<input data-route-name="${escapeHtml(route.id)}" value="${escapeHtml(route.name)}"></label>
               <label>路线日期<input data-route-date="${escapeHtml(route.id)}" type="date" value="${escapeHtml(routeStartTime(route))}"></label>
+              <label>父记录 ID（可选）<input data-route-parent="${escapeHtml(route.id)}" value="${escapeHtml(route.parentRecordId || "")}" placeholder="绑定后作为该记录的子路线"></label>
               <label>节点 Record ID<textarea data-route-records="${escapeHtml(route.id)}">${escapeHtml((route.records || []).join("\n"))}</textarea></label>
               <div class="form-actions">
                 <button class="seen-action primary" type="button" data-save-route="${escapeHtml(route.id)}">保存路线</button>
@@ -1735,11 +1824,16 @@
       if (!route) return;
       const name = byId("route-browser-list").querySelector(`[data-route-name="${cssIdent(routeId)}"]`).value.trim() || route.name;
       const date = byId("route-browser-list").querySelector(`[data-route-date="${cssIdent(routeId)}"]`)?.value || route.date || routeStartTime(route);
+      const parentRecordId = byId("route-browser-list").querySelector(`[data-route-parent="${cssIdent(routeId)}"]`)?.value.trim() || null;
+      if (parentRecordId && !allRecords().some((record) => record.id === parentRecordId)) {
+        showToast("父记录不存在", parentRecordId, "error");
+        return;
+      }
       const recordIds = byId("route-browser-list").querySelector(`[data-route-records="${cssIdent(routeId)}"]`).value
         .split(/[\n,]+/).map((id) => id.trim()).filter(Boolean);
       const validIds = recordIds.filter((id) => allRecords().some((record) => record.id === id));
       const now = new Date().toISOString();
-      const draft = { ...route, name, date, records: validIds, points: [], updated_at: now };
+      const draft = { ...route, name, date, parent_record_id: parentRecordId, parentRecordId, records: validIds, points: [], updated_at: now };
       routeDrafts = routeDrafts.filter((item) => item.id !== routeId).concat(draft);
       persistRecords();
       renderAll();
@@ -1830,6 +1924,7 @@
       await writeArchiveJson(`routes/${route.id}.json`, {
         id: route.id,
         name: route.name,
+        parent_record_id: route.parentRecordId || route.parent_record_id || null,
         date: route.date || routeStartTime(route) || now.slice(0, 10),
         created_at: route.created_at || now,
         updated_at: now,
@@ -2303,11 +2398,14 @@
     }
 
     function unlockPageScroll(lockClass) {
+      const scrollY = state.pageScrollY || Math.abs(parseInt(document.body.style.top || "0", 10)) || 0;
       document.body.classList.remove(lockClass);
       if (document.body.classList.contains("detail-open") || document.body.classList.contains("viewer-open")) return;
-      const scrollY = state.pageScrollY || Math.abs(parseInt(document.body.style.top || "0", 10)) || 0;
+      const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = "auto";
       document.body.style.top = "";
       window.scrollTo(0, scrollY);
+      requestAnimationFrame(() => { document.documentElement.style.scrollBehavior = previousScrollBehavior; });
     }
 
     function openRecordDetail(recordId, pool = filteredRecords(), poolLabel = "", options = {}) {
@@ -2320,6 +2418,7 @@
       if (!state.detailPool.some((item) => item.id === recordId)) state.detailPool.unshift(record);
       state.detailPoolLabel = poolLabel;
       state.detailImageIndex = 0;
+      state.dockMode = options.dockMode || (routeForRecord(record) ? "route" : "point");
       renderDetailImage(record);
       byId("detail-id").textContent = `ID: ${record.id}`;
       byId("detail-meta").textContent = `${record.date} / ${formatRecordPlace(record)}`;
@@ -2331,6 +2430,7 @@
         closeDialog("record-detail-dialog");
         renderAll();
       }));
+      renderRouteRelations(record);
       renderDetailRecordSwitch();
       const mapMode = state.detailMode === "map";
       byId("hide-detail-record").hidden = mapMode;
@@ -2358,6 +2458,35 @@
       ], { duration: 420, easing: "cubic-bezier(0.16, 1, 0.3, 1)" });
     }
 
+    function childRoutesForRecord(recordId) {
+      return allRoutes().filter((route) => route.parentRecordId === recordId);
+    }
+
+    function parentRouteForRecord(record) {
+      const route = routesForRecord(record).find((item) => item.parentRecordId && item.parentRecordId !== record.id);
+      if (!route?.parentRecordId) return null;
+      const parent = allRecords().find((item) => item.id === route.parentRecordId);
+      return parent ? { route, parent } : null;
+    }
+
+    function renderRouteRelations(record) {
+      const relations = byId("route-relations");
+      const childRoutes = childRoutesForRecord(record.id);
+      const parentLink = parentRouteForRecord(record);
+      relations.innerHTML = [
+        ...childRoutes.map((route) => `<button class="route-relation-btn" type="button" data-open-child-route="${escapeHtml(route.id)}">该记录包含一条子路线：<strong>${escapeHtml(route.name)}</strong></button>`),
+        parentLink ? `<button class="route-relation-btn" type="button" data-open-parent-record="${escapeHtml(parentLink.parent.id)}">此路线是 <strong>${escapeHtml(parentLink.route.name)}</strong> 的一部分，返回 ${escapeHtml(parentLink.parent.title)}</button>` : ""
+      ].filter(Boolean).join("");
+      relations.querySelectorAll("[data-open-child-route]").forEach((button) => button.addEventListener("click", () => {
+        const routeRecords = orderedRecordsForRoute(button.dataset.openChildRoute);
+        if (routeRecords[0]) openRecordDetail(routeRecords[0].id, routeRecords, allRoutes().find((route) => route.id === button.dataset.openChildRoute)?.name || "");
+      }));
+      relations.querySelectorAll("[data-open-parent-record]").forEach((button) => button.addEventListener("click", () => {
+        const parent = allRecords().find((item) => item.id === button.dataset.openParentRecord);
+        if (parent) openRecordDetail(parent.id, [parent], "父记录");
+      }));
+    }
+
     function switchDetailRecord(direction) {
       const pool = state.detailPool.length ? state.detailPool : filteredRecords();
       const currentIndex = pool.findIndex((record) => record.id === mapState.detailRecordId);
@@ -2366,11 +2495,11 @@
       transitionDetailRecord(pool[nextIndex].id, pool, state.detailPoolLabel);
     }
 
-    function transitionDetailRecord(recordId, pool, poolLabel) {
+    function transitionDetailRecord(recordId, pool, poolLabel, options = {}) {
       const card = byId("record-detail-dialog").querySelector(".detail-card");
       animateRouteDockTravel(recordId, pool);
       if (!card) {
-        openRecordDetail(recordId, pool, poolLabel);
+        openRecordDetail(recordId, pool, poolLabel, options);
         return;
       }
       const currentIndex = (pool || []).findIndex((record) => record.id === mapState.detailRecordId);
@@ -2378,7 +2507,7 @@
       card.style.setProperty("--switch-direction", `${nextIndex >= currentIndex ? -18 : 18}px`);
       card.classList.add("is-switching");
       window.setTimeout(() => {
-        openRecordDetail(recordId, pool, poolLabel);
+        openRecordDetail(recordId, pool, poolLabel, options);
         requestAnimationFrame(() => card.classList.remove("is-switching"));
       }, 130);
     }
@@ -2406,18 +2535,14 @@
     function renderRouteDock(record) {
       const route = routeForRecord(record);
       const dock = byId("route-dock");
-      if (!route) {
-        byId("record-detail-dialog").classList.remove("has-route-dock");
-        dock.classList.remove("is-visible");
-        dock.innerHTML = "";
-        return;
-      }
       byId("record-detail-dialog").classList.add("has-route-dock");
-      const navigatorData = routeNavigatorData(route.id, record.id);
-      const routeRecords = navigatorData.records;
-      const activeIndex = navigatorData.current_index;
-      const total = navigatorData.total_count;
-      dock.innerHTML = `
+      if (!route && state.dockMode === "route") state.dockMode = "point";
+      if (!state.dockMode) state.dockMode = route ? "route" : "point";
+      const navigatorData = route ? routeNavigatorData(route.id, record.id) : null;
+      const routeRecords = navigatorData?.records || [record];
+      const activeIndex = navigatorData?.current_index || 0;
+      const total = navigatorData?.total_count || 1;
+      const routePanel = route ? `
         <div class="route-dock-info">
           <div><strong>${escapeHtml(route.name)}</strong><span>Route ID · ${escapeHtml(route.id)}</span></div>
           <div class="route-station-count">${activeIndex + 1} / ${total}<span>第 ${activeIndex + 1} 站 · 共 ${total} 站</span></div>
@@ -2426,6 +2551,26 @@
           <div class="route-track">
             ${routeRecords.map((item, index) => `<div class="route-node-cell ${index === 0 || index === total - 1 ? "is-edge" : ""}"><button class="route-node ${item.id === record.id ? "is-active" : ""}" type="button" data-route-record="${item.id}" aria-label="${escapeHtml(item.title)}"></button></div>`).join("")}
           </div>
+        </div>` : "";
+      const mapMode = route ? state.dockMapMode : "point";
+      const mapLabel = route ? `<span class="ios-sub-actions"><span class="sub-point">坐标</span><span class="divider">/</span><span class="sub-route-map">全线</span></span>` : "地图";
+      if (mapState.dockMap) {
+        mapState.dockMap.remove();
+        mapState.dockMap = null;
+        mapState.dockTileLayer = null;
+        mapState.dockLayers = [];
+      }
+      dock.innerHTML = `
+        <div class="sub-dock-display">
+          <div class="sub-dock-panel ${state.dockMode === "route" ? "is-active" : ""}" data-sub-panel="route">${routePanel}</div>
+          <div class="sub-dock-panel ${state.dockMode !== "route" ? "is-active" : ""}" data-sub-panel="map">
+            <div class="sub-dock-map" id="sub-dock-map"></div>
+            <button class="dock-reset" type="button" data-dock-reset aria-label="定位到默认视角" title="定位到默认视角"><i class="bi-crosshair"></i><span>定位</span></button>
+          </div>
+        </div>
+        <div class="ios-alert-actions ${route ? "two-actions" : ""}">
+          <button class="ios-action-btn btn-cancel ${state.dockMode !== "route" ? "is-active" : ""} ${mapMode === "route-map" ? "state-route-map" : ""}" type="button" data-dock-tab="map">${mapLabel}</button>
+          ${route ? `<button class="ios-action-btn btn-confirm ${state.dockMode === "route" ? "is-active" : ""}" type="button" data-dock-tab="route">路线</button>` : ""}
         </div>
       `;
       dock.style.setProperty("--active-index", activeIndex);
@@ -2435,9 +2580,126 @@
       requestAnimationFrame(() => {
         const viewport = dock.querySelector("[data-route-viewport]");
         if (viewport) dock.style.setProperty("--route-viewport-width", `${viewport.clientWidth}px`);
+        renderSubDockMap(record, route, mapMode);
       });
-      dock.querySelectorAll("[data-route-record]").forEach((button) => button.addEventListener("click", () => transitionDetailRecord(button.dataset.routeRecord, routeRecords, route.name)));
-      bindRouteDockDrag(dock, routeRecords, activeIndex);
+      dock.querySelectorAll("[data-route-record]").forEach((button) => button.addEventListener("click", () => transitionDetailRecord(button.dataset.routeRecord, routeRecords, route?.name || "")));
+      dock.querySelectorAll("[data-dock-tab]").forEach((button) => button.addEventListener("click", () => {
+        if (button.dataset.dockTab === "route") state.dockMode = "route";
+        else {
+          if (route && state.dockMode !== "route") state.dockMapMode = state.dockMapMode === "point" ? "route-map" : "point";
+          state.dockMode = route ? state.dockMapMode : "point";
+        }
+        renderRouteDock(record);
+      }));
+      dock.querySelector("[data-dock-reset]")?.addEventListener("click", (event) => {
+        event.stopPropagation();
+        resetSubDockMapView(record, route, mapMode);
+      });
+      if (route) bindRouteDockDrag(dock, routeRecords, activeIndex);
+    }
+
+    function clearDockMapLayers() {
+      mapState.dockLayers.forEach((layer) => layer.remove());
+      mapState.dockLayers = [];
+    }
+
+    function bindDockMapManualInteraction(mapEl) {
+      if (mapEl.dataset.manualDockMapBound) return;
+      mapEl.dataset.manualDockMapBound = "true";
+      let drag = null;
+      mapEl.addEventListener("pointerdown", (event) => {
+        if (!mapState.dockMap || event.button > 0) return;
+        drag = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false };
+        mapEl.setPointerCapture?.(event.pointerId);
+        event.stopPropagation();
+      });
+      mapEl.addEventListener("pointermove", (event) => {
+        if (!drag || drag.id !== event.pointerId || !mapState.dockMap) return;
+        const dx = drag.x - event.clientX;
+        const dy = drag.y - event.clientY;
+        if (Math.abs(dx) + Math.abs(dy) > 1) {
+          drag.moved = true;
+          mapState.dockMap.panBy([dx, dy], { animate: false });
+          drag.x = event.clientX;
+          drag.y = event.clientY;
+        }
+        event.preventDefault();
+        event.stopPropagation();
+      });
+      const endDrag = (event) => {
+        if (!drag || drag.id !== event.pointerId) return;
+        mapEl.releasePointerCapture?.(event.pointerId);
+        drag = null;
+        event.stopPropagation();
+      };
+      mapEl.addEventListener("pointerup", endDrag);
+      mapEl.addEventListener("pointercancel", endDrag);
+      mapEl.addEventListener("wheel", (event) => {
+        if (!mapState.dockMap) return;
+        event.preventDefault();
+        event.stopPropagation();
+        const nextZoom = mapState.dockMap.getZoom() + (event.deltaY < 0 ? 1 : -1);
+        mapState.dockMap.setZoomAround(mapState.dockMap.mouseEventToContainerPoint(event), nextZoom);
+      }, { passive: false });
+    }
+
+    function renderSubDockMap(record, route, mode = "point") {
+      const mapEl = byId("sub-dock-map");
+      if (!mapEl || !window.L || state.dockMode === "route") return;
+      if (!mapState.dockMap) {
+        mapState.dockMap = L.map(mapEl, { zoomControl: false, attributionControl: false, dragging: true, scrollWheelZoom: true, touchZoom: true, doubleClickZoom: true, boxZoom: true, keyboard: true, tap: true });
+        L.DomEvent.disableClickPropagation(mapEl);
+        L.DomEvent.disableScrollPropagation(mapEl);
+        bindDockMapManualInteraction(mapEl);
+        const config = tileConfig();
+        mapState.dockTileLayer = L.tileLayer(config.url, { maxZoom: 19, attribution: config.attribution }).addTo(mapState.dockMap);
+      } else {
+        mapState.dockMap.invalidateSize();
+        bindDockMapManualInteraction(mapEl);
+      }
+      mapState.dockMap.dragging.enable();
+      mapState.dockMap.touchZoom.enable();
+      mapState.dockMap.doubleClickZoom.enable();
+      mapState.dockMap.scrollWheelZoom.enable();
+      clearDockMapLayers();
+      const pointIcon = L.divIcon({ className: "seen-point-marker is-active", html: "<span></span>", iconSize: [22, 22], iconAnchor: [11, 11] });
+      const quietIcon = L.divIcon({ className: "seen-point-marker is-muted", html: "<span></span>", iconSize: [16, 16], iconAnchor: [8, 8] });
+      const routePool = route ? orderedRecordsForRoute(route.id) : [];
+      const routeRecords = routePool.filter((item) => Number.isFinite(item.lat) && Number.isFinite(item.lng));
+      if (mode === "route-map" && routeRecords.length) {
+        const latLngs = routeRecords.map((item) => [item.lat, item.lng]);
+        mapState.dockLayers.push(L.polyline(latLngs, { className: "seen-route-core", color: "#7dd3fc", weight: 3, opacity: 0.86, dashArray: "10 14", lineCap: "round", lineJoin: "round" }).addTo(mapState.dockMap));
+        routeRecords.forEach((item) => {
+          const marker = L.marker([item.lat, item.lng], { icon: item.id === record.id ? pointIcon : quietIcon }).addTo(mapState.dockMap);
+          if (item.id !== record.id) marker.on("click", () => transitionDetailRecord(item.id, routePool, route?.name || "", { dockMode: "route-map" }));
+          mapState.dockLayers.push(marker);
+        });
+        resetSubDockMapView(record, route, mode);
+        return;
+      }
+      const lat = Number(record.lat), lng = Number(record.lng);
+      if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
+      mapState.dockLayers.push(L.marker([lat, lng], { icon: pointIcon }).addTo(mapState.dockMap));
+      resetSubDockMapView(record, route, mode);
+    }
+
+    function resetSubDockMapView(record, route, mode = "point") {
+      if (!mapState.dockMap) return;
+      if (mode === "route-map" && route) {
+        const latLngs = orderedRecordsForRoute(route.id)
+          .filter((item) => Number.isFinite(item.lat) && Number.isFinite(item.lng))
+          .map((item) => [item.lat, item.lng]);
+        if (latLngs.length > 1) {
+          mapState.dockMap.fitBounds(latLngs, { padding: [26, 26], maxZoom: 13, animate: true, duration: 0.55 });
+          return;
+        }
+        if (latLngs.length === 1) {
+          mapState.dockMap.setView(latLngs[0], 12, { animate: true, duration: 0.55 });
+          return;
+        }
+      }
+      const lat = Number(record.lat), lng = Number(record.lng);
+      if (Number.isFinite(lat) && Number.isFinite(lng)) mapState.dockMap.setView([lat, lng], 12, { animate: true, duration: 0.55 });
     }
 
     function routeNavigatorData(routeId, currentRecordId, windowSize = 7) {
@@ -2630,6 +2892,7 @@
       const scrollTargets = [copy, card].filter(Boolean);
       const nearestScrollTarget = (target) => scrollTargets.find((item) => item.contains(target) && item.scrollHeight > item.clientHeight + 1);
       dialog.addEventListener("wheel", (event) => {
+        if (event.target.closest?.(".sub-dock-map")) return;
         const scrollTarget = nearestScrollTarget(event.target);
         if (!scrollTarget) {
           event.preventDefault();
@@ -2644,6 +2907,7 @@
         state.detailTouchY = event.touches[0]?.clientY ?? null;
       }, { passive: true });
       dialog.addEventListener("touchmove", (event) => {
+        if (event.target.closest?.(".sub-dock-map")) return;
         const currentY = event.touches[0]?.clientY;
         const previousY = state.detailTouchY;
         state.detailTouchY = currentY ?? previousY;
@@ -2661,16 +2925,23 @@
       }, { passive: false });
       copy.addEventListener("pointerdown", (event) => {
         if (event.target.closest("button,a,input,textarea,select")) return;
-        state.detailDrag = { x: event.clientX, y: event.clientY, id: event.pointerId };
-        copy.setPointerCapture?.(event.pointerId);
-        card.classList.add("is-dragging");
+        state.detailDrag = { x: event.clientX, y: event.clientY, id: event.pointerId, active: false };
       });
       copy.addEventListener("pointermove", (event) => {
         if (!state.detailDrag || state.detailDrag.id !== event.pointerId) return;
         const dx = event.clientX - state.detailDrag.x;
         const dy = event.clientY - state.detailDrag.y;
         if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
-        if (Math.abs(dx) > Math.abs(dy)) event.preventDefault();
+        if (!state.detailDrag.active) {
+          if (Math.abs(dy) >= Math.abs(dx)) {
+            state.detailDrag = null;
+            return;
+          }
+          state.detailDrag.active = true;
+          copy.setPointerCapture?.(event.pointerId);
+          card.classList.add("is-dragging");
+        }
+        event.preventDefault();
         const rotate = Math.max(-7, Math.min(7, dx / 22));
         card.style.setProperty("--detail-shift-x", `${dx}px`);
         card.style.setProperty("--detail-shift-y", `${Math.abs(dx) * -0.018}px`);
@@ -2679,13 +2950,15 @@
       const finishCardDrag = (event) => {
         if (!state.detailDrag || state.detailDrag.id !== event.pointerId) return;
         const dx = event.clientX - state.detailDrag.x;
+        const dy = event.clientY - state.detailDrag.y;
+        const wasActive = state.detailDrag.active;
         state.detailDrag = null;
         copy.releasePointerCapture?.(event.pointerId);
         card.classList.remove("is-dragging");
         card.style.setProperty("--detail-shift-x", "0px");
         card.style.setProperty("--detail-shift-y", "0px");
         card.style.setProperty("--detail-rotate", "0deg");
-        if (Math.abs(dx) > 92) switchDetailRecord(dx < 0 ? 1 : -1);
+        if (wasActive && Math.abs(dx) > 92 && Math.abs(dx) > Math.abs(dy) * 1.35) switchDetailRecord(dx < 0 ? 1 : -1);
       };
       copy.addEventListener("pointerup", finishCardDrag);
       copy.addEventListener("pointercancel", finishCardDrag);
@@ -2959,6 +3232,12 @@
         unlockPageScroll("detail-open");
         byId("record-detail-dialog").classList.remove("has-route-dock");
         byId("route-dock").classList.remove("is-visible");
+        if (mapState.dockMap) {
+          mapState.dockMap.remove();
+          mapState.dockMap = null;
+          mapState.dockTileLayer = null;
+          mapState.dockLayers = [];
+        }
       }
       if (id === "image-viewer-dialog") unlockPageScroll("viewer-open");
     }
@@ -3152,15 +3431,9 @@
     }
 
     function tileConfig() {
-      if (currentTheme() === "dark") {
-        return {
-          url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-        };
-      }
       return {
-        url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
       };
     }
 
@@ -3429,7 +3702,16 @@
     }
 
     function optionMatches(item, query, fields) {
-      return !query || fields.map((field) => item[field]).join(" ").toLowerCase().includes(query);
+      if (!query) return true;
+      const haystack = fields.flatMap((field) => [item[field], displayName(item[field])]).join(" ").toLowerCase();
+      return haystack.includes(query) || normalizeAreaToken(haystack).includes(normalizeAreaToken(query));
+    }
+
+    function updateComboClearState() {
+      ["country", "province", "city"].forEach((kind) => {
+        const input = comboInput(kind);
+        input.closest(".combo")?.classList.toggle("has-value", Boolean(input.value || byId(`record-${kind}`).value));
+      });
     }
 
     function renderCombo(kind) {
@@ -3448,8 +3730,12 @@
         const value = item[kind];
         const label = item[`${kind}Name`];
         return `<button class="combo-option" type="button" data-combo-kind="${kind}" data-combo-value="${value}">${displayName(label)} <span class="post-meta">${label}</span></button>`;
-      }).join("") || `<button class="combo-option" type="button" disabled>${kind === "country" ? "没有匹配项" : "请先选择上一级"}</button>`;
+      }).join("") || (kind === "city" && form.elements.country.value && form.elements.province.value && query
+        ? `<button class="combo-option" type="button" data-geocode-city="${escapeHtml(comboInput(kind).value.trim())}">联网查找「${escapeHtml(comboInput(kind).value.trim())}」</button>`
+        : `<button class="combo-option" type="button" disabled>${kind === "country" ? "没有匹配项" : "请先选择上一级"}</button>`);
       comboList(kind).querySelectorAll("[data-combo-kind]").forEach((button) => button.addEventListener("click", () => selectCombo(kind, button.dataset.comboValue)));
+      comboList(kind).querySelectorAll("[data-geocode-city]").forEach((button) => button.addEventListener("click", () => geocodeComboCity(button.dataset.geocodeCity)));
+      updateComboClearState();
     }
 
     function openCombo(kind) {
@@ -3471,6 +3757,7 @@
         form.elements.city.value = "";
         comboInput("province").value = "";
         comboInput("city").value = "";
+        updateComboClearState();
         closeCombos();
         return;
       }
@@ -3480,6 +3767,7 @@
         comboInput("province").value = displayName(item.provinceName);
         form.elements.city.value = "";
         comboInput("city").value = "";
+        updateComboClearState();
         closeCombos();
         return;
       }
@@ -3487,8 +3775,49 @@
       if (!item) return;
       form.elements.city.value = item.city;
       comboInput("city").value = displayName(item.cityName);
+      updateComboClearState();
       applySelectedLocation();
       closeCombos();
+    }
+
+    async function geocodeComboCity(label) {
+      const form = byId("record-form");
+      const country = LOCATION_DATA.find((item) => item.country === form.elements.country.value);
+      const province = LOCATION_DATA.find((item) => item.country === form.elements.country.value && item.province === form.elements.province.value);
+      if (!country || !province || !label) return;
+      comboList("city").innerHTML = `<button class="combo-option" type="button" disabled>正在查找...</button>`;
+      const query = `${label}, ${province.provinceName}, ${country.countryName}`;
+      const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=1&q=${encodeURIComponent(query)}`).catch(() => null);
+      if (!response?.ok) {
+        renderCombo("city");
+        showToast("地点查找失败", "可以先手动填写地点和经纬度。", "error");
+        return;
+      }
+      const result = (await response.json())[0];
+      if (!result) {
+        renderCombo("city");
+        showToast("没有找到地点", query, "error");
+        return;
+      }
+      const cityName = label.replace(/\s+/g, " ").trim();
+      const entry = registerDynamicLocation({
+        country: country.country,
+        countryName: country.countryName,
+        province: province.province,
+        provinceName: province.provinceName,
+        city: slug(cityName),
+        cityName,
+        lat: Number(result.lat),
+        lng: Number(result.lon)
+      });
+      if (!entry) return;
+      if (!customLocationEntries.some((item) => item.country === entry.country && item.province === entry.province && item.city === entry.city)) {
+        customLocationEntries.push(entry);
+      }
+      boundaryCache[`geocode:${entry.city}`] = { lat: entry.lat, lng: entry.lng };
+      persistBoundaryCache();
+      persistRecords();
+      selectCombo("city", entry.city);
     }
 
     async function geocodeLocation(location) {
@@ -3514,7 +3843,30 @@
         comboInput(kind).value = "";
         renderCombo(kind);
       });
+      updateComboClearState();
       closeCombos();
+    }
+
+    function clearCombo(kind) {
+      const form = byId("record-form");
+      if (kind === "country") {
+        form.elements.country.value = "";
+        form.elements.province.value = "";
+        form.elements.city.value = "";
+        comboInput("country").value = "";
+        comboInput("province").value = "";
+        comboInput("city").value = "";
+      } else if (kind === "province") {
+        form.elements.province.value = "";
+        form.elements.city.value = "";
+        comboInput("province").value = "";
+        comboInput("city").value = "";
+      } else {
+        form.elements.city.value = "";
+        comboInput("city").value = "";
+      }
+      updateComboClearState();
+      renderCombo(kind);
     }
 
     function validateLocationSelection() {
@@ -3676,6 +4028,16 @@
       datalist.innerHTML = allRecords().map((record) => `<option value="${escapeHtml(record.id)}">${escapeHtml(record.title)} / ${escapeHtml(record.place)}</option>`).join("");
     }
 
+    function renderRouteIdOptions() {
+      let datalist = byId("route-id-options");
+      if (!datalist) {
+        datalist = document.createElement("datalist");
+        datalist.id = "route-id-options";
+        byId("record-editor-form").appendChild(datalist);
+      }
+      datalist.innerHTML = allRoutes().map((route) => `<option value="${escapeHtml(route.id)}">${escapeHtml(route.name)}</option>`).join("");
+    }
+
     function renderImagePreview() {
       const preview = byId("image-preview-grid");
       const visible = state.pendingImages.slice(0, 8);
@@ -3713,13 +4075,41 @@
       if (!dialog.open) dialog.showModal();
     }
 
+    function setRecordChildRoute(recordId, childRouteId) {
+      const nextChildRouteId = String(childRouteId || "").trim();
+      const routes = allRoutes();
+      const childRoute = nextChildRouteId ? routes.find((route) => route.id === nextChildRouteId) : null;
+      if (nextChildRouteId && !childRoute) {
+        showToast("子路线不存在", nextChildRouteId, "error");
+        return null;
+      }
+      const now = new Date().toISOString();
+      const affectedRouteIds = [];
+      routes.filter((route) => route.parentRecordId === recordId || route.id === nextChildRouteId).forEach((route) => {
+        const nextParentRecordId = route.id === nextChildRouteId ? recordId : null;
+        if ((route.parentRecordId || null) === nextParentRecordId && (route.parent_record_id || null) === nextParentRecordId) return;
+        const draft = {
+          ...route,
+          parent_record_id: nextParentRecordId,
+          parentRecordId: nextParentRecordId,
+          records: routeRecordIds(route),
+          updated_at: now
+        };
+        routeDrafts = routeDrafts.filter((item) => item.id !== route.id).concat(draft);
+        affectedRouteIds.push(route.id);
+      });
+      return affectedRouteIds;
+    }
+
     function openRecordEditor(record) {
       const form = byId("record-editor-form");
+      renderRouteIdOptions();
       form.elements.id.value = record.id;
       form.elements.title.value = record.title || "";
       form.elements.place.value = record.place || "";
       form.elements.date.value = record.date || "";
       form.elements.tags.value = (record.tags || []).join(", ");
+      form.elements.childRouteId.value = childRoutesForRecord(record.id)[0]?.id || "";
       form.elements.note.value = record.note || "";
       state.editingImages = getRecordImages(record).map((src, index) => ({ src, name: `image-${index + 1}` }));
       renderRecordEditorImages();
@@ -3747,6 +4137,8 @@
       const form = event.currentTarget;
       const record = allRecords().find((item) => item.id === form.elements.id.value);
       if (!record) return;
+      const affectedRouteIds = setRecordChildRoute(record.id, form.elements.childRouteId.value);
+      if (!affectedRouteIds) return;
       const next = {
         ...record,
         title: form.elements.title.value.trim() || record.title,
@@ -3821,16 +4213,20 @@
       if (!points.length) points = [{ name: currentRecord.title, at: currentRecord.date, lat: 0, lng: 0, recordId: currentRecord.id }];
       const recordIds = points.map((point) => point.recordId).filter(Boolean);
       const routeName = String(formData.get("newRouteName") || currentRecord.title || routeId).trim();
+      const parentRecordId = String(formData.get("parentRecordId") || "").trim() || null;
+      if (parentRecordId && !allRecords().some((record) => record.id === parentRecordId)) return "";
       const existingRoute = allRoutes().find((route) => route.id === routeId);
       if (existingRoute && !customRoutes.some((route) => route.id === routeId)) {
         routeId = `${baseId}-route-${Date.now()}`;
       }
       let route = customRoutes.find((item) => item.id === routeId);
       if (!route) {
-        route = { id: routeId, name: routeName, tripMode: formData.get("tripMode"), records: [], points: [], created_at: now };
+        route = { id: routeId, name: routeName, tripMode: formData.get("tripMode"), parent_record_id: parentRecordId, parentRecordId, records: [], points: [], created_at: now };
         customRoutes.unshift(route);
       }
       route.name = routeName || route.name;
+      route.parent_record_id = parentRecordId;
+      route.parentRecordId = parentRecordId;
       route.date = formData.get("date") || route.date || now.slice(0, 10);
       route.records = [...new Set([...(route.records || []), ...recordIds])];
       route.points = route.records.map((recordId) => points.find((point) => point.recordId === recordId)).filter(Boolean);
@@ -3857,6 +4253,12 @@
       }
       const requestedId = String(formData.get("newRouteId") || "").trim();
       const routeName = String(formData.get("newRouteName") || requestedId || "未命名路线").trim();
+      const parentRecordId = String(formData.get("parentRecordId") || "").trim() || null;
+      if (parentRecordId && !allRecords().some((record) => record.id === parentRecordId)) {
+        byId("record-id-status").textContent = `父记录 ID 不存在：${parentRecordId}`;
+        showToast("路线未创建", `父记录 ID 不存在：${parentRecordId}`, "error");
+        return null;
+      }
       const routeId = requestedId || generateRecordId(routeName).replace(/^\d+-/, "route-");
       if (allRoutes().some((route) => route.id === routeId)) {
         byId("record-id-status").textContent = `路线 ID 已存在：${routeId}`;
@@ -3867,6 +4269,8 @@
       const route = {
         id: routeId,
         name: routeName,
+        parent_record_id: parentRecordId,
+        parentRecordId,
         created_at: now,
         updated_at: now,
         date: formData.get("date") || now.slice(0, 10),
@@ -4113,6 +4517,15 @@
             comboInput("city").value = "";
           }
           openCombo(kind);
+          updateComboClearState();
+        });
+      });
+      document.querySelectorAll("[data-clear-combo]").forEach((button) => {
+        button.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+          clearCombo(button.dataset.clearCombo);
+          comboInput(button.dataset.clearCombo).focus();
         });
       });
       document.addEventListener("click", (event) => {

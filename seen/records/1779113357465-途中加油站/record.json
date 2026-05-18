@@ -1,0 +1,44 @@
+{
+  "id": "1779113357465-途中加油站",
+  "title": "佛州大环线-途中",
+  "created_at": "2026-05-18T14:14:39.111Z",
+  "updated_at": "2026-05-18T14:25:21.524Z",
+  "route_id": null,
+  "route_index": null,
+  "tags": [
+    "自驾"
+  ],
+  "location": {
+    "place": "美国 / 佛罗里达 / 迈阿密",
+    "lat": 25.127627,
+    "lng": -80.411596,
+    "region": {
+      "country": "us",
+      "province": "florida",
+      "city": "miami"
+    }
+  },
+  "assets": [
+    {
+      "path": "assets/image-1.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "path": "assets/image-2.jpg",
+      "type": "image/jpeg"
+    }
+  ],
+  "favorite": false,
+  "archived": false,
+  "type": "note",
+  "date": "2024-12-13",
+  "place": "美国 / 佛罗里达 / 迈阿密",
+  "lat": 25.127627,
+  "lng": -80.411596,
+  "region": {
+    "country": "us",
+    "province": "florida",
+    "city": "miami"
+  },
+  "note": "路上第一次加油// 好像也是第一次*真正意义上*加油\n还有神秘载具皮肤*圣诞节前夕版"
+}

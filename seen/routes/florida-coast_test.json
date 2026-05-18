@@ -1,9 +1,10 @@
 {
   "id": "florida-coast_test",
   "name": "Florida Coast Drive",
+  "parent_record_id": "1779114230318-fiesta-key-海边",
   "date": "2026-05-17",
   "created_at": "2026-05-16T00:00:00.000Z",
-  "updated_at": "2026-05-16T11:34:24.958Z",
+  "updated_at": "2026-05-18T20:07:08.599Z",
   "records": [
     "miami-bay-dusk_test",
     "key-largo-blue_test",
