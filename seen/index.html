@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, user-scalable=no" />
   <meta name="description" content="所见：旅途照片与游记" />
   <meta name="author" content="hdp" />
   <title>所见 | Seen</title>
@@ -16,60 +16,10 @@
   <script src="https://unpkg.com/i18next@21.6.3/dist/umd/i18next.min.js"></script>
   <script src="https://unpkg.com/i18next-http-backend@1.4.1/i18nextHttpBackend.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- YAML 解析库 -->
+  <script type="text/javascript" src="../static/js/js-yaml.min.js"></script>
+
   <style>
-    // 加载全局配置
-    function loadConfig() {
-      const configPath = '/config.yml';
-
-      loadYAML(configPath)
-        .then(config => {
-
-          if (!config || !config.footer) return;
-
-          /*
-           * Copyright
-           */
-          if (config.footer.copyright) {
-            document.getElementById('copyright-text').innerHTML =
-              config.footer.copyright;
-          }
-
-          /*
-           * Github
-           */
-          if (config.footer.github) {
-
-            const githubLink =
-              document.getElementById('github-link');
-
-            githubLink.innerText =
-              config.footer.github.text || 'Github';
-
-            githubLink.href =
-              config.footer.github.link || '#';
-          }
-
-          /*
-           * License
-           */
-          if (config.footer.license) {
-
-            const licenseLink =
-              document.getElementById('license-link');
-
-            licenseLink.innerText =
-              config.footer.license.text || 'License';
-
-            licenseLink.href =
-              config.footer.license.link || '#';
-          }
-
-        })
-        .catch(error => {
-          console.error('加载全局配置失败:', error);
-        });
-    }
-
     :root {
       --seen-bg: #070b10;
       --seen-surface: rgba(255, 255, 255, 0.74);
@@ -150,8 +100,11 @@
       to { transform: translate3d(4%, 3%, 0) rotate(6deg); opacity: 1; }
     }
 
-    .seen-shell { width: min(1480px, calc(100% - 40px)); margin: 0 auto; padding: 58px 0 34px; }
-    .seen-particle-field { position: relative; height: 40px; margin: 0 0 4px; border-radius: 8px; overflow: visible; background: transparent; pointer-events: none; }
+    html, body { touch-action: manipulation; }
+    body.detail-open, body.viewer-open { overflow: hidden; overscroll-behavior: none; }
+    body.viewer-open { touch-action: none; }
+    .seen-shell { width: min(1480px, calc(100% - 40px)); margin: 0 auto; padding: max(72px, calc(var(--seen-nav-height, 0px) + 14px)) 0 34px; }
+    .seen-particle-field { position: relative; height: 40px; margin: 0 0 4px; border-radius: 8px; overflow: visible; background: transparent; pointer-events: none; z-index: 0; }
     .seen-particle-field canvas { width: 100%; height: 100%; display: block; transform: translateY(14px); }
     .seen-hero { display: grid; grid-template-columns: minmax(300px, 0.8fr) minmax(560px, 1.2fr); gap: 12px; align-items: stretch; margin-bottom: 8px; }
     .seen-panel { border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface); box-shadow: var(--seen-shadow); backdrop-filter: blur(22px) saturate(1.18); -webkit-backdrop-filter: blur(22px) saturate(1.18); }
@@ -167,7 +120,7 @@
     .seen-tag { border: 1px solid var(--seen-border); border-radius: 999px; background: var(--seen-input-bg); color: var(--seen-text); padding: 6px 10px; font-size: 0.82rem; line-height: 1; white-space: nowrap; cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease; }
     .seen-tag:hover, .seen-tag.is-active { border-color: rgba(138, 195, 173, 0.72); background: rgba(138, 195, 173, 0.16); transform: translateY(-1px); }
     .feature-photo { position: relative; min-height: 252px; border-radius: 8px; overflow: hidden; background: #111820; isolation: isolate; cursor: pointer; }
-    .feature-photo:focus-visible { outline: 0; box-shadow: 0 0 0 3px rgba(125, 211, 252, 0.28); }
+    .feature-photo:focus-visible { outline: 0; box-shadow: none; }
     .feature-photo img { width: 100%; height: 100%; min-height: 252px; object-fit: cover; display: block; filter: saturate(0.92) contrast(1.05); }
     .feature-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5, 8, 10, 0.08) 20%, rgba(5, 8, 10, 0.82)); z-index: 1; }
     .feature-copy { position: absolute; left: 16px; right: 16px; bottom: 14px; z-index: 2; color: #fff; }
@@ -334,10 +287,17 @@
     .photo-grid .image-preview-item.is-selectable { cursor: pointer; }
     .image-viewer { width: 100vw; height: 100vh; max-width: none; max-height: none; margin: 0; border: 0; border-radius: 0; padding: 0; background: rgba(3, 7, 10, 0.96); overflow: hidden; }
     .image-viewer::backdrop { background: rgba(3, 7, 10, 0.96); }
-    .image-viewer-shell { width: 100%; height: 100%; display: grid; place-items: center; padding: max(14px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); }
-    .image-viewer img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; cursor: grab; touch-action: pan-y pinch-zoom; user-select: none; will-change: transform, opacity; }
+    .image-viewer-shell { width: 100%; height: 100%; display: grid; place-items: center; padding: max(14px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); touch-action: none; overscroll-behavior: contain; }
+    .image-viewer img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; cursor: grab; touch-action: none; user-select: none; will-change: transform, opacity; }
     .image-viewer img.is-dragging { cursor: grabbing; }
+    .image-viewer img.is-loading { opacity: 0; }
     .viewer-count { position: fixed; left: 50%; top: max(18px, env(safe-area-inset-top)); transform: translateX(-50%); z-index: 3; border: 1px solid rgba(255,255,255,0.22); border-radius: 999px; background: rgba(16, 22, 27, 0.52); color: #fff; backdrop-filter: blur(18px) saturate(1.2); -webkit-backdrop-filter: blur(18px) saturate(1.2); padding: 7px 13px; font-size: 0.82rem; line-height: 1; }
+    .viewer-original { position: fixed; left: 50%; bottom: max(22px, env(safe-area-inset-bottom)); transform: translateX(-50%); z-index: 4; border: 1px solid rgba(255,255,255,0.22); border-radius: 999px; background: rgba(16, 22, 27, 0.56); color: #fff; backdrop-filter: blur(18px) saturate(1.2); -webkit-backdrop-filter: blur(18px) saturate(1.2); padding: 8px 14px; font: inherit; font-size: 0.82rem; line-height: 1; cursor: pointer; }
+    .viewer-original:hover { background: rgba(16, 22, 27, 0.76); }
+    .image-loading { position: fixed; left: 50%; top: 50%; z-index: 2; display: none; align-items: center; gap: 9px; transform: translate(-50%, -50%); border: 1px solid rgba(255,255,255,0.2); border-radius: 999px; background: rgba(16, 22, 27, 0.52); color: #fff; padding: 9px 14px; font-size: 0.82rem; backdrop-filter: blur(18px) saturate(1.2); -webkit-backdrop-filter: blur(18px) saturate(1.2); }
+    .image-loading.is-visible { display: inline-flex; }
+    .image-loading::before { content: ""; width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.34); border-top-color: #fff; animation: seenSpin 0.8s linear infinite; }
+    @keyframes seenSpin { to { transform: rotate(360deg); } }
     .viewer-nav { position: fixed; inset: 0; pointer-events: none; z-index: 3; }
     .viewer-nav .icon-btn { position: absolute; top: 50%; transform: translateY(-50%); pointer-events: auto; width: 44px; height: 44px; border-radius: 999px; background: rgba(16, 22, 27, 0.56); color: #fff; border-color: rgba(255,255,255,0.22); backdrop-filter: blur(18px) saturate(1.2); -webkit-backdrop-filter: blur(18px) saturate(1.2); }
     .viewer-nav .icon-btn:hover { transform: translateY(-50%) scale(1.04); background: rgba(16, 22, 27, 0.76); }
@@ -372,7 +332,8 @@
     .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
     .post-actions { display: flex; gap: 6px; margin-top: 12px; }
     .record-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 6px; }
-    .post-card { border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface); overflow: hidden; min-height: 240px; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; cursor: pointer; }
+    .post-card { border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface); overflow: hidden; min-height: 240px; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; cursor: pointer; outline: 0; -webkit-tap-highlight-color: transparent; }
+    .post-card:focus, .post-card:focus-visible, .detail-card:focus, .detail-card:focus-visible, .image-viewer:focus, .image-viewer *:focus { outline: 0; box-shadow: none; }
     .post-card:hover { transform: translateY(-3px); box-shadow: var(--seen-shadow); border-color: rgba(125, 211, 252, 0.28); }
     .post-photo img { width: 100%; height: 190px; object-fit: cover; display: block; }
     .post-card.with-note { display: grid; grid-template-columns: 0.96fr 1.04fr; }
@@ -384,8 +345,8 @@
     .post-card .post-note { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
     .post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
     .post-tags .seen-tag { padding: 5px 8px; font-size: 0.76rem; }
-    .detail-dialog { width: min(860px, calc(100% - 32px)); max-height: min(820px, calc(100vh - 32px)); overflow: visible; border: 0; border-radius: 12px; background: transparent; box-shadow: none; }
-    .detail-card { --detail-shift-x: 0px; --detail-shift-y: 0px; --detail-rotate: 0deg; --detail-scale: 1; position: relative; display: grid; grid-template-columns: minmax(260px, 0.95fr) minmax(280px, 1.05fr); gap: 0; padding: 0; overflow: hidden; max-height: calc(100vh - 245px); border: 1px solid var(--seen-border); border-radius: 12px; background: var(--seen-surface-solid); box-shadow: var(--seen-shadow); transition: transform 360ms cubic-bezier(0.18, 0.9, 0.24, 1), opacity 240ms ease, filter 240ms ease; will-change: transform, opacity; }
+    .detail-dialog { width: min(860px, calc(100% - 32px)); max-height: min(820px, calc(100vh - 32px)); overflow: visible; border: 0; border-radius: 12px; background: transparent; box-shadow: none; overscroll-behavior: contain; }
+    .detail-card { --detail-shift-x: 0px; --detail-shift-y: 0px; --detail-rotate: 0deg; --detail-scale: 1; position: relative; display: grid; grid-template-columns: minmax(260px, 0.95fr) minmax(280px, 1.05fr); gap: 0; padding: 0; margin-top: 8px; overflow: hidden; max-height: calc(100vh - 245px); border: 1px solid var(--seen-border); border-radius: 12px; background: var(--seen-surface-solid); box-shadow: var(--seen-shadow); transition: transform 360ms cubic-bezier(0.18, 0.9, 0.24, 1), opacity 240ms ease, filter 240ms ease; will-change: transform, opacity; }
     .detail-card.is-dragging { transition: none; cursor: grabbing; }
     .detail-card.is-dragging, .detail-card.is-switching { transform: translate(var(--detail-shift-x), var(--detail-shift-y)) rotate(var(--detail-rotate)) scale(var(--detail-scale)); }
     .detail-card.is-switching { --detail-shift-x: var(--switch-direction, -18px); --detail-scale: 0.985; opacity: 0.72; filter: saturate(0.84); }
@@ -393,8 +354,12 @@
     .detail-media, .detail-copy { transition: opacity 220ms ease, transform 220ms cubic-bezier(0.16, 1, 0.3, 1); }
     .detail-card.is-switching .detail-media, .detail-card.is-switching .detail-copy { opacity: 0.72; }
     .detail-card img { width: 100%; height: 100%; min-height: 360px; object-fit: contain; display: block; background: #111820; }
-    .detail-media { position: relative; background: #111820; }
-    .detail-media img { width: 100%; height: 100%; min-height: 360px; object-fit: contain; display: block; cursor: zoom-in; user-select: none; touch-action: pan-y; }
+    .detail-media { position: relative; background: #111820; overscroll-behavior: contain; }
+    .detail-media::after { content: "Loading"; position: absolute; left: 50%; top: 50%; display: none; transform: translate(-50%, -50%); border: 1px solid rgba(255,255,255,0.22); border-radius: 999px; background: rgba(7, 11, 16, 0.58); color: #fff; padding: 8px 13px 8px 32px; font-size: 0.78rem; z-index: 2; }
+    .detail-media::before { content: ""; position: absolute; left: calc(50% - 45px); top: calc(50% - 7px); z-index: 3; display: none; width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.34); border-top-color: #fff; animation: seenSpin 0.8s linear infinite; }
+    .detail-media.is-loading::before, .detail-media.is-loading::after { display: block; }
+    .detail-media img { width: 100%; height: 100%; min-height: 360px; object-fit: contain; display: block; cursor: zoom-in; user-select: none; touch-action: pan-y; opacity: 1; transition: opacity 180ms ease; }
+    .detail-media img.is-loading { opacity: 0; }
     .detail-media.is-portrait img { object-fit: contain; padding: 10px; }
     .detail-media.is-landscape img { object-fit: contain; }
     .image-nav { position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; justify-content: space-between; gap: 8px; pointer-events: none; }
@@ -490,14 +455,14 @@
     .route-node.is-active::before { content: ""; position: absolute; inset: -8px; border-radius: inherit; border: 2px solid rgba(33, 255, 130, 0.86); animation: routeNodeRing 1.7s ease-out infinite; }
     @keyframes routeNodeBreathe { 0%, 100% { transform: scale(1); filter: brightness(1); } 50% { transform: scale(1.16); filter: brightness(1.18); } }
     @keyframes routeNodeRing { 0% { transform: scale(0.42); opacity: 0.9; } 100% { transform: scale(1.72); opacity: 0; } }
-    .route-node-cell.is-edge .route-node { opacity: 0.52; }
+    .route-node-cell.is-edge .route-node { opacity: 1; }
     @media (max-width: 1180px) { .seen-hero, .record-strip { grid-template-columns: 1fr; } .seen-map-panel { min-height: auto; } }
     @media (max-width: 920px) { .record-form { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media (max-width: 920px) { .route-builder-meta { padding-left: 0; } }
     @media (max-width: 960px) { .detail-switch.prev { left: 8px; } .detail-switch.next { right: 8px; } }
-    @media (max-width: 720px) { .seen-shell { width: min(100% - 24px, 1480px); padding-top: 48px; } .seen-particle-field { height: 28px; margin-bottom: 2px; } .seen-left, .record-form { grid-template-columns: 1fr; } .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .form-wide { grid-column: auto; } .map-toolbar, .filter-bar, .management-head { align-items: flex-start; flex-direction: column; } .map-controls, .zoom-tabs { width: 100%; justify-content: space-between; } .zoom-tabs button { flex: 1; } .post-card.with-note, .detail-card, .route-card { grid-template-columns: 1fr; } .detail-card { max-height: calc(100vh - 285px); overflow: auto; } .detail-card img { min-height: 220px; max-height: 30vh; } .detail-copy { overflow: visible; } .drawer-item { align-items: flex-start; flex-direction: column; } .detail-switch, .image-nav { display: none; } .route-dock { --route-step: 58px; bottom: clamp(42px, 8vh, 82px); width: min(360px, calc(100% - 20px)); padding: 10px 12px; border-radius: 22px; } .route-dock-info { margin-bottom: 6px; } .route-dock-info strong { font-size: 0.86rem; } .route-dock-info span, .route-station-count span { font-size: 0.68rem; } .route-station-count { font-size: 0.78rem; } .route-viewport { height: 52px; } .route-node-cell { height: 52px; } .floating-search { bottom: 14px; } .draft-box { bottom: 215px; } .manager-fab { bottom: 269px; } }
+    @media (max-width: 720px) { .seen-shell { width: min(100% - 24px, 1480px); padding-top: max(62px, calc(var(--seen-nav-height, 0px) + 10px)); } .seen-particle-field { height: 28px; margin-bottom: 2px; } .seen-left, .record-form { grid-template-columns: 1fr; } .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .form-wide { grid-column: auto; } .map-toolbar, .filter-bar, .management-head { align-items: flex-start; flex-direction: column; } .map-controls, .zoom-tabs { width: 100%; justify-content: space-between; } .zoom-tabs button { flex: 1; } .post-card.with-note, .detail-card, .route-card { grid-template-columns: 1fr; } .detail-card { max-height: calc(100vh - 285px); overflow: auto; } .detail-card img { min-height: 220px; max-height: 30vh; } .detail-copy { overflow: visible; } .drawer-item { align-items: flex-start; flex-direction: column; } .detail-switch, .image-nav { display: none; } .route-dock { --route-step: 58px; bottom: clamp(42px, 8vh, 82px); width: min(360px, calc(100% - 20px)); padding: 10px 12px; border-radius: 22px; } .route-dock-info { margin-bottom: 6px; } .route-dock-info strong { font-size: 0.86rem; } .route-dock-info span, .route-station-count span { font-size: 0.68rem; } .route-station-count { font-size: 0.78rem; } .route-viewport { height: 52px; } .route-node-cell { height: 52px; } .floating-search { bottom: 14px; } .draft-box { bottom: 215px; } .manager-fab { bottom: 269px; } }
     @media (max-width: 720px) {
-      .seen-shell { width: min(100% - 18px, 1480px); padding-top: 44px; }
+      .seen-shell { width: min(100% - 18px, 1480px); padding-top: max(62px, calc(var(--seen-nav-height, 0px) + 10px)); }
       .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
       .metric { min-height: 78px; padding: 10px; }
       .feature-photo { min-height: 178px; aspect-ratio: 16 / 10; }
@@ -516,7 +481,7 @@
       .post-meta { font-size: 0.7rem; }
       .post-tags { gap: 4px; }
       .post-tags .seen-tag { padding: 4px 6px; font-size: 0.68rem; }
-      .detail-dialog[open] { width: min(100% - 18px, 860px); max-height: calc(100vh - 112px); margin-top: clamp(18px, 4vh, 44px); margin-bottom: auto; }
+      .detail-dialog[open] { width: min(100% - 18px, 860px); max-height: calc(100vh - 112px); margin-top: clamp(60px, 13vh, 120px); margin-bottom: auto; }
       .detail-card { max-height: calc(100vh - 285px); border-radius: 12px; }
       .detail-dialog.has-route-dock .detail-card { max-height: calc(100vh - 340px); }
       .detail-card img, .detail-media img { min-height: 210px; max-height: 30vh; object-fit: contain; }
@@ -703,6 +668,8 @@
   </dialog>
   <dialog class="image-viewer" id="image-viewer-dialog">
     <span class="viewer-count" id="image-viewer-count">1 / 1</span>
+    <div class="image-loading" id="image-viewer-loading">Loading</div>
+    <button class="viewer-original" id="viewer-original" type="button">查看原图</button>
     <div class="viewer-nav" aria-hidden="false">
       <button class="icon-btn viewer-prev" id="prev-viewer-image" type="button" title="上一张" aria-label="上一张"><i class="bi-chevron-left"></i></button>
       <button class="icon-btn viewer-next" id="next-viewer-image" type="button" title="下一张" aria-label="下一张"><i class="bi-chevron-right"></i></button>
@@ -800,7 +767,7 @@
       <div class="container px-5">
           <div class="text-white-50 small">
               <div id="copyright-text">
-                  &copy; Dapao Huang 2023-2026. All Rights Reserved.
+                  &copy; Dapao Huang 2023-2021212. All Rights Reserved.
               </div>
               <a id="github-link" href="https://github.com/cmdSTARMO">Github</a>
               <span class="mx-1">&middot;</span>
@@ -810,6 +777,66 @@
   </footer>
 
   <script>
+    // 通用加载 YAML 的函数（返回解析后的对象）
+    function loadYAML(path) {
+      return fetch(path)
+        .then(response => response.text())
+        .then(yamlText => jsyaml.load(yamlText));
+    }
+    // 加载全局配置
+    function loadConfig() {
+      const configPath = '/config.yml';
+
+      loadYAML(configPath)
+        .then(config => {
+
+          if (!config || !config.footer) return;
+
+          /*
+           * Copyright
+           */
+          if (config.footer.copyright) {
+            document.getElementById('copyright-text').innerHTML =
+              config.footer.copyright;
+          }
+
+          /*
+           * Github
+           */
+          if (config.footer.github) {
+
+            const githubLink =
+              document.getElementById('github-link');
+
+            githubLink.innerText =
+              config.footer.github.text || 'Github';
+
+            githubLink.href =
+              config.footer.github.link || '#';
+          }
+
+          /*
+           * License
+           */
+          if (config.footer.license) {
+
+            const licenseLink =
+              document.getElementById('license-link');
+
+            licenseLink.innerText =
+              config.footer.license.text || 'License';
+
+            licenseLink.href =
+              config.footer.license.link || '#';
+          }
+
+        })
+        .catch(error => {
+          console.error('加载全局配置失败:', error);
+        });
+    }
+
+
     // Static geographic boundaries stay in-page; records and routes are loaded from the archive filesystem.
     const SEEN_DATA = {
       tags: [],
@@ -872,7 +899,7 @@
       assetsDir: "assets",
       cacheDir: "cache"
     };
-    const state = { zoom: "country", activeTag: null, activeArea: null, activeRoute: null, featureIndex: 0, layerFilter: "all", detailImageIndex: 0, visibleRecords: 10, visibleRoutes: 10, managerOpen: false, detailPool: [], detailPoolLabel: "", detailMode: "default", detailDrag: null, detailImageDrag: null, imageViewerDrag: null, suppressImageClick: false, suppressViewerClick: false, searchOpen: false, searchScope: "records", searchQuery: "", searchIndex: 0, searchResults: [], searchDragX: null, calendarMonth: new Date(), pendingImages: [], editingImages: [], archiveHandle: null };
+    const state = { zoom: "country", activeTag: null, activeArea: null, activeRoute: null, featureIndex: 0, layerFilter: "all", detailImageIndex: 0, visibleRecords: 10, visibleRoutes: 10, managerOpen: false, detailPool: [], detailPoolLabel: "", detailMode: "default", detailDrag: null, detailImageDrag: null, imageViewerDrag: null, viewerPointers: new Map(), viewerGesture: null, viewerScale: 1, viewerPanX: 0, viewerPanY: 0, viewerOriginalMode: false, suppressImageClick: false, suppressViewerClick: false, searchOpen: false, searchScope: "records", searchQuery: "", searchIndex: 0, searchResults: [], searchDragX: null, calendarMonth: new Date(), pendingImages: [], editingImages: [], archiveHandle: null };
     const mapState = { map: null, tileLayer: null, boundaryLayer: null, routeLayers: [], pointLayers: [], recordMarkers: [], pickerMap: null, pickerTileLayer: null, pickerMarker: null, boundaryGeoJson: {}, pendingDeleteId: null, detailRecordId: null };
     const boundarySources = {
       country: "boundaries/countries.geojson",
@@ -1263,8 +1290,9 @@
         return archiveUrl(`${record.__archive_base}/${assetPath}`);
       };
       const assetImages = (record.assets || []).map((asset) => asset.src || asset.path).filter(Boolean);
-      const cover = withArchiveBase(record.cover || record.image || record.images?.[0] || assetImages[0]) || "../static/assets/img/background.jpeg";
-      const images = uniqueValues((record.images && record.images.length ? record.images : [record.cover || record.image, ...assetImages]).filter(Boolean).map(withArchiveBase));
+      const rawImages = uniqueValues((record.images && record.images.length ? record.images : [record.cover || record.image, ...assetImages]).filter(Boolean));
+      const images = uniqueValues(rawImages.map(withArchiveBase));
+      const cover = images[0] || withArchiveBase(record.cover || record.image || assetImages[0]) || "../static/assets/img/background.jpeg";
       const region = normalizeRegion(record.region, record);
       return {
         ...record,
@@ -1431,14 +1459,71 @@
       return (record.images && record.images.length ? record.images : [record.image]).filter(Boolean);
     }
 
+    function thumbImageUrl(src) {
+      if (!src || src.startsWith("data:") || src.startsWith("blob:")) return src;
+      const normalized = String(src);
+      if (!normalized.includes("/records/") && !normalized.includes("records/")) return normalized;
+      const parts = normalized.split("/");
+      const file = parts.pop();
+      if (!file) return normalized;
+      if (parts.at(-1) === "thumbs") return normalized;
+      if (file === "cover.jpg" || file === "cover.jpeg" || file === "cover.png" || file === "cover.webp") {
+        return `${parts.join("/")}/thumbs/cover.jpg`;
+      }
+      const assetsIndex = parts.lastIndexOf("assets");
+      if (assetsIndex >= 0) {
+        const root = parts.slice(0, assetsIndex).join("/");
+        return `${root}/thumbs/${file.replace(/\.[^.]+$/, ".jpg")}`;
+      }
+      return normalized;
+    }
+
+    function originalImageUrl(src) {
+      if (!src) return src;
+      return String(src).replace(/\/thumbs\/cover\.jpg$/, "/cover.jpg").replace(/\/thumbs\/([^/]+)\.jpg$/, "/assets/$1.jpg");
+    }
+
+    function setImageWithFallback(image, src, alt = "", { loadingClassTarget = null } = {}) {
+      const thumb = thumbImageUrl(src);
+      const original = src || "../static/assets/img/background.jpeg";
+      const target = loadingClassTarget || image;
+      image.classList.add("is-loading");
+      target.classList.add("is-loading");
+      image.onload = () => {
+        image.classList.remove("is-loading");
+        target.classList.remove("is-loading");
+      };
+      image.onerror = () => {
+        if (image.src.endsWith(original)) {
+          image.classList.remove("is-loading");
+          target.classList.remove("is-loading");
+          return;
+        }
+        image.src = original;
+      };
+      image.alt = alt;
+      image.src = thumb || original;
+    }
+
+    function preloadImageRange(images, index, radius = 2, useThumb = true) {
+      if (!images.length) return;
+      const start = Math.max(0, index - radius);
+      const end = Math.min(images.length - 1, index + radius);
+      for (let i = start; i <= end; i += 1) {
+        const image = new Image();
+        image.decoding = "async";
+        image.src = useThumb ? thumbImageUrl(images[i]) : images[i];
+      }
+    }
+
     function firstRecordImage(record) {
-      return getRecordImages(record)[0] || "../static/assets/img/background.jpeg";
+      return thumbImageUrl(getRecordImages(record)[0]) || "../static/assets/img/background.jpeg";
     }
 
     function randomRecordImage(record) {
       const images = getRecordImages(record);
       if (!images.length) return "../static/assets/img/background.jpeg";
-      return images[Math.floor(Math.random() * images.length)];
+      return thumbImageUrl(images[Math.floor(Math.random() * images.length)]);
     }
 
     function activeRecords() {
@@ -1747,6 +1832,47 @@
       return new Blob([bytes], { type: mime });
     }
 
+    async function blobFromImageSource(src) {
+      if (!src) return null;
+      if (String(src).startsWith("data:")) return dataUrlToBlob(src);
+      const response = await fetch(src);
+      if (!response.ok) throw new Error(`Image not readable: ${src}`);
+      return response.blob();
+    }
+
+    async function makeThumbnailBlob(src, maxEdge = 1080, quality = 0.74) {
+      const sourceBlob = await blobFromImageSource(src);
+      if (!sourceBlob) return null;
+      const bitmap = await createImageBitmap(sourceBlob);
+      const scale = Math.min(1, maxEdge / Math.max(bitmap.width, bitmap.height));
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+      canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+      const context = canvas.getContext("2d", { alpha: false });
+      context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+      bitmap.close?.();
+      return new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", quality));
+    }
+
+    function thumbnailArchiveName(imagePath) {
+      if (!imagePath || imagePath === "cover.jpg") return "cover.jpg";
+      return imagePath.split("/").pop().replace(/\.[^.]+$/, ".jpg");
+    }
+
+    async function writeArchiveThumbnail(recordId, imagePath, src) {
+      try {
+        const blob = await makeThumbnailBlob(src);
+        if (blob) await writeArchiveBlob(`records/${recordId}/thumbs/${thumbnailArchiveName(imagePath)}`, blob);
+      } catch (error) {
+        console.warn(`Thumbnail skipped for ${recordId}/${imagePath}`, error);
+      }
+    }
+
+    async function syncArchiveThumbnails(recordId, imagePaths, sources) {
+      await removeArchiveEntry(`records/${recordId}/thumbs`).catch(() => {});
+      await Promise.all(imagePaths.map((imagePath, index) => writeArchiveThumbnail(recordId, imagePath, sources[index])));
+    }
+
     async function writeArchiveBlob(relativePath, blob) {
       const handle = await archiveRootHandle();
       const parts = relativePath.split("/").filter(Boolean);
@@ -1786,7 +1912,10 @@
 
     async function persistRecordToArchive(record, images) {
       if (!window.showDirectoryPicker || !state.archiveHandle) return false;
-      const coverName = images[0]?.name || "cover.jpg";
+      const archiveImages = images.map((image, index) => ({
+        image,
+        path: index === 0 ? "cover.jpg" : `assets/image-${index + 1}.jpg`
+      }));
       const metadata = {
         id: record.id,
         title: record.title,
@@ -1796,8 +1925,8 @@
         route_index: record.route_index ?? null,
         tags: record.tags || [],
         location: { place: record.place, lat: record.lat, lng: record.lng, region: record.region || null },
-        cover: coverName,
-        assets: images.slice(1).map((image) => ({ path: `assets/${image.name}`, type: image.file?.type || "" })),
+        cover: archiveImages[0]?.path || "cover.jpg",
+        assets: archiveImages.slice(1).map(({ image, path }) => ({ path, type: image.file?.type || "image/jpeg" })),
         favorite: false,
         archived: false,
         type: record.type || "note",
@@ -1810,8 +1939,8 @@
       };
       await writeArchiveJson(`records/${record.id}/record.json`, metadata);
       await writeArchiveText(`records/${record.id}/content.md`, `# ${record.title}\n\n${record.note || ""}\n`);
-      if (images[0]) await writeArchiveBlob(`records/${record.id}/${coverName}`, dataUrlToBlob(images[0].src));
-      await Promise.all(images.slice(1).map((image) => writeArchiveBlob(`records/${record.id}/assets/${image.name}`, dataUrlToBlob(image.src))));
+      await Promise.all(archiveImages.map(({ image, path }) => writeArchiveBlob(`records/${record.id}/${path}`, dataUrlToBlob(image.src))));
+      await syncArchiveThumbnails(record.id, archiveImages.map((item) => item.path), archiveImages.map((item) => item.image.src));
       await writeArchiveJson("indexes/records_index.json", {
         schema_version: 1,
         updated_at: new Date().toISOString(),
@@ -1842,7 +1971,7 @@
       const imagePathForArchive = (src, index) => {
         const value = String(src || "");
         if (value.startsWith("data:")) {
-          if (index === 0 && !usedImagePaths.has("cover.jpg")) {
+          if (index === 0) {
             usedImagePaths.add("cover.jpg");
             return "cover.jpg";
           }
@@ -1869,6 +1998,7 @@
       await Promise.all(selectedImages.map((src, index) => String(src).startsWith("data:")
         ? writeArchiveBlob(`records/${record.id}/${imagePaths[index]}`, dataUrlToBlob(src))
         : Promise.resolve()));
+      await syncArchiveThumbnails(record.id, imagePaths, selectedImages);
       return true;
     }
 
@@ -1990,8 +2120,12 @@
       const record = records[state.featureIndex % Math.max(records.length, 1)];
       byId("feature-count").textContent = `${records.length} records`;
       if (!record) return;
-      byId("feature-photo").querySelector("img").src = randomRecordImage(record);
-      byId("feature-photo").querySelector("img").alt = record.title;
+      const featureImage = byId("feature-photo").querySelector("img");
+      const featureImages = getRecordImages(record);
+      const featureOriginal = featureImages.length ? featureImages[Math.floor(Math.random() * featureImages.length)] : "../static/assets/img/background.jpeg";
+      featureImage.dataset.fullSrc = featureOriginal;
+      featureImage.src = thumbImageUrl(featureOriginal);
+      featureImage.alt = record.title;
       byId("feature-title").textContent = record.title;
       byId("feature-note").textContent = record.note || `${formatRecordPlace(record)} / ${record.tags.join(" · ")}`;
       byId("feature-tags").innerHTML = record.tags.map((tag) => `<button class="seen-tag" type="button" data-tag="${tag}">#${tag}</button>`).join("");
@@ -2001,7 +2135,7 @@
     function openFeatureRecord() {
       const records = activeRecords();
       const record = records[state.featureIndex % Math.max(records.length, 1)];
-      if (record) openRecordDetail(record.id, records, "随机推荐");
+      if (record) openRecordDetail(record.id, records, "随机推荐", { sourceElement: byId("feature-photo") });
     }
 
     // All filters meet here so tags, region clicks, route clicks, and future search inputs stay composable.
@@ -2030,8 +2164,9 @@
       byId("record-strip").innerHTML = visible.map((record) => {
         const tags = record.tags.map((tag) => `<button class="seen-tag" type="button" data-tag="${tag}">#${tag}</button>`).join("");
         const place = formatRecordPlace(record);
-        if (record.type === "note") return `<article class="post-card with-note" role="button" tabindex="0" data-open-record="${escapeHtml(record.id)}"><div class="post-photo"><img src="${escapeHtml(firstRecordImage(record))}" alt="${escapeHtml(record.title)}"></div><div class="post-body"><div class="post-meta">${escapeHtml(record.date)} / ${escapeHtml(place)}</div><h3>${escapeHtml(record.title)}</h3><p class="post-note">${escapeHtml(record.note)}</p><div class="post-tags">${tags}</div></div></article>`;
-        return `<article class="post-card" role="button" tabindex="0" data-open-record="${escapeHtml(record.id)}"><div class="post-photo"><img src="${escapeHtml(firstRecordImage(record))}" alt="${escapeHtml(record.title)}"></div><div class="post-body"><div class="post-meta">${escapeHtml(record.date)} / ${escapeHtml(place)}</div><h3>${escapeHtml(record.title)}</h3><div class="post-tags">${tags}</div></div></article>`;
+        const original = getRecordImages(record)[0] || "../static/assets/img/background.jpeg";
+        if (record.type === "note") return `<article class="post-card with-note" role="button" tabindex="0" data-open-record="${escapeHtml(record.id)}"><div class="post-photo"><img src="${escapeHtml(firstRecordImage(record))}" data-full-src="${escapeHtml(original)}" alt="${escapeHtml(record.title)}" loading="lazy" decoding="async"></div><div class="post-body"><div class="post-meta">${escapeHtml(record.date)} / ${escapeHtml(place)}</div><h3>${escapeHtml(record.title)}</h3><p class="post-note">${escapeHtml(record.note)}</p><div class="post-tags">${tags}</div></div></article>`;
+        return `<article class="post-card" role="button" tabindex="0" data-open-record="${escapeHtml(record.id)}"><div class="post-photo"><img src="${escapeHtml(firstRecordImage(record))}" data-full-src="${escapeHtml(original)}" alt="${escapeHtml(record.title)}" loading="lazy" decoding="async"></div><div class="post-body"><div class="post-meta">${escapeHtml(record.date)} / ${escapeHtml(place)}</div><h3>${escapeHtml(record.title)}</h3><div class="post-tags">${tags}</div></div></article>`;
       }).join("") || `<article class="post-card seen-card"><h3>没有匹配记录</h3><p class="post-note">换一个标签、区域或路线即可恢复展示。</p></article>`;
       if (records.length > visible.length) {
         byId("record-strip").insertAdjacentHTML("afterend", `<div class="load-more-wrap" id="load-more-wrap"><button class="seen-action" id="load-more-records" type="button">继续展开 10 条</button></div>`);
@@ -2043,11 +2178,11 @@
         renderAll();
       }));
       byId("record-strip").querySelectorAll("[data-open-record]").forEach((card) => {
-        card.addEventListener("click", () => openRecordDetail(card.dataset.openRecord, records, "全部记录"));
+        card.addEventListener("click", () => openRecordDetail(card.dataset.openRecord, records, "全部记录", { sourceElement: card }));
         card.addEventListener("keydown", (event) => {
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
-            openRecordDetail(card.dataset.openRecord, records, "全部记录");
+            openRecordDetail(card.dataset.openRecord, records, "全部记录", { sourceElement: card });
           }
         });
       });
@@ -2070,6 +2205,7 @@
     function openRecordDetail(recordId, pool = filteredRecords(), poolLabel = "", options = {}) {
       const record = allRecords().find((item) => item.id === recordId);
       if (!record) return;
+      const sourceRect = options.sourceElement?.getBoundingClientRect?.();
       mapState.detailRecordId = recordId;
       state.detailMode = options.mode || "default";
       state.detailPool = (pool && pool.length ? pool : [record]).filter(Boolean);
@@ -2095,6 +2231,23 @@
       renderRouteDock(record);
       const dialog = byId("record-detail-dialog");
       if (!dialog.open) dialog.showModal();
+      document.body.classList.add("detail-open");
+      if (sourceRect) requestAnimationFrame(() => animateDetailOpenFrom(sourceRect));
+    }
+
+    function animateDetailOpenFrom(sourceRect) {
+      const card = byId("record-detail-dialog").querySelector(".detail-card");
+      if (!card) return;
+      const targetRect = card.getBoundingClientRect();
+      if (!targetRect.width || !targetRect.height || !sourceRect.width || !sourceRect.height) return;
+      const scaleX = sourceRect.width / targetRect.width;
+      const scaleY = sourceRect.height / targetRect.height;
+      const fromX = sourceRect.left + sourceRect.width / 2 - (targetRect.left + targetRect.width / 2);
+      const fromY = sourceRect.top + sourceRect.height / 2 - (targetRect.top + targetRect.height / 2);
+      card.animate([
+        { transform: `translate(${fromX}px, ${fromY}px) scale(${scaleX}, ${scaleY})`, opacity: 0.58, filter: "saturate(0.84) blur(1px)" },
+        { transform: "translate(0, 0) scale(1)", opacity: 1, filter: "saturate(1) blur(0)" }
+      ], { duration: 420, easing: "cubic-bezier(0.16, 1, 0.3, 1)" });
     }
 
     function switchDetailRecord(direction) {
@@ -2220,14 +2373,29 @@
       const image = byId("detail-image");
       const media = image.closest(".detail-media");
       media?.classList.remove("is-portrait", "is-landscape", "is-square");
+      image.classList.add("is-loading");
+      media?.classList.add("is-loading");
       image.onload = () => {
         const ratio = image.naturalWidth / Math.max(image.naturalHeight, 1);
         media?.classList.toggle("is-portrait", ratio < 0.82);
         media?.classList.toggle("is-landscape", ratio > 1.18);
         media?.classList.toggle("is-square", ratio >= 0.82 && ratio <= 1.18);
+        image.classList.remove("is-loading");
+        media?.classList.remove("is-loading");
       };
-      image.src = images[state.detailImageIndex];
+      image.onerror = () => {
+        const original = images[state.detailImageIndex];
+        if (image.src.endsWith(original)) {
+          image.classList.remove("is-loading");
+          media?.classList.remove("is-loading");
+          return;
+        }
+        image.src = original;
+      };
       image.alt = record.title;
+      image.src = thumbImageUrl(images[state.detailImageIndex]);
+      if (image.complete && image.naturalWidth) image.onload();
+      preloadImageRange(images, state.detailImageIndex, 2, true);
       byId("detail-image-count").textContent = `${state.detailImageIndex + 1} / ${images.length}`;
       byId("prev-detail-image").hidden = images.length < 2;
       byId("next-detail-image").hidden = images.length < 2;
@@ -2270,6 +2438,8 @@
       const sourceRect = sourceImage.getBoundingClientRect();
       const dialog = byId("image-viewer-dialog");
       if (!dialog.open) dialog.showModal();
+      document.body.classList.add("viewer-open");
+      state.viewerOriginalMode = false;
       renderImageViewer();
       const viewerImage = byId("image-viewer-img");
       requestAnimationFrame(() => {
@@ -2293,13 +2463,37 @@
       if (!images.length) images.push("../static/assets/img/background.jpeg");
       state.detailImageIndex = (state.detailImageIndex + images.length) % images.length;
       const viewerImage = byId("image-viewer-img");
-      viewerImage.src = images[state.detailImageIndex];
+      const targetSrc = state.viewerOriginalMode ? images[state.detailImageIndex] : thumbImageUrl(images[state.detailImageIndex]);
+      const loading = byId("image-viewer-loading");
+      loading.classList.add("is-visible");
+      viewerImage.classList.add("is-loading");
+      viewerImage.onload = () => {
+        loading.classList.remove("is-visible");
+        viewerImage.classList.remove("is-loading");
+      };
+      viewerImage.onerror = () => {
+        const original = images[state.detailImageIndex];
+        if (viewerImage.src.endsWith(original)) {
+          loading.classList.remove("is-visible");
+          viewerImage.classList.remove("is-loading");
+          return;
+        }
+        viewerImage.src = original;
+      };
+      viewerImage.src = targetSrc;
+      if (viewerImage.complete && viewerImage.naturalWidth) viewerImage.onload();
       viewerImage.alt = `${record.title} ${state.detailImageIndex + 1}`;
       byId("image-viewer-count").textContent = `${state.detailImageIndex + 1} / ${images.length}`;
       byId("prev-viewer-image").hidden = images.length < 2;
       byId("next-viewer-image").hidden = images.length < 2;
+      byId("viewer-original").textContent = state.viewerOriginalMode ? "正在查看原图" : "查看原图";
+      byId("viewer-original").disabled = state.viewerOriginalMode;
       viewerImage.style.transform = "";
       viewerImage.style.opacity = "";
+      state.viewerScale = 1;
+      state.viewerPanX = 0;
+      state.viewerPanY = 0;
+      preloadImageRange(images, state.detailImageIndex, 2, !state.viewerOriginalMode);
       if (direction) {
         viewerImage.animate([
           { transform: `translateX(${direction > 0 ? 48 : -48}px) scale(0.985)`, opacity: 0.42 },
@@ -2310,8 +2504,14 @@
 
     function switchImageViewer(direction) {
       state.detailImageIndex += direction;
+      state.viewerOriginalMode = false;
       renderDetailImage();
       renderImageViewer(direction);
+    }
+
+    function showViewerOriginal() {
+      state.viewerOriginalMode = true;
+      renderImageViewer();
     }
 
     function bindDetailGestures() {
@@ -2319,6 +2519,7 @@
       const card = dialog.querySelector(".detail-card");
       const media = dialog.querySelector(".detail-media");
       const copy = dialog.querySelector(".detail-copy");
+      ["wheel", "touchmove"].forEach((type) => dialog.addEventListener(type, (event) => event.stopPropagation(), { passive: false }));
       copy.addEventListener("pointerdown", (event) => {
         if (event.target.closest("button,a,input,textarea,select")) return;
         state.detailDrag = { x: event.clientX, y: event.clientY, id: event.pointerId };
@@ -2330,6 +2531,7 @@
         const dx = event.clientX - state.detailDrag.x;
         const dy = event.clientY - state.detailDrag.y;
         if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
+        if (Math.abs(dx) > Math.abs(dy)) event.preventDefault();
         const rotate = Math.max(-7, Math.min(7, dx / 22));
         card.style.setProperty("--detail-shift-x", `${dx}px`);
         card.style.setProperty("--detail-shift-y", `${Math.abs(dx) * -0.018}px`);
@@ -2358,7 +2560,10 @@
         if (!state.detailImageDrag || state.detailImageDrag.id !== event.pointerId) return;
         const dx = event.clientX - state.detailImageDrag.x;
         const dy = event.clientY - state.detailImageDrag.y;
-        if (Math.abs(dx) > 14 && Math.abs(dx) > Math.abs(dy)) state.suppressImageClick = true;
+        if (Math.abs(dx) > 14 && Math.abs(dx) > Math.abs(dy)) {
+          event.preventDefault();
+          state.suppressImageClick = true;
+        }
       });
       const finishImageDrag = (event) => {
         if (!state.detailImageDrag || state.detailImageDrag.id !== event.pointerId) return;
@@ -2375,30 +2580,81 @@
     function bindImageViewerGestures() {
       const dialog = byId("image-viewer-dialog");
       const image = byId("image-viewer-img");
+      const applyViewerTransform = () => {
+        image.style.transform = `translate(${state.viewerPanX}px, ${state.viewerPanY}px) scale(${state.viewerScale})`;
+      };
+      ["wheel", "touchmove"].forEach((type) => dialog.addEventListener(type, (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+      }, { passive: false }));
       image.addEventListener("pointerdown", (event) => {
-        state.imageViewerDrag = { x: event.clientX, y: event.clientY, id: event.pointerId };
+        event.preventDefault();
+        state.viewerPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+        state.imageViewerDrag = { x: event.clientX, y: event.clientY, lastX: event.clientX, lastY: event.clientY, id: event.pointerId };
         state.suppressViewerClick = false;
         image.classList.add("is-dragging");
         image.setPointerCapture?.(event.pointerId);
+        if (state.viewerPointers.size === 2) {
+          const points = [...state.viewerPointers.values()];
+          state.viewerGesture = {
+            distance: Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y),
+            scale: state.viewerScale,
+            panX: state.viewerPanX,
+            panY: state.viewerPanY,
+            centerX: (points[0].x + points[1].x) / 2,
+            centerY: (points[0].y + points[1].y) / 2
+          };
+        }
       });
       image.addEventListener("pointermove", (event) => {
+        if (!state.viewerPointers.has(event.pointerId)) return;
+        event.preventDefault();
+        state.viewerPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+        if (state.viewerPointers.size >= 2 && state.viewerGesture) {
+          const points = [...state.viewerPointers.values()].slice(0, 2);
+          const distance = Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
+          const centerX = (points[0].x + points[1].x) / 2;
+          const centerY = (points[0].y + points[1].y) / 2;
+          state.viewerScale = Math.max(1, Math.min(4, state.viewerGesture.scale * (distance / Math.max(state.viewerGesture.distance, 1))));
+          state.viewerPanX = state.viewerGesture.panX + (centerX - state.viewerGesture.centerX);
+          state.viewerPanY = state.viewerGesture.panY + (centerY - state.viewerGesture.centerY);
+          state.suppressViewerClick = true;
+          applyViewerTransform();
+          image.style.opacity = "1";
+          return;
+        }
         if (!state.imageViewerDrag || state.imageViewerDrag.id !== event.pointerId) return;
         const dx = event.clientX - state.imageViewerDrag.x;
         const dy = event.clientY - state.imageViewerDrag.y;
         if (Math.abs(dx) < 4 && Math.abs(dy) < 4) return;
-        if (Math.abs(dx) > Math.abs(dy)) event.preventDefault();
         state.suppressViewerClick = true;
+        if (state.viewerScale > 1.01) {
+          state.viewerPanX += event.clientX - state.imageViewerDrag.lastX;
+          state.viewerPanY += event.clientY - state.imageViewerDrag.lastY;
+          state.imageViewerDrag.lastX = event.clientX;
+          state.imageViewerDrag.lastY = event.clientY;
+          applyViewerTransform();
+          image.style.opacity = "1";
+          return;
+        }
         const opacity = Math.max(0.48, 1 - Math.abs(dx) / 520);
         image.style.transform = `translateX(${dx}px) scale(${Math.max(0.94, 1 - Math.abs(dx) / 1800)})`;
         image.style.opacity = String(opacity);
       });
       const finishViewerDrag = (event) => {
+        if (!state.viewerPointers.has(event.pointerId)) return;
+        state.viewerPointers.delete(event.pointerId);
+        if (state.viewerPointers.size < 2) state.viewerGesture = null;
         if (!state.imageViewerDrag || state.imageViewerDrag.id !== event.pointerId) return;
         const dx = event.clientX - state.imageViewerDrag.x;
         const dy = event.clientY - state.imageViewerDrag.y;
         state.imageViewerDrag = null;
         image.classList.remove("is-dragging");
         image.releasePointerCapture?.(event.pointerId);
+        if (state.viewerScale > 1.01) {
+          applyViewerTransform();
+          return;
+        }
         if (Math.abs(dx) > 68 && Math.abs(dx) > Math.abs(dy)) {
           switchImageViewer(dx < 0 ? 1 : -1);
           return;
@@ -2561,9 +2817,11 @@
       const dialog = byId(id);
       if (dialog.open) dialog.close();
       if (id === "record-detail-dialog") {
+        document.body.classList.remove("detail-open");
         byId("record-detail-dialog").classList.remove("has-route-dock");
         byId("route-dock").classList.remove("is-visible");
       }
+      if (id === "image-viewer-dialog") document.body.classList.remove("viewer-open");
     }
 
     function permanentlyDeleteRecord(recordId) {
@@ -3611,6 +3869,18 @@
     }
 
     function bindStaticEvents() {
+      let lastTouchEnd = 0;
+      document.addEventListener("touchend", (event) => {
+        const now = Date.now();
+        if (now - lastTouchEnd < 320) event.preventDefault();
+        lastTouchEnd = now;
+      }, { passive: false });
+      document.addEventListener("error", (event) => {
+        const image = event.target;
+        if (!(image instanceof HTMLImageElement) || !image.dataset.fullSrc || image.dataset.fallbackTried) return;
+        image.dataset.fallbackTried = "1";
+        image.src = image.dataset.fullSrc;
+      }, true);
       byId("shuffle-feature").addEventListener("click", () => {
         state.featureIndex = (state.featureIndex + 1) % Math.max(activeRecords().length, 1);
         renderFeature();
@@ -3724,6 +3994,7 @@
         if (event.target === byId("record-detail-dialog")) closeDialog("record-detail-dialog");
       });
       byId("record-detail-dialog").addEventListener("close", () => {
+        document.body.classList.remove("detail-open");
         byId("record-detail-dialog").classList.remove("has-route-dock");
         byId("route-dock").classList.remove("is-visible");
       });
@@ -3746,6 +4017,15 @@
       });
       byId("detail-image-count").addEventListener("click", openDetailPhotoBrowser);
       bindImageViewerGestures();
+      byId("image-viewer-dialog").addEventListener("close", () => {
+        document.body.classList.remove("viewer-open");
+        state.viewerPointers.clear();
+        state.viewerGesture = null;
+      });
+      byId("viewer-original").addEventListener("click", (event) => {
+        event.stopPropagation();
+        showViewerOriginal();
+      });
       byId("prev-viewer-image").addEventListener("click", (event) => {
         event.stopPropagation();
         switchImageViewer(-1);
@@ -3863,7 +4143,13 @@
       if (pageTitle) pageTitle.textContent = currentLocale() === "zh" ? "所见" : "Seen";
     }
 
-    fetch("../navbar.html").then((response) => response.text()).then((html) => { byId("navbar").innerHTML = html; applyNavbarText(); updateContent(); }).catch((error) => console.error("Error loading navbar:", error));
+    function updateSeenNavHeight() {
+      const nav = document.getElementById("mainNav");
+      document.documentElement.style.setProperty("--seen-nav-height", `${nav?.getBoundingClientRect().height || 74}px`);
+    }
+
+    fetch("../navbar.html").then((response) => response.text()).then((html) => { byId("navbar").innerHTML = html; applyNavbarText(); updateSeenNavHeight(); updateContent(); }).catch((error) => console.error("Error loading navbar:", error));
+    window.addEventListener("resize", updateSeenNavHeight);
     fetch("../floatingButtons.html")
       .then((response) => response.text())
       .then((html) => {
@@ -3894,6 +4180,7 @@
     }
 
     bootSeen();
+    loadConfig();
   </script>
 </body>
 </html>
