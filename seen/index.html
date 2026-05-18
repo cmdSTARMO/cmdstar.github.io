@@ -101,7 +101,7 @@
     }
 
     html, body { touch-action: manipulation; }
-    body.detail-open, body.viewer-open { overflow: hidden; overscroll-behavior: none; }
+    body.detail-open, body.viewer-open { position: fixed; left: 0; right: 0; width: 100%; overflow: hidden; overscroll-behavior: none; }
     body.viewer-open { touch-action: none; }
     .seen-shell { width: min(1480px, calc(100% - 40px)); margin: 0 auto; padding: max(72px, calc(var(--seen-nav-height, 0px) + 14px)) 0 34px; }
     .seen-particle-field { position: relative; height: 40px; margin: 0 0 4px; border-radius: 8px; overflow: visible; background: transparent; pointer-events: none; z-index: 0; }
@@ -345,8 +345,8 @@
     .post-card .post-note { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
     .post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
     .post-tags .seen-tag { padding: 5px 8px; font-size: 0.76rem; }
-    .detail-dialog { width: min(860px, calc(100% - 32px)); max-height: min(820px, calc(100vh - 32px)); overflow: visible; border: 0; border-radius: 12px; background: transparent; box-shadow: none; overscroll-behavior: contain; }
-    .detail-card { --detail-shift-x: 0px; --detail-shift-y: 0px; --detail-rotate: 0deg; --detail-scale: 1; position: relative; display: grid; grid-template-columns: minmax(260px, 0.95fr) minmax(280px, 1.05fr); gap: 0; padding: 0; margin-top: 8px; overflow: hidden; max-height: calc(100vh - 245px); border: 1px solid var(--seen-border); border-radius: 12px; background: var(--seen-surface-solid); box-shadow: var(--seen-shadow); transition: transform 360ms cubic-bezier(0.18, 0.9, 0.24, 1), opacity 240ms ease, filter 240ms ease; will-change: transform, opacity; }
+    .detail-dialog { width: min(860px, calc(100% - 32px)); max-height: min(820px, calc(100vh - 32px)); overflow: visible; border: 0; border-radius: 12px; background: transparent; box-shadow: none; overscroll-behavior: contain; touch-action: none; }
+    .detail-card { --detail-shift-x: 0px; --detail-shift-y: 0px; --detail-rotate: 0deg; --detail-scale: 1; position: relative; display: grid; grid-template-columns: minmax(260px, 0.95fr) minmax(280px, 1.05fr); gap: 0; padding: 0; margin-top: 8px; overflow: hidden; max-height: calc(100vh - 245px); border: 1px solid var(--seen-border); border-radius: 12px; background: var(--seen-surface-solid); box-shadow: var(--seen-shadow); transition: transform 360ms cubic-bezier(0.18, 0.9, 0.24, 1), opacity 240ms ease, filter 240ms ease; will-change: transform, opacity; overscroll-behavior: contain; }
     .detail-card.is-dragging { transition: none; cursor: grabbing; }
     .detail-card.is-dragging, .detail-card.is-switching { transform: translate(var(--detail-shift-x), var(--detail-shift-y)) rotate(var(--detail-rotate)) scale(var(--detail-scale)); }
     .detail-card.is-switching { --detail-shift-x: var(--switch-direction, -18px); --detail-scale: 0.985; opacity: 0.72; filter: saturate(0.84); }
@@ -366,7 +366,7 @@
     .image-nav button { pointer-events: auto; }
     .image-count { position: absolute; top: 12px; right: 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.32); background: rgba(7, 11, 16, 0.64); color: #fff; padding: 5px 9px; font-size: 0.78rem; cursor: pointer; }
     .image-count:hover { background: rgba(7, 11, 16, 0.82); }
-    .detail-copy { position: relative; padding: 20px 20px 68px; overflow: auto; touch-action: pan-y; }
+    .detail-copy { position: relative; padding: 20px 20px 68px; overflow: auto; overscroll-behavior: contain; touch-action: pan-y; }
     .detail-id { margin-top: 4px; color: var(--seen-muted); font-size: 0.78rem; word-break: break-all; }
     .detail-copy h2 { margin: 6px 0 8px; font-size: 1.5rem; line-height: 1.25; letter-spacing: 0; }
     .detail-copy .post-tags { margin-top: 14px; }
@@ -899,7 +899,7 @@
       assetsDir: "assets",
       cacheDir: "cache"
     };
-    const state = { zoom: "country", activeTag: null, activeArea: null, activeRoute: null, featureIndex: 0, layerFilter: "all", detailImageIndex: 0, visibleRecords: 10, visibleRoutes: 10, managerOpen: false, detailPool: [], detailPoolLabel: "", detailMode: "default", detailDrag: null, detailImageDrag: null, imageViewerDrag: null, viewerPointers: new Map(), viewerGesture: null, viewerScale: 1, viewerPanX: 0, viewerPanY: 0, viewerOriginalMode: false, suppressImageClick: false, suppressViewerClick: false, searchOpen: false, searchScope: "records", searchQuery: "", searchIndex: 0, searchResults: [], searchDragX: null, calendarMonth: new Date(), pendingImages: [], editingImages: [], archiveHandle: null };
+    const state = { zoom: "country", activeTag: null, activeArea: null, activeRoute: null, featureIndex: 0, layerFilter: "all", detailImageIndex: 0, visibleRecords: 10, visibleRoutes: 10, managerOpen: false, detailPool: [], detailPoolLabel: "", detailMode: "default", detailDrag: null, detailImageDrag: null, imageViewerDrag: null, viewerPointers: new Map(), viewerGesture: null, viewerScale: 1, viewerPanX: 0, viewerPanY: 0, viewerOriginalMode: false, suppressImageClick: false, suppressViewerClick: false, searchOpen: false, searchScope: "records", searchQuery: "", searchIndex: 0, searchResults: [], searchDragX: null, calendarMonth: new Date(), pendingImages: [], editingImages: [], archiveHandle: null, pageScrollY: 0, detailTouchY: null };
     const mapState = { map: null, tileLayer: null, boundaryLayer: null, routeLayers: [], pointLayers: [], recordMarkers: [], pickerMap: null, pickerTileLayer: null, pickerMarker: null, boundaryGeoJson: {}, pendingDeleteId: null, detailRecordId: null };
     const boundarySources = {
       country: "boundaries/countries.geojson",
@@ -2202,6 +2202,22 @@
       }
     }
 
+    function lockPageScroll(lockClass) {
+      if (!document.body.classList.contains("detail-open") && !document.body.classList.contains("viewer-open")) {
+        state.pageScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+        document.body.style.top = `-${state.pageScrollY}px`;
+      }
+      document.body.classList.add(lockClass);
+    }
+
+    function unlockPageScroll(lockClass) {
+      document.body.classList.remove(lockClass);
+      if (document.body.classList.contains("detail-open") || document.body.classList.contains("viewer-open")) return;
+      const scrollY = state.pageScrollY || Math.abs(parseInt(document.body.style.top || "0", 10)) || 0;
+      document.body.style.top = "";
+      window.scrollTo(0, scrollY);
+    }
+
     function openRecordDetail(recordId, pool = filteredRecords(), poolLabel = "", options = {}) {
       const record = allRecords().find((item) => item.id === recordId);
       if (!record) return;
@@ -2231,7 +2247,7 @@
       renderRouteDock(record);
       const dialog = byId("record-detail-dialog");
       if (!dialog.open) dialog.showModal();
-      document.body.classList.add("detail-open");
+      lockPageScroll("detail-open");
       if (sourceRect) requestAnimationFrame(() => animateDetailOpenFrom(sourceRect));
     }
 
@@ -2519,7 +2535,38 @@
       const card = dialog.querySelector(".detail-card");
       const media = dialog.querySelector(".detail-media");
       const copy = dialog.querySelector(".detail-copy");
-      ["wheel", "touchmove"].forEach((type) => dialog.addEventListener(type, (event) => event.stopPropagation(), { passive: false }));
+      const scrollTargets = [copy, card].filter(Boolean);
+      const nearestScrollTarget = (target) => scrollTargets.find((item) => item.contains(target) && item.scrollHeight > item.clientHeight + 1);
+      dialog.addEventListener("wheel", (event) => {
+        const scrollTarget = nearestScrollTarget(event.target);
+        if (!scrollTarget) {
+          event.preventDefault();
+          return;
+        }
+        const atTop = scrollTarget.scrollTop <= 0;
+        const atBottom = scrollTarget.scrollTop + scrollTarget.clientHeight >= scrollTarget.scrollHeight - 1;
+        if ((event.deltaY < 0 && atTop) || (event.deltaY > 0 && atBottom)) event.preventDefault();
+        event.stopPropagation();
+      }, { passive: false });
+      dialog.addEventListener("touchstart", (event) => {
+        state.detailTouchY = event.touches[0]?.clientY ?? null;
+      }, { passive: true });
+      dialog.addEventListener("touchmove", (event) => {
+        const currentY = event.touches[0]?.clientY;
+        const previousY = state.detailTouchY;
+        state.detailTouchY = currentY ?? previousY;
+        const scrollTarget = nearestScrollTarget(event.target);
+        if (!scrollTarget || currentY == null || previousY == null) {
+          event.preventDefault();
+          event.stopPropagation();
+          return;
+        }
+        const deltaY = previousY - currentY;
+        const atTop = scrollTarget.scrollTop <= 0;
+        const atBottom = scrollTarget.scrollTop + scrollTarget.clientHeight >= scrollTarget.scrollHeight - 1;
+        if ((deltaY < 0 && atTop) || (deltaY > 0 && atBottom)) event.preventDefault();
+        event.stopPropagation();
+      }, { passive: false });
       copy.addEventListener("pointerdown", (event) => {
         if (event.target.closest("button,a,input,textarea,select")) return;
         state.detailDrag = { x: event.clientX, y: event.clientY, id: event.pointerId };
@@ -2817,11 +2864,11 @@
       const dialog = byId(id);
       if (dialog.open) dialog.close();
       if (id === "record-detail-dialog") {
-        document.body.classList.remove("detail-open");
+        unlockPageScroll("detail-open");
         byId("record-detail-dialog").classList.remove("has-route-dock");
         byId("route-dock").classList.remove("is-visible");
       }
-      if (id === "image-viewer-dialog") document.body.classList.remove("viewer-open");
+      if (id === "image-viewer-dialog") unlockPageScroll("viewer-open");
     }
 
     function permanentlyDeleteRecord(recordId) {
