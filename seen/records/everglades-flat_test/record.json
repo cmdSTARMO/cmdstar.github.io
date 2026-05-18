@@ -2,7 +2,7 @@
   "id": "everglades-flat_test",
   "title": "湿地边缘",
   "created_at": "2025-02-02T00:00:00.000Z",
-  "updated_at": "2026-05-16T15:09:59.360Z",
+  "updated_at": "2026-05-18T11:05:00.4715118Z",
   "route_id": "longest-test",
   "route_index": 0,
   "tags": [
@@ -19,8 +19,12 @@
       "city": "miami"
     }
   },
-  "cover": "cover.jpg",
-  "assets": [],
+  "assets": [
+    {
+      "path": "assets/image-1.jpg",
+      "type": "image/jpeg"
+    }
+  ],
   "favorite": false,
   "archived": false,
   "type": "photo",

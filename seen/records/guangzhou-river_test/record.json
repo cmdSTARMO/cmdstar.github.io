@@ -2,7 +2,7 @@
   "id": "guangzhou-river_test",
   "title": "珠江边的慢走",
   "created_at": "2024-07-06T00:00:00.000Z",
-  "updated_at": "2026-05-16T11:15:25.400Z",
+  "updated_at": "2026-05-18T12:43:32.045Z",
   "route_id": "pearl-river_test",
   "route_index": 0,
   "tags": [
@@ -15,15 +15,23 @@
     "lng": 113.3186,
     "region": null
   },
-  "cover": "cover.jpg",
-  "assets": [],
+  "assets": [
+    {
+      "path": "assets/image-1.jpg",
+      "type": "image/jpeg"
+    }
+  ],
   "favorite": false,
   "archived": false,
   "type": "note",
-  "date": "2024-07-06",
+  "date": "2002-07-06",
   "place": "China / Guangdong / Guangzhou",
   "lat": 23.108,
   "lng": 113.3186,
-  "region": null,
-  "note": "路线记录可以在这一段插入多条照片或随笔。"
+  "region": {
+    "country": "cn",
+    "province": "guangdong",
+    "city": "guangzhou"
+  },
+  "note": "路线记录可以在这一段插入多条照片或随笔。\n恭喜你发现了测试集！"
 }

@@ -2,7 +2,7 @@
   "id": "shanghai-coffee_test",
   "title": "上海咖啡店窗口",
   "created_at": "2023-09-22T00:00:00.000Z",
-  "updated_at": "2026-05-16T00:00:00.000Z",
+  "updated_at": "2026-05-18T12:43:31.313Z",
   "route_id": null,
   "route_index": null,
   "tags": [
@@ -19,12 +19,16 @@
       "city": "shanghai"
     }
   },
-  "cover": "cover.jpg",
-  "assets": [],
+  "assets": [
+    {
+      "path": "assets/image-1.jpg",
+      "type": "image/jpeg"
+    }
+  ],
   "favorite": false,
   "archived": false,
   "type": "photo",
-  "date": "2023-09-22",
+  "date": "2001-09-22",
   "place": "China / Shanghai / Shanghai",
   "lat": 31.2304,
   "lng": 121.4737,
@@ -33,5 +37,5 @@
     "province": "shanghai",
     "city": "shanghai"
   },
-  "note": ""
+  "note": "恭喜你发现了测试集！"
 }

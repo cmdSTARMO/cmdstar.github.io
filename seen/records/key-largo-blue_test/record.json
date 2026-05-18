@@ -2,7 +2,7 @@
   "id": "key-largo-blue_test",
   "title": "Key Largo 的蓝",
   "created_at": "2025-03-12T00:00:00.000Z",
-  "updated_at": "2026-05-16T11:34:24.958Z",
+  "updated_at": "2026-05-18T12:43:30.191Z",
   "route_id": "florida-coast_test",
   "route_index": 1,
   "tags": [
@@ -15,15 +15,19 @@
     "lng": -80.4473,
     "region": null
   },
-  "cover": "cover.jpg",
-  "assets": [],
+  "assets": [
+    {
+      "path": "assets/image-1.jpg",
+      "type": "image/jpeg"
+    }
+  ],
   "favorite": false,
   "archived": false,
   "type": "photo",
-  "date": "2025-03-12",
+  "date": "2003-03-12",
   "place": "United States / Florida / Key Largo",
   "lat": 25.0865,
   "lng": -80.4473,
   "region": null,
-  "note": ""
+  "note": "恭喜你发现了测试集！"
 }

@@ -2,7 +2,7 @@
   "id": "1778946696723-south-pointe-beach-海滩",
   "title": "South Pointe Beach 海滩！",
   "created_at": "2026-05-16T15:51:45.917Z",
-  "updated_at": "2026-05-16T15:51:45.917Z",
+  "updated_at": "2026-05-18T11:05:00.4526794Z",
   "route_id": null,
   "route_index": null,
   "tags": [
@@ -19,47 +19,50 @@
       "city": "miami"
     }
   },
-  "cover": "cover.jpg",
   "assets": [
     {
+      "path": "assets/image-1.jpg",
+      "type": "image/jpeg"
+    },
+    {
       "path": "assets/image-2.jpg",
-      "type": ""
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-3.jpg",
-      "type": ""
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-4.jpg",
-      "type": ""
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-5.jpg",
-      "type": ""
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-6.jpg",
-      "type": ""
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-7.jpg",
-      "type": ""
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-8.jpg",
-      "type": ""
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-9.jpg",
-      "type": ""
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-10.jpg",
-      "type": ""
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-11.jpg",
-      "type": ""
+      "type": "image/jpeg"
     }
   ],
   "favorite": false,

@@ -2,7 +2,7 @@
   "id": "macau-density_test",
   "title": "窗口里的城市密度",
   "created_at": "2024-02-09T00:00:00.000Z",
-  "updated_at": "2026-05-16T00:00:00.000Z",
+  "updated_at": "2026-05-18T12:43:31.124Z",
   "route_id": null,
   "route_index": null,
   "tags": [
@@ -19,12 +19,16 @@
       "city": "macau"
     }
   },
-  "cover": "cover.jpg",
-  "assets": [],
+  "assets": [
+    {
+      "path": "assets/image-1.jpg",
+      "type": "image/jpeg"
+    }
+  ],
   "favorite": false,
   "archived": false,
   "type": "photo",
-  "date": "2024-02-09",
+  "date": "2002-02-09",
   "place": "China / Macau / Macau",
   "lat": 22.1987,
   "lng": 113.5439,
@@ -33,5 +37,5 @@
     "province": "macau",
     "city": "macau"
   },
-  "note": ""
+  "note": "恭喜你发现了测试集！"
 }

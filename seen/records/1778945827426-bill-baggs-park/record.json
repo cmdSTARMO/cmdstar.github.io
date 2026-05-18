@@ -2,7 +2,7 @@
   "id": "1778945827426-bill-baggs-park",
   "title": "Bill Baggs Park",
   "created_at": "2026-05-16T15:39:02.148Z",
-  "updated_at": "2026-05-16T15:54:39.583Z",
+  "updated_at": "2026-05-18T11:05:00.3994433Z",
   "route_id": null,
   "route_index": null,
   "tags": [
@@ -21,79 +21,82 @@
       "city": "miami"
     }
   },
-  "cover": "cover.jpg",
   "assets": [
     {
+      "path": "assets/image-1.jpg",
+      "type": "image/jpeg"
+    },
+    {
       "path": "assets/image-2.jpg",
-      "type": "image"
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-3.jpg",
-      "type": "image"
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-4.jpg",
-      "type": "image"
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-5.jpg",
-      "type": "image"
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-6.jpg",
-      "type": "image"
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-7.jpg",
-      "type": "image"
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-8.jpg",
-      "type": "image"
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-9.jpg",
-      "type": "image"
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-10.jpg",
-      "type": "image"
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-11.jpg",
-      "type": "image"
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-12.jpg",
-      "type": "image"
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-13.jpg",
-      "type": "image"
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-14.jpg",
-      "type": "image"
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-15.jpg",
-      "type": "image"
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-16.jpg",
-      "type": "image"
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-17.jpg",
-      "type": "image"
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-18.jpg",
-      "type": "image"
+      "type": "image/jpeg"
     },
     {
       "path": "assets/image-19.jpg",
-      "type": "image"
+      "type": "image/jpeg"
     }
   ],
   "favorite": false,

@@ -311,7 +311,7 @@
     .route-card { display: grid; grid-template-columns: minmax(0, 2fr) minmax(160px, 0.78fr); gap: 12px; align-items: stretch; border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-input-bg); padding: 12px; }
     .route-card h3 { margin: 0 0 6px; font-size: 1.02rem; line-height: 1.3; }
     .route-card p { margin: 0; color: var(--seen-muted); font-size: 0.84rem; line-height: 1.55; }
-    .route-card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; min-width: 0; }
+    .route-card-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; min-width: 0; }
     .route-card-actions .seen-action { border-radius: 8px; min-height: 64px; }
     .route-editor { display: none; grid-column: 1 / -1; gap: 10px; border-top: 1px solid var(--seen-line); padding-top: 12px; }
     .route-card.is-editing .route-editor { display: grid; }
@@ -887,6 +887,7 @@
       archiveIndexes: "seen.archiveIndexes.v1",
       hiddenRecords: "seen.hiddenRecords.v1",
       deletedRecords: "seen.deletedRecords.v1",
+      deletedRoutes: "seen.deletedRoutes.v1",
       boundaryCache: "seen.boundaryGeoJson.v1"
     };
     const SEEN_ARCHIVE = {
@@ -1059,7 +1060,7 @@
       lat: DEFAULT_CITY_COORDS[slug(cityName)]?.[0] ?? null,
       lng: DEFAULT_CITY_COORDS[slug(cityName)]?.[1] ?? null
     }))));
-    const normalizeAreaToken = (value) => String(value || "").trim().toLowerCase().replace(/特别行政区|壮族自治区|回族自治区|维吾尔自治区|自治区|省|市|州|区/g, "").replace(/[\s_]+/g, "-").replace(/[^a-z0-9\u4e00-\u9fa5-]+/g, "").replace(/^-|-$/g, "");
+    const normalizeAreaToken = (value) => String(value || "").trim().toLowerCase().replace(/特别行政区|壮族自治区|回族自治区|维吾尔自治区|自治区|省|市|州|区/g, "").replace(/[\s_]+/g, "-").replace(/[^a-z0-9一-龥-]+/g, "").replace(/^-|-$/g, "");
     const areaAliases = (values) => values.flatMap((value) => {
       const raw = String(value || "").trim();
       const localized = LOCALIZED_NAMES.zh?.[raw] || "";
@@ -1153,6 +1154,7 @@
     let archiveIndexes = readJson(STORAGE_KEYS.archiveIndexes, { records: [], routes: [], updated_at: null });
     let hiddenRecordIds = new Set(readJson(STORAGE_KEYS.hiddenRecords, []));
     let deletedRecordIds = new Set(readJson(STORAGE_KEYS.deletedRecords, []));
+    let deletedRouteIds = new Set(readJson(STORAGE_KEYS.deletedRoutes, []));
     let boundaryCache = readJson(STORAGE_KEYS.boundaryCache, {});
 
     function readJson(key, fallback) {
@@ -1174,6 +1176,7 @@
       localStorage.setItem(STORAGE_KEYS.archiveIndexes, JSON.stringify(archiveIndexes));
       localStorage.setItem(STORAGE_KEYS.hiddenRecords, JSON.stringify([...hiddenRecordIds]));
       localStorage.setItem(STORAGE_KEYS.deletedRecords, JSON.stringify([...deletedRecordIds]));
+      localStorage.setItem(STORAGE_KEYS.deletedRoutes, JSON.stringify([...deletedRouteIds]));
     }
 
     function showToast(title, message = "", type = "ok") {
@@ -1290,9 +1293,10 @@
         return archiveUrl(`${record.__archive_base}/${assetPath}`);
       };
       const assetImages = (record.assets || []).map((asset) => asset.src || asset.path).filter(Boolean);
-      const rawImages = uniqueValues((record.images && record.images.length ? record.images : [record.cover || record.image, ...assetImages]).filter(Boolean));
+      const legacyCover = record.cover || record.image;
+      const rawImages = uniqueValues((record.images && record.images.length ? record.images : (assetImages.length ? assetImages : [legacyCover])).filter(Boolean));
       const images = uniqueValues(rawImages.map(withArchiveBase));
-      const cover = images[0] || withArchiveBase(record.cover || record.image || assetImages[0]) || "../static/assets/img/background.jpeg";
+      const cover = images[0] || withArchiveBase(legacyCover) || "../static/assets/img/background.jpeg";
       const region = normalizeRegion(record.region, record);
       return {
         ...record,
@@ -1339,7 +1343,7 @@
     }
 
     function allRoutes() {
-      return uniqueById(SEEN_DATA.routes.concat(archiveRoutes, customRoutes, routeDrafts).map(normalizeRoute));
+      return uniqueById(SEEN_DATA.routes.concat(archiveRoutes, customRoutes, routeDrafts).map(normalizeRoute)).filter((route) => !deletedRouteIds.has(route.id));
     }
 
     function buildArchiveIndexes() {
@@ -1381,7 +1385,6 @@
         route_index: item.routeIndex ?? null,
         tags: item.tags || [],
         location: item.location || {},
-        cover: `records/${item.id}/${item.cover || "cover.jpg"}`,
         created_at: item.created_at || null,
         updated_at: item.updated_at || null,
         favorite: Boolean(item.favorite),
@@ -1480,7 +1483,7 @@
 
     function originalImageUrl(src) {
       if (!src) return src;
-      return String(src).replace(/\/thumbs\/cover\.jpg$/, "/cover.jpg").replace(/\/thumbs\/([^/]+)\.jpg$/, "/assets/$1.jpg");
+      return String(src).replace(/\/thumbs\/([^/]+)\.jpg$/, "/assets/$1.jpg");
     }
 
     function setImageWithFallback(image, src, alt = "", { loadingClassTarget = null } = {}) {
@@ -1669,6 +1672,7 @@
             <div class="route-card-actions">
               <button class="seen-action primary" type="button" data-view-route="${escapeHtml(route.id)}">查看</button>
               <button class="seen-action" type="button" data-edit-route="${escapeHtml(route.id)}">编辑</button>
+              <button class="seen-action danger" type="button" data-delete-route="${escapeHtml(route.id)}">删除</button>
             </div>
             <div class="route-editor" data-route-editor="${escapeHtml(route.id)}">
               <label>路线名称<input data-route-name="${escapeHtml(route.id)}" value="${escapeHtml(route.name)}"></label>
@@ -1710,10 +1714,20 @@
       byId("route-browser-list").querySelectorAll("[data-save-route]").forEach((button) => {
         button.addEventListener("click", () => saveRouteDraft(button.dataset.saveRoute));
       });
+      byId("route-browser-list").querySelectorAll("[data-delete-route]").forEach((button) => {
+        button.addEventListener("click", () => requestDeleteRoute(button.dataset.deleteRoute));
+      });
       byId("load-more-routes")?.addEventListener("click", () => {
         state.visibleRoutes += 10;
         renderRouteBrowser();
       });
+    }
+
+    function requestDeleteRoute(routeId) {
+      const route = allRoutes().find((item) => item.id === routeId);
+      if (!route) return;
+      if (!confirm(`删除路线「${route.name}」？记录本身不会被删除。`)) return;
+      deleteRoute(routeId);
     }
 
     function saveRouteDraft(routeId) {
@@ -1733,6 +1747,37 @@
       persistRouteToArchive(routeId).then((written) => {
         showToast(written ? "路线已写入归档" : "路线已保存到浏览器", written ? `${routeId} 的 JSON 与索引已更新。` : "连接本地归档目录后可直接写入 routes/ 与 records/。");
       }).catch((error) => showToast("路线写入失败", error.message, "error"));
+    }
+
+    function detachRouteInMemory(routeId) {
+      [SEEN_DATA.records, archiveRecords, customRecords, recordDrafts].forEach((records) => records.forEach((record) => {
+        if ((record.routeId || record.route_id) !== routeId) return;
+        record.routeId = null;
+        record.route_id = null;
+        record.routeIndex = null;
+        record.route_index = null;
+        record.segmentIndex = null;
+      }));
+    }
+
+    function deleteRoute(routeId) {
+      const route = allRoutes().find((item) => item.id === routeId);
+      const routeRecordIds = route?.records || [];
+      deletedRouteIds.add(routeId);
+      customRoutes = customRoutes.filter((route) => route.id !== routeId);
+      archiveRoutes = archiveRoutes.filter((route) => route.id !== routeId);
+      routeDrafts = routeDrafts.filter((route) => route.id !== routeId);
+      detachRouteInMemory(routeId);
+      persistRecords();
+      renderAll();
+      renderRouteBrowser();
+      if (!state.archiveHandle) {
+        showToast("路线删除已进草稿箱", "连接本地归档目录后可删除 routes JSON 并清空记录上的路线引用。");
+        return;
+      }
+      removeRouteFromArchive(routeId, routeRecordIds).then((written) => {
+        showToast(written ? "路线已删除" : "路线删除已进草稿箱", routeId);
+      }).catch((error) => showToast("路线删除失败", error.message, "error"));
     }
 
     async function connectArchiveDirectory() {
@@ -1823,6 +1868,34 @@
       return true;
     }
 
+    async function removeRouteFromArchive(routeId, knownRecordIds = []) {
+      if (!window.showDirectoryPicker || !state.archiveHandle) return false;
+      const now = new Date().toISOString();
+      let routeRecordIds = knownRecordIds;
+      try {
+        routeRecordIds = (await readArchiveJson(`routes/${routeId}.json`)).records || routeRecordIds;
+      } catch (error) {
+        const route = allRoutes().find((item) => item.id === routeId);
+        routeRecordIds = routeRecordIds.length ? routeRecordIds : (route?.records || []);
+      }
+      await Promise.all(routeRecordIds.map(async (recordId) => {
+        const record = await readArchiveJson(`records/${recordId}/record.json`).catch(() => null);
+        if (!record || record.route_id !== routeId) return;
+        record.route_id = null;
+        record.route_index = null;
+        record.updated_at = now;
+        await writeArchiveJson(`records/${recordId}/record.json`, record);
+      }));
+      await removeArchiveEntry(`routes/${routeId}.json`).catch(() => {});
+      archiveRoutes = archiveRoutes.filter((route) => route.id !== routeId);
+      customRoutes = customRoutes.filter((route) => route.id !== routeId);
+      routeDrafts = routeDrafts.filter((route) => route.id !== routeId);
+      deletedRouteIds.add(routeId);
+      await writeArchiveIndexes();
+      persistRecords();
+      return true;
+    }
+
     function dataUrlToBlob(dataUrl) {
       const [meta, data] = dataUrl.split(",");
       const mime = meta.match(/data:(.*?);base64/)?.[1] || "application/octet-stream";
@@ -1855,7 +1928,6 @@
     }
 
     function thumbnailArchiveName(imagePath) {
-      if (!imagePath || imagePath === "cover.jpg") return "cover.jpg";
       return imagePath.split("/").pop().replace(/\.[^.]+$/, ".jpg");
     }
 
@@ -1871,6 +1943,44 @@
     async function syncArchiveThumbnails(recordId, imagePaths, sources) {
       await removeArchiveEntry(`records/${recordId}/thumbs`).catch(() => {});
       await Promise.all(imagePaths.map((imagePath, index) => writeArchiveThumbnail(recordId, imagePath, sources[index])));
+    }
+
+    function archiveImagePath(recordId, src) {
+      const normalized = String(src || "").replace(/\\/g, "/").replace(/^\.?\//, "");
+      const archivePrefix = `records/${recordId}/`;
+      return normalized.startsWith(archivePrefix) ? normalized.slice(archivePrefix.length) : normalized;
+    }
+
+    function withLegacyArchiveUrl(recordId, path) {
+      if (!path || /^(https?:|data:|blob:|\.{0,2}\/)/.test(String(path))) return path;
+      const normalized = String(path).replace(/\\/g, "/").replace(/^\/+/, "");
+      return archiveUrl(normalized.startsWith("records/") ? normalized : `records/${recordId}/${normalized}`);
+    }
+
+    async function listArchiveFiles(relativeDir) {
+      try {
+        const handle = await archiveRootHandle();
+        const parts = relativeDir.split("/").filter(Boolean);
+        let dir = handle;
+        for (const part of parts) dir = await dir.getDirectoryHandle(part);
+        const files = [];
+        for await (const [name, entry] of dir.entries()) {
+          if (entry.kind === "file") files.push(name);
+        }
+        return files;
+      } catch (error) {
+        return [];
+      }
+    }
+
+    async function cleanupRecordImageFiles(recordId, keepPaths) {
+      const keep = new Set(keepPaths);
+      const assetFiles = await listArchiveFiles(`records/${recordId}/assets`);
+      await Promise.all(assetFiles.map((name) => {
+        const path = `assets/${name}`;
+        return keep.has(path) ? Promise.resolve() : removeArchiveEntry(`records/${recordId}/${path}`).catch(() => {});
+      }));
+      await Promise.all(["cover.jpg", "cover.jpeg", "cover.png", "cover.webp"].map((name) => removeArchiveEntry(`records/${recordId}/${name}`).catch(() => {})));
     }
 
     async function writeArchiveBlob(relativePath, blob) {
@@ -1914,7 +2024,7 @@
       if (!window.showDirectoryPicker || !state.archiveHandle) return false;
       const archiveImages = images.map((image, index) => ({
         image,
-        path: index === 0 ? "cover.jpg" : `assets/image-${index + 1}.jpg`
+        path: `assets/image-${index + 1}.jpg`
       }));
       const metadata = {
         id: record.id,
@@ -1925,8 +2035,7 @@
         route_index: record.route_index ?? null,
         tags: record.tags || [],
         location: { place: record.place, lat: record.lat, lng: record.lng, region: record.region || null },
-        cover: archiveImages[0]?.path || "cover.jpg",
-        assets: archiveImages.slice(1).map(({ image, path }) => ({ path, type: image.file?.type || "image/jpeg" })),
+        assets: archiveImages.map(({ image, path }) => ({ path, type: image.file?.type || "image/jpeg" })),
         favorite: false,
         archived: false,
         type: record.type || "note",
@@ -1941,6 +2050,7 @@
       await writeArchiveText(`records/${record.id}/content.md`, `# ${record.title}\n\n${record.note || ""}\n`);
       await Promise.all(archiveImages.map(({ image, path }) => writeArchiveBlob(`records/${record.id}/${path}`, dataUrlToBlob(image.src))));
       await syncArchiveThumbnails(record.id, archiveImages.map((item) => item.path), archiveImages.map((item) => item.image.src));
+      await cleanupRecordImageFiles(record.id, archiveImages.map((item) => item.path));
       await writeArchiveJson("indexes/records_index.json", {
         schema_version: 1,
         updated_at: new Date().toISOString(),
@@ -1954,62 +2064,44 @@
       if (!window.showDirectoryPicker || !state.archiveHandle) return false;
       const existing = await readArchiveJson(`records/${record.id}/record.json`).catch(() => ({}));
       const selectedImages = (record.images || []).filter(Boolean);
-      const usedImagePaths = new Set(selectedImages
-        .filter((src) => !String(src).startsWith("data:"))
-        .map((src) => {
-          const normalized = String(src).replace(/\\/g, "/").replace(/^\.?\//, "");
-          const archivePrefix = `records/${record.id}/`;
-          return normalized.startsWith(archivePrefix) ? normalized.slice(archivePrefix.length) : normalized;
-        }));
-      const nextAssetPath = () => {
-        let index = 2;
-        while (usedImagePaths.has(`assets/image-${index}.jpg`) || usedImagePaths.has(`image-${index}.jpg`)) index += 1;
-        const path = `assets/image-${index}.jpg`;
-        usedImagePaths.add(path);
-        return path;
-      };
-      const imagePathForArchive = (src, index) => {
-        const value = String(src || "");
-        if (value.startsWith("data:")) {
-          if (index === 0) {
-            usedImagePaths.add("cover.jpg");
-            return "cover.jpg";
-          }
-          return nextAssetPath();
-        }
-        const normalized = value.replace(/\\/g, "/").replace(/^\.?\//, "");
-        const archivePrefix = `records/${record.id}/`;
-        return normalized.startsWith(archivePrefix) ? normalized.slice(archivePrefix.length) : normalized;
-      };
-      const imagePaths = selectedImages.length ? selectedImages.map(imagePathForArchive) : [existing.cover || record.cover || "cover.jpg"];
-      const cover = imagePaths[0] || "cover.jpg";
-      const assets = imagePaths.slice(1).map((path) => ({ path, type: "image" }));
-      const { image, images, __archive_base, routeId, routeIndex, segmentIndex, custom, ...recordData } = record;
-      await writeArchiveJson(`records/${record.id}/record.json`, {
+      const existingImages = (existing.assets || []).map((asset) => asset.path).filter(Boolean);
+      if (!selectedImages.length && (existing.cover || record.cover) && !existingImages.length) selectedImages.push(withLegacyArchiveUrl(record.id, existing.cover || record.cover));
+      const imagePaths = selectedImages.map((src, index) => `assets/image-${index + 1}.jpg`);
+      const assets = imagePaths.map((path) => ({ path, type: "image/jpeg" }));
+      const { image, images, cover, __archive_base, routeId, routeIndex, segmentIndex, custom, ...recordData } = record;
+      const nextMetadata = {
         ...existing,
         ...recordData,
-        cover,
         assets,
         route_id: record.routeId || record.route_id || null,
         route_index: record.routeIndex ?? record.route_index ?? null,
         updated_at: new Date().toISOString()
-      });
+      };
+      delete nextMetadata.cover;
+      delete nextMetadata.image;
+      await writeArchiveJson(`records/${record.id}/record.json`, nextMetadata);
       if (record.note !== undefined) await writeArchiveText(`records/${record.id}/content.md`, `# ${record.title}\n\n${record.note || ""}\n`);
-      await Promise.all(selectedImages.map((src, index) => String(src).startsWith("data:")
-        ? writeArchiveBlob(`records/${record.id}/${imagePaths[index]}`, dataUrlToBlob(src))
-        : Promise.resolve()));
+      await Promise.all(selectedImages.map(async (src, index) => {
+        const targetPath = imagePaths[index];
+        const sourcePath = archiveImagePath(record.id, src);
+        if (!String(src).startsWith("data:") && sourcePath === targetPath) return;
+        const blob = await blobFromImageSource(src);
+        if (blob) await writeArchiveBlob(`records/${record.id}/${targetPath}`, blob);
+      }));
       await syncArchiveThumbnails(record.id, imagePaths, selectedImages);
+      await cleanupRecordImageFiles(record.id, imagePaths);
       return true;
     }
 
     async function commitAllDrafts() {
       if (!state.archiveHandle) await connectArchiveDirectory();
       for (const record of customRecords) {
-        const images = (record.images || []).filter((src) => String(src).startsWith("data:")).map((src, index) => ({ src, name: index ? `image-${index + 1}.jpg` : "cover.jpg" }));
+        const images = (record.images || []).filter((src) => String(src).startsWith("data:")).map((src, index) => ({ src, name: `image-${index + 1}.jpg` }));
         await persistRecordToArchive(record, images);
       }
       for (const record of recordDrafts) await persistRecordMetadataToArchive(record);
       for (const route of routeDrafts) await persistRouteToArchive(route.id);
+      for (const id of [...deletedRouteIds]) await removeRouteFromArchive(id).catch((error) => console.warn(`Route delete skipped for ${id}`, error));
       for (const id of hiddenRecordIds) {
         const record = allRecords().find((item) => item.id === id);
         if (record) await persistRecordMetadataToArchive({ ...record, archived: true });
@@ -2454,7 +2546,7 @@
       const sourceRect = sourceImage.getBoundingClientRect();
       const dialog = byId("image-viewer-dialog");
       if (!dialog.open) dialog.showModal();
-      document.body.classList.add("viewer-open");
+      lockPageScroll("viewer-open");
       state.viewerOriginalMode = false;
       renderImageViewer();
       const viewerImage = byId("image-viewer-img");
@@ -2909,7 +3001,7 @@
     }
 
     function generateRecordId(title = "") {
-      const slug = String(title || "seen").toLowerCase().trim().replace(/[^a-z0-9\u4e00-\u9fa5]+/g, "-").replace(/^-|-$/g, "").slice(0, 28) || "seen";
+      const slug = String(title || "seen").toLowerCase().trim().replace(/[^a-z0-9一-龥]+/g, "-").replace(/^-|-$/g, "").slice(0, 28) || "seen";
       return `${Date.now()}-${slug}`;
     }
 
@@ -3603,7 +3695,7 @@
 
     function openPhotoBrowser() {
       byId("photo-browser-title").textContent = "待上传照片";
-      byId("photo-browser-summary").textContent = `${state.pendingImages.length} å¼ å¾…ä¸Šä¼ ç…§ç‰‡`;
+      byId("photo-browser-summary").textContent = `${state.pendingImages.length} 张待上传照片`;
       byId("photo-browser-grid").innerHTML = state.pendingImages.map((image, index) => `
         <div class="image-preview-item">
           <img src="${image.src}" alt="${escapeHtml(image.name)}">
@@ -3679,7 +3771,14 @@
       persistRecordMetadataToArchive(next).then((written) => {
         if (written) {
           recordDrafts = recordDrafts.filter((item) => item.id !== next.id);
-          archiveRecords = archiveRecords.filter((item) => item.id !== next.id).concat({ ...next, __archive_base: `records/${next.id}` });
+          const archivedImages = state.editingImages.map((_, index) => archiveUrl(`records/${next.id}/assets/image-${index + 1}.jpg`));
+          archiveRecords = archiveRecords.filter((item) => item.id !== next.id).concat({
+            ...next,
+            image: archivedImages[0],
+            images: archivedImages,
+            assets: archivedImages.map((src, index) => ({ src, path: `assets/image-${index + 1}.jpg` })),
+            __archive_base: `records/${next.id}`
+          });
           persistRecords();
           renderAll();
           showToast("记录已写入", next.id);
@@ -4041,7 +4140,7 @@
         if (event.target === byId("record-detail-dialog")) closeDialog("record-detail-dialog");
       });
       byId("record-detail-dialog").addEventListener("close", () => {
-        document.body.classList.remove("detail-open");
+        unlockPageScroll("detail-open");
         byId("record-detail-dialog").classList.remove("has-route-dock");
         byId("route-dock").classList.remove("is-visible");
       });
@@ -4065,7 +4164,7 @@
       byId("detail-image-count").addEventListener("click", openDetailPhotoBrowser);
       bindImageViewerGestures();
       byId("image-viewer-dialog").addEventListener("close", () => {
-        document.body.classList.remove("viewer-open");
+        unlockPageScroll("viewer-open");
         state.viewerPointers.clear();
         state.viewerGesture = null;
       });

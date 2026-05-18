@@ -2,7 +2,7 @@
   "id": "guangzhou-rain_test",
   "title": "旧街和雨后的灯",
   "created_at": "2024-07-06T00:00:00.000Z",
-  "updated_at": "2026-05-16T11:34:25.226Z",
+  "updated_at": "2026-05-18T12:43:32.361Z",
   "route_id": "longest-test",
   "route_index": 2,
   "tags": [
@@ -20,12 +20,16 @@
       "city": "guangzhou"
     }
   },
-  "cover": "cover.jpg",
-  "assets": [],
+  "assets": [
+    {
+      "path": "assets/image-1.jpg",
+      "type": "image/jpeg"
+    }
+  ],
   "favorite": false,
   "archived": false,
   "type": "photo",
-  "date": "2024-07-06",
+  "date": "2002-07-06",
   "place": "China / Guangdong / Guangzhou",
   "lat": 23.1291,
   "lng": 113.2644,
@@ -34,5 +38,5 @@
     "province": "guangdong",
     "city": "guangzhou"
   },
-  "note": ""
+  "note": "恭喜你发现了测试集！"
 }

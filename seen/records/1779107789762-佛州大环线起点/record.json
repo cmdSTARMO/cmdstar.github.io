@@ -1,0 +1,45 @@
+{
+  "id": "1779107789762-佛州大环线起点",
+  "title": "佛州大环线起点",
+  "created_at": "2026-05-18T12:39:11.373Z",
+  "updated_at": "2026-05-18T12:39:11.373Z",
+  "route_id": null,
+  "route_index": null,
+  "tags": [
+    "启程",
+    "自驾"
+  ],
+  "location": {
+    "place": "美国 / 佛罗里达 / 迈阿密",
+    "lat": 25.706936,
+    "lng": -80.290843,
+    "region": {
+      "country": "us",
+      "province": "florida",
+      "city": "miami"
+    }
+  },
+  "assets": [
+    {
+      "path": "assets/image-1.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "path": "assets/image-2.jpg",
+      "type": "image/jpeg"
+    }
+  ],
+  "favorite": false,
+  "archived": false,
+  "type": "note",
+  "date": "2024-12-13",
+  "place": "美国 / 佛罗里达 / 迈阿密",
+  "lat": 25.706936,
+  "lng": -80.290843,
+  "region": {
+    "country": "us",
+    "province": "florida",
+    "city": "miami"
+  },
+  "note": "2024.12.13启程！开始佛州大环线自驾\n提前几天在Hertz租了辆XC90结果到场发现年龄不到25开不了这么大的车，折腾半天去Avis分到一辆美丽的丰田卡罗拉小姐，遂启程 :)"
+}

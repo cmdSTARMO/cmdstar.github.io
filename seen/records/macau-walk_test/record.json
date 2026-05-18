@@ -2,7 +2,7 @@
   "id": "macau-walk_test",
   "title": "澳门步行线",
   "created_at": "2024-02-10T00:00:00.000Z",
-  "updated_at": "2026-05-16T11:15:25.400Z",
+  "updated_at": "2026-05-18T12:43:31.539Z",
   "route_id": "pearl-river_test",
   "route_index": 2,
   "tags": [
@@ -15,15 +15,23 @@
     "lng": 113.538,
     "region": null
   },
-  "cover": "cover.jpg",
-  "assets": [],
+  "assets": [
+    {
+      "path": "assets/image-1.jpg",
+      "type": "image/jpeg"
+    }
+  ],
   "favorite": false,
   "archived": false,
   "type": "note",
-  "date": "2024-02-10",
+  "date": "2002-02-10",
   "place": "China / Macau / Macau",
   "lat": 22.1919,
   "lng": 113.538,
-  "region": null,
-  "note": "街巷很窄，但每个转角都有不同的垂直层次。"
+  "region": {
+    "country": "cn",
+    "province": "macau",
+    "city": "macau"
+  },
+  "note": "街巷很窄，但每个转角都有不同的垂直层次。\n恭喜你发现了测试集！"
 }

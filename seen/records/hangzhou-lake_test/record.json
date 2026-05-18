@@ -2,7 +2,7 @@
   "id": "hangzhou-lake_test",
   "title": "湖边雨后",
   "created_at": "2023-09-24T00:00:00.000Z",
-  "updated_at": "2026-05-16T15:10:01.826Z",
+  "updated_at": "2026-05-18T11:05:00.5055160Z",
   "route_id": null,
   "route_index": null,
   "tags": [
@@ -19,8 +19,12 @@
       "city": "hangzhou"
     }
   },
-  "cover": "cover.jpg",
-  "assets": [],
+  "assets": [
+    {
+      "path": "assets/image-1.jpg",
+      "type": "image/jpeg"
+    }
+  ],
   "favorite": false,
   "archived": false,
   "type": "note",
