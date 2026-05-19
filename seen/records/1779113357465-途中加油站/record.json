@@ -2,9 +2,9 @@
   "id": "1779113357465-途中加油站",
   "title": "佛州大环线-途中",
   "created_at": "2026-05-18T14:14:39.111Z",
-  "updated_at": "2026-05-18T14:25:21.524Z",
-  "route_id": null,
-  "route_index": null,
+  "updated_at": "2026-05-19T11:39:05.194Z",
+  "route_id": "florida-self-driving-tour-1.1",
+  "route_index": 1,
   "tags": [
     "自驾"
   ],

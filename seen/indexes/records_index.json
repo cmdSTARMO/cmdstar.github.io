@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-05-19T05:51:24.864Z",
+  "updated_at": "2026-05-19T11:39:05.194Z",
   "records": [
     {
       "id": "1778927924556-seen",
@@ -58,8 +58,8 @@
       "title": "Bill Baggs Park",
       "path": "records/1778945827426-bill-baggs-park/record.json",
       "content_path": "records/1778945827426-bill-baggs-park/content.md",
-      "route_id": null,
-      "route_index": null,
+      "route_id": "test-if-ok",
+      "route_index": 0,
       "tags": [
         "海边",
         "鸟",
@@ -86,8 +86,8 @@
       "title": "South Pointe Beach 海滩！",
       "path": "records/1778946696723-south-pointe-beach-海滩/record.json",
       "content_path": "records/1778946696723-south-pointe-beach-海滩/content.md",
-      "route_id": null,
-      "route_index": null,
+      "route_id": "test-if-ok",
+      "route_index": 1,
       "tags": [
         "海边",
         "日出"
@@ -685,7 +685,7 @@
         }
       },
       "created_at": "2026-05-19T05:48:24.226Z",
-      "updated_at": "2026-05-19T05:51:20.434Z",
+      "updated_at": "2026-05-19T05:51:24.633Z",
       "favorite": false,
       "archived": false
     }

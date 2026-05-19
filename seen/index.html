@@ -1584,7 +1584,15 @@
         const routeEntries = routesIndex?.routes || [];
         archiveRecords = (await Promise.all(recordEntries.map((entry) => fetch(archiveUrl(entry.path))
           .then((response) => response.ok ? response.json() : null)
-          .then((record) => record ? { ...record, __archive_base: String(entry.path || "").replace(/\/record\.json$/, "") } : null)
+          .then((record) => record ? {
+            ...record,
+            route_id: record.route_id ?? entry.route_id ?? null,
+            routeId: record.route_id ?? entry.route_id ?? record.routeId ?? null,
+            route_index: record.route_index ?? entry.route_index ?? null,
+            routeIndex: record.route_index ?? entry.route_index ?? record.routeIndex ?? null,
+            segmentIndex: record.route_index ?? entry.route_index ?? record.segmentIndex ?? null,
+            __archive_base: String(entry.path || "").replace(/\/record\.json$/, "")
+          } : null)
           .catch(() => null)))).filter(Boolean);
         archiveRoutes = (await Promise.all(routeEntries.map((entry) => fetch(archiveUrl(entry.path))
           .then((response) => response.ok ? response.json() : null)
@@ -1903,9 +1911,15 @@
       const draft = { ...route, name, date, parent_record_id: parentRecordId, parentRecordId, records: validIds, points: [], updated_at: now };
       routeDrafts = routeDrafts.filter((item) => item.id !== routeId).concat(draft);
       persistRecords();
+      renderDraftBox();
       renderAll();
       renderRouteBrowser();
       persistRouteToArchive(routeId).then((written) => {
+        if (written) {
+          routeDrafts = routeDrafts.filter((item) => item.id !== routeId);
+          persistRecords();
+          renderDraftBox();
+        }
         showToast(written ? "路线已写入归档" : "路线已保存到浏览器", written ? `${routeId} 的 JSON 与索引已更新。` : "连接本地归档目录后可直接写入 routes/ 与 records/。");
       }).catch((error) => showToast("路线写入失败", error.message, "error"));
     }
@@ -2542,7 +2556,7 @@
       const parentLink = parentRouteForRecord(record);
       relations.innerHTML = [
         ...childRoutes.map((route) => `<button class="route-relation-btn" type="button" data-open-child-route="${escapeHtml(route.id)}">该记录包含一条子路线：<strong>${escapeHtml(route.name)}</strong></button>`),
-        parentLink ? `<button class="route-relation-btn" type="button" data-open-parent-record="${escapeHtml(parentLink.parent.id)}">此路线是 <strong>${escapeHtml(parentLink.route.name)}</strong> 的一部分，返回 ${escapeHtml(parentLink.parent.title)}</button>` : ""
+        parentLink ? `<button class="route-relation-btn" type="button" data-open-parent-record="${escapeHtml(parentLink.parent.id)}">此记录是 ${escapeHtml(parentLink.parent.title)} 的一部分，单击以查看</button>` : ""
       ].filter(Boolean).join("");
       relations.querySelectorAll("[data-open-child-route]").forEach((button) => button.addEventListener("click", () => {
         const routeRecords = orderedRecordsForRoute(button.dataset.openChildRoute);
@@ -4560,6 +4574,7 @@
       route.records = [...new Set([...(route.records || []), ...recordIds])];
       route.points = route.records.map((recordId) => points.find((point) => point.recordId === recordId)).filter(Boolean);
       route.updated_at = now;
+      routeDrafts = routeDrafts.filter((item) => item.id !== route.id).concat({ ...route });
       route.records.forEach((recordId, index) => {
         const linkedRecord = customRecords.find((item) => item.id === recordId) || SEEN_DATA.records.find((item) => item.id === recordId) || archiveRecords.find((item) => item.id === recordId);
         if (!linkedRecord) return;
@@ -4607,10 +4622,17 @@
         points
       };
       customRoutes.unshift(route);
+      routeDrafts = routeDrafts.filter((item) => item.id !== route.id).concat({ ...route });
       syncRouteBindings();
       persistRecords();
+      renderDraftBox();
       try {
         const written = await persistRouteToArchive(route.id);
+        if (written) {
+          routeDrafts = routeDrafts.filter((item) => item.id !== route.id);
+          persistRecords();
+          renderDraftBox();
+        }
         showToast(written ? "路线已写入归档" : "路线已保存到浏览器", written ? `${route.id} 已生成路线文件。` : "连接本地归档目录后可直接生成 route.json。");
       } catch (error) {
         showToast("路线写入失败", error.message, "error");
