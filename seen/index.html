@@ -202,7 +202,7 @@
     .record-form option { background: var(--seen-surface-solid); color: var(--seen-text); }
     .date-picker { position: relative; }
     .date-display { width: 100%; border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-input-bg); color: var(--seen-text); padding: 9px 10px; font: inherit; font-size: 0.9rem; text-align: left; cursor: pointer; }
-    .calendar-panel { position: absolute; left: 0; top: calc(100% + 7px); z-index: 30; display: none; width: 288px; border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface-solid); box-shadow: var(--seen-shadow); padding: 10px; }
+    .calendar-panel { position: absolute; left: 0; top: calc(100% + 7px); z-index: 81; display: none; width: 288px; border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-surface-solid); box-shadow: var(--seen-shadow); padding: 10px; }
     .date-picker.is-open .calendar-panel { display: block; }
     .calendar-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
     .calendar-title { color: var(--seen-text); font-size: 0.9rem; font-weight: 600; }
@@ -2646,7 +2646,7 @@
           <div class="sub-dock-panel ${state.dockMode === "route" ? "is-active" : ""}" data-sub-panel="route">${routePanel}</div>
           <div class="sub-dock-panel ${state.dockMode !== "route" ? "is-active" : ""}" data-sub-panel="map">
             <div class="sub-dock-map" id="sub-dock-map"></div>
-            <button class="dock-reset" type="button" data-dock-reset aria-label="定位到默认视角" title="定位到默认视角"><i class="bi-crosshair"></i><span>复位</span></button>
+            <button class="dock-reset" type="button" data-dock-reset aria-label="定位到默认视角" title="定位到默认视角"><span>复位</span></button>
           </div>
         </div>
         <div class="ios-alert-actions ${route ? "two-actions" : ""}">
