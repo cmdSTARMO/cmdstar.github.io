@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-05-19T11:39:05.194Z",
+  "updated_at": "2026-05-19T14:25:10.508Z",
   "records": [
     {
       "id": "1778927924556-seen",
@@ -609,13 +609,13 @@
         }
       },
       "created_at": "2026-05-18T12:39:11.373Z",
-      "updated_at": "2026-05-18T14:14:39.682Z",
+      "updated_at": "2026-05-19T11:39:05.194Z",
       "favorite": false,
       "archived": false
     },
     {
       "id": "1779113357465-途中加油站",
-      "title": "佛州大环线-途中",
+      "title": "佛州大环线随拍",
       "path": "records/1779113357465-途中加油站/record.json",
       "content_path": "records/1779113357465-途中加油站/content.md",
       "route_id": "florida-self-driving-tour-1.1",
@@ -634,7 +634,7 @@
         }
       },
       "created_at": "2026-05-18T14:14:39.111Z",
-      "updated_at": "2026-05-18T14:25:21.524Z",
+      "updated_at": "2026-05-19T14:24:39.070Z",
       "favorite": false,
       "archived": false
     },
@@ -660,7 +660,7 @@
         }
       },
       "created_at": "2026-05-18T14:24:04.001Z",
-      "updated_at": "2026-05-18T20:07:07.860Z",
+      "updated_at": "2026-05-19T11:39:05.194Z",
       "favorite": false,
       "archived": false
     },

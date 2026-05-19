@@ -452,7 +452,7 @@
     .sub-dock-panel { display: none; min-height: 108px; }
     .sub-dock-panel.is-active { display: block; }
     .sub-dock-panel[data-sub-panel="route"] { padding: 14px 14px 10px; }
-    .sub-dock-map { width: 100%; height: 188px; background: #05080c; cursor: grab; touch-action: none; }
+    .sub-dock-map { width: 100%; height: 116px; background: #05080c; cursor: grab; touch-action: none; }
     .sub-dock-map, .sub-dock-map .leaflet-container, .sub-dock-map .leaflet-pane { pointer-events: auto; }
     .sub-dock-map:active { cursor: grabbing; }
     .dock-reset { position: absolute; right: 10px; top: 10px; z-index: 700; min-width: 66px; height: 30px; border: 1px solid rgba(255,255,255,0.22); border-radius: 999px; background: rgba(7, 11, 16, 0.62); color: #fff; display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 0 10px; cursor: pointer; font: inherit; font-size: 0.72rem; font-weight: 700; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
@@ -2646,7 +2646,7 @@
           <div class="sub-dock-panel ${state.dockMode === "route" ? "is-active" : ""}" data-sub-panel="route">${routePanel}</div>
           <div class="sub-dock-panel ${state.dockMode !== "route" ? "is-active" : ""}" data-sub-panel="map">
             <div class="sub-dock-map" id="sub-dock-map"></div>
-            <button class="dock-reset" type="button" data-dock-reset aria-label="定位到默认视角" title="定位到默认视角"><i class="bi-crosshair"></i><span>定位</span></button>
+            <button class="dock-reset" type="button" data-dock-reset aria-label="定位到默认视角" title="定位到默认视角"><i class="bi-crosshair"></i><span>复位</span></button>
           </div>
         </div>
         <div class="ios-alert-actions ${route ? "two-actions" : ""}">
