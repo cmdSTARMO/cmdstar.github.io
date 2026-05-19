@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.53](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.52...v1.1.53) (2026-05-19)
+
+
+### 🐞 Fixes
+
+* **data:** 所见Seen1.2.9版本测试，上传了些许记录。 ([779f27f](https://github.com/cmdSTARMO/cmdstar.github.io/commit/779f27f621587fc27c00100d4eac0fd2a385f6b1))
+
 ## [1.1.52](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.51...v1.1.52) (2026-05-18)
 
 
