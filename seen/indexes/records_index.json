@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-05-18T20:07:08.599Z",
+  "updated_at": "2026-05-19T05:51:24.864Z",
   "records": [
     {
       "id": "1778927924556-seen",
@@ -278,7 +278,7 @@
         "region": null
       },
       "created_at": "2025-03-12T00:00:00.000Z",
-      "updated_at": "2026-05-18T12:43:30.191Z",
+      "updated_at": "2026-05-18T20:07:08.599Z",
       "favorite": false,
       "archived": false
     },
@@ -300,7 +300,7 @@
         "region": null
       },
       "created_at": "2025-03-12T00:00:00.000Z",
-      "updated_at": "2026-05-18T12:43:29.519Z",
+      "updated_at": "2026-05-18T20:07:08.599Z",
       "favorite": false,
       "archived": false
     },
@@ -401,7 +401,7 @@
         }
       },
       "created_at": "2025-04-18T00:00:00.000Z",
-      "updated_at": "2026-05-18T12:43:29.977Z",
+      "updated_at": "2026-05-18T20:07:08.599Z",
       "favorite": false,
       "archived": false
     },
@@ -660,7 +660,32 @@
         }
       },
       "created_at": "2026-05-18T14:24:04.001Z",
-      "updated_at": "2026-05-18T20:07:01.700Z",
+      "updated_at": "2026-05-18T20:07:07.860Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "id": "1779169692398-福田",
+      "title": "福田",
+      "path": "records/1779169692398-福田/record.json",
+      "content_path": "records/1779169692398-福田/content.md",
+      "route_id": null,
+      "route_index": null,
+      "tags": [
+        "福田"
+      ],
+      "location": {
+        "place": "中国 / 广东 / 福田区",
+        "lat": 22.523935,
+        "lng": 114.051819,
+        "region": {
+          "country": "cn",
+          "province": "guangdong",
+          "city": "福田"
+        }
+      },
+      "created_at": "2026-05-19T05:48:24.226Z",
+      "updated_at": "2026-05-19T05:51:20.434Z",
       "favorite": false,
       "archived": false
     }

@@ -954,6 +954,9 @@
       province: "boundaries/provinces.geojson",
       city: "boundaries/cities.geojson"
     };
+    const remoteBoundarySources = {
+      country: ["https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.json"]
+    };
     const byId = (id) => document.getElementById(id);
     const slug = (value) => String(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
     const cssIdent = (value) => window.CSS?.escape ? CSS.escape(value) : String(value).replace(/["\\]/g, "\\$&");
@@ -1184,10 +1187,12 @@
         return location ? { id, name: location.countryName, boundaryQuery: location.countryName } : null;
       }
       if (level === "province") {
-        const location = LOCATION_DATA.find((item) => item.province === id);
+        const location = LOCATION_DATA.find((item) => item.province === id)
+          || customLocationEntries.find((item) => item.province === id);
         return location ? { id, name: location.provinceName, boundaryQuery: `${location.provinceName}, ${location.countryName}`, bounds: provinceBoundsFromLocations(id) } : null;
       }
-      const location = LOCATION_DATA.find((item) => item.city === id);
+      const location = LOCATION_DATA.find((item) => item.city === id)
+        || customLocationEntries.find((item) => item.city === id);
       const cachedPoint = boundaryCache[`geocode:${id}`];
       const lat = typeof location?.lat === "number" ? location.lat : cachedPoint?.lat;
       const lng = typeof location?.lng === "number" ? location.lng : cachedPoint?.lng;
@@ -1201,6 +1206,7 @@
         if (id) ids.add(id);
       });
       if (state.activeArea) ids.add(state.activeArea);
+      if (state.geoLookup.previewRegion?.[level]) ids.add(state.geoLookup.previewRegion[level]);
       return [...ids].map((id) => dynamicBoundaryArea(level, id)).filter(Boolean);
     }
     const boundsToSoftPolygon = (bounds) => {
@@ -1223,6 +1229,10 @@
     let deletedRecordIds = new Set(readJson(STORAGE_KEYS.deletedRecords, []));
     let deletedRouteIds = new Set(readJson(STORAGE_KEYS.deletedRoutes, []));
     let boundaryCache = readJson(STORAGE_KEYS.boundaryCache, {});
+    const memoryBoundaryCache = {};
+    const fetchJsonPromises = new Map();
+    boundaryCache = compactBoundaryCache(boundaryCache);
+    persistBoundaryCache();
 
     function readJson(key, fallback) {
       try {
@@ -1232,19 +1242,43 @@
       }
     }
 
+    function safeSetJson(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+        return true;
+      } catch (error) {
+        console.warn(`Seen local cache skipped for ${key}:`, error);
+        return false;
+      }
+    }
+
+    function compactBoundaryCache(cache = {}) {
+      const compacted = {};
+      Object.entries(cache || {}).forEach(([key, value]) => {
+        const serialized = JSON.stringify(value);
+        const isBoundaryGeoJson = value?.type === "FeatureCollection" || value?.type === "Feature" || value?.features;
+        if (isBoundaryGeoJson) {
+          memoryBoundaryCache[key] = value;
+          return;
+        }
+        if (serialized.length <= 60000) compacted[key] = value;
+      });
+      return compacted;
+    }
+
     function persistRecords() {
       syncRouteBindings();
       archiveIndexes = buildArchiveIndexes();
-      localStorage.setItem(STORAGE_KEYS.customRecords, JSON.stringify(customRecords));
-      localStorage.setItem(STORAGE_KEYS.customRoutes, JSON.stringify(customRoutes));
-      localStorage.setItem(STORAGE_KEYS.routeDrafts, JSON.stringify(routeDrafts));
-      localStorage.setItem(STORAGE_KEYS.recordDrafts, JSON.stringify(recordDrafts));
-      localStorage.setItem(STORAGE_KEYS.pendingDeletes, JSON.stringify(pendingDeletes));
-      localStorage.setItem(STORAGE_KEYS.archiveIndexes, JSON.stringify(archiveIndexes));
-      localStorage.setItem(STORAGE_KEYS.hiddenRecords, JSON.stringify([...hiddenRecordIds]));
-      localStorage.setItem(STORAGE_KEYS.deletedRecords, JSON.stringify([...deletedRecordIds]));
-      localStorage.setItem(STORAGE_KEYS.deletedRoutes, JSON.stringify([...deletedRouteIds]));
-      localStorage.setItem(STORAGE_KEYS.customLocations, JSON.stringify(customLocationEntries));
+      safeSetJson(STORAGE_KEYS.customRecords, customRecords);
+      safeSetJson(STORAGE_KEYS.customRoutes, customRoutes);
+      safeSetJson(STORAGE_KEYS.routeDrafts, routeDrafts);
+      safeSetJson(STORAGE_KEYS.recordDrafts, recordDrafts);
+      safeSetJson(STORAGE_KEYS.pendingDeletes, pendingDeletes);
+      safeSetJson(STORAGE_KEYS.archiveIndexes, archiveIndexes);
+      safeSetJson(STORAGE_KEYS.hiddenRecords, [...hiddenRecordIds]);
+      safeSetJson(STORAGE_KEYS.deletedRecords, [...deletedRecordIds]);
+      safeSetJson(STORAGE_KEYS.deletedRoutes, [...deletedRouteIds]);
+      safeSetJson(STORAGE_KEYS.customLocations, customLocationEntries);
     }
 
     function showToast(title, message = "", type = "ok") {
@@ -1340,7 +1374,11 @@
     }
 
     function persistBoundaryCache() {
-      localStorage.setItem(STORAGE_KEYS.boundaryCache, JSON.stringify(boundaryCache));
+      boundaryCache = compactBoundaryCache(boundaryCache);
+      if (!safeSetJson(STORAGE_KEYS.boundaryCache, boundaryCache)) {
+        boundaryCache = Object.fromEntries(Object.entries(boundaryCache).filter(([key]) => key.startsWith("geocode:") || key.startsWith("reverse:")).slice(-80));
+        safeSetJson(STORAGE_KEYS.boundaryCache, boundaryCache);
+      }
     }
 
     function uniqueById(items) {
@@ -1510,6 +1548,32 @@
       return SEEN_ARCHIVE.urlRoot === "." ? cleanPath : `${SEEN_ARCHIVE.urlRoot}/${cleanPath}`;
     }
 
+    function routeFromIndexEntry(entry, records = []) {
+      if (!entry?.id) return null;
+      const routeRecords = records.filter((record) => (record.route_id || record.routeId) === entry.id)
+        .sort((a, b) => (a.route_index ?? a.routeIndex ?? a.segmentIndex ?? 999) - (b.route_index ?? b.routeIndex ?? b.segmentIndex ?? 999) || String(a.date || "").localeCompare(String(b.date || "")));
+      return {
+        id: entry.id,
+        name: entry.name || entry.id,
+        parent_record_id: entry.parent_record_id || null,
+        parentRecordId: entry.parent_record_id || null,
+        date: entry.date || null,
+        created_at: entry.created_at || null,
+        updated_at: entry.updated_at || null,
+        records: routeRecords.map((record) => record.id),
+        points: routeRecords
+          .filter((record) => Number.isFinite(Number(record.lat ?? record.location?.lat)) && Number.isFinite(Number(record.lng ?? record.location?.lng)))
+          .map((record) => ({
+            name: record.title || record.id,
+            at: record.date || record.created_at || "",
+            lat: Number(record.lat ?? record.location?.lat),
+            lng: Number(record.lng ?? record.location?.lng),
+            recordId: record.id
+          })),
+        __missing_route_file: true
+      };
+    }
+
     async function loadArchiveFiles() {
       try {
         const [recordsIndex, routesIndex] = await Promise.all([
@@ -1522,7 +1586,10 @@
           .then((response) => response.ok ? response.json() : null)
           .then((record) => record ? { ...record, __archive_base: String(entry.path || "").replace(/\/record\.json$/, "") } : null)
           .catch(() => null)))).filter(Boolean);
-        archiveRoutes = (await Promise.all(routeEntries.map((entry) => fetch(archiveUrl(entry.path)).then((response) => response.ok ? response.json() : null).catch(() => null)))).filter(Boolean);
+        archiveRoutes = (await Promise.all(routeEntries.map((entry) => fetch(archiveUrl(entry.path))
+          .then((response) => response.ok ? response.json() : null)
+          .then((route) => route || routeFromIndexEntry(entry, archiveRecords))
+          .catch(() => routeFromIndexEntry(entry, archiveRecords))))).filter(Boolean);
         syncRouteBindings();
         archiveIndexes = buildArchiveIndexes();
       } catch (error) {
@@ -2652,7 +2719,7 @@
         L.DomEvent.disableScrollPropagation(mapEl);
         bindDockMapManualInteraction(mapEl);
         const config = tileConfig();
-        mapState.dockTileLayer = L.tileLayer(config.url, { maxZoom: 19, attribution: config.attribution }).addTo(mapState.dockMap);
+        mapState.dockTileLayer = L.tileLayer(config.url, tileLayerOptions(config)).addTo(mapState.dockMap);
       } else {
         mapState.dockMap.invalidateSize();
         bindDockMapManualInteraction(mapEl);
@@ -3308,6 +3375,64 @@
       return null;
     }
 
+    async function cachedFetchJson(url, cacheName = "seen-json-v1", options = {}) {
+      if (fetchJsonPromises.has(url)) return fetchJsonPromises.get(url);
+      const promise = (async () => {
+        const request = new Request(url, { headers: options.headers || {} });
+        const cache = window.caches ? await caches.open(cacheName).catch(() => null) : null;
+        const cached = cache ? await cache.match(request).catch(() => null) : null;
+        if (cached) return cached.json();
+        const response = await fetch(request);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        if (cache) cache.put(request, response.clone()).catch(() => {});
+        return response.json();
+      })().finally(() => fetchJsonPromises.delete(url));
+      fetchJsonPromises.set(url, promise);
+      return promise;
+    }
+
+    function featureProperty(feature, names) {
+      const properties = feature?.properties || {};
+      for (const name of names) {
+        const value = properties[name] ?? feature?.[name];
+        if (value !== undefined && value !== null && String(value).trim()) return String(value).trim();
+      }
+      return "";
+    }
+
+    function boundaryFeatureName(feature) {
+      return featureProperty(feature, ["name", "NAME", "Name", "name_en", "NAME_EN", "admin", "ADMIN", "sovereignt"]);
+    }
+
+    function pointInRing(lng, lat, ring) {
+      let inside = false;
+      for (let i = 0, j = ring.length - 1; i < ring.length; j = i, i += 1) {
+        const xi = Number(ring[i][0]), yi = Number(ring[i][1]);
+        const xj = Number(ring[j][0]), yj = Number(ring[j][1]);
+        const intersects = ((yi > lat) !== (yj > lat)) && (lng < ((xj - xi) * (lat - yi)) / ((yj - yi) || Number.EPSILON) + xi);
+        if (intersects) inside = !inside;
+      }
+      return inside;
+    }
+
+    function pointInPolygonCoords(lng, lat, polygon) {
+      if (!polygon?.length || !pointInRing(lng, lat, polygon[0])) return false;
+      return !polygon.slice(1).some((ring) => pointInRing(lng, lat, ring));
+    }
+
+    function featureContainsPoint(feature, lat, lng) {
+      const geometry = feature?.geometry;
+      if (!geometry) return false;
+      if (geometry.type === "Polygon") return pointInPolygonCoords(lng, lat, geometry.coordinates);
+      if (geometry.type === "MultiPolygon") return geometry.coordinates.some((polygon) => pointInPolygonCoords(lng, lat, polygon));
+      return false;
+    }
+
+    function boundaryFeatureForPoint(level, lat, lng) {
+      const features = mapState.boundaryGeoJson[level]?.features || [];
+      return features.find((feature) => featureContainsPoint(feature, lat, lng)) || null;
+    }
+
     function mergeBoundaryFeature(level, area, geoJson) {
       const normalized = normalizeBoundaryGeoJson(geoJson, area);
       if (!normalized?.features?.length) return;
@@ -3322,7 +3447,13 @@
 
     async function fetchBoundaryForArea(level, area) {
       const cacheKey = `${level}:${area.id}`;
-      if (boundaryCache[cacheKey]) return boundaryCache[cacheKey];
+      if (memoryBoundaryCache[cacheKey]) return memoryBoundaryCache[cacheKey];
+      if (boundaryCache[cacheKey]) {
+        memoryBoundaryCache[cacheKey] = boundaryCache[cacheKey];
+        delete boundaryCache[cacheKey];
+        persistBoundaryCache();
+        return memoryBoundaryCache[cacheKey];
+      }
 
       const urls = [];
       if (area.osmRelationId) urls.push(`https://polygons.openstreetmap.fr/get_geojson.py?id=${area.osmRelationId}&params=0`);
@@ -3330,15 +3461,9 @@
 
       for (const url of urls) {
         try {
-          const response = await fetch(url);
-          if (!response.ok) continue;
-          const geoJson = normalizeBoundaryGeoJson(await response.json(), area);
+          const geoJson = normalizeBoundaryGeoJson(await cachedFetchJson(url, "seen-boundary-json-v1"), area);
           if (!geoJson?.features?.length) continue;
-          const serialized = JSON.stringify(geoJson);
-          if (serialized.length < 850000) {
-            boundaryCache[cacheKey] = geoJson;
-            persistBoundaryCache();
-          }
+          memoryBoundaryCache[cacheKey] = geoJson;
           return geoJson;
         } catch (error) {
           console.info(`Seen boundary provider skipped for ${area.id}: ${url}`);
@@ -3356,11 +3481,33 @@
         console.info(`Seen local boundary file not loaded for ${level}; remote provider/fallback will be used.`);
       }
 
+      if (remoteBoundarySources[level]?.length && !mapState.boundaryGeoJson[level]._seenRemoteLoaded) {
+        for (const url of remoteBoundarySources[level]) {
+          try {
+            const remoteGeoJson = normalizeBoundaryGeoJson(await cachedFetchJson(url, "seen-boundary-json-v1"), { id: level, name: level });
+            if (!remoteGeoJson?.features?.length) continue;
+            const existing = mapState.boundaryGeoJson[level]?.features || [];
+            const nextFeatures = existing.concat(remoteGeoJson.features.filter((feature) => {
+              const name = boundaryFeatureName(feature);
+              return name && !existing.some((current) => normalizeAreaToken(boundaryFeatureName(current)) === normalizeAreaToken(name));
+            }));
+            mapState.boundaryGeoJson[level] = { ...mapState.boundaryGeoJson[level], type: "FeatureCollection", features: nextFeatures, _seenRemoteLoaded: true };
+            break;
+          } catch (error) {
+            console.info(`Seen remote boundary file not loaded for ${level}: ${url}`);
+          }
+        }
+      }
+
       await Promise.all(boundaryAreasForLevel(level).map(async (area) => {
         if (mapState.boundaryGeoJson[level]?.features?.some((feature) => matchBoundaryFeature(feature, area))) return;
         const cacheKey = `${level}:${area.id}`;
-        if (boundaryCache[cacheKey]) {
-          mergeBoundaryFeature(level, area, boundaryCache[cacheKey]);
+        const cachedBoundary = memoryBoundaryCache[cacheKey] || boundaryCache[cacheKey];
+        if (cachedBoundary) {
+          memoryBoundaryCache[cacheKey] = cachedBoundary;
+          delete boundaryCache[cacheKey];
+          mergeBoundaryFeature(level, area, cachedBoundary);
+          persistBoundaryCache();
           return;
         }
         const geoJson = await fetchBoundaryForArea(level, area);
@@ -3437,16 +3584,191 @@
       };
     }
 
+    function tileLayerOptions(config) {
+      return {
+        maxZoom: 19,
+        attribution: config.attribution,
+        keepBuffer: 6,
+        updateWhenIdle: true,
+        updateWhenZooming: false,
+        reuseTiles: true,
+        crossOrigin: true
+      };
+    }
+
     function setMapTileLayer() {
       const config = tileConfig();
       if (mapState.map) {
         if (mapState.tileLayer) mapState.tileLayer.remove();
-        mapState.tileLayer = L.tileLayer(config.url, { maxZoom: 19, attribution: config.attribution }).addTo(mapState.map);
+        mapState.tileLayer = L.tileLayer(config.url, tileLayerOptions(config)).addTo(mapState.map);
       }
       if (mapState.pickerMap) {
         if (mapState.pickerTileLayer) mapState.pickerTileLayer.remove();
-        mapState.pickerTileLayer = L.tileLayer(config.url, { maxZoom: 19, attribution: config.attribution }).addTo(mapState.pickerMap);
+        mapState.pickerTileLayer = L.tileLayer(config.url, tileLayerOptions(config)).addTo(mapState.pickerMap);
       }
+    }
+
+    function addressValue(address = {}, keys = []) {
+      for (const key of keys) {
+        const value = address[key];
+        if (value) return String(value).trim();
+      }
+      return "";
+    }
+
+    function countryCodeToId(code, fallbackName) {
+      const normalizedCode = String(code || "").trim().toLowerCase();
+      if (normalizedCode === "us") return "us";
+      if (normalizedCode === "cn") return "cn";
+      const known = LOCATION_DATA.find((item) => normalizeAreaToken(item.countryName) === normalizeAreaToken(fallbackName));
+      return known?.country || normalizedCode || slug(fallbackName);
+    }
+
+    function fallbackAreaId(value) {
+      return slug(value) || normalizeAreaToken(value).replace(/县|旗|盟|地区|自治县|林区|特别行政区/g, "") || normalizeAreaToken(value);
+    }
+
+    function knownProvinceFor(country, provinceName) {
+      const resolvedProvince = resolveAreaId("province", provinceName);
+      return LOCATION_DATA.find((item) => item.country === country && item.province === resolvedProvince)
+        || LOCATION_DATA.find((item) => item.country === country && normalizeAreaToken(item.provinceName) === normalizeAreaToken(provinceName));
+    }
+
+    function knownCityFor(country, province, cityName) {
+      const resolvedCity = resolveAreaId("city", cityName);
+      return LOCATION_DATA.find((item) => item.country === country && item.province === province && item.city === resolvedCity)
+        || LOCATION_DATA.find((item) => item.country === country && item.province === province && normalizeAreaToken(item.cityName) === normalizeAreaToken(cityName));
+    }
+
+    function locationEntryFromAddress(address = {}, countryFeature = null, lat = null, lng = null) {
+      const countryName = addressValue(address, ["country"]) || boundaryFeatureName(countryFeature) || "Unknown";
+      const provinceName = addressValue(address, ["state", "province", "region", "state_district", "county"]) || countryName;
+      const cityName = addressValue(address, ["city", "town", "village", "municipality", "city_district", "county", "suburb"]) || provinceName;
+      const country = countryCodeToId(address.country_code, countryName);
+      const knownCountry = LOCATION_DATA.find((item) => item.country === country);
+      const knownProvince = knownProvinceFor(country, provinceName);
+      const province = knownProvince?.province || fallbackAreaId(provinceName);
+      const knownCity = knownCityFor(country, province, cityName);
+      return {
+        country,
+        countryName: knownCountry?.countryName || countryName,
+        province,
+        provinceName: knownProvince?.provinceName || provinceName,
+        city: knownCity?.city || fallbackAreaId(cityName),
+        cityName: knownCity?.cityName || cityName,
+        lat: Number.isFinite(Number(lat)) ? Number(lat) : null,
+        lng: Number.isFinite(Number(lng)) ? Number(lng) : null
+      };
+    }
+
+    async function reverseGeocodePoint(lat, lng) {
+      const cacheKey = `reverse:${Number(lat).toFixed(5)},${Number(lng).toFixed(5)}`;
+      if (boundaryCache[cacheKey]) return boundaryCache[cacheKey];
+      const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&zoom=10&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lng)}`;
+      const data = await cachedFetchJson(url, "seen-geocode-json-v1", { headers: { Accept: "application/json" } }).catch(() => null);
+      if (!data) return null;
+      boundaryCache[cacheKey] = data;
+      persistBoundaryCache();
+      return data;
+    }
+
+    async function ensureLookupBoundary(level, entry) {
+      const area = level === "country"
+        ? { id: entry.country, name: entry.countryName, boundaryQuery: entry.countryName }
+        : level === "province"
+          ? { id: entry.province, name: entry.provinceName, boundaryQuery: `${entry.provinceName}, ${entry.countryName}` }
+          : { id: entry.city, name: entry.cityName, boundaryQuery: `${entry.cityName}, ${entry.provinceName}, ${entry.countryName}` };
+      const cacheKey = `${level}:${area.id}`;
+      if (mapState.boundaryGeoJson[level]?.features?.some((feature) => matchBoundaryFeature(feature, area))) return;
+      if (boundaryCache[cacheKey]) {
+        mergeBoundaryFeature(level, area, boundaryCache[cacheKey]);
+        return;
+      }
+      const geoJson = await fetchBoundaryForArea(level, area);
+      if (geoJson) mergeBoundaryFeature(level, area, geoJson);
+    }
+
+    function persistDynamicLocation(entry) {
+      const location = registerDynamicLocation(entry);
+      if (!location) return null;
+      if (!customLocationEntries.some((item) => item.country === location.country && item.province === location.province && item.city === location.city)) {
+        customLocationEntries.push(location);
+      }
+      persistRecords();
+      return location;
+    }
+
+    function setLocationFormValues(location, lat, lng) {
+      const form = byId("record-form");
+      byId("record-category").value = "region";
+      form.elements.country.value = location.country;
+      form.elements.province.value = location.province;
+      form.elements.city.value = location.city;
+      byId("record-country").value = location.country;
+      byId("record-province").value = location.province;
+      byId("record-city").value = location.city;
+      byId("record-country-input").value = displayName(location.countryName);
+      byId("record-province-input").value = displayName(location.provinceName);
+      byId("record-city-input").value = displayName(location.cityName);
+      form.elements.place.value = `${displayName(location.countryName)} / ${displayName(location.provinceName)} / ${displayName(location.cityName)}`;
+      form.elements.lat.value = Number(lat).toFixed(6);
+      form.elements.lng.value = Number(lng).toFixed(6);
+    }
+
+    function forceRegionFormVisible() {
+      byId("record-category").value = "region";
+      document.querySelectorAll('[data-field-group="region"]').forEach((field) => {
+        field.classList.remove("is-hidden");
+        const controls = field.matches("input, select, textarea, button") ? [field] : [...field.querySelectorAll("input, select, textarea, button")];
+        controls.forEach((control) => { control.disabled = false; });
+      });
+      document.querySelectorAll('[data-field-group="route"]').forEach((field) => {
+        field.classList.add("is-hidden");
+        const controls = field.matches("input, select, textarea, button") ? [field] : [...field.querySelectorAll("input, select, textarea, button")];
+        controls.forEach((control) => { control.disabled = true; });
+      });
+      byId("use-map-center").hidden = false;
+      byId("use-map-center").disabled = false;
+    }
+
+    function applyLocationEntry(entry, lat, lng) {
+      const location = persistDynamicLocation(entry);
+      if (!location) return;
+      setLocationFormValues(location, lat, lng);
+      forceRegionFormVisible();
+      state.geoLookup.previewRegion = { country: location.country, province: location.province, city: location.city };
+      updateComboClearState();
+      renderCombo("country");
+      renderCombo("province");
+      renderCombo("city");
+      closeCombos();
+      updateRecordFormFields();
+      requestAnimationFrame(() => {
+        setLocationFormValues(location, lat, lng);
+        forceRegionFormVisible();
+        updateComboClearState();
+      });
+    }
+
+    async function resolvePickerLocation(lat, lng) {
+      const form = byId("record-form");
+      const token = `${Date.now()}:${lat}:${lng}`;
+      state.geoLookup.pendingToken = token;
+      byId("record-id-status").textContent = "Resolving location...";
+      await loadBoundaryGeoJson("country");
+      if (state.geoLookup.pendingToken !== token) return;
+      const countryFeature = boundaryFeatureForPoint("country", lat, lng);
+      const reverse = await reverseGeocodePoint(lat, lng);
+      if (state.geoLookup.pendingToken !== token) return;
+      const entry = locationEntryFromAddress(reverse?.address || {}, countryFeature, lat, lng);
+      applyLocationEntry(entry, lat, lng);
+      await Promise.all(["country", "province", "city"].map((level) => ensureLookupBoundary(level, entry)));
+      if (state.geoLookup.pendingToken !== token) return;
+      mapState.boundaryGeoJson.province ||= { type: "FeatureCollection", features: [] };
+      mapState.boundaryGeoJson.city ||= { type: "FeatureCollection", features: [] };
+      renderMap();
+      byId("record-id-status").textContent = `Resolved: ${entry.countryName} / ${entry.provinceName} / ${entry.cityName}`;
+      if (!form.elements.title.value.trim()) form.elements.title.value = entry.cityName;
     }
 
     function initRecordPickerMap() {
@@ -3454,24 +3776,31 @@
       mapState.pickerMap = L.map("record-picker-map", { zoomControl: true, scrollWheelZoom: true }).setView([23.1291, 113.2644], 5);
       setMapTileLayer();
       mapState.pickerMap.on("click", (event) => {
-        setPickerLocation(event.latlng.lat, event.latlng.lng);
+        setPickerLocation(event.latlng.lat, event.latlng.lng, { resolveLocation: true });
       });
     }
 
-    function setPickerLocation(lat, lng) {
+    function setPickerLocation(lat, lng, options = {}) {
       const form = byId("record-form");
       form.elements.lat.value = Number(lat).toFixed(6);
       form.elements.lng.value = Number(lng).toFixed(6);
-      if (!mapState.pickerMap) return;
       const point = [Number(lat), Number(lng)];
-      mapState.pickerMap.setView(point, Math.max(mapState.pickerMap.getZoom(), 9));
-      if (!mapState.pickerMarker) {
-        mapState.pickerMarker = L.marker(point, {
-          icon: L.divIcon({ className: "", html: '<span class="record-node"></span>', iconSize: [10, 10], iconAnchor: [5, 5] })
-        }).addTo(mapState.pickerMap);
+      if (mapState.pickerMap) {
+        mapState.pickerMap.setView(point, Math.max(mapState.pickerMap.getZoom(), 9));
+        if (!mapState.pickerMarker) {
+          mapState.pickerMarker = L.marker(point, {
+            icon: L.divIcon({ className: "", html: '<span class="record-node"></span>', iconSize: [10, 10], iconAnchor: [5, 5] })
+          }).addTo(mapState.pickerMap);
+        } else {
+          mapState.pickerMarker.setLatLng(point);
+        }
       } else {
-        mapState.pickerMarker.setLatLng(point);
+        return;
       }
+      if (options.resolveLocation) resolvePickerLocation(Number(lat), Number(lng)).catch((error) => {
+        byId("record-id-status").textContent = "Location lookup failed; coordinates are still filled.";
+        showToast("Location lookup failed", error.message || "Try again later.", "error");
+      });
     }
 
     // Map renderer owns only visual interaction. Counts and filtering still come from normalized records above.
@@ -3787,13 +4116,13 @@
       if (!country || !province || !label) return;
       comboList("city").innerHTML = `<button class="combo-option" type="button" disabled>正在查找...</button>`;
       const query = `${label}, ${province.provinceName}, ${country.countryName}`;
-      const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=1&q=${encodeURIComponent(query)}`).catch(() => null);
-      if (!response?.ok) {
+      const results = await cachedFetchJson(`https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=1&q=${encodeURIComponent(query)}`, "seen-geocode-json-v1").catch(() => null);
+      if (!results) {
         renderCombo("city");
         showToast("地点查找失败", "可以先手动填写地点和经纬度。", "error");
         return;
       }
-      const result = (await response.json())[0];
+      const result = results[0];
       if (!result) {
         renderCombo("city");
         showToast("没有找到地点", query, "error");
@@ -3824,9 +4153,8 @@
       const cacheKey = `geocode:${location.city}`;
       if (boundaryCache[cacheKey]) return boundaryCache[cacheKey];
       const query = `${location.cityName}, ${location.provinceName}, ${location.countryName}`;
-      const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`).catch(() => null);
-      if (!response?.ok) return null;
-      const result = (await response.json())[0];
+      const results = await cachedFetchJson(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`, "seen-geocode-json-v1").catch(() => null);
+      const result = results?.[0];
       if (!result) return null;
       const point = { lat: Number(result.lat), lng: Number(result.lon) };
       if (Number.isFinite(point.lat) && Number.isFinite(point.lng)) {
@@ -3838,6 +4166,7 @@
     }
 
     function populateLocationSelectors() {
+      state.geoLookup.previewRegion = null;
       ["country", "province", "city"].forEach((kind) => {
         byId(`record-${kind}`).value = "";
         comboInput(kind).value = "";
@@ -3871,7 +4200,7 @@
 
     function validateLocationSelection() {
       const form = byId("record-form");
-      return !!(form.elements.country.value && form.elements.province.value && form.elements.city.value && selectedLocation());
+      return !!(form.elements.country.value && form.elements.province.value && form.elements.city.value);
     }
 
     function applySelectedLocation() {
@@ -4342,11 +4671,15 @@
         province: String(formData.get("province") || "").trim(),
         city: String(formData.get("city") || "").trim()
       };
-      record.region = normalizeRegion(selectedRegion, record) || normalizeRegion(null, record);
+      record.region = selectedRegion.country && selectedRegion.province && selectedRegion.city
+        ? selectedRegion
+        : normalizeRegion(null, record);
       if (!record.title || Number.isNaN(record.lat) || Number.isNaN(record.lng)) return;
       SEEN_DATA.tags = [...new Set(SEEN_DATA.tags.concat(tags))];
       customRecords.unshift(record);
       state.featureIndex = 0;
+      state.activeArea = record.region?.[state.zoom] || record.region?.province || record.region?.country || null;
+      state.activeRoute = null;
       persistRecords();
       try {
         const written = await persistRecordToArchive(record, state.pendingImages);
@@ -4362,7 +4695,10 @@
       populateLocationSelectors();
       updateRecordFormFields();
       renderAll();
-      if (mapState.map) mapState.map.setView([record.lat, record.lng], 10);
+      loadBoundaryGeoJson(state.zoom).finally(() => {
+        renderMap();
+        if (mapState.map) mapState.map.setView([record.lat, record.lng], 10);
+      });
     }
 
     function updateRecordFormFields() {
@@ -4539,8 +4875,7 @@
       byId("use-map-center").addEventListener("click", () => {
         if (!mapState.map) return;
         const center = mapState.map.getCenter();
-        byId("record-form").elements.lat.value = center.lat.toFixed(6);
-        byId("record-form").elements.lng.value = center.lng.toFixed(6);
+        setPickerLocation(center.lat, center.lng, { resolveLocation: true });
       });
       byId("cancel-delete").addEventListener("click", () => closeDialog("delete-dialog"));
       byId("confirm-delete").addEventListener("click", () => {
