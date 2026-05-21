@@ -2,20 +2,27 @@
   "id": "1779113357465-途中加油站",
   "title": "佛州大环线1.1随拍",
   "created_at": "2026-05-18T14:14:39.111Z",
-  "updated_at": "2026-05-19T14:56:27.984Z",
+  "updated_at": "2026-05-21T10:41:58.238Z",
   "route_id": "florida-self-driving-tour-1.1",
   "route_index": 1,
   "tags": [
     "自驾"
   ],
   "location": {
-    "place": "美国 / 佛罗里达 / 迈阿密",
+    "place": "美国 / 佛罗里达 / 门罗县",
     "lat": 25.127627,
-    "lng": -80.411596,
+    "lng": -80.41159600000003,
     "region": {
       "country": "us",
       "province": "florida",
-      "city": "miami"
+      "city": "门罗",
+      "district": null
+    },
+    "region_names": {
+      "country": "United States",
+      "province": "Florida",
+      "city": "门罗县",
+      "district": ""
     }
   },
   "assets": [
@@ -32,13 +39,14 @@
   "archived": false,
   "type": "note",
   "date": "2024-12-13",
-  "place": "美国 / 佛罗里达 / 迈阿密",
+  "place": "美国 / 佛罗里达 / 门罗县",
   "lat": 25.127627,
-  "lng": -80.411596,
+  "lng": -80.41159600000003,
   "region": {
     "country": "us",
     "province": "florida",
-    "city": "miami"
+    "city": "门罗",
+    "district": null
   },
   "note": "路上第一次加油// 好像也是第一次*真正意义上*加油\n还有神秘载具皮肤*圣诞节前夕版"
 }

@@ -2,7 +2,7 @@
   "id": "macau-walk_test",
   "title": "澳门步行线",
   "created_at": "2024-02-10T00:00:00.000Z",
-  "updated_at": "2026-05-18T12:43:31.539Z",
+  "updated_at": "2026-05-21T10:41:57.121Z",
   "route_id": "pearl-river_test",
   "route_index": 2,
   "tags": [
@@ -10,10 +10,21 @@
     "街角"
   ],
   "location": {
-    "place": "China / Macau / Macau",
+    "place": "中国 / 澳門 / 風順堂區",
     "lat": 22.1919,
-    "lng": 113.538,
-    "region": null
+    "lng": 113.53800000000001,
+    "region": {
+      "country": "cn",
+      "province": "澳門",
+      "city": "風順堂區",
+      "district": null
+    },
+    "region_names": {
+      "country": "China",
+      "province": "澳門",
+      "city": "風順堂區",
+      "district": ""
+    }
   },
   "assets": [
     {
@@ -25,13 +36,14 @@
   "archived": false,
   "type": "note",
   "date": "2002-02-10",
-  "place": "China / Macau / Macau",
+  "place": "中国 / 澳門 / 風順堂區",
   "lat": 22.1919,
-  "lng": 113.538,
+  "lng": 113.53800000000001,
   "region": {
     "country": "cn",
-    "province": "macau",
-    "city": "macau"
+    "province": "澳門",
+    "city": "風順堂區",
+    "district": null
   },
   "note": "街巷很窄，但每个转角都有不同的垂直层次。\n恭喜你发现了测试集！"
 }

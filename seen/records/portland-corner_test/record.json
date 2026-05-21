@@ -2,7 +2,7 @@
   "id": "portland-corner_test",
   "title": "Portland 的街角",
   "created_at": "2023-05-17T00:00:00.000Z",
-  "updated_at": "2026-05-18T12:43:30.645Z",
+  "updated_at": "2026-05-21T10:41:57.687Z",
   "route_id": null,
   "route_index": null,
   "tags": [
@@ -10,13 +10,20 @@
     "咖啡"
   ],
   "location": {
-    "place": "United States / Oregon / Portland",
+    "place": "美国 / 俄勒冈 / 波特兰 / Multnomah County",
     "lat": 45.5152,
-    "lng": -122.6784,
+    "lng": -122.67840000000001,
     "region": {
       "country": "us",
       "province": "oregon",
-      "city": "portland"
+      "city": "portland",
+      "district": "multnomah-county"
+    },
+    "region_names": {
+      "country": "United States",
+      "province": "Oregon",
+      "city": "Portland",
+      "district": "Multnomah County"
     }
   },
   "assets": [
@@ -29,13 +36,14 @@
   "archived": false,
   "type": "photo",
   "date": "2001-05-17",
-  "place": "United States / Oregon / Portland",
+  "place": "美国 / 俄勒冈 / 波特兰 / Multnomah County",
   "lat": 45.5152,
-  "lng": -122.6784,
+  "lng": -122.67840000000001,
   "region": {
     "country": "us",
     "province": "oregon",
-    "city": "portland"
+    "city": "portland",
+    "district": "multnomah-county"
   },
   "note": ""
 }

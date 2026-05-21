@@ -2,7 +2,7 @@
   "id": "losangeles-sunset_test",
   "title": "洛杉矶日落",
   "created_at": "2023-04-12T00:00:00.000Z",
-  "updated_at": "2026-05-18T12:43:30.407Z",
+  "updated_at": "2026-05-21T10:41:56.893Z",
   "route_id": null,
   "route_index": null,
   "tags": [
@@ -10,13 +10,20 @@
     "城市漫游"
   ],
   "location": {
-    "place": "United States / California / Los Angeles",
+    "place": "美国 / 加利福尼亚 / 洛杉矶 / Los Angeles County",
     "lat": 34.0522,
-    "lng": -118.2437,
+    "lng": -118.24369999999999,
     "region": {
       "country": "us",
       "province": "california",
-      "city": "los-angeles"
+      "city": "los-angeles",
+      "district": "los-angeles-county"
+    },
+    "region_names": {
+      "country": "United States",
+      "province": "California",
+      "city": "Los Angeles",
+      "district": "Los Angeles County"
     }
   },
   "assets": [
@@ -29,13 +36,14 @@
   "archived": false,
   "type": "photo",
   "date": "2001-04-12",
-  "place": "United States / California / Los Angeles",
+  "place": "美国 / 加利福尼亚 / 洛杉矶 / Los Angeles County",
   "lat": 34.0522,
-  "lng": -118.2437,
+  "lng": -118.24369999999999,
   "region": {
     "country": "us",
     "province": "california",
-    "city": "los-angeles"
+    "city": "los-angeles",
+    "district": "los-angeles-county"
   },
   "note": "恭喜你发现了测试集！"
 }

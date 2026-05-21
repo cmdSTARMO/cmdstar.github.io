@@ -290,8 +290,9 @@
     .photo-grid .image-preview-item { width: 100%; height: auto; aspect-ratio: 4 / 3; }
     .photo-grid .image-preview-item img { object-fit: contain; background: #111820; }
     .photo-grid .image-preview-item.is-selectable { cursor: pointer; }
-    .image-viewer { width: 100vw; height: 100vh; max-width: none; max-height: none; margin: 0; border: 0; border-radius: 0; padding: 0; background: rgba(3, 7, 10, 0.96); overflow: hidden; }
-    .image-viewer::backdrop { background: rgba(3, 7, 10, 0.96); }
+    .image-viewer { width: 100vw; height: 100vh; max-width: none; max-height: none; margin: 0; border: 0; border-radius: 0; padding: 0; background: rgba(3, 7, 10, 0.96); overflow: hidden; opacity: 1; transition: opacity 180ms ease; }
+    .image-viewer.is-closing { opacity: 0; }
+    .image-viewer::backdrop { background: rgba(3, 7, 10, 0.96); transition: background 180ms ease; }
     .image-viewer-shell { width: 100%; height: 100%; display: grid; place-items: center; padding: max(14px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); touch-action: none; overscroll-behavior: contain; }
     .image-viewer img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; cursor: grab; touch-action: none; user-select: none; will-change: transform, opacity; }
     .image-viewer img.is-dragging { cursor: grabbing; }
@@ -358,15 +359,18 @@
     .detail-dialog.has-route-dock .detail-card { max-height: calc(100vh - 330px); }
     .detail-media, .detail-copy { transition: opacity 220ms ease, transform 220ms cubic-bezier(0.16, 1, 0.3, 1); }
     .detail-card.is-switching .detail-media, .detail-card.is-switching .detail-copy { opacity: 0.72; }
-    .detail-card img { width: 100%; height: 100%; min-height: 360px; object-fit: contain; display: block; background: #111820; }
-    .detail-media { position: relative; background: #111820; overscroll-behavior: contain; }
+    .detail-card img { width: 100%; height: 100%; min-height: 360px; object-fit: contain; display: block; background: transparent; }
+    .detail-media { position: relative; background: rgba(248, 251, 249, 0.54); backdrop-filter: blur(20px) saturate(1.08); -webkit-backdrop-filter: blur(20px) saturate(1.08); overscroll-behavior: contain; }
     .detail-media::after { content: "Loading"; position: absolute; left: 50%; top: 50%; display: none; transform: translate(-50%, -50%); border: 1px solid rgba(255,255,255,0.22); border-radius: 999px; background: rgba(7, 11, 16, 0.58); color: #fff; padding: 8px 13px 8px 32px; font-size: 0.78rem; z-index: 2; }
     .detail-media::before { content: ""; position: absolute; left: calc(50% - 45px); top: calc(50% - 7px); z-index: 3; display: none; width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.34); border-top-color: #fff; animation: seenSpin 0.8s linear infinite; }
     .detail-media.is-loading::before, .detail-media.is-loading::after { display: block; }
     .detail-media img { width: 100%; height: 100%; min-height: 360px; object-fit: contain; display: block; cursor: zoom-in; user-select: none; touch-action: pan-y; opacity: 1; transition: opacity 180ms ease; }
     .detail-media img.is-loading { opacity: 0; }
+    .detail-media.is-portrait { background: linear-gradient(135deg, rgba(255,255,255,0.68), rgba(255,255,255,0.22)), rgba(248, 251, 249, 0.44); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.42), inset 0 -32px 64px rgba(7, 18, 16, 0.08); }
     .detail-media.is-portrait img { object-fit: contain; padding: 10px; }
     .detail-media.is-landscape img { object-fit: contain; }
+    html[data-theme="dark"] .detail-media { background: rgba(7, 11, 16, 0.72); }
+    html[data-theme="dark"] .detail-media.is-portrait { background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02)), rgba(7, 11, 16, 0.70); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), inset 0 -36px 72px rgba(0, 0, 0, 0.28); }
     .image-nav { position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; justify-content: space-between; gap: 8px; pointer-events: none; }
     .image-nav button { pointer-events: auto; }
     .image-count { position: absolute; top: 12px; right: 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.32); background: rgba(7, 11, 16, 0.64); color: #fff; padding: 5px 9px; font-size: 0.78rem; cursor: pointer; }
@@ -455,8 +459,10 @@
     .sub-dock-map { width: 100%; height: 116px; background: #05080c; cursor: grab; touch-action: none; }
     .sub-dock-map, .sub-dock-map .leaflet-container, .sub-dock-map .leaflet-pane { pointer-events: auto; }
     .sub-dock-map:active { cursor: grabbing; }
-    .dock-reset { position: absolute; right: 10px; top: 10px; z-index: 700; min-width: 66px; height: 30px; border: 1px solid rgba(255,255,255,0.22); border-radius: 999px; background: rgba(7, 11, 16, 0.62); color: #fff; display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 0 10px; cursor: pointer; font: inherit; font-size: 0.72rem; font-weight: 700; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-    .dock-reset:hover { background: rgba(7, 11, 16, 0.82); }
+    .dock-reset { position: absolute; right: 10px; top: 10px; z-index: 700; min-width: 66px; height: 30px; border: 1px solid rgba(23, 32, 37, 0.16); border-radius: 999px; background: rgba(248, 251, 249, 0.72); color: #172025; display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 0 10px; cursor: pointer; font: inherit; font-size: 0.72rem; font-weight: 700; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 10px 28px rgba(3, 9, 14, 0.18); }
+    .dock-reset:hover { background: rgba(248, 251, 249, 0.92); }
+    html[data-theme="dark"] .dock-reset { border-color: rgba(255,255,255,0.22); background: rgba(7, 11, 16, 0.62); color: #fff; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32); }
+    html[data-theme="dark"] .dock-reset:hover { background: rgba(7, 11, 16, 0.82); }
     .ios-alert-actions { position: relative; z-index: 2; display: grid; min-height: 50px; margin-top: -1px; border-top: 1px solid rgba(82, 97, 104, 0.18); border-radius: 0 0 24px 24px; overflow: hidden; background: rgba(248, 251, 249, 0.56); backdrop-filter: blur(22px) saturate(1.16); -webkit-backdrop-filter: blur(22px) saturate(1.16); }
     .ios-alert-actions.two-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .ios-action-btn { min-width: 0; min-height: 50px; border: 0; background: transparent; color: var(--seen-blue); cursor: pointer; font: inherit; font-size: 0.9rem; font-weight: 700; letter-spacing: 0; transition: background 0.18s ease, color 0.18s ease; }
@@ -620,13 +626,12 @@
             <span data-seen-i18n="province_state">省/州</span><input id="record-province-input" autocomplete="off" placeholder="输入 Guangdong / Florida 搜索" data-seen-i18n-attr="placeholder:province_placeholder"><input name="province" id="record-province" type="hidden"><div class="combo-list" id="province-options"></div><button class="combo-clear" type="button" data-clear-combo="province" aria-label="清除省/州"><i class="bi-x-lg"></i></button>
           </div>
           <div class="combo" data-field-group="region" data-combo="city">
-            <span data-seen-i18n="city">城市</span><input id="record-city-input" autocomplete="off" placeholder="输入 Guangzhou / Miami 搜索" data-seen-i18n-attr="placeholder:city_placeholder"><input name="city" id="record-city" type="hidden"><div class="combo-list" id="city-options"></div><button class="combo-clear" type="button" data-clear-combo="city" aria-label="清除城市"><i class="bi-x-lg"></i></button>
+            <span data-seen-i18n="city">城市</span><input id="record-city-input" autocomplete="off" placeholder="输入 Guangzhou / Miami 搜索" data-seen-i18n-attr="placeholder:city_placeholder"><input name="city" id="record-city" type="hidden"><input name="district" id="record-district" type="hidden"><div class="combo-list" id="city-options"></div><button class="combo-clear" type="button" data-clear-combo="city" aria-label="清除城市"><i class="bi-x-lg"></i></button>
           </div>
           <label data-field-group="region"><span data-seen-i18n="place">地点</span><input name="place" required placeholder="选择城市后自动生成，也可手动微调" data-seen-i18n-attr="placeholder:place_placeholder"></label>
           <label data-field-group="region"><span data-seen-i18n="latitude">纬度</span><input name="lat" type="number" step="0.000001" placeholder="23.1291"></label>
           <label data-field-group="region"><span data-seen-i18n="longitude">经度</span><input name="lng" type="number" step="0.000001" placeholder="113.2644"></label>
           <div class="form-full route-builder" data-field-group="route">
-            <input name="routeSource" id="route-source" type="hidden" value="records">
             <input name="tripMode" id="trip-mode" type="hidden" value="route">
             <div class="route-builder-head">
               <div><strong data-seen-i18n="route_builder_title">导航式经停点</strong><span data-seen-i18n="route_builder_subtitle">用已有记录 ID 串联路线。</span></div>
@@ -657,6 +662,7 @@
           <div class="form-full form-actions">
             <button class="seen-action primary" type="submit" data-seen-i18n="add_record">添加记录</button>
             <button class="seen-action" id="use-map-center" type="button" data-seen-i18n="use_map_center">使用当前地图中心坐标</button>
+            <button class="seen-action" id="refresh-record-locations" type="button">重算所有记录地址</button>
             <button class="seen-action" type="reset" data-seen-i18n="clear_form">清空表单</button>
           </div>
         </form>
@@ -947,7 +953,7 @@
       assetsDir: "assets",
       cacheDir: "cache"
     };
-    const state = { zoom: "country", activeTag: null, activeArea: null, activeRoute: null, featureIndex: 0, layerFilter: "all", detailImageIndex: 0, visibleRecords: 10, visibleRoutes: 10, managerOpen: false, detailPool: [], detailPoolLabel: "", detailMode: "default", detailDrag: null, detailImageDrag: null, imageViewerDrag: null, viewerPointers: new Map(), viewerGesture: null, viewerScale: 1, viewerPanX: 0, viewerPanY: 0, viewerOriginalMode: false, suppressImageClick: false, suppressViewerClick: false, searchOpen: false, searchScope: "records", searchQuery: "", searchIndex: 0, searchResults: [], searchDragX: null, calendarMonth: new Date(), pendingImages: [], editingImages: [], archiveHandle: null, pageScrollY: 0, detailTouchY: null, dockMode: "route", dockMapMode: "point", geoLookup: {} };
+    const state = { zoom: "country", activeTag: null, activeArea: null, activeRoute: null, featureIndex: 0, layerFilter: "all", detailImageIndex: 0, visibleRecords: 10, visibleRoutes: 10, managerOpen: false, detailPool: [], detailPoolLabel: "", detailMode: "default", detailDrag: null, detailImageDrag: null, imageViewerDrag: null, viewerPointers: new Map(), viewerGesture: null, viewerScale: 1, viewerPanX: 0, viewerPanY: 0, viewerOriginalMode: false, viewerSourceRect: null, viewerClickTimer: null, viewerClosing: false, suppressImageClick: false, suppressViewerClick: false, searchOpen: false, searchScope: "records", searchQuery: "", searchIndex: 0, searchResults: [], searchDragX: null, calendarMonth: new Date(), pendingImages: [], editingImages: [], archiveHandle: null, pageScrollY: 0, detailTouchY: null, dockMode: "route", dockMapMode: "point", geoLookup: {} };
     const mapState = { map: null, tileLayer: null, boundaryLayer: null, routeLayers: [], pointLayers: [], recordMarkers: [], pickerMap: null, pickerTileLayer: null, pickerMarker: null, dockMap: null, dockTileLayer: null, dockLayers: [], boundaryGeoJson: {}, pendingDeleteId: null, detailRecordId: null };
     const boundarySources = {
       country: "boundaries/countries.geojson",
@@ -957,6 +963,9 @@
     const remoteBoundarySources = {
       country: ["https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.json"]
     };
+    const NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org";
+    const NOMINATIM_LANGUAGE = "zh-CN";
+    const GEOCODE_CACHE_NAME = `seen-geocode-json-v2-${NOMINATIM_LANGUAGE}`;
     const byId = (id) => document.getElementById(id);
     const slug = (value) => String(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
     const cssIdent = (value) => window.CSS?.escape ? CSS.escape(value) : String(value).replace(/["\\]/g, "\\$&");
@@ -1009,8 +1018,10 @@
         preview_missing: "未找到记录：",
         start_placeholder: "选择起点记录 ID",
         stop_placeholder: "添加经停记录 ID",
-        end_placeholder: "选择终点记录 ID"
-        ,route_management: "路线管理",
+        end_placeholder: "选择终点记录 ID",
+        empty_records_title: "暂无记录",
+        empty_records_note: "添加或恢复记录后会在这里展示。",
+        route_management: "路线管理",
         no_custom_routes: "暂无自建路线",
         built_in_route: "内置路线",
         custom_route: "自建路线",
@@ -1060,6 +1071,8 @@
         start_placeholder: "Choose start record ID",
         stop_placeholder: "Add waypoint record ID",
         end_placeholder: "Choose destination record ID",
+        empty_records_title: "No records yet",
+        empty_records_note: "Add or restore records to show a featured item here.",
         route_management: "Route management",
         no_custom_routes: "No custom routes yet",
         built_in_route: "Built-in route",
@@ -1114,6 +1127,9 @@
     customLocationEntries.forEach(addLocationEntry);
     function addLocationEntry(entry) {
       if (!entry?.country || !entry?.province || !entry?.city) return null;
+      ["countryName", "provinceName", "cityName", "districtName"].forEach((key) => {
+        if (entry[key]) entry[key] = primaryAddressName(entry[key]);
+      });
       const existing = LOCATION_DATA.find((item) => item.country === entry.country && item.province === entry.province && item.city === entry.city);
       if (existing) {
         Object.assign(existing, Object.fromEntries(Object.entries(entry).filter(([, value]) => value !== undefined && value !== null && value !== "")));
@@ -1160,20 +1176,28 @@
       const source = region || record.location?.region || null;
       const hasSource = source && Object.values(source).some(Boolean);
       const inferred = hasSource ? locationForRegion(source) : inferRegionFromPlace(record.place || record.location?.place);
-      if (inferred) return { country: inferred.country, province: inferred.province, city: inferred.city };
+      if (inferred) return {
+        country: inferred.country,
+        province: inferred.province,
+        city: inferred.city,
+        district: source?.district ? fallbackAreaId(source.district) : inferred.district || null
+      };
       if (!hasSource) return null;
       return {
         country: resolveAreaId("country", source.country),
         province: resolveAreaId("province", source.province),
-        city: resolveAreaId("city", source.city)
+        city: resolveAreaId("city", source.city),
+        district: source.district ? fallbackAreaId(source.district) : null
       };
     };
     const staticBoundaryArea = (level, id) => SEEN_DATA.boundaries[level].find((area) => area.id === id);
     const cityBounds = (lat, lng) => [[lat - 0.18, lng - 0.22], [lat + 0.18, lng + 0.22]];
+    const geocodeCacheKey = (id) => `geocode:${NOMINATIM_LANGUAGE}:${id}`;
+    const cachedGeocodePoint = (id) => boundaryCache[geocodeCacheKey(id)] || boundaryCache[`geocode:${id}`] || null;
     const provinceBoundsFromLocations = (provinceId) => {
       const points = LOCATION_DATA.filter((item) => item.province === provinceId).map((item) => ({
-        lat: typeof item.lat === "number" ? item.lat : boundaryCache[`geocode:${item.city}`]?.lat,
-        lng: typeof item.lng === "number" ? item.lng : boundaryCache[`geocode:${item.city}`]?.lng
+        lat: typeof item.lat === "number" ? item.lat : cachedGeocodePoint(item.city)?.lat,
+        lng: typeof item.lng === "number" ? item.lng : cachedGeocodePoint(item.city)?.lng
       })).filter((item) => typeof item.lat === "number" && typeof item.lng === "number");
       if (!points.length) return null;
       const lats = points.map((item) => item.lat), lngs = points.map((item) => item.lng);
@@ -1193,7 +1217,7 @@
       }
       const location = LOCATION_DATA.find((item) => item.city === id)
         || customLocationEntries.find((item) => item.city === id);
-      const cachedPoint = boundaryCache[`geocode:${id}`];
+      const cachedPoint = cachedGeocodePoint(id);
       const lat = typeof location?.lat === "number" ? location.lat : cachedPoint?.lat;
       const lng = typeof location?.lng === "number" ? location.lng : cachedPoint?.lng;
       return location ? { id, name: location.cityName, boundaryQuery: `${location.cityName}, ${location.provinceName}, ${location.countryName}`, bounds: typeof lat === "number" && typeof lng === "number" ? cityBounds(lat, lng) : null } : null;
@@ -1389,6 +1413,12 @@
       return [...new Set(items.filter(Boolean))];
     }
 
+    function normalizeLongitude(lng) {
+      const value = Number(lng);
+      if (!Number.isFinite(value)) return value;
+      return ((((value + 180) % 360) + 360) % 360) - 180;
+    }
+
     function normalizeRecord(record) {
       const routeId = record.route_id ?? record.routeId ?? null;
       const routeIndex = record.route_index ?? record.routeIndex ?? record.segmentIndex ?? null;
@@ -1414,7 +1444,7 @@
         image: cover,
         images: images && images.length ? images : [cover],
         lat: Number(record.lat ?? record.location?.lat),
-        lng: Number(record.lng ?? record.location?.lng),
+        lng: normalizeLongitude(record.lng ?? record.location?.lng),
         place: record.place || record.location?.place || "",
         region,
         tags: record.tags || [],
@@ -1425,6 +1455,49 @@
 
     function recordsById() {
       return new Map(allRecords().map((record) => [record.id, record]));
+    }
+
+    function sourceRecordCollections() {
+      return [SEEN_DATA.records, archiveRecords, customRecords, recordDrafts];
+    }
+
+    function sourceRouteCollections() {
+      return [SEEN_DATA.routes, archiveRoutes, customRoutes, routeDrafts];
+    }
+
+    function rawRoutes() {
+      return uniqueById(sourceRouteCollections().flat().filter(Boolean));
+    }
+
+    function hasValidCoords(item) {
+      return Number.isFinite(Number(item?.lat)) && Number.isFinite(Number(item?.lng));
+    }
+
+    function normalizeRoutePoint(point, lookup = recordsById()) {
+      if (!point) return null;
+      const linkedRecord = point.recordId ? lookup.get(point.recordId) : null;
+      const lat = Number.isFinite(Number(point.lat)) ? Number(point.lat) : Number(linkedRecord?.lat);
+      const lng = Number.isFinite(Number(point.lng)) ? normalizeLongitude(point.lng) : normalizeLongitude(linkedRecord?.lng);
+      if (!Number.isFinite(lat) || !Number.isFinite(lng)) return null;
+      return {
+        ...point,
+        name: point.name || linkedRecord?.title || point.recordId || "Waypoint",
+        at: point.at || linkedRecord?.date || "",
+        lat,
+        lng,
+        recordId: point.recordId || linkedRecord?.id || null
+      };
+    }
+
+    function validRoutePoints(route) {
+      const lookup = recordsById();
+      const sourcePoints = route?.points?.length
+        ? route.points
+        : routeRecordIds(route).map((recordId) => {
+          const record = lookup.get(recordId);
+          return record ? { name: record.title, at: record.date, lat: record.lat, lng: record.lng, recordId } : null;
+        });
+      return (sourcePoints || []).map((point) => normalizeRoutePoint(point, lookup)).filter(Boolean);
     }
 
     function normalizeRoute(route) {
@@ -1515,11 +1588,13 @@
     }
 
     function syncRouteBindings() {
-      allRoutes().forEach((route) => {
+      const routeRecordSets = new Map();
+      rawRoutes().forEach((route) => {
         const recordIds = route.records && route.records.length ? route.records : (route.points || []).map((point) => point.recordId).filter(Boolean);
         route.records = recordIds;
+        routeRecordSets.set(route.id, new Set(recordIds));
         recordIds.forEach((recordId, index) => {
-          [SEEN_DATA.records, archiveRecords, customRecords, recordDrafts].forEach((collection) => {
+          sourceRecordCollections().forEach((collection) => {
             const record = collection.find((item) => item.id === recordId);
             if (!record) return;
             record.routeId = route.id;
@@ -1530,17 +1605,18 @@
           });
         });
       });
-      allRecords().forEach((record) => {
-        if (!record.routeId) return;
-        const route = allRoutes().find((item) => item.id === record.routeId);
-        if (!route || !route.records?.includes(record.id)) {
+      sourceRecordCollections().forEach((collection) => collection.forEach((record) => {
+        const routeId = record.routeId || record.route_id;
+        if (!routeId) return;
+        const routeRecordIds = routeRecordSets.get(routeId);
+        if (!routeRecordIds?.has(record.id)) {
           record.routeId = null;
           record.route_id = null;
           record.routeIndex = null;
           record.route_index = null;
           record.segmentIndex = null;
         }
-      });
+      }));
     }
 
     function archiveUrl(path) {
@@ -1733,7 +1809,7 @@
       const records = activeRecords();
       const cities = new Set(records.flatMap((record) => record.region?.city ? [record.region.city] : []));
       const totalPhotos = records.reduce((sum, record) => sum + getRecordImages(record).length, 0);
-      const routeDistance = allRoutes().reduce((sum, route) => sum + route.points.reduce((routeSum, point, index, points) => {
+      const routeDistance = allRoutes().reduce((sum, route) => sum + validRoutePoints(route).reduce((routeSum, point, index, points) => {
         if (!index) return routeSum;
         return routeSum + distanceKm(points[index - 1], point);
       }, 0), 0) * 1.08;
@@ -1757,7 +1833,7 @@
     }
 
     function routeDistanceKm(route) {
-      return (route.points || []).reduce((sum, point, index, points) => {
+      return validRoutePoints(route).reduce((sum, point, index, points) => {
         if (!index) return sum;
         return sum + distanceKm(points[index - 1], point);
       }, 0) * 1.08;
@@ -1996,12 +2072,28 @@
       const route = allRoutes().find((item) => item.id === routeId);
       if (!route) return false;
       const now = new Date().toISOString();
+      const currentRecordIds = routeRecordIds(route);
       let previousRecords = [];
       try {
         previousRecords = (await readArchiveJson(`routes/${route.id}.json`)).records || [];
       } catch (error) {
         previousRecords = [];
       }
+      const currentRecordFiles = new Map();
+      for (const recordId of currentRecordIds) {
+        try {
+          currentRecordFiles.set(recordId, await readArchiveJson(`records/${recordId}/record.json`));
+        } catch (error) {
+          throw new Error(`记录文件无法读取，路线未完整写入：${recordId}`);
+        }
+      }
+      await Promise.all(currentRecordIds.map(async (recordId, index) => {
+        const record = currentRecordFiles.get(recordId);
+        record.route_id = route.id;
+        record.route_index = index;
+        record.updated_at = now;
+        await writeArchiveJson(`records/${recordId}/record.json`, record);
+      }));
       await writeArchiveJson(`routes/${route.id}.json`, {
         id: route.id,
         name: route.name,
@@ -2009,9 +2101,9 @@
         date: route.date || routeStartTime(route) || now.slice(0, 10),
         created_at: route.created_at || now,
         updated_at: now,
-        records: route.records || []
+        records: currentRecordIds
       });
-      await Promise.all(previousRecords.filter((recordId) => !(route.records || []).includes(recordId)).map(async (recordId) => {
+      await Promise.all(previousRecords.filter((recordId) => !currentRecordIds.includes(recordId)).map(async (recordId) => {
         try {
           const record = await readArchiveJson(`records/${recordId}/record.json`);
           if (record.route_id === route.id) {
@@ -2024,12 +2116,29 @@
           console.warn(`Seen route detach skipped for ${recordId}`, error);
         }
       }));
-      await Promise.all((route.records || []).map(async (recordId, index) => {
-        const record = await readArchiveJson(`records/${recordId}/record.json`);
-        record.route_id = route.id;
-        record.route_index = index;
-        record.updated_at = now;
-        await writeArchiveJson(`records/${recordId}/record.json`, record);
+      const persistedRoute = {
+        ...route,
+        records: currentRecordIds,
+        updated_at: now
+      };
+      archiveRoutes = archiveRoutes.filter((item) => item.id !== route.id).concat(persistedRoute);
+      customRoutes = customRoutes.map((item) => item.id === route.id ? { ...item, ...persistedRoute } : item);
+      routeDrafts = routeDrafts.map((item) => item.id === route.id ? { ...item, ...persistedRoute } : item);
+      sourceRecordCollections().forEach((collection) => collection.forEach((record) => {
+        const index = currentRecordIds.indexOf(record.id);
+        if (index >= 0) {
+          record.routeId = route.id;
+          record.route_id = route.id;
+          record.routeIndex = index;
+          record.route_index = index;
+          record.segmentIndex = index;
+        } else if ((record.routeId || record.route_id) === route.id) {
+          record.routeId = null;
+          record.route_id = null;
+          record.routeIndex = null;
+          record.route_index = null;
+          record.segmentIndex = null;
+        }
       }));
       await writeArchiveJson("indexes/routes_index.json", {
         schema_version: 1,
@@ -2239,24 +2348,34 @@
     async function persistRecordMetadataToArchive(record) {
       if (!window.showDirectoryPicker || !state.archiveHandle) return false;
       const existing = await readArchiveJson(`records/${record.id}/record.json`).catch(() => ({}));
-      const selectedImages = (record.images || []).filter(Boolean);
+      const metadataOnly = Boolean(record.__metadata_only);
+      const selectedImages = metadataOnly ? [] : (record.images || []).filter(Boolean);
       const existingImages = (existing.assets || []).map((asset) => asset.path).filter(Boolean);
       if (!selectedImages.length && (existing.cover || record.cover) && !existingImages.length) selectedImages.push(withLegacyArchiveUrl(record.id, existing.cover || record.cover));
       const imagePaths = selectedImages.map((src, index) => `assets/image-${index + 1}.jpg`);
-      const assets = imagePaths.map((path) => ({ path, type: "image/jpeg" }));
-      const { image, images, cover, __archive_base, routeId, routeIndex, segmentIndex, custom, ...recordData } = record;
+      const assets = metadataOnly ? (existing.assets || []) : imagePaths.map((path) => ({ path, type: "image/jpeg" }));
+      const { image, images, cover, __archive_base, __metadata_only, routeId, routeIndex, segmentIndex, custom, ...recordData } = record;
       const nextMetadata = {
         ...existing,
         ...recordData,
         assets,
         route_id: record.routeId || record.route_id || null,
         route_index: record.routeIndex ?? record.route_index ?? null,
+        location: {
+          ...(existing.location || {}),
+          ...(record.location || {}),
+          place: record.place ?? record.location?.place ?? existing.location?.place ?? "",
+          lat: record.lat ?? record.location?.lat ?? existing.location?.lat ?? null,
+          lng: record.lng ?? record.location?.lng ?? existing.location?.lng ?? null,
+          region: record.region || record.location?.region || existing.location?.region || null
+        },
         updated_at: new Date().toISOString()
       };
       delete nextMetadata.cover;
       delete nextMetadata.image;
       await writeArchiveJson(`records/${record.id}/record.json`, nextMetadata);
       if (record.note !== undefined) await writeArchiveText(`records/${record.id}/content.md`, `# ${record.title}\n\n${record.note || ""}\n`);
+      if (metadataOnly) return true;
       await Promise.all(selectedImages.map(async (src, index) => {
         const targetPath = imagePaths[index];
         const sourcePath = archiveImagePath(record.id, src);
@@ -2271,19 +2390,53 @@
 
     async function commitAllDrafts() {
       if (!state.archiveHandle) await connectArchiveDirectory();
-      for (const record of customRecords) {
-        const images = (record.images || []).filter((src) => String(src).startsWith("data:")).map((src, index) => ({ src, name: `image-${index + 1}.jpg` }));
-        await persistRecordToArchive(record, images);
+      if (!state.archiveHandle) {
+        showToast("提交已取消", "没有连接归档目录，草稿仍保留。", "error");
+        return;
       }
-      for (const record of recordDrafts) await persistRecordMetadataToArchive(record);
-      for (const route of routeDrafts) await persistRouteToArchive(route.id);
-      for (const id of [...deletedRouteIds]) await removeRouteFromArchive(id).catch((error) => console.warn(`Route delete skipped for ${id}`, error));
-      for (const id of hiddenRecordIds) {
+      const failures = [];
+      for (const record of customRecords) {
+        try {
+          const images = (record.images || []).filter((src) => String(src).startsWith("data:")).map((src, index) => ({ src, name: `image-${index + 1}.jpg` }));
+          const written = await persistRecordToArchive(record, images);
+          if (written) customRecords = customRecords.filter((item) => item.id !== record.id);
+          else failures.push(`记录 ${record.id}`);
+        } catch (error) {
+          failures.push(`记录 ${record.id}: ${error.message}`);
+        }
+      }
+      for (const record of [...recordDrafts]) {
+        try {
+          const written = await persistRecordMetadataToArchive(record);
+          if (written) {
+            recordDrafts = recordDrafts.filter((item) => item.id !== record.id);
+            archiveRecords = archiveRecords.filter((item) => item.id !== record.id).concat({ ...record, __archive_base: `records/${record.id}` });
+          } else {
+            failures.push(`记录编辑 ${record.id}`);
+          }
+        } catch (error) {
+          failures.push(`记录编辑 ${record.id}: ${error.message}`);
+        }
+      }
+      for (const route of [...routeDrafts]) {
+        try {
+          const written = await persistRouteToArchive(route.id);
+          if (written) routeDrafts = routeDrafts.filter((item) => item.id !== route.id);
+          else failures.push(`路线 ${route.id}`);
+        } catch (error) {
+          failures.push(`路线 ${route.id}: ${error.message}`);
+        }
+      }
+      for (const id of [...deletedRouteIds]) await removeRouteFromArchive(id).then(() => deletedRouteIds.delete(id)).catch((error) => failures.push(`路线删除 ${id}: ${error.message}`));
+      for (const id of [...hiddenRecordIds]) {
         const record = allRecords().find((item) => item.id === id);
-        if (record) await persistRecordMetadataToArchive({ ...record, archived: true });
+        if (record) await persistRecordMetadataToArchive({ ...record, archived: true, __metadata_only: true }).then(() => hiddenRecordIds.delete(id)).catch((error) => failures.push(`隐藏 ${id}: ${error.message}`));
       }
       for (const id of [...pendingDeletes]) {
-        await removeRecordFromArchive(id).catch((error) => console.warn(`Delete skipped for ${id}`, error));
+        await removeRecordFromArchive(id).then(() => {
+          pendingDeletes = pendingDeletes.filter((item) => item !== id);
+          deletedRecordIds.delete(id);
+        }).catch((error) => failures.push(`删除 ${id}: ${error.message}`));
       }
       customRecords = [];
       recordDrafts = [];
@@ -2387,8 +2540,16 @@
       const records = activeRecords();
       const record = records[state.featureIndex % Math.max(records.length, 1)];
       byId("feature-count").textContent = `${records.length} records`;
-      if (!record) return;
       const featureImage = byId("feature-photo").querySelector("img");
+      if (!record) {
+        featureImage.dataset.fullSrc = "../static/assets/img/background.jpeg";
+        featureImage.src = "../static/assets/img/background.jpeg";
+        featureImage.alt = "No records";
+        byId("feature-title").textContent = seenText("empty_records_title") || "暂无记录";
+        byId("feature-note").textContent = seenText("empty_records_note") || "添加或恢复记录后会在这里展示。";
+        byId("feature-tags").innerHTML = "";
+        return;
+      }
       const featureImages = getRecordImages(record);
       const featureOriginal = featureImages.length ? featureImages[Math.floor(Math.random() * featureImages.length)] : "../static/assets/img/background.jpeg";
       featureImage.dataset.fullSrc = featureOriginal;
@@ -2502,7 +2663,7 @@
       state.dockMode = options.dockMode || (routeForRecord(record) ? "route" : "point");
       renderDetailImage(record);
       byId("detail-id").textContent = `ID: ${record.id}`;
-      byId("detail-meta").textContent = `${record.date} / ${formatRecordPlace(record)}`;
+      byId("detail-meta").textContent = `${record.date} / ${formatRecordPlace(record, { full: true })}`;
       byId("detail-title").textContent = record.title;
       byId("detail-note").textContent = record.note || "这是一条纯图片记录。";
       byId("detail-tags").innerHTML = record.tags.map((tag) => `<button class="seen-tag" type="button" data-detail-tag="${tag}">#${tag}</button>`).join("");
@@ -2746,13 +2907,13 @@
       const pointIcon = L.divIcon({ className: "seen-point-marker is-active", html: "<span></span>", iconSize: [22, 22], iconAnchor: [11, 11] });
       const quietIcon = L.divIcon({ className: "seen-point-marker is-muted", html: "<span></span>", iconSize: [16, 16], iconAnchor: [8, 8] });
       const routePool = route ? orderedRecordsForRoute(route.id) : [];
-      const routeRecords = routePool.filter((item) => Number.isFinite(item.lat) && Number.isFinite(item.lng));
-      if (mode === "route-map" && routeRecords.length) {
-        const latLngs = routeRecords.map((item) => [item.lat, item.lng]);
+      const routePoints = route ? validRoutePoints(route) : [];
+      if (mode === "route-map" && routePoints.length) {
+        const latLngs = routePoints.map((item) => [item.lat, item.lng]);
         mapState.dockLayers.push(L.polyline(latLngs, { className: "seen-route-core", color: "#7dd3fc", weight: 3, opacity: 0.86, dashArray: "10 14", lineCap: "round", lineJoin: "round" }).addTo(mapState.dockMap));
-        routeRecords.forEach((item) => {
-          const marker = L.marker([item.lat, item.lng], { icon: item.id === record.id ? pointIcon : quietIcon }).addTo(mapState.dockMap);
-          if (item.id !== record.id) marker.on("click", () => transitionDetailRecord(item.id, routePool, route?.name || "", { dockMode: "route-map" }));
+        routePoints.forEach((item) => {
+          const marker = L.marker([item.lat, item.lng], { icon: item.recordId === record.id ? pointIcon : quietIcon }).addTo(mapState.dockMap);
+          if (item.recordId && item.recordId !== record.id) marker.on("click", () => transitionDetailRecord(item.recordId, routePool, route?.name || "", { dockMode: "route-map" }));
           mapState.dockLayers.push(marker);
         });
         resetSubDockMapView(record, route, mode);
@@ -2767,9 +2928,7 @@
     function resetSubDockMapView(record, route, mode = "point") {
       if (!mapState.dockMap) return;
       if (mode === "route-map" && route) {
-        const latLngs = orderedRecordsForRoute(route.id)
-          .filter((item) => Number.isFinite(item.lat) && Number.isFinite(item.lng))
-          .map((item) => [item.lat, item.lng]);
+        const latLngs = validRoutePoints(route).map((item) => [item.lat, item.lng]);
         if (latLngs.length > 1) {
           mapState.dockMap.fitBounds(latLngs, { padding: [26, 26], maxZoom: 13, animate: true, duration: 0.55 });
           return;
@@ -2887,7 +3046,14 @@
       if (!images.length) images.push("../static/assets/img/background.jpeg");
       const sourceImage = byId("detail-image");
       const sourceRect = sourceImage.getBoundingClientRect();
+      state.viewerSourceRect = {
+        left: sourceRect.left,
+        top: sourceRect.top,
+        width: sourceRect.width,
+        height: sourceRect.height
+      };
       const dialog = byId("image-viewer-dialog");
+      dialog.classList.remove("is-closing");
       if (!dialog.open) dialog.showModal();
       lockPageScroll("viewer-open");
       state.viewerOriginalMode = false;
@@ -2904,6 +3070,65 @@
           { transform: `translate(${fromX}px, ${fromY}px) scale(${fromScaleX}, ${fromScaleY})`, opacity: 0.68, borderRadius: "8px", filter: "saturate(0.86)" },
           { transform: "translate(0, 0) scale(1)", opacity: 1, borderRadius: "0", filter: "saturate(1)" }
         ], { duration: 360, easing: "cubic-bezier(0.16, 1, 0.3, 1)" });
+      });
+    }
+
+    function applyViewerTransform() {
+      byId("image-viewer-img").style.transform = `translate(${state.viewerPanX}px, ${state.viewerPanY}px) scale(${state.viewerScale})`;
+    }
+
+    function resetViewerTransform(animated = true) {
+      const image = byId("image-viewer-img");
+      const fromTransform = image.style.transform || "translate(0, 0) scale(1)";
+      state.viewerScale = 1;
+      state.viewerPanX = 0;
+      state.viewerPanY = 0;
+      if (animated) {
+        image.animate([
+          { transform: fromTransform },
+          { transform: "translate(0, 0) scale(1)" }
+        ], { duration: 260, easing: "cubic-bezier(0.16, 1, 0.3, 1)" });
+      }
+      applyViewerTransform();
+    }
+
+    function toggleViewerZoom(event = null) {
+      const image = byId("image-viewer-img");
+      const fromTransform = image.style.transform || "translate(0, 0) scale(1)";
+      if (state.viewerScale > 1.01) {
+        resetViewerTransform(true);
+        return;
+      }
+      const rect = image.getBoundingClientRect();
+      const x = event?.clientX ?? rect.left + rect.width / 2;
+      const y = event?.clientY ?? rect.top + rect.height / 2;
+      const nextScale = 2.35;
+      state.viewerScale = nextScale;
+      state.viewerPanX = (rect.left + rect.width / 2 - x) * 0.42;
+      state.viewerPanY = (rect.top + rect.height / 2 - y) * 0.42;
+      image.animate([
+        { transform: fromTransform },
+        { transform: `translate(${state.viewerPanX}px, ${state.viewerPanY}px) scale(${state.viewerScale})` }
+      ], { duration: 280, easing: "cubic-bezier(0.16, 1, 0.3, 1)" });
+      applyViewerTransform();
+    }
+
+    function closeImageViewerAnimated() {
+      const dialog = byId("image-viewer-dialog");
+      if (!dialog.open || state.viewerClosing) return;
+      state.viewerClosing = true;
+      if (state.viewerClickTimer) {
+        clearTimeout(state.viewerClickTimer);
+        state.viewerClickTimer = null;
+      }
+      const image = byId("image-viewer-img");
+      const currentTransform = image.style.transform || "translate(0px, 0px) scale(1)";
+      dialog.classList.add("is-closing");
+      image.animate([
+        { transform: currentTransform, opacity: 1, filter: "saturate(1) brightness(1)" },
+        { transform: "translate(0px, 10px) scale(0.94)", opacity: 0, filter: "saturate(0.86) brightness(0.82)" }
+      ], { duration: 240, easing: "cubic-bezier(0.4, 0, 0.2, 1)" }).finished.finally(() => {
+        if (dialog.open) dialog.close();
       });
     }
 
@@ -2941,6 +3166,7 @@
       byId("viewer-original").disabled = state.viewerOriginalMode;
       viewerImage.style.transform = "";
       viewerImage.style.opacity = "";
+      viewerImage.style.transformOrigin = "";
       state.viewerScale = 1;
       state.viewerPanX = 0;
       state.viewerPanY = 0;
@@ -3073,9 +3299,6 @@
     function bindImageViewerGestures() {
       const dialog = byId("image-viewer-dialog");
       const image = byId("image-viewer-img");
-      const applyViewerTransform = () => {
-        image.style.transform = `translate(${state.viewerPanX}px, ${state.viewerPanY}px) scale(${state.viewerScale})`;
-      };
       ["wheel", "touchmove"].forEach((type) => dialog.addEventListener(type, (event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -3166,7 +3389,18 @@
           state.suppressViewerClick = false;
           return;
         }
-        if (event.target === dialog || event.target.closest(".image-viewer-shell")) dialog.close();
+        if (event.target.closest(".viewer-nav, .viewer-original, .image-loading, .viewer-count")) return;
+        if (!(event.target === dialog || event.target.closest(".image-viewer-shell"))) return;
+        if (state.viewerClickTimer) {
+          clearTimeout(state.viewerClickTimer);
+          state.viewerClickTimer = null;
+          toggleViewerZoom(event);
+          return;
+        }
+        state.viewerClickTimer = setTimeout(() => {
+          state.viewerClickTimer = null;
+          closeImageViewerAnimated();
+        }, 320);
       });
     }
 
@@ -3405,6 +3639,15 @@
       return promise;
     }
 
+    function nominatimUrl(endpoint, params = {}) {
+      const url = new URL(`${NOMINATIM_BASE_URL}/${endpoint}`);
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== "") url.searchParams.set(key, value);
+      });
+      url.searchParams.set("accept-language", NOMINATIM_LANGUAGE);
+      return url.toString();
+    }
+
     function featureProperty(feature, names) {
       const properties = feature?.properties || {};
       for (const name of names) {
@@ -3471,7 +3714,7 @@
 
       const urls = [];
       if (area.osmRelationId) urls.push(`https://polygons.openstreetmap.fr/get_geojson.py?id=${area.osmRelationId}&params=0`);
-      if (area.boundaryQuery) urls.push(`https://nominatim.openstreetmap.org/search?format=geojson&polygon_geojson=1&limit=1&q=${encodeURIComponent(area.boundaryQuery)}`);
+      if (area.boundaryQuery) urls.push(nominatimUrl("search", { format: "geojson", polygon_geojson: 1, limit: 1, q: area.boundaryQuery }));
 
       for (const url of urls) {
         try {
@@ -3622,12 +3865,86 @@
       }
     }
 
-    function addressValue(address = {}, keys = []) {
+    function addressValue(address = {}, keys = [], context = {}) {
       for (const key of keys) {
         const value = address[key];
-        if (value) return String(value).trim();
+        if (value) return selectAddressName(value, context);
       }
       return "";
+    }
+
+    function splitAddressCandidates(value) {
+      return String(value || "")
+        .split(/\s+\/\s+|\/|[;；|,，]+/)
+        .map((part) => part.trim())
+        .filter(Boolean);
+    }
+
+    function primaryAddressName(value) {
+      return splitAddressCandidates(value)[0] || String(value || "").trim();
+    }
+
+    function formatLocationParts(parts) {
+      const seen = new Set();
+      return parts
+        .filter(Boolean)
+        .map((part) => displayName(primaryAddressName(part)))
+        .filter((part) => {
+          const token = normalizeAreaToken(part);
+          if (!token || seen.has(token)) return false;
+          seen.add(token);
+          return true;
+        })
+        .join(" / ");
+    }
+
+    function rawAddressPart(address = {}, label, keys = []) {
+      const key = keys.find((item) => address[item]);
+      return key ? `${label}(${key})=${address[key]}` : "";
+    }
+
+    function formatRawAddress(address = {}) {
+      return [
+        rawAddressPart(address, "国家", ["country"]),
+        rawAddressPart(address, "省州", ["state", "province", "region", "state_district", "county"]),
+        rawAddressPart(address, "城市", ["city", "town", "village", "municipality"]),
+        rawAddressPart(address, "区县", ["district", "city_district", "county", "borough", "suburb", "neighbourhood", "quarter"])
+      ].filter(Boolean).join("；") || "无 address 明细";
+    }
+
+    function knownLocationForAddressCandidate(level, value, context = {}) {
+      const token = normalizeAreaToken(value);
+      const resolved = resolveAreaId(level, value);
+      if (level === "country") {
+        return LOCATION_DATA.find((item) => item.country === resolved || normalizeAreaToken(item.countryName) === token);
+      }
+      if (level === "province") {
+        return LOCATION_DATA.find((item) => (!context.country || item.country === context.country) && (item.province === resolved || normalizeAreaToken(item.provinceName) === token));
+      }
+      if (level === "city") {
+        return LOCATION_DATA.find((item) => (!context.country || item.country === context.country) && (!context.province || item.province === context.province) && (item.city === resolved || normalizeAreaToken(item.cityName) === token));
+      }
+      return null;
+    }
+
+    function selectAddressName(value, context = {}) {
+      const candidates = splitAddressCandidates(value);
+      if (!candidates.length) return "";
+      const locale = currentLocale();
+      const scored = candidates.map((candidate, index) => {
+        const known = context.level ? knownLocationForAddressCandidate(context.level, candidate, context) : null;
+        const hasCjk = /[\u3400-\u9fff]/.test(candidate);
+        const hasLatin = /[A-Za-z]/.test(candidate);
+        const score =
+          (known ? 100 : 0) +
+          (locale === "zh" && hasCjk ? 20 : 0) +
+          (locale !== "zh" && hasLatin ? 20 : 0) +
+          (candidate.length <= 32 ? 4 : 0) -
+          index * 0.1;
+        return { candidate, known, score };
+      }).sort((a, b) => b.score - a.score)[0];
+      if (scored.known && context.level) return primaryAddressName(displayName(scored.known[`${context.level}Name`]));
+      return primaryAddressName(scored.candidate);
     }
 
     function countryCodeToId(code, fallbackName) {
@@ -3654,36 +3971,73 @@
         || LOCATION_DATA.find((item) => item.country === country && item.province === province && normalizeAreaToken(item.cityName) === normalizeAreaToken(cityName));
     }
 
+    function addressDistrictName(address = {}, country = "") {
+      const districtName = addressValue(address, ["district", "city_district", "county", "borough", "suburb"], { level: "district", country });
+      const neighbourhoodName = addressValue(address, ["neighbourhood", "quarter"], { level: "district", country });
+      return districtName || neighbourhoodName || "";
+    }
+
+    function sameAreaName(a, b) {
+      return Boolean(a && b && normalizeAreaToken(a) && normalizeAreaToken(a) === normalizeAreaToken(b));
+    }
+
     function locationEntryFromAddress(address = {}, countryFeature = null, lat = null, lng = null) {
-      const countryName = addressValue(address, ["country"]) || boundaryFeatureName(countryFeature) || "Unknown";
-      const provinceName = addressValue(address, ["state", "province", "region", "state_district", "county"]) || countryName;
-      const cityName = addressValue(address, ["city", "town", "village", "municipality", "city_district", "county", "suburb"]) || provinceName;
+      const countryName = primaryAddressName(addressValue(address, ["country"], { level: "country" }) || boundaryFeatureName(countryFeature) || "Unknown");
       const country = countryCodeToId(address.country_code, countryName);
+      const provinceName = primaryAddressName(addressValue(address, ["state", "province", "region", "state_district", "county"], { level: "province", country }) || countryName);
       const knownCountry = LOCATION_DATA.find((item) => item.country === country);
       const knownProvince = knownProvinceFor(country, provinceName);
       const province = knownProvince?.province || fallbackAreaId(provinceName);
+      const cityName = primaryAddressName(addressValue(address, ["city", "town", "village", "municipality"], { level: "city", country, province }) || provinceName);
       const knownCity = knownCityFor(country, province, cityName);
+      const districtName = primaryAddressName(addressDistrictName(address, country));
+      const promotedDistrict = sameAreaName(provinceName, cityName) && districtName;
+      const finalCityName = promotedDistrict ? districtName : cityName;
+      const finalKnownCity = promotedDistrict ? knownCityFor(country, province, finalCityName) : knownCity;
+      const finalDistrictName = sameAreaName(finalCityName, districtName) || promotedDistrict ? "" : districtName;
       return {
         country,
         countryName: knownCountry?.countryName || countryName,
         province,
         provinceName: knownProvince?.provinceName || provinceName,
-        city: knownCity?.city || fallbackAreaId(cityName),
-        cityName: knownCity?.cityName || cityName,
+        city: finalKnownCity?.city || fallbackAreaId(finalCityName),
+        cityName: finalKnownCity?.cityName || finalCityName,
+        district: finalDistrictName ? fallbackAreaId(finalDistrictName) : null,
+        districtName: finalDistrictName || "",
         lat: Number.isFinite(Number(lat)) ? Number(lat) : null,
-        lng: Number.isFinite(Number(lng)) ? Number(lng) : null
+        lng: Number.isFinite(Number(lng)) ? normalizeLongitude(lng) : null
       };
     }
 
+    function addressDetailScore(address = {}) {
+      const has = (keys) => keys.some((key) => address[key]);
+      return [
+        has(["country"]),
+        has(["state", "province", "region", "state_district"]),
+        has(["city", "town", "village", "municipality"]),
+        has(["district", "city_district", "county", "borough", "suburb", "neighbourhood", "quarter"])
+      ].filter(Boolean).length;
+    }
+
     async function reverseGeocodePoint(lat, lng) {
-      const cacheKey = `reverse:${Number(lat).toFixed(5)},${Number(lng).toFixed(5)}`;
-      if (boundaryCache[cacheKey]) return boundaryCache[cacheKey];
-      const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&zoom=10&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lng)}`;
-      const data = await cachedFetchJson(url, "seen-geocode-json-v1", { headers: { Accept: "application/json" } }).catch(() => null);
-      if (!data) return null;
-      boundaryCache[cacheKey] = data;
-      persistBoundaryCache();
-      return data;
+      const normalizedLng = normalizeLongitude(lng);
+      const pointKey = `${Number(lat).toFixed(5)},${Number(normalizedLng).toFixed(5)}`;
+      let best = null;
+      for (const zoom of [14, 12, 10, 8]) {
+        const cacheKey = `reverse:${NOMINATIM_LANGUAGE}:z${zoom}:${pointKey}`;
+        const data = boundaryCache[cacheKey] || await cachedFetchJson(
+          nominatimUrl("reverse", { format: "jsonv2", addressdetails: 1, zoom, lat, lon: normalizedLng }),
+          GEOCODE_CACHE_NAME,
+          { headers: { Accept: "application/json" } }
+        ).catch(() => null);
+        if (!data) continue;
+        data.__seen_reverse_zoom = zoom;
+        boundaryCache[cacheKey] = data;
+        if (!best || addressDetailScore(data.address || {}) > addressDetailScore(best.address || {})) best = data;
+        if (addressDetailScore(data.address || {}) >= 4) break;
+      }
+      if (best) persistBoundaryCache();
+      return best;
     }
 
     async function ensureLookupBoundary(level, entry) {
@@ -3714,75 +4068,141 @@
 
     function setLocationFormValues(location, lat, lng) {
       const form = byId("record-form");
+      const normalizedLng = normalizeLongitude(lng);
       byId("record-category").value = "region";
       form.elements.country.value = location.country;
       form.elements.province.value = location.province;
       form.elements.city.value = location.city;
+      form.elements.district.value = location.district || "";
       byId("record-country").value = location.country;
       byId("record-province").value = location.province;
       byId("record-city").value = location.city;
+      byId("record-district").value = location.district || "";
       byId("record-country-input").value = displayName(location.countryName);
       byId("record-province-input").value = displayName(location.provinceName);
       byId("record-city-input").value = displayName(location.cityName);
-      form.elements.place.value = `${displayName(location.countryName)} / ${displayName(location.provinceName)} / ${displayName(location.cityName)}`;
+      form.elements.place.value = formatLocationParts([location.countryName, location.provinceName, location.cityName, location.districtName]);
       form.elements.lat.value = Number(lat).toFixed(6);
-      form.elements.lng.value = Number(lng).toFixed(6);
-    }
-
-    function forceRegionFormVisible() {
-      byId("record-category").value = "region";
-      document.querySelectorAll('[data-field-group="region"]').forEach((field) => {
-        field.classList.remove("is-hidden");
-        const controls = field.matches("input, select, textarea, button") ? [field] : [...field.querySelectorAll("input, select, textarea, button")];
-        controls.forEach((control) => { control.disabled = false; });
-      });
-      document.querySelectorAll('[data-field-group="route"]').forEach((field) => {
-        field.classList.add("is-hidden");
-        const controls = field.matches("input, select, textarea, button") ? [field] : [...field.querySelectorAll("input, select, textarea, button")];
-        controls.forEach((control) => { control.disabled = true; });
-      });
-      byId("use-map-center").hidden = false;
-      byId("use-map-center").disabled = false;
+      form.elements.lng.value = Number(normalizedLng).toFixed(6);
     }
 
     function applyLocationEntry(entry, lat, lng) {
       const location = persistDynamicLocation(entry);
-      if (!location) return;
+      if (!location) return null;
+      byId("record-category").value = "region";
+      updateRecordFormFields();
       setLocationFormValues(location, lat, lng);
-      forceRegionFormVisible();
       state.geoLookup.previewRegion = { country: location.country, province: location.province, city: location.city };
       updateComboClearState();
       renderCombo("country");
       renderCombo("province");
       renderCombo("city");
       closeCombos();
-      updateRecordFormFields();
-      requestAnimationFrame(() => {
-        setLocationFormValues(location, lat, lng);
-        forceRegionFormVisible();
-        updateComboClearState();
-      });
+      return location;
+    }
+
+    async function resolveLocationCore(lat, lng, options = {}) {
+      const normalizedLng = normalizeLongitude(lng);
+      await loadBoundaryGeoJson("country");
+      const countryFeature = boundaryFeatureForPoint("country", lat, normalizedLng);
+      const reverse = await reverseGeocodePoint(lat, normalizedLng);
+      const entry = locationEntryFromAddress(reverse?.address || {}, countryFeature, lat, normalizedLng);
+      const location = options.applyToForm ? applyLocationEntry(entry, lat, normalizedLng) : persistDynamicLocation(entry);
+      if (!location) return null;
+      await Promise.all(["country", "province", "city"].map((level) => ensureLookupBoundary(level, location).catch((error) => {
+        console.warn(`Boundary lookup skipped for ${level}`, error);
+      })));
+      return { location, reverse, lng: normalizedLng };
     }
 
     async function resolvePickerLocation(lat, lng) {
       const form = byId("record-form");
-      const token = `${Date.now()}:${lat}:${lng}`;
+      const normalizedLng = normalizeLongitude(lng);
+      const token = `${Date.now()}:${lat}:${normalizedLng}`;
       state.geoLookup.pendingToken = token;
       byId("record-id-status").textContent = "Resolving location...";
-      await loadBoundaryGeoJson("country");
+      const resolved = await resolveLocationCore(lat, normalizedLng, { applyToForm: true });
       if (state.geoLookup.pendingToken !== token) return;
-      const countryFeature = boundaryFeatureForPoint("country", lat, lng);
-      const reverse = await reverseGeocodePoint(lat, lng);
-      if (state.geoLookup.pendingToken !== token) return;
-      const entry = locationEntryFromAddress(reverse?.address || {}, countryFeature, lat, lng);
-      applyLocationEntry(entry, lat, lng);
-      await Promise.all(["country", "province", "city"].map((level) => ensureLookupBoundary(level, entry)));
-      if (state.geoLookup.pendingToken !== token) return;
+      if (!resolved?.location) return;
+      const { location, reverse } = resolved;
       mapState.boundaryGeoJson.province ||= { type: "FeatureCollection", features: [] };
       mapState.boundaryGeoJson.city ||= { type: "FeatureCollection", features: [] };
       renderMap();
-      byId("record-id-status").textContent = `Resolved: ${entry.countryName} / ${entry.provinceName} / ${entry.cityName}`;
-      if (!form.elements.title.value.trim()) form.elements.title.value = entry.cityName;
+      byId("record-id-status").textContent = `Resolved raw${reverse?.__seen_reverse_zoom ? ` z${reverse.__seen_reverse_zoom}` : ""}: ${formatRawAddress(reverse?.address || {})} | 解析为: ${formatLocationParts([location.countryName, location.provinceName, location.cityName, location.districtName])}`;
+      if (!form.elements.title.value.trim()) form.elements.title.value = displayName(location.cityName);
+    }
+
+    async function resolveLocationFromCoords(lat, lng) {
+      return (await resolveLocationCore(lat, lng))?.location || null;
+    }
+
+    function locationDraftForRecord(record, location, now = new Date().toISOString()) {
+      const normalizedLng = normalizeLongitude(record.lng);
+      const place = formatLocationParts([location.countryName, location.provinceName, location.cityName, location.districtName]);
+      const region = {
+        country: location.country,
+        province: location.province,
+        city: location.city,
+        district: location.district || null
+      };
+      const region_names = {
+        country: location.countryName,
+        province: location.provinceName,
+        city: location.cityName,
+        district: location.districtName || ""
+      };
+      return {
+        ...record,
+        place,
+        region,
+        lng: normalizedLng,
+        __metadata_only: true,
+        location: { ...(record.location || {}), place, lat: Number(record.lat), lng: normalizedLng, region, region_names },
+        updated_at: now
+      };
+    }
+
+    async function refreshAllRecordLocations() {
+      const button = byId("refresh-record-locations");
+      const records = allRecords().filter(hasValidCoords);
+      if (!records.length) {
+        showToast("没有可重算的记录", "当前记录没有有效经纬度。", "error");
+        return;
+      }
+      button.disabled = true;
+      let updated = 0;
+      let failed = 0;
+      const now = new Date().toISOString();
+      try {
+        for (let index = 0; index < records.length; index += 1) {
+          const record = records[index];
+          byId("record-id-status").textContent = `正在重算地址 ${index + 1}/${records.length}: ${record.id}`;
+          try {
+            const location = await resolveLocationFromCoords(Number(record.lat), Number(record.lng));
+            if (!location) {
+              failed += 1;
+              continue;
+            }
+            const next = locationDraftForRecord(record, location, now);
+            recordDrafts = recordDrafts.filter((item) => item.id !== next.id).concat(next);
+            updated += 1;
+          } catch (error) {
+            failed += 1;
+            console.warn(`Location refresh failed for ${record.id}`, error);
+          }
+          if (index < records.length - 1) await new Promise((resolve) => setTimeout(resolve, 360));
+        }
+        persistRecords();
+        renderDraftBox();
+        renderAll();
+        mapState.boundaryGeoJson.province ||= { type: "FeatureCollection", features: [] };
+        mapState.boundaryGeoJson.city ||= { type: "FeatureCollection", features: [] };
+        renderMap();
+        byId("record-id-status").textContent = `地址重算完成：${updated} 条进入草稿箱，${failed} 条失败。`;
+        showToast("地址重算完成", `${updated} 条记录编辑已进入草稿箱${failed ? `，${failed} 条失败` : ""}。`);
+      } finally {
+        button.disabled = false;
+      }
     }
 
     function initRecordPickerMap() {
@@ -3796,9 +4216,10 @@
 
     function setPickerLocation(lat, lng, options = {}) {
       const form = byId("record-form");
+      const normalizedLng = normalizeLongitude(lng);
       form.elements.lat.value = Number(lat).toFixed(6);
-      form.elements.lng.value = Number(lng).toFixed(6);
-      const point = [Number(lat), Number(lng)];
+      form.elements.lng.value = Number(normalizedLng).toFixed(6);
+      const point = [Number(lat), Number(normalizedLng)];
       if (mapState.pickerMap) {
         mapState.pickerMap.setView(point, Math.max(mapState.pickerMap.getZoom(), 9));
         if (!mapState.pickerMarker) {
@@ -3811,7 +4232,7 @@
       } else {
         return;
       }
-      if (options.resolveLocation) resolvePickerLocation(Number(lat), Number(lng)).catch((error) => {
+      if (options.resolveLocation) resolvePickerLocation(Number(lat), Number(normalizedLng)).catch((error) => {
         byId("record-id-status").textContent = "Location lookup failed; coordinates are still filled.";
         showToast("Location lookup failed", error.message || "Try again later.", "error");
       });
@@ -3838,25 +4259,30 @@
       }
 
       if (state.layerFilter !== "points") allRoutes().forEach((route) => {
-        const latLngs = route.points.map((point) => [point.lat, point.lng]);
+        const routePoints = validRoutePoints(route);
+        if (!routePoints.length) return;
+        const latLngs = routePoints.map((point) => [point.lat, point.lng]);
         const routeRecords = recordsForRoute(route.id);
         const isActive = state.activeRoute === route.id;
         const weights = routeWeights(isActive);
-        const routeCase = L.polyline(latLngs, { className: "seen-route-case", color: "#06111a", weight: weights.case, opacity: 0.52 }).addTo(mapState.map);
-        const routeCore = L.polyline(latLngs, { className: `seen-route-core ${isActive ? "seen-route-active" : ""}`, color: isActive ? "#e89aa8" : "#7dd3fc", weight: weights.core, opacity: 0.95 }).bindTooltip(`<strong>${route.name}</strong><br>${routeRecords.length} 条路线记录 / ${route.points.length} 个坐标点`, { className: "seen-tooltip" }).addTo(mapState.map);
         const openRoute = () => {
           state.activeRoute = state.activeRoute === route.id ? null : route.id;
           state.activeArea = null;
           state.visibleRecords = 10;
           renderAll();
-          mapState.map.fitBounds(routeCore.getBounds(), { padding: [46, 46] });
+          if (latLngs.length > 1) mapState.map.fitBounds(L.latLngBounds(latLngs), { padding: [46, 46] });
+          else mapState.map.setView(latLngs[0], 10);
         };
-        routeCase.on("click", openRoute);
-        routeCore.on("click", openRoute);
-        routeCase.bringToFront();
-        routeCore.bringToFront();
-        mapState.routeLayers.push(routeCase, routeCore);
-        if (state.layerFilter === "routes") route.points.forEach((point) => {
+        if (latLngs.length > 1) {
+          const routeCase = L.polyline(latLngs, { className: "seen-route-case", color: "#06111a", weight: weights.case, opacity: 0.52 }).addTo(mapState.map);
+          const routeCore = L.polyline(latLngs, { className: `seen-route-core ${isActive ? "seen-route-active" : ""}`, color: isActive ? "#e89aa8" : "#7dd3fc", weight: weights.core, opacity: 0.95 }).bindTooltip(`<strong>${route.name}</strong><br>${routeRecords.length} 条路线记录 / ${routePoints.length} 个有效坐标点`, { className: "seen-tooltip" }).addTo(mapState.map);
+          routeCase.on("click", openRoute);
+          routeCore.on("click", openRoute);
+          routeCase.bringToFront();
+          routeCore.bringToFront();
+          mapState.routeLayers.push(routeCase, routeCore);
+        }
+        if (state.layerFilter === "routes") routePoints.forEach((point) => {
           const node = L.marker([point.lat, point.lng], {
             icon: L.divIcon({ className: "", html: `<span class="waypoint-node ${isActive ? "is-active" : ""}"></span>`, iconSize: [14, 14], iconAnchor: [7, 7] })
           }).bindTooltip(`<strong>${point.name}</strong><br>${point.at}`, { className: "seen-tooltip" }).addTo(mapState.map);
@@ -3870,7 +4296,7 @@
         });
       });
 
-      if (state.layerFilter !== "routes") filteredRecords().forEach((record) => {
+      if (state.layerFilter !== "routes") filteredRecords().filter(hasValidCoords).forEach((record) => {
         const marker = L.marker([record.lat, record.lng], {
           icon: L.divIcon({ className: "", html: `<span class="${nodeClass}"></span>`, iconSize: [10, 10], iconAnchor: [5, 5] })
         }).bindTooltip(`<strong>${record.title}</strong><br>${record.place}`, { className: "seen-tooltip" }).addTo(mapState.map);
@@ -3905,11 +4331,6 @@
       const bounds = areas.reduce((mergedBounds, area) => areaToLatLngs(area).length || mapState.boundaryGeoJson[level]?.features?.some((feature) => matchBoundaryFeature(feature, area)) ? mergedBounds.extend(boundsForArea(area, level)) : mergedBounds, L.latLngBounds([]));
       if (!bounds.isValid()) return;
       mapState.map.fitBounds(bounds, { padding: [36, 36], maxZoom: zoomForLevel(level) });
-    }
-
-    function populateRouteOptions() {
-      const routeSelect = byId("record-route");
-      if (routeSelect) routeSelect.innerHTML = allRoutes().map((route) => `<option value="${route.id}">${route.name}</option>`).join("");
     }
 
     async function readImagesAsDataUrls(fileList) {
@@ -4009,21 +4430,22 @@
       return LOCALIZED_NAMES[currentLocale()]?.[name] || name;
     }
 
-    function formatLocationFromRegion(region) {
+    function formatLocationFromRegion(region, options = {}) {
       if (!region) return "";
       const location = locationForRegion(region);
-      if (!location) return "";
-      return [location.countryName, location.provinceName, location.cityName].map(displayName).join(" / ");
+      const names = options.record?.location?.region_names || options.record?.location?.regionNames || {};
+      const parts = [
+        names.country || location?.countryName || region.country,
+        names.province || location?.provinceName || region.province,
+        names.city || location?.cityName || region.city
+      ];
+      if (options.full && region.district) parts.push(names.district || location?.districtName || region.district);
+      return formatLocationParts(parts);
     }
 
-    function formatRecordPlace(record) {
-      const regionPlace = formatLocationFromRegion(record.region);
+    function formatRecordPlace(record, options = {}) {
+      const regionPlace = formatLocationFromRegion(record.region, { ...options, record });
       if (regionPlace) return regionPlace;
-      if (record.routeId) {
-        const route = allRoutes().find((item) => item.id === record.routeId);
-        const point = route?.points?.find((item) => item.recordId === record.id) || route?.points?.[record.segmentIndex ?? 0];
-        if (route && point) return `${route.name} / ${point.name}`;
-      }
       return record.place || "";
     }
 
@@ -4098,6 +4520,7 @@
         comboInput("country").value = displayName(item.countryName);
         form.elements.province.value = "";
         form.elements.city.value = "";
+        form.elements.district.value = "";
         comboInput("province").value = "";
         comboInput("city").value = "";
         updateComboClearState();
@@ -4109,6 +4532,7 @@
         form.elements.province.value = item.province;
         comboInput("province").value = displayName(item.provinceName);
         form.elements.city.value = "";
+        form.elements.district.value = "";
         comboInput("city").value = "";
         updateComboClearState();
         closeCombos();
@@ -4117,6 +4541,7 @@
       const item = LOCATION_DATA.find((entry) => entry.country === form.elements.country.value && entry.province === form.elements.province.value && entry.city === value);
       if (!item) return;
       form.elements.city.value = item.city;
+      form.elements.district.value = item.district || "";
       comboInput("city").value = displayName(item.cityName);
       updateComboClearState();
       applySelectedLocation();
@@ -4130,7 +4555,7 @@
       if (!country || !province || !label) return;
       comboList("city").innerHTML = `<button class="combo-option" type="button" disabled>正在查找...</button>`;
       const query = `${label}, ${province.provinceName}, ${country.countryName}`;
-      const results = await cachedFetchJson(`https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&limit=1&q=${encodeURIComponent(query)}`, "seen-geocode-json-v1").catch(() => null);
+      const results = await cachedFetchJson(nominatimUrl("search", { format: "json", addressdetails: 1, limit: 1, q: query }), GEOCODE_CACHE_NAME).catch(() => null);
       if (!results) {
         renderCombo("city");
         showToast("地点查找失败", "可以先手动填写地点和经纬度。", "error");
@@ -4157,17 +4582,17 @@
       if (!customLocationEntries.some((item) => item.country === entry.country && item.province === entry.province && item.city === entry.city)) {
         customLocationEntries.push(entry);
       }
-      boundaryCache[`geocode:${entry.city}`] = { lat: entry.lat, lng: entry.lng };
+      boundaryCache[geocodeCacheKey(entry.city)] = { lat: entry.lat, lng: entry.lng };
       persistBoundaryCache();
       persistRecords();
       selectCombo("city", entry.city);
     }
 
     async function geocodeLocation(location) {
-      const cacheKey = `geocode:${location.city}`;
+      const cacheKey = geocodeCacheKey(location.city);
       if (boundaryCache[cacheKey]) return boundaryCache[cacheKey];
       const query = `${location.cityName}, ${location.provinceName}, ${location.countryName}`;
-      const results = await cachedFetchJson(`https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(query)}`, "seen-geocode-json-v1").catch(() => null);
+      const results = await cachedFetchJson(nominatimUrl("search", { format: "json", limit: 1, q: query }), GEOCODE_CACHE_NAME).catch(() => null);
       const result = results?.[0];
       if (!result) return null;
       const point = { lat: Number(result.lat), lng: Number(result.lon) };
@@ -4221,7 +4646,7 @@
       const form = byId("record-form");
       const location = selectedLocation();
       if (!location) return;
-      form.elements.place.value = `${displayName(location.countryName)} / ${displayName(location.provinceName)} / ${displayName(location.cityName)}`;
+      form.elements.place.value = formatLocationParts([location.countryName, location.provinceName, location.cityName, location.districtName]);
       if (typeof location.lat === "number" && typeof location.lng === "number") {
         form.elements.lat.value = location.lat.toFixed(6);
         form.elements.lng.value = location.lng.toFixed(6);
@@ -4234,42 +4659,6 @@
           setPickerLocation(point.lat, point.lng);
         });
       }
-    }
-
-    function routePointType(index, total) {
-      if (index === 0) return "start";
-      if (index === total - 1) return "end";
-      return "stop";
-    }
-
-    function renderRoutePointTypes() {
-      const rows = [...document.querySelectorAll("#route-point-list .route-point-row")];
-      rows.forEach((row, index) => {
-        const type = routePointType(index, rows.length);
-        row.querySelector(".route-dot").className = `route-dot ${type}`;
-        row.querySelector(".route-row-label").textContent = type === "start" ? "开始点" : type === "end" ? "结束点" : "经停点";
-      });
-    }
-
-    function addRoutePointRow(point = {}) {
-      const list = byId("route-point-list");
-      const row = document.createElement("div");
-      row.className = "route-point-row";
-      row.innerHTML = `
-        <span class="route-dot"></span>
-        <label><div class="route-row-label">经停点</div><input name="routePointName" placeholder="名称" value="${point.name || ""}"></label>
-        <label><div class="route-row-label">纬度</div><input name="routePointLat" type="number" step="0.000001" placeholder="23.1291" value="${point.lat || ""}"></label>
-        <label><div class="route-row-label">经度</div><input name="routePointLng" type="number" step="0.000001" placeholder="113.2644" value="${point.lng || ""}"></label>
-        <label><div class="route-row-label">到达时间</div><input name="routePointAt" placeholder="2026-05-14 18:30" value="${point.at || ""}"></label>
-        <button class="seen-action remove-route-point" type="button">移除</button>
-      `;
-      row.querySelector(".remove-route-point").addEventListener("click", () => {
-        if (list.children.length <= 2) return;
-        row.remove();
-        renderRoutePointTypes();
-      });
-      list.appendChild(row);
-      renderRoutePointTypes();
     }
 
     function escapeHtml(value) {
@@ -4308,6 +4697,12 @@
       if (direction < 0 && row.previousElementSibling) list.insertBefore(row, row.previousElementSibling);
       if (direction > 0 && row.nextElementSibling) list.insertBefore(row.nextElementSibling, row);
       renderRouteRecordTypes();
+    }
+
+    function routePointType(index, total) {
+      if (index === 0) return "start";
+      if (index === total - 1) return "end";
+      return "stop";
     }
 
     function addRouteRecordIdRow(value = "") {
@@ -4523,69 +4918,10 @@
       }).catch(() => showToast("记录编辑已进草稿箱", next.id));
     }
 
-    function parseManualWaypoints() {
-      return [...document.querySelectorAll("#route-point-list .route-point-row")].map((row) => {
-        const name = row.querySelector('[name="routePointName"]').value.trim();
-        const lat = Number(row.querySelector('[name="routePointLat"]').value);
-        const lng = Number(row.querySelector('[name="routePointLng"]').value);
-        const at = row.querySelector('[name="routePointAt"]').value.trim();
-        return { name, lat, lng, at };
-      }).filter((point) => point.name && !Number.isNaN(point.lat) && !Number.isNaN(point.lng));
-    }
-
     function routeFromRecordIds() {
       return [...document.querySelectorAll('[name="routeRecordId"]')].map((input) => input.value.trim()).filter(Boolean)
         .map((id) => allRecords().find((record) => record.id === id)).filter(Boolean)
         .map((record) => ({ name: record.title, at: record.date, lat: record.lat, lng: record.lng, recordId: record.id }));
-    }
-
-    function ensureRouteFromForm(formData, currentRecord) {
-      const routeSource = formData.get("routeSource");
-      const now = new Date().toISOString();
-      const requestedId = String(formData.get("newRouteId") || "").trim();
-      const fallbackName = currentRecord?.title || formData.get("newRouteName") || "route";
-      const baseId = requestedId || generateRecordId(formData.get("newRouteName") || fallbackName).replace(/^\d+-/, "route-");
-      let routeId = baseId === currentRecord?.id ? `${baseId}-route-${Date.now()}` : baseId;
-      let points = routeSource === "records" ? routeFromRecordIds() : parseManualWaypoints();
-      if (points.length < 2) return "";
-      const hasCurrentPoint = Number.isFinite(currentRecord.lat) && Number.isFinite(currentRecord.lng) && (currentRecord.lat !== 0 || currentRecord.lng !== 0);
-      if (!points.length && hasCurrentPoint) points = [{ name: currentRecord.title, at: currentRecord.date, lat: currentRecord.lat, lng: currentRecord.lng, recordId: currentRecord.id }];
-      if (hasCurrentPoint && !points.some((point) => point.recordId === currentRecord.id || (point.lat === currentRecord.lat && point.lng === currentRecord.lng))) {
-        points.push({ name: currentRecord.title, at: currentRecord.date, lat: currentRecord.lat, lng: currentRecord.lng, recordId: currentRecord.id });
-      }
-      if (!points.length) points = [{ name: currentRecord.title, at: currentRecord.date, lat: 0, lng: 0, recordId: currentRecord.id }];
-      const recordIds = points.map((point) => point.recordId).filter(Boolean);
-      const routeName = String(formData.get("newRouteName") || currentRecord.title || routeId).trim();
-      const parentRecordId = String(formData.get("parentRecordId") || "").trim() || null;
-      if (parentRecordId && !allRecords().some((record) => record.id === parentRecordId)) return "";
-      const existingRoute = allRoutes().find((route) => route.id === routeId);
-      if (existingRoute && !customRoutes.some((route) => route.id === routeId)) {
-        routeId = `${baseId}-route-${Date.now()}`;
-      }
-      let route = customRoutes.find((item) => item.id === routeId);
-      if (!route) {
-        route = { id: routeId, name: routeName, tripMode: formData.get("tripMode"), parent_record_id: parentRecordId, parentRecordId, records: [], points: [], created_at: now };
-        customRoutes.unshift(route);
-      }
-      route.name = routeName || route.name;
-      route.parent_record_id = parentRecordId;
-      route.parentRecordId = parentRecordId;
-      route.date = formData.get("date") || route.date || now.slice(0, 10);
-      route.records = [...new Set([...(route.records || []), ...recordIds])];
-      route.points = route.records.map((recordId) => points.find((point) => point.recordId === recordId)).filter(Boolean);
-      route.updated_at = now;
-      routeDrafts = routeDrafts.filter((item) => item.id !== route.id).concat({ ...route });
-      route.records.forEach((recordId, index) => {
-        const linkedRecord = customRecords.find((item) => item.id === recordId) || SEEN_DATA.records.find((item) => item.id === recordId) || archiveRecords.find((item) => item.id === recordId);
-        if (!linkedRecord) return;
-        linkedRecord.routeId = route.id;
-        linkedRecord.route_id = route.id;
-        linkedRecord.routeIndex = index;
-        linkedRecord.route_index = index;
-        linkedRecord.segmentIndex = index;
-      });
-      populateRouteOptions();
-      return routeId;
     }
 
     async function createRouteFromForm(form, formData) {
@@ -4684,18 +5020,20 @@
         date: formData.get("date"),
         place: String(formData.get("place") || formData.get("newRouteName") || formData.get("routeId") || "Route point").trim(),
         lat: Number(formData.get("lat")),
-        lng: Number(formData.get("lng")),
+        lng: normalizeLongitude(formData.get("lng")),
         tags,
         note: String(formData.get("note") || "").trim()
       };
       const selectedRegion = {
         country: String(formData.get("country") || "").trim(),
         province: String(formData.get("province") || "").trim(),
-        city: String(formData.get("city") || "").trim()
+        city: String(formData.get("city") || "").trim(),
+        district: String(formData.get("district") || "").trim() || null
       };
       record.region = selectedRegion.country && selectedRegion.province && selectedRegion.city
         ? selectedRegion
         : normalizeRegion(null, record);
+      record.location = { place: record.place, lat: record.lat, lng: record.lng, region: record.region || null };
       if (!record.title || Number.isNaN(record.lat) || Number.isNaN(record.lng)) return;
       SEEN_DATA.tags = [...new Set(SEEN_DATA.tags.concat(tags))];
       customRecords.unshift(record);
@@ -4726,15 +5064,13 @@
     function updateRecordFormFields() {
       const form = byId("record-form");
       const category = byId("record-category").value;
-      const routeSource = byId("route-source").value;
       const type = byId("record-type").value;
       document.querySelectorAll(".route-builder.is-hidden input, .route-builder.is-hidden select, .route-builder.is-hidden textarea, .route-builder.is-hidden button").forEach((control) => {
         control.disabled = true;
       });
       document.querySelectorAll("[data-field-group]").forEach((field) => {
         const groupMismatch = field.dataset.fieldGroup !== category;
-        const sourceMismatch = field.dataset.routeSource && field.dataset.routeSource !== routeSource;
-        const hidden = groupMismatch || sourceMismatch;
+        const hidden = groupMismatch;
         field.classList.toggle("is-hidden", hidden);
         const controls = field.matches("input, select, textarea, button") ? [field] : [...field.querySelectorAll("input, select, textarea, button")];
         controls.forEach((control) => { control.disabled = hidden; });
@@ -4757,7 +5093,6 @@
       body.hidden = false;
       byId("toggle-manager").textContent = "收起管理";
       byId("record-category").value = "region";
-      byId("route-source").value = "records";
       ensureRouteBuilders();
       updateRecordFormFields();
       initRecordPickerMap();
@@ -4779,6 +5114,10 @@
     function bindStaticEvents() {
       let lastTouchEnd = 0;
       document.addEventListener("touchend", (event) => {
+        if (event.target.closest(".leaflet-container, .manager-map, .sub-dock-map, .image-viewer, .detail-dialog, .floating-search, dialog")) {
+          lastTouchEnd = Date.now();
+          return;
+        }
         const now = Date.now();
         if (now - lastTouchEnd < 320) event.preventDefault();
         lastTouchEnd = now;
@@ -4826,8 +5165,6 @@
         updateRecordFormFields();
       }, 0));
       byId("record-category").addEventListener("change", updateRecordFormFields);
-      byId("route-source").addEventListener("change", updateRecordFormFields);
-      byId("add-route-point")?.addEventListener("click", () => addRoutePointRow());
       byId("add-route-record-id").addEventListener("click", () => addRouteRecordIdRow());
       byId("clear-route-record-ids").addEventListener("click", clearRouteRecordRows);
       byId("image-file").addEventListener("change", async () => {
@@ -4837,6 +5174,10 @@
         renderImagePreview();
         byId("image-file").value = "";
       });
+      byId("refresh-record-locations").addEventListener("click", () => refreshAllRecordLocations().catch((error) => {
+        byId("record-id-status").textContent = "地址重算失败。";
+        showToast("地址重算失败", error.message || "请稍后重试。", "error");
+      }));
       byId("close-photo-browser").addEventListener("click", () => byId("photo-browser-dialog").close());
       byId("photo-browser-dialog").addEventListener("click", (event) => {
         if (event.target === byId("photo-browser-dialog")) byId("photo-browser-dialog").close();
@@ -4864,14 +5205,17 @@
         comboInput(kind).addEventListener("input", () => {
           const form = byId("record-form");
           form.elements[kind].value = "";
+          if (kind === "city") form.elements.district.value = "";
           if (kind === "country") {
             form.elements.province.value = "";
             form.elements.city.value = "";
+            form.elements.district.value = "";
             comboInput("province").value = "";
             comboInput("city").value = "";
           }
           if (kind === "province") {
             form.elements.city.value = "";
+            form.elements.district.value = "";
             comboInput("city").value = "";
           }
           openCombo(kind);
@@ -4933,10 +5277,23 @@
       });
       byId("detail-image-count").addEventListener("click", openDetailPhotoBrowser);
       bindImageViewerGestures();
+      byId("image-viewer-dialog").addEventListener("cancel", (event) => {
+        event.preventDefault();
+        closeImageViewerAnimated();
+      });
       byId("image-viewer-dialog").addEventListener("close", () => {
         unlockPageScroll("viewer-open");
         state.viewerPointers.clear();
         state.viewerGesture = null;
+        state.imageViewerDrag = null;
+        state.viewerClosing = false;
+        state.viewerSourceRect = null;
+        byId("image-viewer-dialog").classList.remove("is-closing");
+        if (state.viewerClickTimer) {
+          clearTimeout(state.viewerClickTimer);
+          state.viewerClickTimer = null;
+        }
+        resetViewerTransform(false);
       });
       byId("viewer-original").addEventListener("click", (event) => {
         event.stopPropagation();
@@ -4955,6 +5312,10 @@
         if (!viewer.open) return;
         if (event.key === "ArrowLeft") switchImageViewer(-1);
         if (event.key === "ArrowRight") switchImageViewer(1);
+        if (event.key === "Escape") {
+          event.preventDefault();
+          closeImageViewerAnimated();
+        }
       });
       byId("hide-detail-record").addEventListener("click", () => {
         if (!mapState.detailRecordId) return;
@@ -5082,7 +5443,6 @@
     async function bootSeen() {
       initSeenLocalization();
       await loadArchiveFiles();
-      populateRouteOptions();
       populateLocationSelectors();
       ensureRouteBuilders();
       initDatePicker();

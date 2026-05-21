@@ -2,20 +2,27 @@
   "id": "1779169692398-福田",
   "title": "福田",
   "created_at": "2026-05-19T05:48:24.226Z",
-  "updated_at": "2026-05-19T05:51:24.633Z",
+  "updated_at": "2026-05-21T10:41:58.460Z",
   "route_id": null,
   "route_index": null,
   "tags": [
     "福田"
   ],
   "location": {
-    "place": "中国 / 广东 / 福田区",
+    "place": "中国 / 广东 / 福田区 / 福田街道",
     "lat": 22.523935,
-    "lng": 114.051819,
+    "lng": 114.05181900000002,
     "region": {
       "country": "cn",
       "province": "guangdong",
-      "city": "福田"
+      "city": "福田",
+      "district": "福田街道"
+    },
+    "region_names": {
+      "country": "China",
+      "province": "Guangdong",
+      "city": "福田区",
+      "district": "福田街道"
     }
   },
   "assets": [
@@ -28,13 +35,14 @@
   "archived": false,
   "type": "note",
   "date": "2004-05-19",
-  "place": "中国 / 广东 / 福田区",
+  "place": "中国 / 广东 / 福田区 / 福田街道",
   "lat": 22.523935,
-  "lng": 114.051819,
+  "lng": 114.05181900000002,
   "region": {
     "country": "cn",
     "province": "guangdong",
-    "city": "福田"
+    "city": "福田",
+    "district": "福田街道"
   },
   "note": "能到福田吗\n恭喜你发现了测试集！"
 }

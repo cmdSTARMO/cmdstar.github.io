@@ -2,7 +2,7 @@
   "id": "shenzhen-market_test",
   "title": "深圳市场清晨",
   "created_at": "2024-07-08T00:00:00.000Z",
-  "updated_at": "2026-05-18T12:43:32.553Z",
+  "updated_at": "2026-05-21T10:41:58.017Z",
   "route_id": null,
   "route_index": null,
   "tags": [
@@ -10,13 +10,20 @@
     "城市漫游"
   ],
   "location": {
-    "place": "China / Guangdong / Shenzhen",
+    "place": "中国 / 广东 / 福田区 / 莲花街道",
     "lat": 22.5431,
-    "lng": 114.0579,
+    "lng": 114.05790000000002,
     "region": {
       "country": "cn",
       "province": "guangdong",
-      "city": "shenzhen"
+      "city": "福田",
+      "district": "莲花街道"
+    },
+    "region_names": {
+      "country": "China",
+      "province": "Guangdong",
+      "city": "福田区",
+      "district": "莲花街道"
     }
   },
   "assets": [
@@ -29,13 +36,14 @@
   "archived": false,
   "type": "photo",
   "date": "2003-07-08",
-  "place": "China / Guangdong / Shenzhen",
+  "place": "中国 / 广东 / 福田区 / 莲花街道",
   "lat": 22.5431,
-  "lng": 114.0579,
+  "lng": 114.05790000000002,
   "region": {
     "country": "cn",
     "province": "guangdong",
-    "city": "shenzhen"
+    "city": "福田",
+    "district": "莲花街道"
   },
   "note": "恭喜你发现了测试集！"
 }

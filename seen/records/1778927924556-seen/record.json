@@ -2,20 +2,27 @@
   "id": "1778927924556-seen",
   "title": "呼和浩特测试",
   "created_at": "2026-05-16T10:51:05.733Z",
-  "updated_at": "2026-05-18T11:05:00.2546204Z",
+  "updated_at": "2026-05-21T10:41:55.525Z",
   "route_id": null,
   "route_index": null,
   "tags": [
     "呼和浩特"
   ],
   "location": {
-    "place": "中国 / 内蒙古 / 呼和浩特",
+    "place": "中国 / 内蒙古 / 回民区 / 玉泉区",
     "lat": 40.818453,
-    "lng": 111.660194,
+    "lng": 111.66019400000005,
     "region": {
       "country": "cn",
       "province": "inner-mongolia",
-      "city": "hohhot"
+      "city": "回民",
+      "district": "玉泉"
+    },
+    "region_names": {
+      "country": "China",
+      "province": "Inner Mongolia",
+      "city": "回民区",
+      "district": "玉泉区"
     }
   },
   "assets": [
@@ -28,13 +35,14 @@
   "archived": false,
   "type": "note",
   "date": "2002-05-16",
-  "place": "中国 / 内蒙古 / 呼和浩特",
+  "place": "中国 / 内蒙古 / 回民区 / 玉泉区",
   "lat": 40.818453,
-  "lng": 111.660194,
+  "lng": 111.66019400000005,
   "region": {
     "country": "cn",
     "province": "inner-mongolia",
-    "city": "hohhot"
+    "city": "回民",
+    "district": "玉泉"
   },
   "note": "呼和浩特测试"
 }

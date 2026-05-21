@@ -1,0 +1,90 @@
+{
+  "id": "1779202520610-基韦斯特",
+  "title": "基韦斯特1.0",
+  "created_at": "2026-05-19T14:55:40.002Z",
+  "updated_at": "2026-05-21T10:41:58.571Z",
+  "route_id": "florida-self-driving-tour-1.1",
+  "route_index": 3,
+  "tags": [
+    "海边",
+    "自驾",
+    "落日"
+  ],
+  "location": {
+    "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
+    "lat": 24.551478,
+    "lng": -81.79664600000001,
+    "region": {
+      "country": "us",
+      "province": "florida",
+      "city": "基韦斯特",
+      "district": "门罗"
+    },
+    "region_names": {
+      "country": "United States",
+      "province": "Florida",
+      "city": "基韦斯特",
+      "district": "门罗县"
+    }
+  },
+  "assets": [
+    {
+      "path": "assets/image-1.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "path": "assets/image-2.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "path": "assets/image-3.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "path": "assets/image-4.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "path": "assets/image-5.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "path": "assets/image-6.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "path": "assets/image-7.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "path": "assets/image-8.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "path": "assets/image-9.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "path": "assets/image-10.jpg",
+      "type": "image/jpeg"
+    },
+    {
+      "path": "assets/image-11.jpg",
+      "type": "image/jpeg"
+    }
+  ],
+  "favorite": false,
+  "archived": false,
+  "type": "note",
+  "date": "2024-12-13",
+  "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
+  "lat": 24.551478,
+  "lng": -81.79664600000001,
+  "region": {
+    "country": "us",
+    "province": "florida",
+    "city": "基韦斯特",
+    "district": "门罗"
+  },
+  "note": "*内含子路线~\n首次出游，很早就听说Key West久负盛名，实地一看确实并非虚传！\n早上十点多左右出发的，好像下午四五点才到，因为本来想去跳伞，中途停了一下，结果那天似乎是天气不好，说跳不了/好不容易鼓起的勇气，但回想跳了伞的话可能就看不到夕阳了 *冥冥之中\n停好车天当时已经有点黄了，凑巧锁定了一个免费停车场哈哈哈哈哈哈哈 *第二次再来的时候停的也还是这个停车场\n非常值得一来的地方，理想定居小镇之一\n附上多张照片与骑单车的圣诞老人街拍~"
+}

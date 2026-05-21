@@ -2,7 +2,7 @@
   "id": "1778945827426-bill-baggs-park",
   "title": "Bill Baggs Park",
   "created_at": "2026-05-16T15:39:02.148Z",
-  "updated_at": "2026-05-18T11:05:00.3994433Z",
+  "updated_at": "2026-05-21T10:41:55.757Z",
   "route_id": null,
   "route_index": null,
   "tags": [
@@ -12,13 +12,20 @@
     "人像"
   ],
   "location": {
-    "place": "美国 / 佛罗里达 / 迈阿密",
+    "place": "美国 / 佛罗里达 / Key Biscayne / 迈阿密-戴德县",
     "lat": 25.674098,
-    "lng": -80.156937,
+    "lng": -80.15693699999997,
     "region": {
       "country": "us",
       "province": "florida",
-      "city": "miami"
+      "city": "key-biscayne",
+      "district": "迈阿密-戴德"
+    },
+    "region_names": {
+      "country": "United States",
+      "province": "Florida",
+      "city": "Key Biscayne",
+      "district": "迈阿密-戴德县"
     }
   },
   "assets": [
@@ -103,13 +110,14 @@
   "archived": false,
   "type": "note",
   "date": "2025-12-21",
-  "place": "美国 / 佛罗里达 / 迈阿密",
+  "place": "美国 / 佛罗里达 / Key Biscayne / 迈阿密-戴德县",
   "lat": 25.674098,
-  "lng": -80.156937,
+  "lng": -80.15693699999997,
   "region": {
     "country": "us",
     "province": "florida",
-    "city": "miami"
+    "city": "key-biscayne",
+    "district": "迈阿密-戴德"
   },
   "note": "鸥 你说海的那边到底是什么\n\n据闻是候鸟公园//不过走半天鸟也没拍到几只，但是拍到了满意的鸟和夕阳 :)"
 }

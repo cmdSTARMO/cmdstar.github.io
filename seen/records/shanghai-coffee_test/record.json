@@ -2,7 +2,7 @@
   "id": "shanghai-coffee_test",
   "title": "上海咖啡店窗口",
   "created_at": "2023-09-22T00:00:00.000Z",
-  "updated_at": "2026-05-18T12:43:31.313Z",
+  "updated_at": "2026-05-21T10:41:57.906Z",
   "route_id": null,
   "route_index": null,
   "tags": [
@@ -10,13 +10,20 @@
     "街角"
   ],
   "location": {
-    "place": "China / Shanghai / Shanghai",
+    "place": "中国 / 上海 / 南京东路街道",
     "lat": 31.2304,
-    "lng": 121.4737,
+    "lng": 121.47370000000001,
     "region": {
       "country": "cn",
       "province": "shanghai",
-      "city": "shanghai"
+      "city": "南京东路街道",
+      "district": null
+    },
+    "region_names": {
+      "country": "China",
+      "province": "Shanghai",
+      "city": "南京东路街道",
+      "district": ""
     }
   },
   "assets": [
@@ -29,13 +36,14 @@
   "archived": false,
   "type": "photo",
   "date": "2001-09-22",
-  "place": "China / Shanghai / Shanghai",
+  "place": "中国 / 上海 / 南京东路街道",
   "lat": 31.2304,
-  "lng": 121.4737,
+  "lng": 121.47370000000001,
   "region": {
     "country": "cn",
     "province": "shanghai",
-    "city": "shanghai"
+    "city": "南京东路街道",
+    "district": null
   },
   "note": "恭喜你发现了测试集！"
 }
