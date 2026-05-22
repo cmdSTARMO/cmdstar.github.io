@@ -163,10 +163,10 @@
     .waypoint-node::before { content: ""; position: absolute; inset: -7px; border-radius: inherit; border: 2px solid rgba(88, 183, 255, 0.62); animation: seenWaypointRing 1.9s ease-out infinite; }
     .waypoint-node.is-active { background: #7dd3fc; box-shadow: 0 0 0 7px rgba(125, 211, 252, 0.16), 0 0 22px rgba(125, 211, 252, 0.84); }
     @keyframes seenWaypointRing { 0% { transform: scale(0.45); opacity: 0.8; } 100% { transform: scale(1.55); opacity: 0; } }
-    .record-node { position: relative; display: block; width: 10px; height: 10px; border-radius: 999px; background: #5bd28f; border: 1px solid rgba(255, 255, 255, 0.86); box-shadow: 0 0 12px rgba(91, 210, 143, 0.86); }
+    .record-node { position: relative; display: block; width: 10px; height: 10px; border-radius: 999px; background: #21FF82; border: 1px solid rgba(255, 255, 255, 0.86); box-shadow: 0 0 12px rgba(91, 210, 143, 0.86); }
     .record-node.is-far { width: 7px; height: 7px; }
     .record-node.is-mid { width: 9px; height: 9px; }
-    .record-node::before { content: ""; position: absolute; inset: -7px; border-radius: inherit; border: 2px solid rgba(91, 210, 143, 0.68); animation: seenPointRing 1.8s ease-out infinite; }
+    .record-node::before { content: ""; position: absolute; inset: -7px; border-radius: inherit; border: 2px solid rgba(33, 255, 130, 0.86); animation: seenPointRing 1.8s ease-out infinite; }
     .record-node::after { content: ""; position: absolute; inset: -2px; border-radius: inherit; border: 1px solid rgba(91, 210, 143, 0.42); animation: seenPointRing 1.8s ease-out infinite 0.42s; }
     @keyframes seenPointRing { 0% { transform: scale(0.45); opacity: 0.88; } 70% { opacity: 0.18; } 100% { transform: scale(1.65); opacity: 0; } }
     .leaflet-tooltip.seen-tooltip { border: 1px solid var(--seen-border); border-radius: 8px; background: var(--seen-tooltip-bg); color: var(--seen-tooltip-text); box-shadow: 0 14px 34px rgba(0, 0, 0, 0.26); backdrop-filter: blur(12px); }
@@ -351,31 +351,34 @@
     .post-card .post-note { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
     .post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
     .post-tags .seen-tag { padding: 5px 8px; font-size: 0.76rem; }
-    .detail-dialog { width: min(860px, calc(100% - 32px)); max-height: min(820px, calc(100vh - 32px)); overflow: visible; border: 0; border-radius: 12px; background: transparent; box-shadow: none; overscroll-behavior: contain; touch-action: none; }
-    .detail-card { --detail-shift-x: 0px; --detail-shift-y: 0px; --detail-rotate: 0deg; --detail-scale: 1; position: relative; display: grid; grid-template-columns: minmax(260px, 0.95fr) minmax(280px, 1.05fr); gap: 0; padding: 0; margin-top: 8px; overflow: hidden; max-height: calc(100vh - 245px); border: 1px solid var(--seen-border); border-radius: 12px; background: var(--seen-surface-solid); box-shadow: var(--seen-shadow); transition: transform 360ms cubic-bezier(0.18, 0.9, 0.24, 1), opacity 240ms ease, filter 240ms ease; will-change: transform, opacity; overscroll-behavior: contain; }
+    .detail-dialog { --detail-card-height: clamp(360px, calc(100vh - 245px), 820px); width: min(860px, calc(100% - 32px)); max-height: min(820px, calc(100vh - 32px)); overflow: visible; border: 0; border-radius: 12px; background: transparent; box-shadow: none; overscroll-behavior: contain; touch-action: pan-y; }
+    .detail-card { --detail-shift-x: 0px; --detail-shift-y: 0px; --detail-rotate: 0deg; --detail-scale: 1; position: relative; display: grid; grid-template-columns: minmax(260px, 0.95fr) minmax(280px, 1.05fr); align-items: stretch; gap: 0; padding: 0; margin-top: 8px; overflow-x: hidden; overflow-y: auto; height: var(--detail-card-height); max-height: var(--detail-card-height); border: 1px solid var(--seen-border); border-radius: 12px; background: var(--seen-surface-solid); box-shadow: var(--seen-shadow); transition: transform 360ms cubic-bezier(0.18, 0.9, 0.24, 1), opacity 240ms ease, filter 240ms ease; will-change: transform, opacity; overscroll-behavior: contain; touch-action: pan-y; -webkit-overflow-scrolling: touch; clip-path: inset(0 round 12px); scrollbar-width: thin; scrollbar-color: rgba(125, 211, 252, 0.3) transparent; }
     .detail-card.is-dragging { transition: none; cursor: grabbing; }
     .detail-card.is-dragging, .detail-card.is-switching { transform: translate(var(--detail-shift-x), var(--detail-shift-y)) rotate(var(--detail-rotate)) scale(var(--detail-scale)); }
     .detail-card.is-switching { --detail-shift-x: var(--switch-direction, -18px); --detail-scale: 0.985; opacity: 0.72; filter: saturate(0.84); }
-    .detail-dialog.has-route-dock .detail-card { max-height: calc(100vh - 330px); }
+    .detail-dialog.has-route-dock { --detail-card-height: clamp(280px, calc(100vh - 330px), 700px); }
     .detail-media, .detail-copy { transition: opacity 220ms ease, transform 220ms cubic-bezier(0.16, 1, 0.3, 1); }
     .detail-card.is-switching .detail-media, .detail-card.is-switching .detail-copy { opacity: 0.72; }
-    .detail-card img { width: 100%; height: 100%; min-height: 360px; object-fit: contain; display: block; background: transparent; }
-    .detail-media { position: relative; background: rgba(248, 251, 249, 0.54); backdrop-filter: blur(20px) saturate(1.08); -webkit-backdrop-filter: blur(20px) saturate(1.08); overscroll-behavior: contain; }
+    .detail-card img { width: 100%; height: auto; min-height: 0; object-fit: contain; display: block; background: transparent; }
+    .detail-media { position: relative; display: grid; place-items: center; overflow: hidden; min-height: 360px; height: clamp(360px, 56vh, 620px); min-width: 0; background: rgba(248, 251, 249, 0.54); backdrop-filter: blur(20px) saturate(1.08); -webkit-backdrop-filter: blur(20px) saturate(1.08); overscroll-behavior: contain; }
     .detail-media::after { content: "Loading"; position: absolute; left: 50%; top: 50%; display: none; transform: translate(-50%, -50%); border: 1px solid rgba(255,255,255,0.22); border-radius: 999px; background: rgba(7, 11, 16, 0.58); color: #fff; padding: 8px 13px 8px 32px; font-size: 0.78rem; z-index: 2; }
     .detail-media::before { content: ""; position: absolute; left: calc(50% - 45px); top: calc(50% - 7px); z-index: 3; display: none; width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.34); border-top-color: #fff; animation: seenSpin 0.8s linear infinite; }
     .detail-media.is-loading::before, .detail-media.is-loading::after { display: block; }
-    .detail-media img { width: 100%; height: 100%; min-height: 360px; object-fit: contain; display: block; cursor: zoom-in; user-select: none; touch-action: pan-y; opacity: 1; transition: opacity 180ms ease; }
+    .detail-media > img { position: absolute; inset: 0; z-index: 1; box-sizing: border-box; width: 100%; height: 100%; max-height: none; object-fit: contain; display: block; padding: 10px; cursor: zoom-in; user-select: none; touch-action: pan-y; opacity: 1; transition: opacity 180ms ease; }
     .detail-media img.is-loading { opacity: 0; }
     .detail-media.is-portrait { background: linear-gradient(135deg, rgba(255,255,255,0.68), rgba(255,255,255,0.22)), rgba(248, 251, 249, 0.44); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.42), inset 0 -32px 64px rgba(7, 18, 16, 0.08); }
-    .detail-media.is-portrait img { object-fit: contain; padding: 10px; }
+    .detail-media.is-portrait img { object-fit: contain; }
     .detail-media.is-landscape img { object-fit: contain; }
     html[data-theme="dark"] .detail-media { background: rgba(7, 11, 16, 0.72); }
     html[data-theme="dark"] .detail-media.is-portrait { background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02)), rgba(7, 11, 16, 0.70); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), inset 0 -36px 72px rgba(0, 0, 0, 0.28); }
-    .image-nav { position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; justify-content: space-between; gap: 8px; pointer-events: none; }
+    .image-nav { position: absolute; left: 12px; right: 12px; bottom: 12px; z-index: 3; display: flex; justify-content: space-between; gap: 8px; pointer-events: none; }
     .image-nav button { pointer-events: auto; }
-    .image-count { position: absolute; top: 12px; right: 12px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.32); background: rgba(7, 11, 16, 0.64); color: #fff; padding: 5px 9px; font-size: 0.78rem; cursor: pointer; }
+    .image-count { position: absolute; top: 12px; right: 12px; z-index: 3; border-radius: 999px; border: 1px solid rgba(255,255,255,0.32); background: rgba(7, 11, 16, 0.64); color: #fff; padding: 5px 9px; font-size: 0.78rem; cursor: pointer; }
     .image-count:hover { background: rgba(7, 11, 16, 0.82); }
-    .detail-copy { position: relative; padding: 20px 20px 68px; overflow: auto; overscroll-behavior: contain; touch-action: pan-y; }
+    .detail-copy { position: relative; display: flex; flex-direction: column; min-height: 0; padding: 20px; overflow: visible; overscroll-behavior: contain; touch-action: pan-y; scrollbar-width: thin; scrollbar-color: rgba(125, 211, 252, 0.3) transparent; }
+    .detail-card::-webkit-scrollbar, .detail-copy::-webkit-scrollbar { width: 6px; height: 0; }
+    .detail-card::-webkit-scrollbar-track, .detail-copy::-webkit-scrollbar-track { background: transparent; margin: 10px 0; }
+    .detail-card::-webkit-scrollbar-thumb, .detail-copy::-webkit-scrollbar-thumb { border: 2px solid transparent; border-radius: 999px; background: rgba(125, 211, 252, 0.3); background-clip: padding-box; }
     .detail-id { margin-top: 4px; color: var(--seen-muted); font-size: 0.78rem; word-break: break-all; }
     .detail-copy h2 { margin: 6px 0 8px; font-size: 1.5rem; line-height: 1.25; letter-spacing: 0; }
     .detail-copy .post-tags { margin-top: 14px; }
@@ -383,7 +386,7 @@
     .route-relation-btn { border: 1px solid var(--seen-border); border-radius: 999px; background: rgba(125, 211, 252, 0.12); color: var(--seen-text); padding: 8px 11px; text-align: left; cursor: pointer; font: inherit; font-size: 0.82rem; line-height: 1.35; }
     .route-relation-btn strong { font-weight: 700; }
     .route-relation-btn:hover { border-color: rgba(125, 211, 252, 0.5); background: rgba(125, 211, 252, 0.18); }
-    .detail-actions { position: absolute; right: 14px; bottom: 14px; display: flex; gap: 8px; margin: 0; }
+    .detail-actions { align-self: flex-end; display: flex; gap: 8px; margin: auto 0 0; padding-top: 18px; padding-bottom: 12px;}
     .detail-actions .seen-action {
       width: 34px;
       height: 34px;
@@ -485,7 +488,10 @@
     html[data-theme="dark"] .ios-action-btn.is-active.state-route-map .sub-point { color: rgba(255, 255, 255, 0.58); }
     html[data-theme="dark"] .ios-action-btn.is-active.state-route-map .sub-route-map { color: #fff; }
     .seen-point-marker { display: grid; place-items: center; border-radius: 999px; }
-    .seen-point-marker span { width: 10px; height: 10px; border-radius: 999px; background: #21ff82; box-shadow: 0 0 0 6px rgba(33, 255, 130, 0.18), 0 0 18px rgba(33, 255, 130, 0.72); animation: routeNodeBreathe 1.8s ease-in-out infinite; }
+    .seen-point-marker span { position: relative; display: block; width: 10px; height: 10px; border-radius: 999px; background: #21ff82; box-shadow: 0 0 0 6px rgba(33, 255, 130, 0.18), 0 0 18px rgba(33, 255, 130, 0.72); animation: routeNodeBreathe 1.8s ease-in-out infinite; }
+    .seen-point-marker.is-active span { width: 9px; height: 9px; background: #21FF82; border: 1px solid rgba(255, 255, 255, 0.86); box-shadow: 0 0 12px rgba(91, 210, 143, 0.86); animation: none; }
+    .seen-point-marker.is-active span::before { content: ""; position: absolute; inset: -7px; border-radius: inherit; border: 2px solid rgba(33, 255, 130, 0.86); animation: seenPointRing 1.8s ease-out infinite; }
+    .seen-point-marker.is-active span::after { content: ""; position: absolute; inset: -2px; border-radius: inherit; border: 1px solid rgba(91, 210, 143, 0.42); animation: seenPointRing 1.8s ease-out infinite 0.42s; }
     .seen-point-marker.is-muted span { width: 8px; height: 8px; background: rgba(160, 169, 179, 0.84); box-shadow: 0 0 0 4px rgba(160, 169, 179, 0.14); animation: none; }
     .sub-dock-map .leaflet-control-attribution { display: none; }
     .route-dock-info { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: start; margin-bottom: 10px; }
@@ -509,7 +515,7 @@
     @media (max-width: 920px) { .record-form { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media (max-width: 920px) { .route-builder-meta { padding-left: 0; } }
     @media (max-width: 960px) { .detail-switch.prev { left: 8px; } .detail-switch.next { right: 8px; } }
-    @media (max-width: 720px) { .seen-shell { width: min(100% - 24px, 1480px); padding-top: max(62px, calc(var(--seen-nav-height, 0px) + 10px)); } .seen-particle-field { height: 28px; margin-bottom: 2px; } .seen-left, .record-form { grid-template-columns: 1fr; } .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .form-wide { grid-column: auto; } .map-toolbar, .filter-bar, .management-head { align-items: flex-start; flex-direction: column; } .map-controls, .zoom-tabs { width: 100%; justify-content: space-between; } .zoom-tabs button { flex: 1; } .post-card.with-note, .detail-card, .route-card { grid-template-columns: 1fr; } .detail-card { max-height: calc(100vh - 285px); overflow: auto; } .detail-card img { min-height: 220px; max-height: 30vh; } .detail-copy { overflow: visible; } .drawer-item { align-items: flex-start; flex-direction: column; } .detail-switch, .image-nav { display: none; } .route-dock { --route-step: 58px; bottom: clamp(42px, 8vh, 82px); width: min(360px, calc(100% - 20px)); padding: 0; border-radius: 22px; } .route-dock-info { margin-bottom: 6px; } .route-dock-info strong { font-size: 0.86rem; } .route-dock-info span, .route-station-count span { font-size: 0.68rem; } .route-station-count { font-size: 0.78rem; } .route-viewport { height: 52px; } .route-node-cell { height: 52px; } .floating-search { bottom: 14px; } .draft-box { bottom: 215px; } .manager-fab { bottom: 269px; } }
+    @media (max-width: 720px) { .seen-shell { width: min(100% - 24px, 1480px); padding-top: max(62px, calc(var(--seen-nav-height, 0px) + 10px)); } .seen-particle-field { height: 28px; margin-bottom: 2px; } .seen-left, .record-form { grid-template-columns: 1fr; } .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .form-wide { grid-column: auto; } .map-toolbar, .filter-bar, .management-head { align-items: flex-start; flex-direction: column; } .map-controls, .zoom-tabs { width: 100%; justify-content: space-between; } .zoom-tabs button { flex: 1; } .post-card.with-note, .detail-card, .route-card { grid-template-columns: 1fr; } .detail-dialog { --detail-card-height: clamp(260px, calc(100vh - 285px), 560px); } .detail-dialog.has-route-dock { --detail-card-height: clamp(220px, calc(93vh - 340px), 440px); } .detail-card { overflow-x: hidden; overflow-y: auto; } .detail-media { min-height: 220px; height: 30vh; } .detail-card img { max-height: none; } .detail-copy { overflow: visible; } .drawer-item { align-items: flex-start; flex-direction: column; } .detail-switch, .image-nav { display: none; } .route-dock { --route-step: 58px; bottom: clamp(42px, 8vh, 82px); width: min(360px, calc(100% - 20px)); padding: 0; border-radius: 22px; } .route-dock-info { margin-bottom: 6px; } .route-dock-info strong { font-size: 0.86rem; } .route-dock-info span, .route-station-count span { font-size: 0.68rem; } .route-station-count { font-size: 0.78rem; } .route-viewport { height: 52px; } .route-node-cell { height: 52px; } .floating-search { bottom: 14px; } .draft-box { bottom: 215px; } .manager-fab { bottom: 269px; } }
     @media (max-width: 720px) {
       .seen-shell { width: min(100% - 18px, 1480px); padding-top: max(62px, calc(var(--seen-nav-height, 0px) + 10px)); }
       .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
@@ -531,10 +537,12 @@
       .post-tags { gap: 4px; }
       .post-tags .seen-tag { padding: 4px 6px; font-size: 0.68rem; }
       .detail-dialog[open] { width: min(100% - 18px, 860px); max-height: calc(100vh - 112px); margin-top: clamp(60px, 6vh, 120px); margin-bottom: auto; }
-      .detail-card { max-height: calc(100vh - 285px); border-radius: 12px; }
-      .detail-dialog.has-route-dock .detail-card { max-height: calc(93vh - 340px); }
-      .detail-card img, .detail-media img { min-height: 210px; max-height: 30vh; object-fit: contain; }
-      .detail-copy { padding: 16px 16px 62px; }
+      .detail-dialog { --detail-card-height: clamp(260px, calc(100vh - 285px), 560px); }
+      .detail-dialog.has-route-dock { --detail-card-height: clamp(220px, calc(93vh - 340px), 520px); }
+      .detail-card { overflow-x: hidden; overflow-y: auto; border-radius: 12px; }
+      .detail-media { min-height: 210px; height: 30vh; }
+      .detail-card img, .detail-media > img { max-height: none; object-fit: contain; }
+      .detail-copy { overflow: visible; padding: 16px; }
       .route-dock { bottom: clamp(42px, 8vh, 82px); }
       .photo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 10px; }
     }
@@ -966,6 +974,7 @@
     const NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org";
     const NOMINATIM_LANGUAGE = "zh-CN";
     const GEOCODE_CACHE_NAME = `seen-geocode-json-v2-${NOMINATIM_LANGUAGE}`;
+    const VIEWER_SINGLE_TAP_CLOSE_DELAY_MS = 120;
     const byId = (id) => document.getElementById(id);
     const slug = (value) => String(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
     const cssIdent = (value) => window.CSS?.escape ? CSS.escape(value) : String(value).replace(/["\\]/g, "\\$&");
@@ -1709,6 +1718,43 @@
       return String(src).replace(/\/thumbs\/([^/]+)\.jpg$/, "/assets/$1.jpg");
     }
 
+    const imageDecodeCache = new Map();
+
+    function warmImage(src) {
+      if (!src) return Promise.resolve(null);
+      const url = String(src);
+      const cached = imageDecodeCache.get(url);
+      if (cached) return cached.promise;
+      const image = new Image();
+      image.decoding = "async";
+      const entry = {
+        image,
+        loaded: false,
+        promise: new Promise((resolve, reject) => {
+          image.onload = async () => {
+            try {
+              if (image.decode) await image.decode();
+            } catch (_) {
+              // decode() can reject after a successful load on some browsers; loaded pixels are still usable.
+            }
+            entry.loaded = true;
+            resolve(image);
+          };
+          image.onerror = () => {
+            imageDecodeCache.delete(url);
+            reject(new Error(`Image failed to load: ${url}`));
+          };
+        })
+      };
+      imageDecodeCache.set(url, entry);
+      image.src = url;
+      return entry.promise;
+    }
+
+    function isImageWarm(src) {
+      return Boolean(src && imageDecodeCache.get(String(src))?.loaded);
+    }
+
     function setImageWithFallback(image, src, alt = "", { loadingClassTarget = null } = {}) {
       const thumb = thumbImageUrl(src);
       const original = src || "../static/assets/img/background.jpeg";
@@ -1736,9 +1782,8 @@
       const start = Math.max(0, index - radius);
       const end = Math.min(images.length - 1, index + radius);
       for (let i = start; i <= end; i += 1) {
-        const image = new Image();
-        image.decoding = "async";
-        image.src = useThumb ? thumbImageUrl(images[i]) : images[i];
+        if (i === index) continue;
+        warmImage(useThumb ? thumbImageUrl(images[i]) : images[i]).catch(() => {});
       }
     }
 
@@ -2660,8 +2705,11 @@
       if (!state.detailPool.some((item) => item.id === recordId)) state.detailPool.unshift(record);
       state.detailPoolLabel = poolLabel;
       state.detailImageIndex = 0;
+      state.detailImageDrag = null;
+      state.suppressImageClick = false;
       state.dockMode = options.dockMode || (routeForRecord(record) ? "route" : "point");
       renderDetailImage(record);
+      byId("record-detail-dialog").querySelectorAll(".detail-copy, .detail-card").forEach((element) => { element.scrollTop = 0; });
       byId("detail-id").textContent = `ID: ${record.id}`;
       byId("detail-meta").textContent = `${record.date} / ${formatRecordPlace(record, { full: true })}`;
       byId("detail-title").textContent = record.title;
@@ -2787,7 +2835,7 @@
       const routePanel = route ? `
         <div class="route-dock-info">
           <div><strong>${escapeHtml(route.name)}</strong><span>Route ID · ${escapeHtml(route.id)}</span></div>
-          <div class="route-station-count">${activeIndex + 1} / ${total}<span>第 ${activeIndex + 1} 站 · 共 ${total} 站</span></div>
+          <div class="route-station-count">第 ${activeIndex + 1} 站<span>共 ${total} 站</span></div>
         </div>
         <div class="route-viewport" data-route-viewport>
           <div class="route-track">
@@ -2975,37 +3023,81 @@
       });
     }
 
-    function renderDetailImage(record = allRecords().find((item) => item.id === mapState.detailRecordId)) {
+    function clearDetailImageMotion(image, media) {
+      image?.getAnimations?.().forEach((animation) => animation.cancel());
+      if (image) {
+        image.style.transform = "";
+        image.style.zIndex = "";
+      }
+    }
+
+    function animateDetailImageIn(image, direction) {
+      if (!direction) return;
+      image.getAnimations?.().forEach((animation) => animation.cancel());
+      image.animate([
+        { transform: `translateX(${direction > 0 ? 48 : -48}px) scale(0.985)`, opacity: 0.42 },
+        { transform: "translateX(0)", opacity: 1 }
+      ], { duration: 340, easing: "cubic-bezier(0.16, 1, 0.3, 1)" });
+    }
+
+    function renderDetailImage(record = allRecords().find((item) => item.id === mapState.detailRecordId), direction = 0) {
       if (!record) return;
       const images = getRecordImages(record);
       if (!images.length) images.push("../static/assets/img/background.jpeg");
       state.detailImageIndex = (state.detailImageIndex + images.length) % images.length;
       const image = byId("detail-image");
       const media = image.closest(".detail-media");
+      const targetSrc = thumbImageUrl(images[state.detailImageIndex]);
+      const currentSrc = image.currentSrc || image.src || "";
+      const alreadyShowingTarget = Boolean(currentSrc.endsWith(targetSrc) && image.complete && image.naturalWidth);
+      const renderToken = Symbol("detail-image-render");
+      state.detailImageRenderToken = renderToken;
+      state.keepDetailTransitionLayer = false;
+      clearDetailImageMotion(image, media);
       media?.classList.remove("is-portrait", "is-landscape", "is-square");
-      image.classList.add("is-loading");
-      media?.classList.add("is-loading");
+      image.classList.remove("is-loading");
+      media?.classList.remove("is-loading");
       image.onload = () => {
+        if (state.detailImageRenderToken !== renderToken) return;
         const ratio = image.naturalWidth / Math.max(image.naturalHeight, 1);
         media?.classList.toggle("is-portrait", ratio < 0.82);
         media?.classList.toggle("is-landscape", ratio > 1.18);
         media?.classList.toggle("is-square", ratio >= 0.82 && ratio <= 1.18);
         image.classList.remove("is-loading");
         media?.classList.remove("is-loading");
+        image.style.opacity = "";
+        state.keepDetailTransitionLayer = false;
+        if (!alreadyShowingTarget) {
+          animateDetailImageIn(image, direction);
+        }
       };
       image.onerror = () => {
+        if (state.detailImageRenderToken !== renderToken) return;
         const original = images[state.detailImageIndex];
         if (image.src.endsWith(original)) {
           image.classList.remove("is-loading");
           media?.classList.remove("is-loading");
+          image.style.opacity = "";
           return;
         }
         image.src = original;
       };
       image.alt = record.title;
-      image.src = thumbImageUrl(images[state.detailImageIndex]);
-      if (image.complete && image.naturalWidth) image.onload();
-      preloadImageRange(images, state.detailImageIndex, 2, true);
+      const assignDetailImage = (src) => {
+        if (state.detailImageRenderToken !== renderToken) return;
+        const currentSrc = image.currentSrc || image.src || "";
+        if (currentSrc.endsWith(src) && image.complete && image.naturalWidth) {
+          image.onload();
+          return;
+        }
+        if (!isImageWarm(src)) {
+          image.classList.add("is-loading");
+          media?.classList.add("is-loading");
+        }
+        image.src = src;
+        if (image.complete && image.naturalWidth) image.onload();
+      };
+      assignDetailImage(targetSrc);
       byId("detail-image-count").textContent = `${state.detailImageIndex + 1} / ${images.length}`;
       byId("prev-detail-image").hidden = images.length < 2;
       byId("next-detail-image").hidden = images.length < 2;
@@ -3013,7 +3105,42 @@
 
     function switchDetailImage(direction) {
       state.detailImageIndex += direction;
-      renderDetailImage();
+      state.detailImageDrag = null;
+      state.suppressImageClick = true;
+      renderDetailImage(undefined, direction);
+    }
+
+    function settleDetailImageDrag(commit) {
+      const drag = state.detailImageDrag;
+      if (!drag) return;
+      const image = byId("detail-image");
+      const width = drag.mediaWidth || 320;
+      const direction = drag.direction || 0;
+      const currentTarget = commit && direction ? -direction * width : 0;
+      const duration = commit ? 260 : 220;
+      const easing = commit ? "cubic-bezier(0.22, 1, 0.36, 1)" : "cubic-bezier(0.2, 0, 0, 1)";
+      const currentAnimation = image.animate([
+        { transform: `translateX(${drag.dx || 0}px)` },
+        { transform: `translateX(${currentTarget}px)` }
+      ], { duration, easing });
+      currentAnimation.finished.finally(() => {
+        const media = byId("record-detail-dialog").querySelector(".detail-media");
+        if (commit && direction) {
+          const record = allRecords().find((item) => item.id === mapState.detailRecordId);
+          if (!record) {
+            clearDetailImageMotion(image, media);
+            return;
+          }
+          state.detailImageIndex += direction;
+          state.detailImageDrag = null;
+          state.suppressImageClick = true;
+          renderDetailImage(record, direction);
+          return;
+        }
+        clearDetailImageMotion(image, media);
+      }).catch(() => {
+        clearDetailImageMotion(image, byId("record-detail-dialog").querySelector(".detail-media"));
+      });
     }
 
     function openDetailPhotoBrowser() {
@@ -3141,8 +3268,10 @@
       const viewerImage = byId("image-viewer-img");
       const targetSrc = state.viewerOriginalMode ? images[state.detailImageIndex] : thumbImageUrl(images[state.detailImageIndex]);
       const loading = byId("image-viewer-loading");
-      loading.classList.add("is-visible");
-      viewerImage.classList.add("is-loading");
+      if (!isImageWarm(targetSrc)) {
+        loading.classList.add("is-visible");
+        viewerImage.classList.add("is-loading");
+      }
       viewerImage.onload = () => {
         loading.classList.remove("is-visible");
         viewerImage.classList.remove("is-loading");
@@ -3156,8 +3285,16 @@
         }
         viewerImage.src = original;
       };
-      viewerImage.src = targetSrc;
-      if (viewerImage.complete && viewerImage.naturalWidth) viewerImage.onload();
+      const assignViewerImage = (src) => {
+        const currentSrc = viewerImage.currentSrc || viewerImage.src || "";
+        if (currentSrc.endsWith(src) && viewerImage.complete && viewerImage.naturalWidth) {
+          viewerImage.onload();
+          return;
+        }
+        viewerImage.src = src;
+        if (viewerImage.complete && viewerImage.naturalWidth) viewerImage.onload();
+      };
+      assignViewerImage(targetSrc);
       viewerImage.alt = `${record.title} ${state.detailImageIndex + 1}`;
       byId("image-viewer-count").textContent = `${state.detailImageIndex + 1} / ${images.length}`;
       byId("prev-viewer-image").hidden = images.length < 2;
@@ -3170,7 +3307,6 @@
       state.viewerScale = 1;
       state.viewerPanX = 0;
       state.viewerPanY = 0;
-      preloadImageRange(images, state.detailImageIndex, 2, !state.viewerOriginalMode);
       if (direction) {
         viewerImage.animate([
           { transform: `translateX(${direction > 0 ? 48 : -48}px) scale(0.985)`, opacity: 0.42 },
@@ -3182,7 +3318,6 @@
     function switchImageViewer(direction) {
       state.detailImageIndex += direction;
       state.viewerOriginalMode = false;
-      renderDetailImage();
       renderImageViewer(direction);
     }
 
@@ -3196,11 +3331,20 @@
       const card = dialog.querySelector(".detail-card");
       const media = dialog.querySelector(".detail-media");
       const copy = dialog.querySelector(".detail-copy");
-      const scrollTargets = [copy, card].filter(Boolean);
-      const nearestScrollTarget = (target) => scrollTargets.find((item) => item.contains(target) && item.scrollHeight > item.clientHeight + 1);
+      const scrollTargets = [card].filter(Boolean);
+      const scrollableTargetsFor = (target) => scrollTargets.filter((item) => item.contains(target) && item.scrollHeight > item.clientHeight + 1);
+      const nearestScrollTarget = (target, deltaY = 0) => {
+        const candidates = scrollableTargetsFor(target);
+        if (!deltaY) return candidates[0] || null;
+        return candidates.find((item) => {
+          const atTop = item.scrollTop <= 0;
+          const atBottom = item.scrollTop + item.clientHeight >= item.scrollHeight - 1;
+          return (deltaY < 0 && !atTop) || (deltaY > 0 && !atBottom);
+        }) || candidates[0] || null;
+      };
       dialog.addEventListener("wheel", (event) => {
         if (event.target.closest?.(".sub-dock-map")) return;
-        const scrollTarget = nearestScrollTarget(event.target);
+        const scrollTarget = nearestScrollTarget(event.target, event.deltaY);
         if (!scrollTarget) {
           event.preventDefault();
           return;
@@ -3218,13 +3362,13 @@
         const currentY = event.touches[0]?.clientY;
         const previousY = state.detailTouchY;
         state.detailTouchY = currentY ?? previousY;
-        const scrollTarget = nearestScrollTarget(event.target);
+        const deltaY = previousY == null || currentY == null ? 0 : previousY - currentY;
+        const scrollTarget = nearestScrollTarget(event.target, deltaY);
         if (!scrollTarget || currentY == null || previousY == null) {
           event.preventDefault();
           event.stopPropagation();
           return;
         }
-        const deltaY = previousY - currentY;
         const atTop = scrollTarget.scrollTop <= 0;
         const atBottom = scrollTarget.scrollTop + scrollTarget.clientHeight >= scrollTarget.scrollHeight - 1;
         if ((deltaY < 0 && atTop) || (deltaY > 0 && atBottom)) event.preventDefault();
@@ -3271,26 +3415,64 @@
       copy.addEventListener("pointercancel", finishCardDrag);
       media.addEventListener("pointerdown", (event) => {
         if (event.target.closest("button")) return;
-        state.detailImageDrag = { x: event.clientX, y: event.clientY, id: event.pointerId };
+        const record = allRecords().find((item) => item.id === mapState.detailRecordId);
+        const images = record ? getRecordImages(record) : [];
+        if (!images.length) images.push("../static/assets/img/background.jpeg");
+        state.detailImageDrag = {
+          x: event.clientX,
+          y: event.clientY,
+          id: event.pointerId,
+          active: false,
+          dx: 0,
+          direction: 0,
+          images,
+          mediaWidth: media.getBoundingClientRect().width || 320,
+          captured: false
+        };
         state.suppressImageClick = false;
-        media.setPointerCapture?.(event.pointerId);
       });
       media.addEventListener("pointermove", (event) => {
         if (!state.detailImageDrag || state.detailImageDrag.id !== event.pointerId) return;
+        const drag = state.detailImageDrag;
         const dx = event.clientX - state.detailImageDrag.x;
         const dy = event.clientY - state.detailImageDrag.y;
-        if (Math.abs(dx) > 14 && Math.abs(dx) > Math.abs(dy)) {
+        drag.dx = dx;
+        if (!drag.active && Math.abs(dy) > 8 && Math.abs(dy) >= Math.abs(dx)) {
+          state.detailImageDrag = null;
+          return;
+        }
+        if (!drag.active && Math.abs(dx) > 10 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+          drag.active = true;
+          state.suppressImageClick = true;
+          media.setPointerCapture?.(event.pointerId);
+          drag.captured = true;
+        }
+        if (drag.active) {
           event.preventDefault();
           state.suppressImageClick = true;
+          const direction = dx < 0 ? 1 : -1;
+          const images = drag.images;
+          if (images.length < 2) return;
+          drag.direction = direction;
+          const image = byId("detail-image");
+          image.style.zIndex = "2";
+          image.style.transform = `translateX(${dx}px)`;
         }
       });
       const finishImageDrag = (event) => {
         if (!state.detailImageDrag || state.detailImageDrag.id !== event.pointerId) return;
-        const dx = event.clientX - state.detailImageDrag.x;
-        const dy = event.clientY - state.detailImageDrag.y;
+        const drag = state.detailImageDrag;
+        const dx = event.clientX - drag.x;
+        const dy = event.clientY - drag.y;
+        if (drag.captured) media.releasePointerCapture?.(event.pointerId);
+        if (drag.active) {
+          drag.dx = dx;
+          const commit = Math.abs(dx) > Math.max(52, drag.mediaWidth * 0.18) && Math.abs(dx) > Math.abs(dy);
+          settleDetailImageDrag(commit);
+          state.detailImageDrag = null;
+          return;
+        }
         state.detailImageDrag = null;
-        media.releasePointerCapture?.(event.pointerId);
-        if (Math.abs(dx) > 52 && Math.abs(dx) > Math.abs(dy)) switchDetailImage(dx < 0 ? 1 : -1);
       };
       media.addEventListener("pointerup", finishImageDrag);
       media.addEventListener("pointercancel", finishImageDrag);
@@ -3400,7 +3582,7 @@
         state.viewerClickTimer = setTimeout(() => {
           state.viewerClickTimer = null;
           closeImageViewerAnimated();
-        }, 320);
+        }, VIEWER_SINGLE_TAP_CLOSE_DELAY_MS);
       });
     }
 
@@ -5293,6 +5475,7 @@
           clearTimeout(state.viewerClickTimer);
           state.viewerClickTimer = null;
         }
+        renderDetailImage();
         resetViewerTransform(false);
       });
       byId("viewer-original").addEventListener("click", (event) => {
@@ -5425,6 +5608,13 @@
       document.documentElement.style.setProperty("--seen-nav-height", `${nav?.getBoundingClientRect().height || 74}px`);
     }
 
+    function registerSeenImageCache() {
+      if (!("serviceWorker" in navigator) || !window.isSecureContext) return;
+      navigator.serviceWorker.register("./seen-cache-sw.js", { scope: "./" }).catch((error) => {
+        console.warn("Seen image cache registration failed:", error);
+      });
+    }
+
     fetch("../navbar.html").then((response) => response.text()).then((html) => { byId("navbar").innerHTML = html; applyNavbarText(); updateSeenNavHeight(); updateContent(); }).catch((error) => console.error("Error loading navbar:", error));
     window.addEventListener("resize", updateSeenNavHeight);
     fetch("../floatingButtons.html")
@@ -5441,6 +5631,7 @@
       })
       .catch((error) => console.error("Error loading floating buttons:", error));
     async function bootSeen() {
+      registerSeenImageCache();
       initSeenLocalization();
       await loadArchiveFiles();
       populateLocationSelectors();

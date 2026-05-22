@@ -1,0 +1,42 @@
+{
+  "id": "1779369286828-佛州最南点",
+  "title": "佛州最南点！",
+  "created_at": "2026-05-21T13:15:29.784Z",
+  "updated_at": "2026-05-21T15:37:09.115Z",
+  "route_id": "keywest-1.0-inner-journey",
+  "route_index": 1,
+  "tags": [
+    "景点"
+  ],
+  "location": {
+    "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
+    "lat": 24.546535,
+    "lng": -81.79749900000002,
+    "region": {
+      "country": "us",
+      "province": "florida",
+      "city": "基韦斯特",
+      "district": "门罗"
+    }
+  },
+  "assets": [
+    {
+      "path": "assets/image-1.jpg",
+      "type": "image/jpeg"
+    }
+  ],
+  "favorite": false,
+  "archived": false,
+  "type": "note",
+  "date": "2024-12-13",
+  "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
+  "lat": 24.546535,
+  "lng": -81.79749900000002,
+  "region": {
+    "country": "us",
+    "province": "florida",
+    "city": "基韦斯特",
+    "district": "门罗"
+  },
+  "note": "美国最南点地标，一般多人排队/ 一个大柱子"
+}
