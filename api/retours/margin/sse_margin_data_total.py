@@ -7,6 +7,8 @@ import duckdb
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel
 
+from retours.export_utils import csv_response
+
 
 router = APIRouter()
 
@@ -66,13 +68,14 @@ async def get_sse_margin_total(
     enddate: date = Query(..., description="结束日期 YYYY-MM-DD"),
     limit: int = Query(3000, ge=1, le=5000),
     offset: int = Query(0, ge=0),
+    format: str = Query("json", pattern="^(json|csv)$", description="返回格式：json 或 csv"),
 ):
     if enddate < startdate:
         raise HTTPException(status_code=400, detail="enddate must be >= startdate")
 
     month_files = _month_files(startdate, enddate)
     if not month_files:
-        return {
+        empty_payload = {
             "meta": {
                 "query_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "data_range": {"start_date": startdate.isoformat(), "end_date": enddate.isoformat()},
@@ -82,6 +85,9 @@ async def get_sse_margin_total(
             },
             "data": [],
         }
+        if format == "csv":
+            return csv_response([], f"margin_sse_total_{startdate}_{enddate}.csv")
+        return empty_payload
 
     try:
         con = duckdb.connect()
@@ -107,6 +113,9 @@ async def get_sse_margin_total(
             con.close()
         except Exception:
             pass
+
+    if format == "csv":
+        return csv_response(data, f"margin_sse_total_{startdate}_{enddate}.csv")
 
     return {
         "meta": {

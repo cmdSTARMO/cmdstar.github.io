@@ -6,6 +6,8 @@ from typing import List
 import duckdb
 from fastapi import APIRouter, HTTPException, Query
 
+from retours.export_utils import csv_response
+
 
 router = APIRouter()
 
@@ -45,18 +47,19 @@ def _month_files(startdate: date, enddate: date) -> List[str]:
 
 @router.get("/data", summary="NCD AAA yield curve query")
 async def get_ncd_aaa_yield_curve(
-    startdate: date = Query(..., description="起始日期 YYYY-MM-DD"),
-    enddate: date = Query(..., description="结束日期 YYYY-MM-DD"),
-    term_year: float | None = Query(None, description="可选期限，例如 0.1"),
+    startdate: date = Query(..., description="起始日期 YYYY-MM-DD", examples=["2026-03-01"]),
+    enddate: date = Query(..., description="结束日期 YYYY-MM-DD", examples=["2026-05-25"]),
+    term_year: str | None = Query(None, description="可选期限，多个用逗号分隔，例如 0.1,0.25,0.5", examples=["0.1,0.25,0.5"]),
     limit: int = Query(3000, ge=1, le=5000),
     offset: int = Query(0, ge=0),
+    format: str = Query("json", pattern="^(json|csv)$", description="返回格式：json 或 csv"),
 ):
     if enddate < startdate:
         raise HTTPException(status_code=400, detail="enddate must be >= startdate")
 
     month_files = _month_files(startdate, enddate)
     if not month_files:
-        return {
+        empty_payload = {
             "meta": {
                 "query_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "data_range": {"start_date": startdate.isoformat(), "end_date": enddate.isoformat()},
@@ -66,6 +69,9 @@ async def get_ncd_aaa_yield_curve(
             },
             "data": [],
         }
+        if format == "csv":
+            return csv_response([], f"ncd_aaa_yield_curve_{startdate}_{enddate}.csv")
+        return empty_payload
 
     try:
         con = duckdb.connect()
@@ -74,8 +80,10 @@ async def get_ncd_aaa_yield_curve(
         term_clause = ""
         term_params: list = []
         if term_year is not None:
-            term_clause = " AND term_year = ?"
-            term_params = [term_year]
+            terms = [float(item.strip()) for item in term_year.split(",") if item.strip()]
+            if terms:
+                term_clause = " AND term_year IN (" + ",".join(["?"] * len(terms)) + ")"
+                term_params = terms
 
         sql = f"""
             SELECT dt, term_year, maturity_yield, current_yield, future_yield
@@ -96,6 +104,9 @@ async def get_ncd_aaa_yield_curve(
             con.close()
         except Exception:
             pass
+
+    if format == "csv":
+        return csv_response(data, f"ncd_aaa_yield_curve_{startdate}_{enddate}.csv")
 
     return {
         "meta": {
