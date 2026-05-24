@@ -5,7 +5,8 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import ORJSONResponse
 
-from retours import foo, ncd_aaa_yield_curve, szse_etf_shares
+from retours import foo, szse_etf_shares
+import retours.ncd_aaa_yield_curve as ncd_aaa_yield_curve
 from retours.margin import router as margin_router
 
 
