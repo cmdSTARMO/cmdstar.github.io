@@ -1,99 +1,89 @@
-# sse_margintotal_data.py
-# 融资融券交易总量数据 - 上交所 - 数据收集
-# Shanghai Stock Exchange Margin Trading Totals (RZRQ_HZ_INFO)
+# SSE margin trading totals collector.
+# Writes directly to monthly Parquet files under api/data/margin_sse_tab1_data.
 
-import random
-from datetime import date
-import sys
-import re
 import json
-import time
+import os
+import random
+import re
 import sqlite3
-import requests
-from datetime import datetime, timedelta
+import time
+from datetime import date, datetime, timedelta
 from urllib.parse import urlencode
+
+import pandas as pd
+import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-# -------- 配置 --------
-INITIAL_START = '2010-03-31'   # 当 DB 无记录时的起始日（可改）
-DB_PATH = '../api/data/sse_tab1.sqlite'
-WINDOW_DAYS = 1000            # 每轮抓取的日期窗口上限
+try:
+    from parquet_incremental import discover_latest_date, upsert_monthly_parquet
+except ImportError:
+    from base_data_renew_folder.parquet_incremental import discover_latest_date, upsert_monthly_parquet
+
+
+INITIAL_START = "2010-03-31"
+PARQUET_DIR = "../api/data/margin_sse_tab1_data"
+FNAME_TPL = "sse_tab1_{yyyymm}.parquet"
+LEGACY_SQLITE = "../api/data/sse_tab1.sqlite"
+WINDOW_DAYS = 1000
 SLEEP_BASE, SLEEP_JITTER = 25, 10
 
 HEADERS = {
-    'Referer': 'https://www.sse.com.cn/',
-    'User-Agent': ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
-                   'AppleWebKit/537.36 (KHTML, like Gecko) '
-                   'Chrome/138.0.0.0 Safari/537.36'),
-    'Accept': '*/*',
-    'Connection': 'keep-alive',
+    "Referer": "https://www.sse.com.cn/",
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/138.0.0.0 Safari/537.36"
+    ),
+    "Accept": "*/*",
+    "Connection": "keep-alive",
 }
 
 FIELD_MAP = {
-    'rzye': 'margin_balance',        # 融资余额(元)
-    'rzmre': 'margin_buy_amt',       # 融资买入额(元)
-    'rzche': 'margin_repay_amt',     # 融资偿还额(元) - SSE独有
-    'rqyl': 'short_qty',             # 融券余量(股/份)
-    'rqmcl': 'short_sell_qty',       # 融券卖出量(股/份)
-    'rqylje': 'short_value',         # 融券余额(元)
-    'rzrqjyzl': 'marginnshort_total',# 融资融券余额(元) = rzye + rqylje
-    'opDate': 'date',                # 日期 YYYYMMDD
+    "rzye": "margin_balance",
+    "rzmre": "margin_buy_amt",
+    "rzche": "margin_repay_amt",
+    "rqyl": "short_qty",
+    "rqmcl": "short_sell_qty",
+    "rqylje": "short_value",
+    "rzrqjyzl": "marginnshort_total",
+    "opDate": "dt",
 }
 
+
 def create_retry_session(total_retries=3, backoff_factor=0.3, status_forcelist=(500, 502, 504, 520, 521, 522)):
-    s = requests.Session()
+    session = requests.Session()
     retry = Retry(
         total=total_retries,
         read=total_retries,
         connect=total_retries,
         backoff_factor=backoff_factor,
         status_forcelist=status_forcelist,
-        allowed_methods=["GET"]
+        allowed_methods=["GET"],
     )
     adapter = HTTPAdapter(max_retries=retry)
-    s.mount('https://', adapter)
-    s.mount('http://', adapter)
-    return s
+    session.mount("https://", adapter)
+    session.mount("http://", adapter)
+    return session
+
 
 def parse_jsonp(text: str):
-    # 去掉 jsonpCallbackxxxxx( ... )
-    m = re.search(r'^\s*[\w$]+\((.*)\)\s*$', text, flags=re.S)
-    if not m:
-        # 兼容直接 JSON（极少数情况）
-        return json.loads(text)
-    return json.loads(m.group(1))
+    match = re.search(r"^\s*[\w$]+\((.*)\)\s*$", text, flags=re.S)
+    return json.loads(match.group(1) if match else text)
 
-def ensure_table(conn: sqlite3.Connection):
-    conn.execute('''
-    CREATE TABLE IF NOT EXISTS tab1_data (
-        date TEXT PRIMARY KEY,
-        margin_balance      REAL,
-        margin_buy_amt      REAL,
-        margin_repay_amt    REAL,
-        short_qty           REAL,
-        short_sell_qty      REAL,
-        short_value         REAL,
-        marginnshort_total  REAL
-    )
-    ''')
-    conn.commit()
 
-def get_last_date(conn: sqlite3.Connection):
-    cur = conn.execute("SELECT MAX(date) FROM tab1_data")
-    v = cur.fetchone()[0]
-    return v  # 'YYYY-MM-DD' or None
+def ymd_compact(d: date) -> str:
+    return d.strftime("%Y%m%d")
 
-def ymd_compact(d: datetime.date) -> str:
-    return d.strftime('%Y%m%d')
 
-def ymd_dash(d: datetime.date) -> str:
-    return d.strftime('%Y-%m-%d')
+def ymd_dash(d: date) -> str:
+    return d.strftime("%Y-%m-%d")
+
 
 def build_url(begin_ymd: str, end_ymd: str, page_no: int, page_size: int = 5000) -> str:
     base = "https://query.sse.com.cn/commonSoaQuery.do"
     q = {
-        "jsonCallBack": f"jsonpCallback{random.randint(10000000,99999999)}",
+        "jsonCallBack": f"jsonpCallback{random.randint(10000000, 99999999)}",
         "isPagination": "true",
         "pageHelp.pageSize": str(page_size),
         "pageHelp.pageNo": str(page_no),
@@ -104,128 +94,147 @@ def build_url(begin_ymd: str, end_ymd: str, page_no: int, page_size: int = 5000)
         "beginDate": begin_ymd,
         "endDate": end_ymd,
         "sqlId": "RZRQ_HZ_INFO",
-        "_": str(int(time.time()*1000))
+        "_": str(int(time.time() * 1000)),
     }
     return f"{base}?{urlencode(q)}"
 
-def fetch_window(session: requests.Session, begin_d, end_d):
+
+def fetch_window(session: requests.Session, begin_d: date, end_d: date):
     begin_ymd = ymd_compact(begin_d)
     end_ymd = ymd_compact(end_d)
-
     all_rows = []
     page_no = 1
+
     while True:
         url = build_url(begin_ymd, end_ymd, page_no=page_no)
         resp = session.get(url, headers=HEADERS, timeout=15)
         resp.raise_for_status()
-        data = parse_jsonp(resp.text)
+        payload = parse_jsonp(resp.text)
 
-        page = data.get('pageHelp', {})
-        rows = page.get('data') or data.get('result') or []
-        total = page.get('total') or len(rows) or 0
-        page_size = page.get('pageSize') or 25
+        page = payload.get("pageHelp", {})
+        rows = page.get("data") or payload.get("result") or []
+        total = page.get("total") or len(rows) or 0
+        page_size = page.get("pageSize") or 25
 
-        # 规范化：只保留我们需要的字段
-        for r in rows:
-            out = {}
-            for k, v in r.items():
-                if k in FIELD_MAP:
-                    out[FIELD_MAP[k]] = v
-            # 日期转 yyyy-mm-dd
-            if 'date' in out:
-                d = out['date']
-                # d 形如 '20100402'
-                out['date'] = f"{d[0:4]}-{d[4:6]}-{d[6:8]}"
+        for row in rows:
+            out = {FIELD_MAP[k]: v for k, v in row.items() if k in FIELD_MAP}
+            if "dt" in out:
+                raw = str(out["dt"])
+                out["dt"] = f"{raw[0:4]}-{raw[4:6]}-{raw[6:8]}"
             all_rows.append(out)
 
-        # 翻页判断
-        got = page_no * (page.get('pageSize') or 25)
-        if got >= total or not rows:
+        if page_no * page_size >= total or not rows:
             break
         page_no += 1
-        time.sleep(0.3)  # 页内短暂间隔，避免过快
+        time.sleep(0.3)
 
-    # 去重（同日只留一条，保留最后出现的）
     uniq = {}
-    for r in all_rows:
-        if 'date' in r:
-            uniq[r['date']] = r
+    for row in all_rows:
+        if row.get("dt"):
+            uniq[row["dt"]] = row
 
-    # 排序：旧 → 新
     result = list(uniq.values())
-    result.sort(key=lambda r: r['date'])
+    result.sort(key=lambda row: row["dt"])
     return result
 
-def upsert_rows(conn: sqlite3.Connection, rows):
+
+def write_rows(rows, parquet_dir: str = PARQUET_DIR):
     if not rows:
         return 0
-    cur = conn.cursor()
-    for r in rows:
-        # 将缺失字段补 None，避免 KeyError
-        row = {
-            'date': r.get('date'),
-            'margin_balance': r.get('margin_balance'),
-            'margin_buy_amt': r.get('margin_buy_amt'),
-            'margin_repay_amt': r.get('margin_repay_amt'),
-            'short_qty': r.get('short_qty'),
-            'short_sell_qty': r.get('short_sell_qty'),
-            'short_value': r.get('short_value'),
-            'marginnshort_total': r.get('marginnshort_total'),
-        }
-        cur.execute('''
-        INSERT INTO tab1_data
-          (date, margin_balance, margin_buy_amt, margin_repay_amt, short_qty, short_sell_qty, short_value, marginnshort_total)
-        VALUES (:date, :margin_balance, :margin_buy_amt, :margin_repay_amt, :short_qty, :short_sell_qty, :short_value, :marginnshort_total)
-        ON CONFLICT(date) DO UPDATE SET
-          margin_balance=excluded.margin_balance,
-          margin_buy_amt=excluded.margin_buy_amt,
-          margin_repay_amt=excluded.margin_repay_amt,
-          short_qty=excluded.short_qty,
-          short_sell_qty=excluded.short_sell_qty,
-          short_value=excluded.short_value,
-          marginnshort_total=excluded.marginnshort_total
-        ''', row)
-    conn.commit()
-    return len(rows)
+    df = pd.DataFrame(rows)
+    columns = [
+        "dt",
+        "margin_balance",
+        "margin_buy_amt",
+        "margin_repay_amt",
+        "short_qty",
+        "short_sell_qty",
+        "short_value",
+        "marginnshort_total",
+    ]
+    for col in columns:
+        if col not in df.columns:
+            df[col] = None
+    df = df[columns]
+    for col in columns[1:]:
+        df[col] = pd.to_numeric(df[col], errors="coerce")
 
-def fetch_totals(end_date_str: str, db_path: str = DB_PATH):
-    conn = sqlite3.connect(db_path)
-    ensure_table(conn)
+    return upsert_monthly_parquet(
+        df,
+        parquet_dir=parquet_dir,
+        filename_template=FNAME_TPL,
+        key_cols=["dt"],
+        sort_cols=["dt"],
+    )
 
-    last = get_last_date(conn)  # 'YYYY-MM-DD' or None
-    if last:
-        start_date = datetime.strptime(last, '%Y-%m-%d').date() + timedelta(days=1)
-    else:
-        start_date = datetime.strptime(INITIAL_START, '%Y-%m-%d').date()
 
-    end_date = datetime.strptime(end_date_str, '%Y-%m-%d').date()
-    if start_date > end_date:
-        print(f"数据库已包含至 {last}，无需更新。")
+def migrate_legacy_sqlite_if_needed(parquet_dir: str = PARQUET_DIR, sqlite_path: str = LEGACY_SQLITE):
+    if discover_latest_date(parquet_dir) or not os.path.isfile(sqlite_path):
+        return
+
+    conn = sqlite3.connect(sqlite_path)
+    try:
+        df = pd.read_sql_query(
+            """
+            SELECT
+              date AS dt,
+              margin_balance,
+              margin_buy_amt,
+              margin_repay_amt,
+              short_qty,
+              short_sell_qty,
+              short_value,
+              marginnshort_total
+            FROM tab1_data
+            ORDER BY date
+            """,
+            conn,
+        )
+    finally:
         conn.close()
+
+    if df.empty:
+        return
+
+    written = upsert_monthly_parquet(
+        df,
+        parquet_dir=parquet_dir,
+        filename_template=FNAME_TPL,
+        key_cols=["dt"],
+        sort_cols=["dt"],
+    )
+    print(f"Migrated legacy SQLite to Parquet: {written} rows.")
+
+
+def fetch_totals(end_date_str: str, parquet_dir: str = PARQUET_DIR):
+    migrate_legacy_sqlite_if_needed(parquet_dir=parquet_dir)
+    latest = discover_latest_date(parquet_dir)
+    start_date = latest + timedelta(days=1) if latest else datetime.strptime(INITIAL_START, "%Y-%m-%d").date()
+    end_date = datetime.strptime(end_date_str, "%Y-%m-%d").date()
+
+    if start_date > end_date:
+        print(f"Parquet already contains data through {latest}; no update needed.")
         return
 
     session = create_retry_session()
     cur_start = start_date
     while cur_start <= end_date:
         cur_end = min(cur_start + timedelta(days=WINDOW_DAYS - 1), end_date)
-        print(f"[WINDOW] {ymd_dash(cur_start)} → {ymd_dash(cur_end)}  正在抓取…")
-
+        print(f"[WINDOW] {ymd_dash(cur_start)} -> {ymd_dash(cur_end)} fetching...")
         try:
             rows = fetch_window(session, cur_start, cur_end)
-            n = upsert_rows(conn, rows)
-            print(f"  完成：{len(rows)} 行，入库/更新 {n} 行。")
-        except requests.exceptions.RequestException as e:
-            print(f"  请求异常：{e}  将重试该窗口")
+            written = write_rows(rows, parquet_dir=parquet_dir)
+            print(f"  done: fetched {len(rows)} rows, parquet upserted {written} rows.")
+        except requests.exceptions.RequestException as exc:
+            print(f"  request error: {exc}; retrying this window")
             time.sleep(5)
             continue
 
-        # 间隔
         time.sleep(SLEEP_BASE + SLEEP_JITTER * random.random())
         cur_start = cur_end + timedelta(days=1)
 
-    conn.close()
-    print("全部完成。")
+    print("All done.")
 
-if __name__ == '__main__':
-    # 与你的 SZSE 脚本一致的调用方式
-    fetch_totals(end_date_str=date.today().strftime("%Y-%m-%d"), db_path=DB_PATH)
+
+if __name__ == "__main__":
+    fetch_totals(end_date_str=date.today().strftime("%Y-%m-%d"), parquet_dir=PARQUET_DIR)

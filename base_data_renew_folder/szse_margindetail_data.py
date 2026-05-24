@@ -1,29 +1,59 @@
-# szse_margindetail_data.py
-# 融资融券交易明细 - 深交所 - 数据收集 (tab2 via XLSX)
+# SZSE margin trading details collector.
+# Writes directly to monthly Parquet files under api/data/margin_szse_tab2_data.
+
 import random
 import sys
-import requests
-import sqlite3
 import time
+from datetime import date, datetime, timedelta
 from io import BytesIO
+from pathlib import Path
+
 import pandas as pd
-from datetime import datetime, timedelta
+import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
-from datetime import date
 
-# 默认开始抓取日期（当数据库无记录时使用）
-INITIAL_START = '2010-05-04'
+try:
+    from parquet_incremental import discover_latest_date, upsert_monthly_parquet
+except ImportError:
+    from base_data_renew_folder.parquet_incremental import discover_latest_date, upsert_monthly_parquet
 
-# 可按需补充请求头（一般 UA + Referer 足够）
+
+INITIAL_START = "2010-05-04"
+REPO_ROOT = Path(__file__).resolve().parents[1]
+PARQUET_DIR = str(REPO_ROOT / "api" / "data" / "margin_szse_tab2_data")
+FNAME_TPL = "szse_tab2_{yyyymm}.parquet"
+
 HEADERS = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
-                  ' AppleWebKit/537.36 (KHTML, like Gecko)'
-                  ' Chrome/138.0.0.0 Safari/537.36',
-    'Referer': 'https://www.szse.cn/disclosure/margin/margin/index.html',
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+    "Referer": "https://www.szse.cn/disclosure/margin/margin/index.html",
 }
 
-# 创建带重试机制的 Session
+COLUMN_ALIASES = {
+    "code": ["证券代码"],
+    "name": ["证券简称"],
+    "margin_buy_amt": ["融资买入额(元)"],
+    "margin_balance": ["融资余额(元)"],
+    "short_sell_qty": ["融券卖出量(股/份)"],
+    "short_qty": ["融券余量(股/份)"],
+    "short_value": ["融券余额(元)", "融券余量金额(元)"],
+    "marginnshort_total": ["融资融券余额(元)"],
+}
+
+OUT_COLS = [
+    "dt",
+    "code",
+    "name",
+    "margin_buy_amt",
+    "margin_balance",
+    "short_sell_qty",
+    "short_qty",
+    "short_value",
+    "marginnshort_total",
+]
+
+
 def create_retry_session(total_retries=3, backoff_factor=0.3, status_forcelist=(500, 502, 504)):
     session = requests.Session()
     retry = Retry(
@@ -32,165 +62,133 @@ def create_retry_session(total_retries=3, backoff_factor=0.3, status_forcelist=(
         connect=total_retries,
         backoff_factor=backoff_factor,
         status_forcelist=status_forcelist,
-        allowed_methods=["GET"]
+        allowed_methods=["GET"],
     )
     adapter = HTTPAdapter(max_retries=retry)
-    session.mount('https://', adapter)
-    session.mount('http://', adapter)
+    session.mount("https://", adapter)
+    session.mount("http://", adapter)
     return session
 
-def _to_float(x):
-    if x is None:
+
+def _to_float(value):
+    if value is None:
         return None
-    s = str(x).strip().replace(',', '')
-    if s == '' or s.lower() in ('nan', 'none'):
+    text = str(value).strip().replace(",", "")
+    if text == "" or text.lower() in ("nan", "none"):
         return None
     try:
-        return float(s)
+        return float(text)
     except Exception:
         return None
 
-def fetch_tab2(end_date, db_path, fail_streak=0):
-    conn = sqlite3.connect(db_path)
-    cur = conn.cursor()
-    # 1) 建表（若不存在）
-    cur.execute('''
-    CREATE TABLE IF NOT EXISTS tab2_data (
-        date TEXT,
-        zqdm TEXT,                  -- 证券代码
-        zqjc TEXT,                  -- 证券简称
-        margin_buy_amt REAL,        -- 融资买入额(元)
-        margin_balance REAL,        -- 融资余额(元)
-        short_sell_qty REAL,        -- 融券卖出量(股/份)
-        short_qty REAL,             -- 融券余量(股/份)
-        short_value REAL,           -- 融券余额(元)
-        marginnshort_total REAL,    -- 融资融券余额(元)
-        PRIMARY KEY (date, zqdm)
-    );
-    ''')
-    conn.commit()
 
-    # 2) 读数据库里已有的最晚日期 → 下一天；与 INITIAL_START 取较晚值
-    cur.execute("SELECT MAX(date) FROM tab2_data")
-    last = cur.fetchone()[0]
-    if last:
-        candidate = datetime.strptime(last, '%Y-%m-%d').date() + timedelta(days=1)
-        init_start = datetime.strptime(INITIAL_START, '%Y-%m-%d').date()
-        start_date = max(candidate, init_start)
-    else:
-        start_date = datetime.strptime(INITIAL_START, '%Y-%m-%d').date()
+def build_url(cur_date: date) -> str:
+    ds = cur_date.strftime("%Y-%m-%d")
+    return (
+        "https://www.szse.cn/api/report/ShowReport"
+        f"?SHOWTYPE=xlsx&CATALOGID=1837_xxpl&txtDate={ds}"
+        "&tab2PAGENO=1&TABKEY=tab2"
+    )
+
+
+def fetch_one_day(session: requests.Session, cur_date: date):
+    ds = cur_date.strftime("%Y-%m-%d")
+    url = build_url(cur_date)
+    resp = session.get(url, headers=HEADERS, timeout=20)
+    resp.raise_for_status()
+    if not resp.content:
+        return None
+
+    df = pd.read_excel(BytesIO(resp.content), dtype=str)
+    if df is None or df.empty:
+        return None
+    df.columns = [str(c).strip() for c in df.columns]
+
+    selected = {}
+    missing = []
+    for target, aliases in COLUMN_ALIASES.items():
+        source = next((name for name in aliases if name in df.columns), None)
+        if source is None:
+            missing.append("/".join(aliases))
+        else:
+            selected[target] = df[source]
+    if missing:
+        print(f"[{ds}] missing columns: {missing}; skip")
+        print(f"[{ds}] url: {url}")
+        print(f"[{ds}] available columns: {list(df.columns)}")
+        return None
+
+    df = pd.DataFrame(selected)
+    df["dt"] = ds
+    for col in OUT_COLS:
+        if col not in df.columns:
+            df[col] = None
+    for col in [
+        "margin_buy_amt",
+        "margin_balance",
+        "short_sell_qty",
+        "short_qty",
+        "short_value",
+        "marginnshort_total",
+    ]:
+        df[col] = df[col].map(_to_float)
+    df["code"] = df["code"].astype(str).str.strip()
+    return df[OUT_COLS][df["code"].ne("")]
+
+
+def fetch_tab2(end_date: date, parquet_dir: str = PARQUET_DIR, fail_streak=0):
+    latest = discover_latest_date(parquet_dir)
+    init_start = datetime.strptime(INITIAL_START, "%Y-%m-%d").date()
+    start_date = max(latest + timedelta(days=1), init_start) if latest else init_start
 
     if start_date > end_date:
-        print(f"数据库已包含到 {last}，无需更新。")
-        conn.close()
+        print(f"Parquet already contains data through {latest}; no update needed.")
         return
+    print(f"Parquet dir: {parquet_dir}")
+    print(f"Latest stored date: {latest}; start fetching from {start_date}")
 
-    # 3) 循环抓取 XLSX
     session = create_retry_session()
     cur_date = start_date
 
     while cur_date <= end_date:
-        # 节流：25~35 秒
         time.sleep(25 + 10 * random.random())
-        ds = cur_date.strftime('%Y-%m-%d')
-
-        # XLSX 接口（tab2）
-        url = (
-            "https://www.szse.cn/api/report/ShowReport"
-            f"?SHOWTYPE=xlsx&CATALOGID=1837_xxpl&txtDate={ds}"
-            "&tab2PAGENO=1&TABKEY=tab2"
-        )
+        ds = cur_date.strftime("%Y-%m-%d")
+        url = build_url(cur_date)
         try:
-            resp = session.get(url, headers=HEADERS, timeout=20)
-            resp.raise_for_status()
-        except requests.exceptions.RequestException as e:
-            print(f"[{ds}] 请求失败：{e}，稍后重试")
+            df = fetch_one_day(session, cur_date)
+        except requests.exceptions.RequestException as exc:
+            print(f"[{ds}] request failed: {exc}; retry later")
+            print(f"[{ds}] url: {url}")
             fail_streak += 1
             if fail_streak >= 5:
-                print("连续失败次数达到 5，程序退出。")
-                conn.close()
+                print("Too many consecutive failures; exit.")
                 sys.exit(1)
             time.sleep(5)
             continue
-
-        if not resp.content:
-            print(f"Checking {ds}: records found = 0")
-            print(f"[{ds}] XLSX 内容为空，跳过")
-            cur_date += timedelta(days=1)
-            continue
-
-        try:
-            df = pd.read_excel(BytesIO(resp.content), dtype=str)
-        except Exception as e:
-            print(f"[{ds}] 解析 XLSX 失败：{e}，跳过")
+        except Exception as exc:
+            print(f"[{ds}] parse failed: {exc}; skip")
+            print(f"[{ds}] url: {url}")
             cur_date += timedelta(days=1)
             continue
 
         if df is None or df.empty:
             print(f"Checking {ds}: records found = 0")
-            print(f"[{ds}] 解析结果为空，跳过")
-            cur_date += timedelta(days=1)
-            continue
-
-        # 列名清洗（去空格）
-        df.columns = [str(c).strip() for c in df.columns]
-
-        # 期望列（官方表头）
-        # 证券代码 证券简称 融资买入额(元) 融资余额(元) 融券卖出量(股/份) 融券余量(股/份) 融券余额(元) 融资融券余额(元)
-        expected = [
-            '证券代码', '证券简称',
-            '融资买入额(元)', '融资余额(元)',
-            '融券卖出量(股/份)', '融券余量(股/份)',
-            '融券余额(元)', '融资融券余额(元)'
-        ]
-        missing = [c for c in expected if c not in df.columns]
-        if missing:
-            print(f"[{ds}] 表头缺失列：{missing}，跳过")
-            cur_date += timedelta(days=1)
-            continue
-
-        count = len(df)
-        print(f"Checking {ds}: records found = {count}")
-
-        # 数字列转换
-        df['_date'] = ds
-        df['_margin_buy_amt']   = df['融资买入额(元)'].map(_to_float)
-        df['_margin_balance']   = df['融资余额(元)'].map(_to_float)
-        df['_short_sell_qty']   = df['融券卖出量(股/份)'].map(_to_float)
-        df['_short_qty']        = df['融券余量(股/份)'].map(_to_float)
-        df['_short_value']      = df['融券余额(元)'].map(_to_float)
-        df['_marginnshort_total']= df['融资融券余额(元)'].map(_to_float)
-
-        # 入库（逐行或 executemany）
-        rows = [
-            (
-                ds,
-                r['证券代码'],
-                r['证券简称'],
-                r['_margin_buy_amt'],
-                r['_margin_balance'],
-                r['_short_sell_qty'],
-                r['_short_qty'],
-                r['_short_value'],
-                r['_marginnshort_total'],
+        else:
+            print(f"Checking {ds}: records found = {len(df)}")
+            written = upsert_monthly_parquet(
+                df,
+                parquet_dir=parquet_dir,
+                filename_template=FNAME_TPL,
+                key_cols=["dt", "code"],
+                sort_cols=["dt", "code"],
             )
-            for _, r in df.iterrows()
-        ]
-        cur.executemany('''
-            INSERT OR REPLACE INTO tab2_data
-              (date, zqdm, zqjc, margin_buy_amt, margin_balance,
-               short_sell_qty, short_qty, short_value, marginnshort_total)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ''', rows)
-        conn.commit()
+            print(f"[{ds}] parquet upserted {written} rows")
 
-        print(f"[{ds}] 已抓取并存储 {count} 条明细")
         cur_date += timedelta(days=1)
 
-    conn.close()
+    print("All done.")
 
-if __name__ == '__main__':
-    # 终止日期（可改）
-    end_date = datetime.strptime(date.today().strftime("%Y-%m-%d"), '%Y-%m-%d').date()
-    # 输出到 tab2 的独立库
-    fetch_tab2(end_date, '../api/data/szse_tab2.sqlite')
+
+if __name__ == "__main__":
+    end_date = datetime.strptime(date.today().strftime("%Y-%m-%d"), "%Y-%m-%d").date()
+    fetch_tab2(end_date, PARQUET_DIR)

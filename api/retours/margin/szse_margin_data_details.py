@@ -120,16 +120,6 @@ async def get_szse_margin_detail(
         rows = con.execute(sql, params).fetchall()
         cols = [d[0] for d in con.description]
         data = [dict(zip(cols, r)) for r in rows]
-
-        code_filter = ""
-        if codes:
-            in_list = ", ".join([f"'{c}'" for c in codes])
-            code_filter = f"AND code IN ({in_list})"
-        sql = sql.replace("{code_filter}", code_filter)
-
-        rows = con.execute(sql, params).fetchall()
-        cols = [d[0] for d in con.description]
-        data = [dict(zip(cols, r)) for r in rows]
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     finally:
