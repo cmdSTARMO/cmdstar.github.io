@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.57](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.56...v1.1.57) (2026-05-24)
+
+
+### 🐞 Fixes
+
+* **data:** api系统优化1.2 ([e330a06](https://github.com/cmdSTARMO/cmdstar.github.io/commit/e330a061d04c965172ef3b078a6d3e7bdca0acab))
+
 ## [1.1.56](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.55...v1.1.56) (2026-05-24)
 
 
