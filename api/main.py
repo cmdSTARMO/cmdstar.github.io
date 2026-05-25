@@ -5,7 +5,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import ORJSONResponse
 
-from retours import foo, szse_etf_shares
+from retours import foo, index_daily, sw_industry_daily, szse_etf_shares
 import retours.ncd_aaa_yield_curve as ncd_aaa_yield_curve
 from retours.margin import router as margin_router
 
@@ -42,6 +42,8 @@ app.add_middleware(
 app.include_router(szse_etf_shares.router, prefix="/szse_etf_shares", tags=["SZSE ETF shares"])
 app.include_router(margin_router)
 app.include_router(ncd_aaa_yield_curve.router, prefix="/ncd_aaa_yield_curve", tags=["NCD AAA Yield Curve"])
+app.include_router(index_daily.router, prefix="/index_daily", tags=["Index Daily"])
+app.include_router(sw_industry_daily.router, prefix="/sw_industry_daily", tags=["SW Industry Daily"])
 app.include_router(foo.router, prefix="/foo", tags=["Test"])
 
 
