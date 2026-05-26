@@ -1,0 +1,424 @@
+﻿run_id,run_date,fetcher,script,status,updated_rows,exit_code,started_at,ended_at,duration_seconds,command,error_excerpt,stdout,stderr
+20260527000905,2026-05-27,SZSE margin total,szse_margintotal_data.py,success,0,0,2026-05-27 00:09:05,2026-05-27 00:10:10,65.55,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/szse_margintotal_data.py,,"Parquet dir: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/margin_szse_tab1_data
+Latest stored date: 2026-05-25; start fetching from 2026-05-26
+Checking 2026-05-26: records found = 0
+Checking 2026-05-27: records found = 0
+All done.
+",
+20260527000905,2026-05-27,SSE margin total,sse_margintotal_data.py,success,0,0,2026-05-27 00:10:10,2026-05-27 00:10:41,31.19,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_margintotal_data.py,,"[WINDOW] 2026-05-26 -> 2026-05-27 fetching...
+  done: fetched 0 rows, parquet upserted 0 rows.
+All done.
+",
+20260527000905,2026-05-27,SZSE margin detail,szse_margindetail_data.py,success,0,0,2026-05-27 00:10:41,2026-05-27 00:11:42,60.28,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/szse_margindetail_data.py,,"Parquet dir: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/margin_szse_tab2_data
+Latest stored date: 2026-05-25; start fetching from 2026-05-26
+Checking 2026-05-26: records found = 0
+Checking 2026-05-27: records found = 0
+All done.
+","/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+"
+20260527000905,2026-05-27,SSE margin detail,sse_margindetail_data.py,success,0,0,2026-05-27 00:11:42,2026-05-27 00:11:56,14.0,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_margindetail_data.py,,"[2026-05-26] downloading/parsing... no data
+[2026-05-27] downloading/parsing... no data
+Done. No new rows.
+",
+20260527000905,2026-05-27,Global market daily,global_market_daily_fetcher.py,success,0,0,2026-05-27 00:11:56,2026-05-27 00:14:01,125.42,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/global_market_daily_fetcher.py,,"[^IXIC] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^IXIC] no new rows.
+[^DJI] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^DJI] no new rows.
+[^SPX] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^SPX] no new rows.
+[^VIX] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^VIX] no new rows.
+[^GSPTSE] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^GSPTSE] no new rows.
+[^BVSP] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^BVSP] no new rows.
+[^MXX] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^MXX] no new rows.
+[^MERV] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^MERV] no new rows.
+[^N100] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^N100] no new rows.
+[^FTSE] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^FTSE] no new rows.
+[^FTAI] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^FTAI] no new rows.
+[^FCHI] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^FCHI] no new rows.
+[^GDAXI] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^GDAXI] no new rows.
+[^SSMI] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^SSMI] no new rows.
+[FTSEMIB.MI] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[FTSEMIB.MI] no new rows.
+[^AEX] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^AEX] no new rows.
+[^BFX] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^BFX] no new rows.
+[^STOXX50E] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^STOXX50E] no new rows.
+[^N225] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^N225] no new rows.
+[^BSESN] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^BSESN] no new rows.
+[^SET.BK] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^SET.BK] no new rows.
+[^KS11] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^KS11] no new rows.
+[^STI] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^STI] no new rows.
+[^JKSE] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^JKSE] no new rows.
+[^KLSE] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^KLSE] no new rows.
+[^AORD] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^AORD] no new rows.
+[^NZ50] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^NZ50] no new rows.
+[^TA125.TA] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^TA125.TA] no new rows.
+[DFMGI.AE] mode=incremental; latest=2026-05-25; fetch 2026-05-26 -> 2026-05-27
+[DFMGI.AE] no new rows.
+[^TASI.SR] mode=incremental; latest=2026-05-21; fetch 2026-05-22 -> 2026-05-27
+[^TASI.SR] no new rows.
+[^J203.JO] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^J203.JO] no new rows.
+All done. Total parquet upserted 0 rows.
+",
+20260527000905,2026-05-27,SW industry daily,sw_industry_daily_fetcher.py,success,31,0,2026-05-27 00:14:01,2026-05-27 00:16:24,143.28,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sw_industry_daily_fetcher.py,,"SW industry daily SSL verify = False
+[801010] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801010] parquet upserted 1 rows.
+[801030] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801030] parquet upserted 1 rows.
+[801040] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801040] parquet upserted 1 rows.
+[801050] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801050] parquet upserted 1 rows.
+[801080] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801080] parquet upserted 1 rows.
+[801110] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801110] parquet upserted 1 rows.
+[801120] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801120] parquet upserted 1 rows.
+[801130] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801130] parquet upserted 1 rows.
+[801140] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801140] parquet upserted 1 rows.
+[801150] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801150] parquet upserted 1 rows.
+[801160] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801160] parquet upserted 1 rows.
+[801170] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801170] parquet upserted 1 rows.
+[801180] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801180] parquet upserted 1 rows.
+[801200] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801200] parquet upserted 1 rows.
+[801210] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801210] parquet upserted 1 rows.
+[801230] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801230] parquet upserted 1 rows.
+[801710] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801710] parquet upserted 1 rows.
+[801720] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801720] parquet upserted 1 rows.
+[801730] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801730] parquet upserted 1 rows.
+[801740] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801740] parquet upserted 1 rows.
+[801750] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801750] parquet upserted 1 rows.
+[801760] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801760] parquet upserted 1 rows.
+[801770] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801770] parquet upserted 1 rows.
+[801780] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801780] parquet upserted 1 rows.
+[801790] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801790] parquet upserted 1 rows.
+[801880] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801880] parquet upserted 1 rows.
+[801890] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801890] parquet upserted 1 rows.
+[801950] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801950] parquet upserted 1 rows.
+[801960] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801960] parquet upserted 1 rows.
+[801970] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801970] parquet upserted 1 rows.
+[801980] latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[801980] parquet upserted 1 rows.
+All done. Total parquet upserted 31 rows.
+",
+20260527000905,2026-05-27,SSE ETF shares,sse_etf_shares_fetcher.py,success,848,0,2026-05-27 00:16:24,2026-05-27 00:16:29,4.42,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_etf_shares_fetcher.py,,"[sse_etf_shares] mode=incremental; latest=2026-05-25; fetch 2026-05-26 -> 2026-05-27
+[2026-05-26] parquet upserted 848 rows.
+[2026-05-27] no rows.
+[sse_etf_shares] all done. Total parquet upserted 848 rows.
+",
+20260527000905,2026-05-27,NCD AAA yield curve,ncd_aaa_yield_curve_fetcher.py,success,50,0,2026-05-27 00:16:29,2026-05-27 00:16:31,2.05,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/ncd_aaa_yield_curve_fetcher.py,,"[1] Fetch 2026-05-26 ~ 2026-05-27
+  -> 25 rows
+Done. Parquet upserted 25 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/ncd_aaa_yield_curve_data
+",
+20260527000905,2026-05-27,RMB FX index,rmb_fx_index_fetcher.py,failed,0,1,2026-05-27 00:16:31,2026-05-27 00:17:41,70.34,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/rmb_fx_index_fetcher.py,"Traceback (most recent call last):
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 464, in _make_request
+    self._validate_conn(conn)
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 1106, in _validate_conn
+    conn.connect()
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connection.py"", line 796, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connection.py"", line 975, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+               ^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/util/ssl_.py"", line 433, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/util/ssl_.py"", l
+...[truncated]","[rmb_fx_index] mode=incremental; latest=None; fetch 2015-11-30 -> 2026-05-20
+[rmb_fx_index] fetch 2015-11-30 -> 2016-11-27
+[2015-11-30 -> 2016-11-27] request failed attempt 1/5: HTTPSConnectionPool(host='www.chinamoney.org.cn', port=443): Max retries exceeded with url: /ags/ms/cm-u-bk-fx/RmbIdxHis?lang=cn&startDate=2015-11-30&endDate=2016-11-27 (Caused by SSLError(SSLError(1, '[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1010)')))
+[2015-11-30 -> 2016-11-27] url: https://www.chinamoney.org.cn/ags/ms/cm-u-bk-fx/RmbIdxHis?lang=cn&startDate=2015-11-30&endDate=2016-11-27
+[2015-11-30 -> 2016-11-27] request failed attempt 2/5: HTTPSConnectionPool(host='www.chinamoney.org.cn', port=443): Max retries exceeded with url: /ags/ms/cm-u-bk-fx/RmbIdxHis?lang=cn&startDate=2015-11-30&endDate=2016-11-27 (Caused by SSLError(SSLError(1, '[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1010)')))
+[2015-11-30 -> 2016-11-27] url: https://www.chinamoney.org.cn/ags/ms/cm-u-bk-fx/RmbIdxHis?lang=cn&startDate=2015-11-30&endDate=2016-11-27
+[2015-11-30 -> 2016-11-27] request failed attempt 3/5: HTTPSConnectionPool(host='www.chinamoney.org.cn', port=443): Max retries exceeded with url: /ags/ms/cm-u-bk-fx/RmbIdxHis?lang=cn&startDate=2015-11-30&endDate=2016-11-27 (Caused by SSLError(SSLError(1, '[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1010)')))
+[2015-11-30 -> 2016-11-27] url: https://www.chinamoney.org.cn/ags/ms/cm-u-bk-fx/RmbIdxHis?lang=cn&startDate=2015-11-30&endDate=2016-11-27
+[2015-11-30 -> 2016-11-27] request failed attempt 4/5: HTTPSConnectionPool(host='www.chinamoney.org.cn', port=443): Max retries exceeded with url: /ags/ms/cm-u-bk-fx/RmbIdxHis?lang=cn&startDate=2015-11-30&endDate=2016-11-27 (Caused by SSLError(SSLError(1, '[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1010)')))
+[2015-11-30 -> 2016-11-27] url: https://www.chinamoney.org.cn/ags/ms/cm-u-bk-fx/RmbIdxHis?lang=cn&startDate=2015-11-30&endDate=2016-11-27
+[2015-11-30 -> 2016-11-27] request failed attempt 5/5: HTTPSConnectionPool(host='www.chinamoney.org.cn', port=443): Max retries exceeded with url: /ags/ms/cm-u-bk-fx/RmbIdxHis?lang=cn&startDate=2015-11-30&endDate=2016-11-27 (Caused by SSLError(SSLError(1, '[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1010)')))
+[2015-11-30 -> 2016-11-27] url: https://www.chinamoney.org.cn/ags/ms/cm-u-bk-fx/RmbIdxHis?lang=cn&startDate=2015-11-30&endDate=2016-11-27
+","Traceback (most recent call last):
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 464, in _make_request
+    self._validate_conn(conn)
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 1106, in _validate_conn
+    conn.connect()
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connection.py"", line 796, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connection.py"", line 975, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+               ^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/util/ssl_.py"", line 433, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/util/ssl_.py"", line 477, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/ssl.py"", line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/ssl.py"", line 1041, in _create
+    self.do_handshake()
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/ssl.py"", line 1319, in do_handshake
+    self._sslobj.do_handshake()
+ssl.SSLError: [SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1010)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 788, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 488, in _make_request
+    raise new_e
+urllib3.exceptions.SSLError: [SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1010)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/requests/adapters.py"", line 696, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 872, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 872, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 872, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 842, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/util/retry.py"", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.chinamoney.org.cn', port=443): Max retries exceeded with url: /ags/ms/cm-u-bk-fx/RmbIdxHis?lang=cn&startDate=2015-11-30&endDate=2016-11-27 (Caused by SSLError(SSLError(1, '[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1010)')))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File ""/home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/rmb_fx_index_fetcher.py"", line 175, in <module>
+    run()
+  File ""/home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/rmb_fx_index_fetcher.py"", line 159, in run
+    df = fetch_all(session, start_dt, effective_end)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/rmb_fx_index_fetcher.py"", line 131, in fetch_all
+    df = fetch_range(session, current, finish)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/rmb_fx_index_fetcher.py"", line 73, in fetch_range
+    resp = session.get(BASE_URL, params=params, timeout=30)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/requests/sessions.py"", line 671, in get
+    return self.request(""GET"", url, params=params, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/requests/sessions.py"", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/requests/sessions.py"", line 784, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/requests/adapters.py"", line 727, in send
+    raise SSLError(e, request=request)
+requests.exceptions.SSLError: HTTPSConnectionPool(host='www.chinamoney.org.cn', port=443): Max retries exceeded with url: /ags/ms/cm-u-bk-fx/RmbIdxHis?lang=cn&startDate=2015-11-30&endDate=2016-11-27 (Caused by SSLError(SSLError(1, '[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1010)')))
+"
+20260527000905,2026-05-27,Shibor curve,shibor_curve_fetcher.py,failed,0,1,2026-05-27 00:17:41,2026-05-27 00:17:46,4.49,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/shibor_curve_fetcher.py,"Traceback (most recent call last):
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 464, in _make_request
+    self._validate_conn(conn)
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 1106, in _validate_conn
+    conn.connect()
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connection.py"", line 796, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connection.py"", line 975, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+               ^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/util/ssl_.py"", line 433, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/util/ssl_.py"", l
+...[truncated]",,"Traceback (most recent call last):
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 464, in _make_request
+    self._validate_conn(conn)
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 1106, in _validate_conn
+    conn.connect()
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connection.py"", line 796, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connection.py"", line 975, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+               ^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/util/ssl_.py"", line 433, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/util/ssl_.py"", line 477, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/ssl.py"", line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/ssl.py"", line 1041, in _create
+    self.do_handshake()
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/ssl.py"", line 1319, in do_handshake
+    self._sslobj.do_handshake()
+ssl.SSLError: [SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1010)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 788, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 488, in _make_request
+    raise new_e
+urllib3.exceptions.SSLError: [SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1010)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/requests/adapters.py"", line 696, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 872, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 872, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 872, in urlopen
+    return self.urlopen(
+           ^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/connectionpool.py"", line 842, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/urllib3/util/retry.py"", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='www.chinamoney.org.cn', port=443): Max retries exceeded with url: /ags/ms/cm-u-bk-shibor/ShiborChrt?lang=CN (Caused by SSLError(SSLError(1, '[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1010)')))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File ""/home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/shibor_curve_fetcher.py"", line 120, in <module>
+    run()
+  File ""/home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/shibor_curve_fetcher.py"", line 103, in run
+    df = fetch_shibor_curve(session)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/shibor_curve_fetcher.py"", line 62, in fetch_shibor_curve
+    resp = session.get(BASE_URL, params=params, timeout=30)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/requests/sessions.py"", line 671, in get
+    return self.request(""GET"", url, params=params, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/requests/sessions.py"", line 651, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/requests/sessions.py"", line 784, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File ""/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/requests/adapters.py"", line 727, in send
+    raise SSLError(e, request=request)
+requests.exceptions.SSLError: HTTPSConnectionPool(host='www.chinamoney.org.cn', port=443): Max retries exceeded with url: /ags/ms/cm-u-bk-shibor/ShiborChrt?lang=CN (Caused by SSLError(SSLError(1, '[SSL: UNSAFE_LEGACY_RENEGOTIATION_DISABLED] unsafe legacy renegotiation disabled (_ssl.c:1010)')))
+"
+20260527000905,2026-05-27,Southbound netbuy,southbound_netbuy_fetcher.py,success,0,0,2026-05-27 00:17:46,2026-05-27 00:17:48,2.35,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/southbound_netbuy_fetcher.py,,"[southbound] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27; query_start=2026-05-17
+[southbound] page=1; rows=6; pages=1
+[southbound] no new rows.
+",
+20260527000905,2026-05-27,Northbound deal amount,northbound_dealamt_fetcher.py,success,0,0,2026-05-27 00:17:48,2026-05-27 00:17:50,1.6,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/northbound_dealamt_fetcher.py,,"[northbound] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27; query_start=2026-05-17
+[northbound] page=1; rows=6; pages=1
+[northbound] no new rows.
+",
+20260527000905,2026-05-27,Fund new issue,fund_new_issue_fetcher.py,success,8132,0,2026-05-27 00:17:50,2026-05-27 00:18:09,19.01,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/fund_new_issue_fetcher.py,,"[fund_new_issue] fast update enabled: latest snapshot=2026-05-26, fetch first 10 pages.
+fetch page 1: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=1%2C100&isbuy=2
+page 1: rows=100
+fetch page 2: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=2%2C100&isbuy=2
+page 2: rows=100
+fetch page 3: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=3%2C100&isbuy=2
+page 3: rows=100
+fetch page 4: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=4%2C100&isbuy=2
+page 4: rows=100
+fetch page 5: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=5%2C100&isbuy=2
+page 5: rows=100
+fetch page 6: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=6%2C100&isbuy=2
+page 6: rows=100
+fetch page 7: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=7%2C100&isbuy=2
+page 7: rows=100
+fetch page 8: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=8%2C100&isbuy=2
+page 8: rows=100
+fetch page 9: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=9%2C100&isbuy=2
+page 9: rows=100
+fetch page 10: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=10%2C100&isbuy=2
+page 10: rows=100
+[fund_new_issue] mode=fast, old_rows=8113, fetched_rows=1000, final_rows=8132, sliced_rows=8132, parquet_dir=/home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/fund_new_issue_data
+[fund_new_issue] established_date range: 2013-08-20 -> 2026-05-26
+",
+20260527000905,2026-05-27,ERP HS300 10Y,erp_hs300_10y_fetcher.py,success,1446,0,2026-05-27 00:18:09,2026-05-27 00:18:20,11.59,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/erp_hs300_10y_fetcher.py,,"[erp] fetch gov yield 2023-05-27 -> 2023-08-26
+[erp] fetch gov yield 2023-08-27 -> 2023-11-26
+[erp] fetch gov yield 2023-11-27 -> 2024-02-26
+[erp] fetch gov yield 2024-02-27 -> 2024-05-26
+[erp] fetch gov yield 2024-05-27 -> 2024-08-26
+[erp] fetch gov yield 2024-08-27 -> 2024-11-26
+[erp] fetch gov yield 2024-11-27 -> 2025-02-26
+[erp] fetch gov yield 2025-02-27 -> 2025-05-26
+[erp] fetch gov yield 2025-05-27 -> 2025-08-26
+[erp] fetch gov yield 2025-08-27 -> 2025-11-26
+[erp] fetch gov yield 2025-11-27 -> 2026-02-26
+[erp] fetch gov yield 2026-02-27 -> 2026-05-26
+[erp] fetch gov yield 2026-05-27 -> 2026-05-27
+[erp] gov rows=745
+[erp] hs300 rows=723
+[erp] parquet upserted 723 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/erp_hs300_10y_data
+[erp] date range: 2023-05-29 -> 2026-05-25
+",
