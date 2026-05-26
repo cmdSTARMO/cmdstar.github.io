@@ -9,3 +9,4 @@ aiocache
 orjson
 duckdb
 pyarrow
+pandas
