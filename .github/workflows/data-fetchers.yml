@@ -46,6 +46,7 @@ jobs:
         id: run_fetchers
         continue-on-error: true
         run: |
+          test -f base_data_renew_folder/automations/run_all_fetchers.py
           python base_data_renew_folder/automations/run_all_fetchers.py
 
       - name: Commit updated data and logs
@@ -53,7 +54,12 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add api/data base_data_renew_folder/automations/logs/fetcher_daily_runs.csv || true
+          if [ -d api/data ]; then
+            git add api/data
+          fi
+          if [ -f base_data_renew_folder/automations/logs/fetcher_daily_runs.csv ]; then
+            git add base_data_renew_folder/automations/logs/fetcher_daily_runs.csv
+          fi
           if git diff --cached --quiet; then
             echo "No data/log changes to commit."
           else
