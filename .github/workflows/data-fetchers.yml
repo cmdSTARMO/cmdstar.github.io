@@ -1,0 +1,68 @@
+name: Data Fetchers
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 08:00 Asia/Shanghai, Monday-Friday.
+    - cron: "0 0 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-fetchers
+  cancel-in-progress: false
+
+jobs:
+  run-fetchers:
+    name: Run data fetchers
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Shanghai
+      PYTHONPATH: ${{ github.workspace }}
+      FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
+      FETCHER_RETRY_SLEEP_SECONDS: "5"
+      FETCHER_TIMEOUT_SECONDS: "7200"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r api/requirements.txt
+          pip install pandas requests openpyxl python-dateutil certifi urllib3
+
+      - name: Run fetcher batch
+        id: run_fetchers
+        continue-on-error: true
+        run: |
+          python base_data_renew_folder/automations/run_all_fetchers.py
+
+      - name: Commit updated data and logs
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add api/data base_data_renew_folder/automations/logs/fetcher_daily_runs.csv || true
+          if git diff --cached --quiet; then
+            echo "No data/log changes to commit."
+          else
+            git commit -m "chore(data): update automated fetcher outputs"
+            git push
+          fi
+
+      - name: Fail if fetchers failed
+        if: steps.run_fetchers.outcome == 'failure'
+        run: |
+          echo "One or more fetchers failed. Check fetcher_daily_runs.csv and the workflow log."
+          exit 1
