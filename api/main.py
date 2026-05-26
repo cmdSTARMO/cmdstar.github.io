@@ -5,7 +5,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import ORJSONResponse
 
-from retours import foo, global_market_daily, index_daily, sw_industry_daily, szse_etf_shares
+from retours import capital_flow, erp_hs300_10y, foo, fund_new_issue, global_market_daily, index_daily, rmb_fx_index, shibor_curve, sse_etf_shares, sw_industry_daily, szse_etf_shares
 import retours.ncd_aaa_yield_curve as ncd_aaa_yield_curve
 from retours.margin import router as margin_router
 
@@ -40,11 +40,17 @@ app.add_middleware(
 )
 
 app.include_router(szse_etf_shares.router, prefix="/szse_etf_shares", tags=["SZSE ETF shares"])
+app.include_router(sse_etf_shares.router, prefix="/sse_etf_shares", tags=["SSE ETF shares"])
 app.include_router(margin_router)
 app.include_router(ncd_aaa_yield_curve.router, prefix="/ncd_aaa_yield_curve", tags=["NCD AAA Yield Curve"])
 app.include_router(index_daily.router, prefix="/index_daily", tags=["Index Daily"])
 app.include_router(sw_industry_daily.router, prefix="/sw_industry_daily", tags=["SW Industry Daily"])
 app.include_router(global_market_daily.router, prefix="/global_market_daily", tags=["Global Market Daily"])
+app.include_router(capital_flow.router)
+app.include_router(fund_new_issue.router, prefix="/fund_new_issue", tags=["Fund New Issue"])
+app.include_router(rmb_fx_index.router, prefix="/rmb_fx_index", tags=["RMB FX Index"])
+app.include_router(shibor_curve.router, prefix="/shibor_curve", tags=["Shibor Curve"])
+app.include_router(erp_hs300_10y.router, prefix="/erp_hs300_10y", tags=["ERP HS300 10Y"])
 app.include_router(foo.router, prefix="/foo", tags=["Test"])
 
 
