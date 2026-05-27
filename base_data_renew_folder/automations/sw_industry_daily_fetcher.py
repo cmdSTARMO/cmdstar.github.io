@@ -23,6 +23,8 @@ INITIAL_START = "1999-12-30"
 REQUEST_SLEEP_SECONDS = float(os.getenv("SW_INDUSTRY_DAILY_SLEEP", "0.3"))
 RETRIES = int(os.getenv("SW_INDUSTRY_DAILY_RETRIES", "5"))
 RETRY_SLEEP_SECONDS = float(os.getenv("SW_INDUSTRY_DAILY_RETRY_SLEEP", "30"))
+CONNECT_TIMEOUT_SECONDS = float(os.getenv("SW_INDUSTRY_DAILY_CONNECT_TIMEOUT", "12"))
+READ_TIMEOUT_SECONDS = float(os.getenv("SW_INDUSTRY_DAILY_READ_TIMEOUT", "120"))
 PATCH_CURRENT = os.getenv("SW_INDUSTRY_DAILY_PATCH_CURRENT", "1") == "1"
 VERIFY_SSL = os.getenv("SW_INDUSTRY_DAILY_VERIFY_SSL", "0") == "1"
 COOKIE = os.getenv("SW_INDUSTRY_DAILY_COOKIE", "").strip()
@@ -66,7 +68,7 @@ INDUSTRIES = {
 }
 
 
-def create_retry_session(total_retries=3, backoff_factor=0.3, status_forcelist=(500, 502, 504)):
+def create_retry_session(total_retries=0, backoff_factor=0, status_forcelist=(500, 502, 504)):
     session = requests.Session()
     session.verify = VERIFY_SSL
     if not VERIFY_SSL:
@@ -85,16 +87,22 @@ def create_retry_session(total_retries=3, backoff_factor=0.3, status_forcelist=(
     session.mount("http://", adapter)
     session.headers.update({
         "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/148.0.0.0 Safari/537.36 Edg/148.0.0.0"
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) "
+            "AppleWebKit/605.1.15 (KHTML, like Gecko) "
+            "Version/18.5 Mobile/15E148 Safari/604.1"
         ),
-        "Accept": "application/json,text/plain,*/*",
-        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
         "Cache-Control": "no-cache",
+        "Connection": "close",
         "Pragma": "no-cache",
         "Referer": "https://www.swsresearch.com/",
-        "Origin": "https://www.swsresearch.com",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "cross-site",
+        "Sec-Fetch-User": "?1",
+        "Upgrade-Insecure-Requests": "1",
     })
     if COOKIE:
         session.headers["Cookie"] = COOKIE
@@ -157,7 +165,7 @@ def _to_number(value):
 
 def fetch_trend(session: requests.Session, code: str, start_dt: date, end_dt: date) -> pd.DataFrame:
     params = {"swindexcode": code, "period": "DAY"}
-    resp = session.get(TREND_URL, params=params, timeout=30)
+    resp = session.get(TREND_URL, params=params, timeout=(CONNECT_TIMEOUT_SECONDS, READ_TIMEOUT_SECONDS))
     resp.raise_for_status()
     payload = resp.json()
     records = payload.get("data") or []
@@ -216,7 +224,7 @@ def fetch_current_patch(session: requests.Session, code: str, end_dt: date) -> p
         "sortField": "",
         "rule": "",
     }
-    resp = session.get(CURRENT_URL, params=params, timeout=30)
+    resp = session.get(CURRENT_URL, params=params, timeout=(CONNECT_TIMEOUT_SECONDS, READ_TIMEOUT_SECONDS))
     resp.raise_for_status()
     payload = resp.json()
     results = ((payload.get("data") or {}).get("results")) or []
@@ -275,7 +283,12 @@ def run(parquet_dir: str = PARQUET_DIR):
     latest = discover_latest_by_code(parquet_dir)
     print(f"SW industry daily latest scan finished in {time.time() - discover_started:.2f}s; codes={len(latest)}")
     session = create_retry_session()
-    print(f"SW industry daily SSL verify = {VERIFY_SSL}")
+    print(
+        "SW industry daily request config: "
+        f"ssl_verify={VERIFY_SSL}; timeout=({CONNECT_TIMEOUT_SECONDS}, {READ_TIMEOUT_SECONDS}); "
+        f"retries={RETRIES}; retry_sleep={RETRY_SLEEP_SECONDS}",
+        flush=True,
+    )
 
     total_written = 0
     total_codes = len(INDUSTRIES)
