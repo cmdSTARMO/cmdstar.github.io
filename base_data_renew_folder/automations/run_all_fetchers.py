@@ -3,6 +3,7 @@ import os
 import re
 import subprocess
 import sys
+import threading
 import time
 import traceback
 from datetime import datetime
@@ -147,30 +148,57 @@ def run_fetcher(item: dict, run_id: str) -> dict:
         }
 
     try:
-        proc = subprocess.run(
+        proc = subprocess.Popen(
             command,
             cwd=str(REPO_ROOT),
             env=child_env,
-            capture_output=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
             text=True,
             encoding="utf-8",
             errors="replace",
-            timeout=TIMEOUT_SECONDS,
         )
-        stdout = proc.stdout or ""
-        stderr = proc.stderr or ""
+        stdout_parts: list[str] = []
+        stderr_parts: list[str] = []
+
+        def stream_pipe(pipe, sink: list[str], target):
+            try:
+                for line in iter(pipe.readline, ""):
+                    sink.append(line)
+                    print(line, end="", file=target, flush=True)
+            finally:
+                pipe.close()
+
+        stdout_thread = threading.Thread(
+            target=stream_pipe,
+            args=(proc.stdout, stdout_parts, sys.stdout),
+            daemon=True,
+        )
+        stderr_thread = threading.Thread(
+            target=stream_pipe,
+            args=(proc.stderr, stderr_parts, sys.stderr),
+            daemon=True,
+        )
+        stdout_thread.start()
+        stderr_thread.start()
+
+        try:
+            exit_code = proc.wait(timeout=TIMEOUT_SECONDS)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+            proc.wait(timeout=10)
+            exit_code = -9
+            stderr_parts.append(f"\ntimeout after {TIMEOUT_SECONDS}s\n")
+            print(f"\ntimeout after {TIMEOUT_SECONDS}s", file=sys.stderr, flush=True)
+
+        stdout_thread.join(timeout=5)
+        stderr_thread.join(timeout=5)
+        stdout = "".join(stdout_parts)
+        stderr = "".join(stderr_parts)
         combined = stdout + "\n" + stderr
-        status = "success" if proc.returncode == 0 else "failed"
+        status = "success" if exit_code == 0 else "failed"
         error_excerpt = "" if status == "success" else compact_text(stderr or stdout)
         updated_rows = parse_updated_rows(combined) if status == "success" else 0
-        exit_code = proc.returncode
-    except subprocess.TimeoutExpired as exc:
-        stdout = exc.stdout or ""
-        stderr = exc.stderr or ""
-        status = "failed"
-        updated_rows = 0
-        exit_code = -9
-        error_excerpt = f"timeout after {TIMEOUT_SECONDS}s\n{compact_text(stderr or stdout)}"
     except Exception:
         stdout = ""
         stderr = traceback.format_exc()
