@@ -17,12 +17,14 @@ jobs:
   run-fetchers:
     name: Run data fetchers
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     env:
       TZ: Asia/Shanghai
       PYTHONPATH: ${{ github.workspace }}
+      PYTHONUNBUFFERED: "1"
       FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
       FETCHER_RETRY_SLEEP_SECONDS: "5"
-      FETCHER_TIMEOUT_SECONDS: "7200"
+      FETCHER_TIMEOUT_SECONDS: "900"
 
     steps:
       - name: Checkout repository
