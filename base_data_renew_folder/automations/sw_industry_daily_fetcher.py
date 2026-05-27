@@ -1,4 +1,5 @@
 import os
+import re
 import time
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -107,11 +108,19 @@ def discover_latest_by_code(parquet_dir: str = PARQUET_DIR) -> dict[str, date]:
         return {}
 
     latest: dict[str, date] = {}
-    for root, _, files in os.walk(parquet_dir):
-        for name in files:
-            if not name.endswith(".parquet"):
-                continue
-            path = os.path.join(root, name)
+    for code in INDUSTRIES:
+        code_dir = industry_parquet_dir(parquet_dir, code)
+        if not os.path.isdir(code_dir):
+            continue
+
+        pattern = re.compile(rf"^sw_industry_daily_{re.escape(code)}_(\d{{6}})\.parquet$")
+        candidates = []
+        for name in os.listdir(code_dir):
+            match = pattern.match(name)
+            if match:
+                candidates.append((match.group(1), os.path.join(code_dir, name)))
+
+        for _, path in sorted(candidates, reverse=True):
             try:
                 df = pd.read_parquet(path, columns=["swindexcode", "dt"])
             except Exception:
@@ -119,11 +128,10 @@ def discover_latest_by_code(parquet_dir: str = PARQUET_DIR) -> dict[str, date]:
             if df.empty:
                 continue
             df["dt"] = pd.to_datetime(df["dt"], errors="coerce").dt.date
-            grouped = df.dropna(subset=["dt"]).groupby("swindexcode")["dt"].max()
-            for code, max_dt in grouped.items():
-                code = str(code)
-                if code not in latest or max_dt > latest[code]:
-                    latest[code] = max_dt
+            max_dt = df.dropna(subset=["dt"])["dt"].max()
+            if pd.notna(max_dt):
+                latest[code] = max_dt
+                break
     return latest
 
 
@@ -263,23 +271,40 @@ def fetch_one_code_with_retry(session: requests.Session, code: str, start_dt: da
 def run(parquet_dir: str = PARQUET_DIR):
     end_dt = date.today()
     initial_dt = datetime.strptime(INITIAL_START, "%Y-%m-%d").date()
+    discover_started = time.time()
     latest = discover_latest_by_code(parquet_dir)
+    print(f"SW industry daily latest scan finished in {time.time() - discover_started:.2f}s; codes={len(latest)}")
     session = create_retry_session()
     print(f"SW industry daily SSL verify = {VERIFY_SSL}")
 
     total_written = 0
-    for code in INDUSTRIES:
+    total_codes = len(INDUSTRIES)
+    for index, (code, industry_name) in enumerate(INDUSTRIES.items(), start=1):
+        code_started = time.time()
+        print(f"[sw_industry_daily] ({index}/{total_codes}) start {code} {industry_name}", flush=True)
         start_dt = (latest[code] + timedelta(days=1)) if code in latest else initial_dt
         if start_dt > end_dt:
-            print(f"[{code}] already up to {latest[code]}, skip.")
+            print(
+                f"[sw_industry_daily] ({index}/{total_codes}) done {code} {industry_name}: "
+                f"already up to {latest[code]}, skip; elapsed={time.time() - code_started:.2f}s",
+                flush=True,
+            )
             continue
 
         print(f"[{code}] latest={latest.get(code)}; fetch {start_dt} -> {end_dt}")
         df = fetch_one_code_with_retry(session, code, start_dt, end_dt)
         if df is None:
-            print(f"[{code}] failed after retries; skip. Next run will retry from {start_dt}.")
+            print(
+                f"[sw_industry_daily] ({index}/{total_codes}) done {code} {industry_name}: "
+                f"failed after retries; next retry from {start_dt}; elapsed={time.time() - code_started:.2f}s",
+                flush=True,
+            )
         elif df.empty:
-            print(f"[{code}] no new rows.")
+            print(
+                f"[sw_industry_daily] ({index}/{total_codes}) done {code} {industry_name}: "
+                f"no new rows; elapsed={time.time() - code_started:.2f}s",
+                flush=True,
+            )
         else:
             written = upsert_monthly_parquet(
                 df,
@@ -289,7 +314,11 @@ def run(parquet_dir: str = PARQUET_DIR):
                 sort_cols=["swindexcode", "dt"],
             )
             total_written += written
-            print(f"[{code}] parquet upserted {written} rows.")
+            print(
+                f"[sw_industry_daily] ({index}/{total_codes}) done {code} {industry_name}: "
+                f"parquet upserted {written} rows; elapsed={time.time() - code_started:.2f}s",
+                flush=True,
+            )
         time.sleep(REQUEST_SLEEP_SECONDS)
 
     print(f"All done. Total parquet upserted {total_written} rows.")
