@@ -3,6 +3,8 @@ name: release-please
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'base_data_renew_folder/automations/logs/**'
   workflow_dispatch:
 
 permissions:

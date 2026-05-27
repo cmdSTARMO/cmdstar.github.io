@@ -63,7 +63,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No data/log changes to commit."
           else
-            git commit -m "chore(data): update automated fetcher outputs"
+            git commit -m "chore(data): update automated fetcher outputs [skip ci]"
             git push
           fi
 
