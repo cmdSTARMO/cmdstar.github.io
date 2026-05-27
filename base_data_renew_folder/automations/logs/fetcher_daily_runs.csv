@@ -815,3 +815,192 @@ page 10: rows=100
 [erp] parquet upserted 724 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/erp_hs300_10y_data
 [erp] date range: 2023-05-29 -> 2026-05-26
 ",
+20260527202400,2026-05-27,SZSE margin total,szse_margintotal_data.py,success,0,0,2026-05-27 20:24:00,2026-05-27 20:24:34,34.42,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/szse_margintotal_data.py,,"Parquet dir: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/margin_szse_tab1_data
+Latest stored date: 2026-05-26; start fetching from 2026-05-27
+Checking 2026-05-27: records found = 0
+All done.
+",
+20260527202400,2026-05-27,SSE margin total,sse_margintotal_data.py,success,0,0,2026-05-27 20:24:34,2026-05-27 20:25:03,28.8,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_margintotal_data.py,,"[WINDOW] 2026-05-27 -> 2026-05-27 fetching...
+  done: fetched 0 rows, parquet upserted 0 rows.
+All done.
+",
+20260527202400,2026-05-27,SZSE margin detail,szse_margindetail_data.py,success,0,0,2026-05-27 20:25:03,2026-05-27 20:25:37,33.51,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/szse_margindetail_data.py,,"Parquet dir: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/margin_szse_tab2_data
+Latest stored date: 2026-05-26; start fetching from 2026-05-27
+Checking 2026-05-27: records found = 0
+All done.
+","/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+"
+20260527202400,2026-05-27,SSE margin detail,sse_margindetail_data.py,success,0,0,2026-05-27 20:25:37,2026-05-27 20:26:02,25.3,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_margindetail_data.py,,"[2026-05-26] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-05-27] downloading/parsing... no data
+Done. No new rows.
+",
+20260527202400,2026-05-27,Global market daily,global_market_daily_fetcher.py,success,15,0,2026-05-27 20:26:02,2026-05-27 20:27:56,113.73,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/global_market_daily_fetcher.py,,"[^IXIC] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^IXIC] no new rows.
+[^DJI] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^DJI] no new rows.
+[^SPX] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^SPX] no new rows.
+[^VIX] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^VIX] parquet upserted 1 rows.
+[^GSPTSE] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^GSPTSE] no new rows.
+[^BVSP] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^BVSP] no new rows.
+[^MXX] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^MXX] no new rows.
+[^MERV] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^MERV] no new rows.
+[^N100] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^N100] parquet upserted 1 rows.
+[^FTSE] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^FTSE] parquet upserted 1 rows.
+[^FTAI] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^FTAI] parquet upserted 1 rows.
+[^FCHI] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^FCHI] parquet upserted 1 rows.
+[^GDAXI] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^GDAXI] parquet upserted 1 rows.
+[^SSMI] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^SSMI] parquet upserted 1 rows.
+[FTSEMIB.MI] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[FTSEMIB.MI] parquet upserted 1 rows.
+[^AEX] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^AEX] parquet upserted 1 rows.
+[^BFX] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^BFX] parquet upserted 1 rows.
+[^STOXX50E] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^STOXX50E] parquet upserted 1 rows.
+[^N225] already up to 2026-05-27, skip.
+[^BSESN] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^BSESN] parquet upserted 1 rows.
+[^SET.BK] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^SET.BK] parquet upserted 1 rows.
+[^KS11] already up to 2026-05-27, skip.
+[^STI] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^STI] no new rows.
+[^JKSE] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^JKSE] no new rows.
+[^KLSE] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^KLSE] no new rows.
+[^AORD] already up to 2026-05-27, skip.
+[^NZ50] already up to 2026-05-27, skip.
+[^TA125.TA] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^TA125.TA] parquet upserted 1 rows.
+[DFMGI.AE] mode=incremental; latest=2026-05-25; fetch 2026-05-26 -> 2026-05-27
+[DFMGI.AE] no new rows.
+[^TASI.SR] mode=incremental; latest=2026-05-21; fetch 2026-05-22 -> 2026-05-27
+[^TASI.SR] no new rows.
+[^J203.JO] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[^J203.JO] parquet upserted 1 rows.
+All done. Total parquet upserted 15 rows.
+",
+20260527202400,2026-05-27,SW industry daily,sw_industry_daily_fetcher.py,success,0,0,2026-05-27 20:27:56,2026-05-27 20:28:18,22.67,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sw_industry_daily_fetcher.py,,"SW industry daily SSL verify = False
+[801010] already up to 2026-05-27, skip.
+[801030] already up to 2026-05-27, skip.
+[801040] already up to 2026-05-27, skip.
+[801050] already up to 2026-05-27, skip.
+[801080] already up to 2026-05-27, skip.
+[801110] already up to 2026-05-27, skip.
+[801120] already up to 2026-05-27, skip.
+[801130] already up to 2026-05-27, skip.
+[801140] already up to 2026-05-27, skip.
+[801150] already up to 2026-05-27, skip.
+[801160] already up to 2026-05-27, skip.
+[801170] already up to 2026-05-27, skip.
+[801180] already up to 2026-05-27, skip.
+[801200] already up to 2026-05-27, skip.
+[801210] already up to 2026-05-27, skip.
+[801230] already up to 2026-05-27, skip.
+[801710] already up to 2026-05-27, skip.
+[801720] already up to 2026-05-27, skip.
+[801730] already up to 2026-05-27, skip.
+[801740] already up to 2026-05-27, skip.
+[801750] already up to 2026-05-27, skip.
+[801760] already up to 2026-05-27, skip.
+[801770] already up to 2026-05-27, skip.
+[801780] already up to 2026-05-27, skip.
+[801790] already up to 2026-05-27, skip.
+[801880] already up to 2026-05-27, skip.
+[801890] already up to 2026-05-27, skip.
+[801950] already up to 2026-05-27, skip.
+[801960] already up to 2026-05-27, skip.
+[801970] already up to 2026-05-27, skip.
+[801980] already up to 2026-05-27, skip.
+All done. Total parquet upserted 0 rows.
+",
+20260527202400,2026-05-27,SSE ETF shares,sse_etf_shares_fetcher.py,success,0,0,2026-05-27 20:28:18,2026-05-27 20:28:20,1.99,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_etf_shares_fetcher.py,,"[sse_etf_shares] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27
+[2026-05-27] no rows.
+[sse_etf_shares] all done. Total parquet upserted 0 rows.
+",
+20260527202400,2026-05-27,NCD AAA yield curve,ncd_aaa_yield_curve_fetcher.py,success,50,0,2026-05-27 20:28:20,2026-05-27 20:28:23,2.29,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/ncd_aaa_yield_curve_fetcher.py,,"[1] Fetch 2026-05-27 ~ 2026-05-27
+  -> 25 rows
+Done. Parquet upserted 25 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/ncd_aaa_yield_curve_data
+",
+20260527202400,2026-05-27,RMB FX index,rmb_fx_index_fetcher.py,success,1178,0,2026-05-27 20:28:23,2026-05-27 20:28:34,11.72,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/rmb_fx_index_fetcher.py,,"[rmb_fx_index] mode=incremental; latest=None; fetch 2015-11-30 -> 2026-05-20
+[rmb_fx_index] fetch 2015-11-30 -> 2016-11-27
+[rmb_fx_index] fetch 2016-11-28 -> 2017-11-26
+[rmb_fx_index] fetch 2017-11-27 -> 2018-11-25
+[rmb_fx_index] fetch 2018-11-26 -> 2019-11-24
+[rmb_fx_index] fetch 2019-11-25 -> 2020-11-22
+[rmb_fx_index] fetch 2020-11-23 -> 2021-11-21
+[rmb_fx_index] fetch 2021-11-22 -> 2022-11-20
+[rmb_fx_index] fetch 2022-11-21 -> 2023-11-19
+[rmb_fx_index] fetch 2023-11-20 -> 2024-11-17
+[rmb_fx_index] fetch 2024-11-18 -> 2025-11-16
+[rmb_fx_index] fetch 2025-11-17 -> 2026-05-20
+[rmb_fx_index] parquet upserted 589 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/rmb_fx_index_data
+",
+20260527202400,2026-05-27,Shibor curve,shibor_curve_fetcher.py,success,1492,0,2026-05-27 20:28:34,2026-05-27 20:28:38,3.13,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/shibor_curve_fetcher.py,,"[shibor_curve] parquet upserted 746 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/shibor_curve_data
+[shibor_curve] date range: 2023-05-29 -> 2026-05-27
+",
+20260527202400,2026-05-27,Southbound netbuy,southbound_netbuy_fetcher.py,success,2,0,2026-05-27 20:28:38,2026-05-27 20:28:40,2.21,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/southbound_netbuy_fetcher.py,,"[southbound] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27; query_start=2026-05-17
+[southbound] page=1; rows=7; pages=1
+[southbound] parquet upserted 1 rows.
+",
+20260527202400,2026-05-27,Northbound deal amount,northbound_dealamt_fetcher.py,success,2,0,2026-05-27 20:28:40,2026-05-27 20:28:41,1.41,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/northbound_dealamt_fetcher.py,,"[northbound] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-27; query_start=2026-05-17
+[northbound] page=1; rows=7; pages=1
+[northbound] parquet upserted 1 rows.
+",
+20260527202400,2026-05-27,Fund new issue,fund_new_issue_fetcher.py,success,8170,0,2026-05-27 20:28:41,2026-05-27 20:29:00,19.1,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/fund_new_issue_fetcher.py,,"[fund_new_issue] fast update enabled: latest snapshot=2026-05-27, fetch first 10 pages.
+fetch page 1: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=1%2C100&isbuy=2
+page 1: rows=100
+fetch page 2: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=2%2C100&isbuy=2
+page 2: rows=100
+fetch page 3: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=3%2C100&isbuy=2
+page 3: rows=100
+fetch page 4: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=4%2C100&isbuy=2
+page 4: rows=100
+fetch page 5: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=5%2C100&isbuy=2
+page 5: rows=100
+fetch page 6: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=6%2C100&isbuy=2
+page 6: rows=100
+fetch page 7: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=7%2C100&isbuy=2
+page 7: rows=100
+fetch page 8: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=8%2C100&isbuy=2
+page 8: rows=100
+fetch page 9: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=9%2C100&isbuy=2
+page 9: rows=100
+fetch page 10: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=10%2C100&isbuy=2
+page 10: rows=100
+[fund_new_issue] mode=fast, old_rows=8166, fetched_rows=1000, final_rows=8170, sliced_rows=8170, parquet_dir=/home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/fund_new_issue_data
+[fund_new_issue] established_date range: 2013-08-20 -> 2026-05-27
+",
+20260527202400,2026-05-27,ERP HS300 10Y,erp_hs300_10y_fetcher.py,success,1450,0,2026-05-27 20:29:00,2026-05-27 20:29:12,11.91,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/erp_hs300_10y_fetcher.py,,"[erp] fetch gov yield 2023-05-27 -> 2023-08-26
+[erp] fetch gov yield 2023-08-27 -> 2023-11-26
+[erp] fetch gov yield 2023-11-27 -> 2024-02-26
+[erp] fetch gov yield 2024-02-27 -> 2024-05-26
+[erp] fetch gov yield 2024-05-27 -> 2024-08-26
+[erp] fetch gov yield 2024-08-27 -> 2024-11-26
+[erp] fetch gov yield 2024-11-27 -> 2025-02-26
+[erp] fetch gov yield 2025-02-27 -> 2025-05-26
+[erp] fetch gov yield 2025-05-27 -> 2025-08-26
+[erp] fetch gov yield 2025-08-27 -> 2025-11-26
+[erp] fetch gov yield 2025-11-27 -> 2026-02-26
+[erp] fetch gov yield 2026-02-27 -> 2026-05-26
+[erp] fetch gov yield 2026-05-27 -> 2026-05-27
+[erp] gov rows=746
+[erp] hs300 rows=725
+[erp] parquet upserted 725 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/erp_hs300_10y_data
+[erp] date range: 2023-05-29 -> 2026-05-27
+",
