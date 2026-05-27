@@ -146,9 +146,10 @@
     .stat-cell span { display: block; color: var(--api-muted); font-size: 0.76rem; margin-bottom: 6px; }
     .stat-cell strong { display: block; font-size: 0.96rem; overflow-wrap: anywhere; }
     .param-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-    .param-field { display: grid; gap: 6px; min-width: 0; }
+    .param-field { display: grid; gap: 6px; min-width: 0; overflow: hidden; }
     .param-field label { color: var(--api-muted); font-size: 0.78rem; display: flex; justify-content: space-between; gap: 8px; }
-    .param-input, .param-select { width: 100%; border: 1px solid var(--api-border); border-radius: 8px; background: var(--api-surface-solid); color: var(--api-text); padding: 9px 10px; font: inherit; font-size: 0.9rem; min-height: 40px; }
+    .param-input, .param-select { width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; border: 1px solid var(--api-border); border-radius: 8px; background: var(--api-surface-solid); color: var(--api-text); padding: 9px 10px; font: inherit; font-size: 0.9rem; min-height: 40px; appearance: none; -webkit-appearance: none; }
+    input[type="date"].param-input { width: 100%; max-width: 100%; min-width: 0; line-height: 1.2; }
     html[data-theme="dark"] .param-input, html[data-theme="dark"] .param-select { color-scheme: dark; }
     .url-box { display: grid; grid-template-columns: minmax(0, 1fr) auto auto auto; gap: 8px; align-items: center; }
     .url-text { border: 1px solid var(--api-border); border-radius: 8px; background: var(--api-surface-solid); color: var(--api-text); padding: 10px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.82rem; overflow-x: auto; white-space: nowrap; min-width: 0; }
@@ -174,7 +175,7 @@
     .spinner { width: 34px; height: 34px; border-radius: 999px; border: 3px solid rgba(255,255,255,0.25); border-top-color: #fff; animation: spin 0.8s linear infinite; margin: 0 auto 10px; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .empty { padding: 22px; color: var(--api-muted); text-align: center; }
-    .status-float { position: fixed; left: 50%; bottom: 22px; z-index: 10020; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--api-border); border-radius: 999px; background: linear-gradient(110deg, rgba(125, 211, 252, 0.18), rgba(138, 195, 173, 0.18), rgba(232, 154, 168, 0.12)), var(--api-surface); box-shadow: 0 18px 54px rgba(3, 9, 14, 0.22); backdrop-filter: blur(20px) saturate(1.16); -webkit-backdrop-filter: blur(20px) saturate(1.16); color: var(--api-text); padding: 7px 8px 7px 13px; min-height: 46px; }
+    .status-float { position: fixed; left: 50%; bottom: var(--status-bottom, 22px); z-index: 10020; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--api-border); border-radius: 999px; background: linear-gradient(110deg, rgba(125, 211, 252, 0.18), rgba(138, 195, 173, 0.18), rgba(232, 154, 168, 0.12)), var(--api-surface); box-shadow: 0 18px 54px rgba(3, 9, 14, 0.22); backdrop-filter: blur(20px) saturate(1.16); -webkit-backdrop-filter: blur(20px) saturate(1.16); color: var(--api-text); padding: 7px 8px 7px 13px; min-height: 46px; transition: bottom 0.18s ease; }
     .status-dot { width: 11px; height: 11px; border-radius: 999px; background: var(--api-amber); box-shadow: 0 0 0 0 rgba(183,127,56,0.6); animation: pulseAmber 1.6s ease-out infinite; }
     .status-float.is-ok .status-dot { background: #21c678; animation-name: pulseGreen; }
     .status-float.is-error .status-dot { background: #e85b6c; animation-name: pulseRed; }
@@ -204,12 +205,20 @@
       .api-metrics, .param-grid, .stats-row, .columns-grid { grid-template-columns: 1fr; }
       .content-head, .endpoint-summary { grid-template-columns: 1fr; }
       .endpoint-meta { justify-content: flex-start; }
-      .status-float { width: min(460px, calc(100% - 28px)); justify-content: center; }
+      .status-float { width: min(460px, calc(70% - 28px)); justify-content: center; }
       .url-box { gap: 7px; }
       .url-text { font-size: 0.75rem; }
       .btn-api { min-height: 38px; }
       .preview-table { font-size: 0.8rem; }
       .preview-table th, .preview-table td { padding: 8px 9px; max-width: 220px; }
+    }
+
+    @supports (-webkit-touch-callout: none) {
+      input[type="date"].param-input {
+        min-height: 42px;
+        padding-right: 8px;
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -226,10 +235,10 @@
       <h1 id="apiPageTitle" class="api-title">API 数据目录</h1>
       <p id="apiPageSubtitle" class="api-subtitle">集中展示当前可用的数据接口、参数构建方式、字段说明、数据规模和在线预览。页面请求默认自动附加 <code>limit=2000</code>，预览只请求前五条。</p>
       <div id="apiMetrics" class="api-metrics">
-        <div class="metric"><strong id="apiCount">0</strong><span>可用接口</span></div>
-        <div class="metric"><strong id="rowCount">0</strong><span>累计数据行</span></div>
-        <div class="metric"><strong id="groupCount">0</strong><span>二级分类</span></div>
         <div class="metric"><strong id="baseUrlMetric">-</strong><span>API 域名</span></div>
+        <div class="metric"><strong id="groupCount">0</strong><span>类目数量</span></div>
+        <div class="metric"><strong id="apiCount">0</strong><span>可用接口</span></div>
+        <div class="metric"><strong id="rowCount">0</strong><span>数据总量</span></div>
       </div>
     </div>
     <div id="apiRulePanel" class="api-panel api-card rule-panel">
@@ -732,6 +741,17 @@
     if (nav) document.documentElement.style.setProperty('--seen-nav-height', `${nav.offsetHeight}px`);
   }
 
+  function updateStatusFloatOffset() {
+    const status = $('statusFloat');
+    const footer = $('apiFooter');
+    if (!status || !footer) return;
+    const baseBottom = window.matchMedia('(max-width: 640px)').matches ? 14 : 22;
+    const footerRect = footer.getBoundingClientRect();
+    const visibleFooterHeight = Math.max(0, window.innerHeight - footerRect.top);
+    const extraGap = visibleFooterHeight > 0 ? 16 : 0;
+    status.style.setProperty('--status-bottom', `${baseBottom + visibleFooterHeight + extraGap}px`);
+  }
+
   function executeScripts(container) {
     container.querySelectorAll('script').forEach((oldScript) => {
       const newScript = document.createElement('script');
@@ -748,7 +768,7 @@
       updateNavHeight();
       if (typeof updateContent === 'function') updateContent();
       const pageTitle = document.getElementById('page-top-title');
-      if (pageTitle && !pageTitle.textContent.trim()) pageTitle.textContent = 'API 数据目录';
+      if (pageTitle) pageTitle.textContent = 'API 数据目录';
     } catch (error) {
       console.error('Error loading navbar:', error);
     }
@@ -779,6 +799,8 @@
       }
     } catch (error) {
       console.error('加载全局配置失败:', error);
+    } finally {
+      updateStatusFloatOffset();
     }
   }
 
@@ -796,12 +818,17 @@
     $('baseUrlMetric').innerHTML = `<a href="${state.baseUrl}/docs" target="_blank" rel="noopener">${state.baseUrl.replace(/^https?:\/\//, '')}</a>`;
     renderAll();
     checkApiStatus();
+    updateStatusFloatOffset();
   }
 
   $('apiSearch').addEventListener('input', () => { state.openId = null; renderAll(); });
   $('copyRule').addEventListener('click', (event) => copyWithFeedback($('ruleExample').textContent, event.currentTarget));
   $('statusRefresh').addEventListener('click', (event) => { event.stopPropagation(); checkApiStatus(); });
-  window.addEventListener('resize', updateNavHeight);
+  window.addEventListener('resize', () => {
+    updateNavHeight();
+    updateStatusFloatOffset();
+  });
+  window.addEventListener('scroll', updateStatusFloatOffset, { passive: true });
 
   init().catch(err => {
     $('treeList').innerHTML = `<div class="empty">目录加载失败：${err.message}</div>`;

@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -202,7 +203,12 @@ def run(parquet_dir: str = PARQUET_DIR):
     start_dt = initial_dt if FULL_REFRESH or latest is None else latest + timedelta(days=1)
     if start_dt > end_dt:
         print(f"[northbound] already up to {latest}, skip.")
-        return
+        # GitHub Actions has occasionally reported a native-library abort during
+        # interpreter teardown after reading Parquet only. Flush and exit directly
+        # on this no-op path so the scheduler records the run as successful.
+        sys.stdout.flush()
+        sys.stderr.flush()
+        os._exit(0)
 
     query_start = max(initial_dt, start_dt - timedelta(days=10))
     mode = "full refresh" if FULL_REFRESH else "incremental"
