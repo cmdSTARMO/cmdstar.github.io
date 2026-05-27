@@ -1165,3 +1165,92 @@ page 10: rows=100
 [erp] date range: 2023-05-29 -> 2026-05-27
 ",
 20260527234855,2026-05-27,API showcase metadata,update_api_showcase_metadata.py,failed,0,-1,2026-05-27 23:53:04,2026-05-27 23:53:04,0.0,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/update_api_showcase_metadata.py,script not found: /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/update_api_showcase_metadata.py,,
+20260528005358,2026-05-28,SZSE margin total,szse_margintotal_data.py,success,0,0,2026-05-28 00:53:58,2026-05-28 00:55:01,62.9,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/szse_margintotal_data.py,,"Parquet dir: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/margin_szse_tab1_data
+Latest stored date: 2026-05-26; start fetching from 2026-05-27
+Checking 2026-05-27: records found = 0
+Checking 2026-05-28: records found = 0
+All done.
+",
+20260528005358,2026-05-28,SSE margin total,sse_margintotal_data.py,success,0,0,2026-05-28 00:55:01,2026-05-28 00:55:29,28.24,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_margintotal_data.py,,"[WINDOW] 2026-05-27 -> 2026-05-28 fetching...
+  done: fetched 0 rows, parquet upserted 0 rows.
+All done.
+",
+20260528005358,2026-05-28,SZSE margin detail,szse_margindetail_data.py,success,0,0,2026-05-28 00:55:29,2026-05-28 00:56:25,55.63,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/szse_margindetail_data.py,,"Parquet dir: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/margin_szse_tab2_data
+Latest stored date: 2026-05-26; start fetching from 2026-05-27
+Checking 2026-05-27: records found = 0
+Checking 2026-05-28: records found = 0
+All done.
+","/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+"
+20260528005358,2026-05-28,SSE margin detail,sse_margindetail_data.py,success,0,0,2026-05-28 00:56:25,2026-05-28 00:56:50,25.12,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_margindetail_data.py,,"[2026-05-26] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-05-27] downloading/parsing... no data
+[2026-05-28] downloading/parsing... no data
+Done. No new rows.
+",
+20260528005358,2026-05-28,Global market daily,global_market_daily_fetcher.py,success,0,0,2026-05-28 00:56:50,2026-05-28 00:58:56,126.11,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/global_market_daily_fetcher.py,,"[^IXIC] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^IXIC] no new rows.
+[^DJI] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^DJI] no new rows.
+[^SPX] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^SPX] no new rows.
+[^VIX] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^VIX] no new rows.
+[^GSPTSE] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^GSPTSE] no new rows.
+[^BVSP] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^BVSP] no new rows.
+[^MXX] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^MXX] no new rows.
+[^MERV] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^MERV] no new rows.
+[^N100] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^N100] no new rows.
+[^FTSE] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^FTSE] no new rows.
+[^FTAI] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^FTAI] no new rows.
+[^FCHI] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^FCHI] no new rows.
+[^GDAXI] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^GDAXI] no new rows.
+[^SSMI] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^SSMI] no new rows.
+[FTSEMIB.MI] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[FTSEMIB.MI] no new rows.
+[^AEX] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^AEX] no new rows.
+[^BFX] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^BFX] no new rows.
+[^STOXX50E] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^STOXX50E] no new rows.
+[^N225] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^N225] no new rows.
+[^BSESN] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^BSESN] no new rows.
+[^SET.BK] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^SET.BK] no new rows.
+[^KS11] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^KS11] no new rows.
+[^STI] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-28
+[^STI] no new rows.
+[^JKSE] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-28
+[^JKSE] no new rows.
+[^KLSE] mode=incremental; latest=2026-05-26; fetch 2026-05-27 -> 2026-05-28
+[^KLSE] no new rows.
+[^AORD] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^AORD] no new rows.
+[^NZ50] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^NZ50] no new rows.
+[^TA125.TA] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^TA125.TA] no new rows.
+[DFMGI.AE] mode=incremental; latest=2026-05-25; fetch 2026-05-26 -> 2026-05-28
+[DFMGI.AE] no new rows.
+[^TASI.SR] mode=incremental; latest=2026-05-21; fetch 2026-05-22 -> 2026-05-28
+[^TASI.SR] no new rows.
+[^J203.JO] mode=incremental; latest=2026-05-27; fetch 2026-05-28 -> 2026-05-28
+[^J203.JO] no new rows.
+All done. Total parquet upserted 0 rows.
+",
