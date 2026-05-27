@@ -1,6 +1,7 @@
 import os
 import re
 import time
+import json
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
@@ -91,18 +92,16 @@ def create_retry_session(total_retries=0, backoff_factor=0, status_forcelist=(50
             "AppleWebKit/605.1.15 (KHTML, like Gecko) "
             "Version/18.5 Mobile/15E148 Safari/604.1"
         ),
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "Accept": "application/json, text/plain, */*",
         "Accept-Encoding": "gzip, deflate",
         "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
         "Cache-Control": "no-cache",
         "Connection": "close",
         "Pragma": "no-cache",
         "Referer": "https://www.swsresearch.com/",
-        "Sec-Fetch-Dest": "document",
-        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "cross-site",
-        "Sec-Fetch-User": "?1",
-        "Upgrade-Insecure-Requests": "1",
     })
     if COOKIE:
         session.headers["Cookie"] = COOKIE
@@ -167,7 +166,15 @@ def fetch_trend(session: requests.Session, code: str, start_dt: date, end_dt: da
     params = {"swindexcode": code, "period": "DAY"}
     resp = session.get(TREND_URL, params=params, timeout=(CONNECT_TIMEOUT_SECONDS, READ_TIMEOUT_SECONDS))
     resp.raise_for_status()
-    payload = resp.json()
+    try:
+        payload = resp.json()
+    except json.JSONDecodeError as exc:
+        head = (resp.text or "").strip()[:300].replace("\n", "\\n")
+        content_type = resp.headers.get("Content-Type", "")
+        raise RuntimeError(
+            f"non-json response: status={resp.status_code}; content_type={content_type}; "
+            f"head={head}"
+        ) from exc
     records = payload.get("data") or []
     if not records:
         return pd.DataFrame()
@@ -226,7 +233,15 @@ def fetch_current_patch(session: requests.Session, code: str, end_dt: date) -> p
     }
     resp = session.get(CURRENT_URL, params=params, timeout=(CONNECT_TIMEOUT_SECONDS, READ_TIMEOUT_SECONDS))
     resp.raise_for_status()
-    payload = resp.json()
+    try:
+        payload = resp.json()
+    except json.JSONDecodeError as exc:
+        head = (resp.text or "").strip()[:300].replace("\n", "\\n")
+        content_type = resp.headers.get("Content-Type", "")
+        raise RuntimeError(
+            f"non-json current response: status={resp.status_code}; content_type={content_type}; "
+            f"head={head}"
+        ) from exc
     results = ((payload.get("data") or {}).get("results")) or []
     match = next((row for row in results if str(row.get("swindexcode")) == code), None)
     if not match:
@@ -268,7 +283,7 @@ def fetch_one_code_with_retry(session: requests.Session, code: str, start_dt: da
     for attempt in range(1, RETRIES + 1):
         try:
             return fetch_one_code(session, code, start_dt, end_dt)
-        except requests.exceptions.RequestException as exc:
+        except (requests.exceptions.RequestException, RuntimeError) as exc:
             print(f"[{code}] request failed attempt {attempt}/{RETRIES}: {exc}")
             print(f"[{code}] trend url: {TREND_URL}?swindexcode={code}&period=DAY")
             if attempt < RETRIES:
