@@ -1,4 +1,5 @@
 import os
+import ssl
 import time
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -24,8 +25,26 @@ REQUEST_SLEEP_SECONDS = float(os.getenv("RMB_FX_INDEX_SLEEP", "0.5"))
 RETRIES = int(os.getenv("RMB_FX_INDEX_RETRIES", "5"))
 RETRY_SLEEP_SECONDS = float(os.getenv("RMB_FX_INDEX_RETRY_SLEEP", "20"))
 FULL_REFRESH = os.getenv("RMB_FX_INDEX_FULL_REFRESH", "0") == "1"
+USE_LEGACY_TLS = os.getenv("RMB_FX_INDEX_LEGACY_TLS", "1") == "1"
+USE_INSECURE_CIPHERS = os.getenv("RMB_FX_INDEX_INSECURE_CIPHERS", "1") == "1"
+LEGACY_CIPHERS = os.getenv("RMB_FX_INDEX_LEGACY_CIPHERS", "DEFAULT@SECLEVEL=0")
 
 BASE_URL = "https://www.chinamoney.org.cn/ags/ms/cm-u-bk-fx/RmbIdxHis"
+
+
+class LegacyTLSAdapter(HTTPAdapter):
+    def init_poolmanager(self, *args, **kwargs):
+        ctx = ssl.create_default_context()
+        if USE_LEGACY_TLS:
+            ctx.options |= getattr(ssl, "OP_LEGACY_SERVER_CONNECT", 0x4)
+            ctx.options |= getattr(ssl, "OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION", 0x00040000)
+        if USE_INSECURE_CIPHERS:
+            try:
+                ctx.set_ciphers(LEGACY_CIPHERS)
+            except Exception:
+                pass
+        kwargs["ssl_context"] = ctx
+        return super().init_poolmanager(*args, **kwargs)
 
 
 def create_retry_session(total_retries=3, backoff_factor=0.3, status_forcelist=(429, 500, 502, 503, 504)):
@@ -41,6 +60,7 @@ def create_retry_session(total_retries=3, backoff_factor=0.3, status_forcelist=(
     adapter = HTTPAdapter(max_retries=retry)
     session.mount("https://", adapter)
     session.mount("http://", adapter)
+    session.mount("https://www.chinamoney.org.cn", LegacyTLSAdapter(max_retries=retry))
     session.headers.update({
         "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "

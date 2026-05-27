@@ -1,4 +1,5 @@
 import os
+import ssl
 from datetime import datetime
 from pathlib import Path
 
@@ -17,6 +18,9 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 PARQUET_DIR = str(REPO_ROOT / "api" / "data" / "shibor_curve_data")
 FNAME_TPL = "shibor_curve_{yyyymm}.parquet"
 BASE_URL = "https://www.chinamoney.org.cn/ags/ms/cm-u-bk-shibor/ShiborChrt"
+USE_LEGACY_TLS = os.getenv("SHIBOR_CURVE_LEGACY_TLS", "1") == "1"
+USE_INSECURE_CIPHERS = os.getenv("SHIBOR_CURVE_INSECURE_CIPHERS", "1") == "1"
+LEGACY_CIPHERS = os.getenv("SHIBOR_CURVE_LEGACY_CIPHERS", "DEFAULT@SECLEVEL=0")
 
 COLUMNS = [
     "dt",
@@ -29,6 +33,21 @@ COLUMNS = [
     "shibor_9m",
     "shibor_1y",
 ]
+
+
+class LegacyTLSAdapter(HTTPAdapter):
+    def init_poolmanager(self, *args, **kwargs):
+        ctx = ssl.create_default_context()
+        if USE_LEGACY_TLS:
+            ctx.options |= getattr(ssl, "OP_LEGACY_SERVER_CONNECT", 0x4)
+            ctx.options |= getattr(ssl, "OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION", 0x00040000)
+        if USE_INSECURE_CIPHERS:
+            try:
+                ctx.set_ciphers(LEGACY_CIPHERS)
+            except Exception:
+                pass
+        kwargs["ssl_context"] = ctx
+        return super().init_poolmanager(*args, **kwargs)
 
 
 def create_retry_session(total_retries=3, backoff_factor=0.3, status_forcelist=(429, 500, 502, 503, 504)):
@@ -44,6 +63,7 @@ def create_retry_session(total_retries=3, backoff_factor=0.3, status_forcelist=(
     adapter = HTTPAdapter(max_retries=retry)
     session.mount("https://", adapter)
     session.mount("http://", adapter)
+    session.mount("https://www.chinamoney.org.cn", LegacyTLSAdapter(max_retries=retry))
     session.headers.update({
         "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
