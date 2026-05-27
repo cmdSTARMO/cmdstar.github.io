@@ -1,0 +1,109 @@
+{
+  "id": "sse_etf_shares",
+  "title": "上交所 ETF 份额",
+  "summary": "上交所 ETF 每日份额数据。",
+  "group": {
+    "level1": "金融数据",
+    "level2": "ETF"
+  },
+  "endpoint": "/sse_etf_shares/data",
+  "method": "GET",
+  "params": [
+    {
+      "name": "startdate",
+      "type": "date",
+      "required": true,
+      "label": "开始日期",
+      "default": "2025-01-01"
+    },
+    {
+      "name": "enddate",
+      "type": "date",
+      "required": true,
+      "label": "结束日期",
+      "default": "2026-05-25"
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "required": false,
+      "label": "偏移量",
+      "default": "0"
+    },
+    {
+      "name": "format",
+      "type": "select",
+      "required": false,
+      "label": "返回格式",
+      "default": "json",
+      "options": [
+        {
+          "value": "json",
+          "label": "JSON"
+        },
+        {
+          "value": "csv",
+          "label": "CSV"
+        }
+      ]
+    },
+    {
+      "name": "sec_codes",
+      "type": "text",
+      "required": false,
+      "label": "ETF代码",
+      "placeholder": "510300,588000"
+    },
+    {
+      "name": "etf_type",
+      "type": "text",
+      "required": false,
+      "label": "ETF类型"
+    }
+  ],
+  "columns_zh": {
+    "dt": "日期",
+    "etf_type": "ETF类型",
+    "sec_code": "证券代码",
+    "quantity": "数量",
+    "etf_name": "ETF名称",
+    "total_volume_10k_shares": "总份额（万份）"
+  },
+  "data_sources": [
+    {
+      "type": "parquet",
+      "glob": "D:/GitHub/cmdstar.github.io/api/data/sse_etf_shares_data/*.parquet",
+      "date_column": "dt",
+      "option_columns": [
+        "etf_type"
+      ]
+    }
+  ],
+  "stats": {
+    "row_count": 856761,
+    "min_date": "2012-01-04",
+    "max_date": "2026-05-26",
+    "options": {
+      "etf_type": [
+        {
+          "value": "其他",
+          "label": "其他"
+        },
+        {
+          "value": "单市",
+          "label": "单市"
+        },
+        {
+          "value": "跨境",
+          "label": "跨境"
+        },
+        {
+          "value": "跨市",
+          "label": "跨市"
+        }
+      ]
+    },
+    "updated_at": "2026-05-27 21:49:42"
+  },
+  "hidden_params": []
+}

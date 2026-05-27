@@ -108,6 +108,20 @@ def _empty_payload(
     }
 
 
+def _select_from_file(path: str) -> str:
+    if pathlib.Path(path).name == PENDING_FILE:
+        columns = [
+            "CAST(NULL AS DATE) AS established_date" if name == "established_date" else name
+            for name in COLUMNS
+        ]
+    else:
+        columns = [
+            "CAST(established_date AS DATE) AS established_date" if name == "established_date" else name
+            for name in COLUMNS
+        ]
+    return "SELECT " + ", ".join(columns) + " FROM read_parquet(?)"
+
+
 @router.get("/data", summary="Fund new issue latest snapshot query")
 async def get_fund_new_issue(
     startdate: date | None = Query(None, description="Optional established start date, YYYY-MM-DD"),
@@ -130,7 +144,7 @@ async def get_fund_new_issue(
         return _empty_payload(startdate, enddate, limit, offset, include_pending, selected_columns)
 
     where = []
-    params: list = parquet_files
+    params: list = list(parquet_files)
     if startdate:
         if include_pending == "yes":
             where.append("(established_date IS NULL OR established_date >= ?)")
@@ -154,16 +168,15 @@ async def get_fund_new_issue(
 
     try:
         con = duckdb.connect()
-        union_sql = " UNION ALL ".join(["SELECT * FROM read_parquet(?)" for _ in parquet_files])
+        union_sql = " UNION ALL ".join([_select_from_file(path) for path in parquet_files])
         sql = f"""
             SELECT
               {select_sql}
             FROM ({union_sql})
             {where_sql}
-            ORDER BY (established_date IS NOT NULL) ASC, established_date ASC NULLS FIRST, fund_code ASC
-            LIMIT ? OFFSET ?
+            ORDER BY (established_date IS NOT NULL) ASC, established_date DESC NULLS FIRST, fund_code ASC
+            LIMIT {limit} OFFSET {offset}
         """
-        params.extend([limit, offset])
         rows = con.execute(sql, params).fetchall()
         cols = [d[0] for d in con.description]
         data = [dict(zip(cols, row)) for row in rows]

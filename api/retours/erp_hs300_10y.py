@@ -114,6 +114,9 @@ async def get_erp_hs300_10y(
         df = df.sort_values("dt").set_index("dt").resample("W-FRI").last().dropna(subset=["hs300_close"]).reset_index()
         df["dt"] = df["dt"].dt.date
 
+    if not df.empty:
+        df = df.sort_values("dt", ascending=False).reset_index(drop=True)
+
     data = df.iloc[offset:offset + limit].to_dict(orient="records") if not df.empty else []
 
     if format == "csv":

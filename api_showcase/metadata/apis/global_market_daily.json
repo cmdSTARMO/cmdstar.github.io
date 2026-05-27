@@ -1,0 +1,341 @@
+{
+  "id": "global_market_daily",
+  "title": "全球主要市场指数日度行情",
+  "summary": "全球主要股票市场指数日度行情，按 Yahoo Finance symbol 查询。",
+  "group": {
+    "level1": "金融数据",
+    "level2": "市场行情"
+  },
+  "endpoint": "/global_market_daily/data",
+  "method": "GET",
+  "params": [
+    {
+      "name": "startdate",
+      "type": "date",
+      "required": true,
+      "label": "开始日期",
+      "default": "2025-01-01"
+    },
+    {
+      "name": "enddate",
+      "type": "date",
+      "required": true,
+      "label": "结束日期",
+      "default": "2026-05-25"
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "required": false,
+      "label": "偏移量",
+      "default": "0"
+    },
+    {
+      "name": "format",
+      "type": "select",
+      "required": false,
+      "label": "返回格式",
+      "default": "json",
+      "options": [
+        {
+          "value": "json",
+          "label": "JSON"
+        },
+        {
+          "value": "csv",
+          "label": "CSV"
+        }
+      ]
+    },
+    {
+      "name": "symbols",
+      "type": "multiselect",
+      "required": false,
+      "label": "市场指数",
+      "option_source": "symbol",
+      "placeholder": "^IXIC,^DJI,^SPX"
+    }
+  ],
+  "columns_zh": {
+    "market_name": "指数名称",
+    "symbol": "指数代码",
+    "dt": "交易日期",
+    "datetime_local": "本地日期时间",
+    "open": "开盘",
+    "close": "收盘",
+    "high": "最高",
+    "low": "最低",
+    "volume": "成交量",
+    "adj_close": "复权收盘"
+  },
+  "static_options": {
+    "symbol": [
+      {
+        "value": "^IXIC",
+        "label": "纳斯达克"
+      },
+      {
+        "value": "^DJI",
+        "label": "道琼斯"
+      },
+      {
+        "value": "^SPX",
+        "label": "标普500"
+      },
+      {
+        "value": "^VIX",
+        "label": "恐慌指数"
+      },
+      {
+        "value": "^GSPTSE",
+        "label": "富时加拿大"
+      },
+      {
+        "value": "^BVSP",
+        "label": "巴西IBOVESPA"
+      },
+      {
+        "value": "^MXX",
+        "label": "墨西哥IPC"
+      },
+      {
+        "value": "^MERV",
+        "label": "阿根廷MERVAL"
+      },
+      {
+        "value": "^N100",
+        "label": "泛欧100"
+      },
+      {
+        "value": "^FTSE",
+        "label": "英国富时100"
+      },
+      {
+        "value": "^FTAI",
+        "label": "英国富时AIM全股"
+      },
+      {
+        "value": "^FCHI",
+        "label": "法国CAC40"
+      },
+      {
+        "value": "^GDAXI",
+        "label": "德国DAX"
+      },
+      {
+        "value": "^SSMI",
+        "label": "瑞士SMI"
+      },
+      {
+        "value": "FTSEMIB.MI",
+        "label": "意大利MIB"
+      },
+      {
+        "value": "^AEX",
+        "label": "荷兰AEX"
+      },
+      {
+        "value": "^BFX",
+        "label": "比利时BEL20"
+      },
+      {
+        "value": "^STOXX50E",
+        "label": "欧元区STOXX50"
+      },
+      {
+        "value": "^N225",
+        "label": "日经225"
+      },
+      {
+        "value": "^BSESN",
+        "label": "孟买SENSEX"
+      },
+      {
+        "value": "^SET.BK",
+        "label": "泰国SET"
+      },
+      {
+        "value": "^KS11",
+        "label": "韩国KOSPI"
+      },
+      {
+        "value": "^STI",
+        "label": "新加坡STI"
+      },
+      {
+        "value": "^JKSE",
+        "label": "印尼综合指数"
+      },
+      {
+        "value": "^KLSE",
+        "label": "马来西亚KLCI"
+      },
+      {
+        "value": "^AORD",
+        "label": "澳大利亚综合指数"
+      },
+      {
+        "value": "^NZ50",
+        "label": "新西兰50"
+      },
+      {
+        "value": "^TA125.TA",
+        "label": "以色列TA-125"
+      },
+      {
+        "value": "DFMGI.AE",
+        "label": "迪拜DFM"
+      },
+      {
+        "value": "^TASI.SR",
+        "label": "沙特TASI"
+      },
+      {
+        "value": "^J203.JO",
+        "label": "南非全股"
+      }
+    ]
+  },
+  "data_sources": [
+    {
+      "type": "parquet",
+      "glob": "D:/GitHub/cmdstar.github.io/api/data/global_market_daily_data/**/*.parquet",
+      "date_column": "dt"
+    }
+  ],
+  "stats": {
+    "row_count": 195644,
+    "min_date": "1999-12-30",
+    "max_date": "2026-05-27",
+    "options": {
+      "symbol": [
+        {
+          "value": "^IXIC",
+          "label": "纳斯达克"
+        },
+        {
+          "value": "^DJI",
+          "label": "道琼斯"
+        },
+        {
+          "value": "^SPX",
+          "label": "标普500"
+        },
+        {
+          "value": "^VIX",
+          "label": "恐慌指数"
+        },
+        {
+          "value": "^GSPTSE",
+          "label": "富时加拿大"
+        },
+        {
+          "value": "^BVSP",
+          "label": "巴西IBOVESPA"
+        },
+        {
+          "value": "^MXX",
+          "label": "墨西哥IPC"
+        },
+        {
+          "value": "^MERV",
+          "label": "阿根廷MERVAL"
+        },
+        {
+          "value": "^N100",
+          "label": "泛欧100"
+        },
+        {
+          "value": "^FTSE",
+          "label": "英国富时100"
+        },
+        {
+          "value": "^FTAI",
+          "label": "英国富时AIM全股"
+        },
+        {
+          "value": "^FCHI",
+          "label": "法国CAC40"
+        },
+        {
+          "value": "^GDAXI",
+          "label": "德国DAX"
+        },
+        {
+          "value": "^SSMI",
+          "label": "瑞士SMI"
+        },
+        {
+          "value": "FTSEMIB.MI",
+          "label": "意大利MIB"
+        },
+        {
+          "value": "^AEX",
+          "label": "荷兰AEX"
+        },
+        {
+          "value": "^BFX",
+          "label": "比利时BEL20"
+        },
+        {
+          "value": "^STOXX50E",
+          "label": "欧元区STOXX50"
+        },
+        {
+          "value": "^N225",
+          "label": "日经225"
+        },
+        {
+          "value": "^BSESN",
+          "label": "孟买SENSEX"
+        },
+        {
+          "value": "^SET.BK",
+          "label": "泰国SET"
+        },
+        {
+          "value": "^KS11",
+          "label": "韩国KOSPI"
+        },
+        {
+          "value": "^STI",
+          "label": "新加坡STI"
+        },
+        {
+          "value": "^JKSE",
+          "label": "印尼综合指数"
+        },
+        {
+          "value": "^KLSE",
+          "label": "马来西亚KLCI"
+        },
+        {
+          "value": "^AORD",
+          "label": "澳大利亚综合指数"
+        },
+        {
+          "value": "^NZ50",
+          "label": "新西兰50"
+        },
+        {
+          "value": "^TA125.TA",
+          "label": "以色列TA-125"
+        },
+        {
+          "value": "DFMGI.AE",
+          "label": "迪拜DFM"
+        },
+        {
+          "value": "^TASI.SR",
+          "label": "沙特TASI"
+        },
+        {
+          "value": "^J203.JO",
+          "label": "南非全股"
+        }
+      ]
+    },
+    "updated_at": "2026-05-27 21:49:41"
+  },
+  "hidden_params": []
+}

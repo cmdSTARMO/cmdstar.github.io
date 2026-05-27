@@ -119,7 +119,7 @@ async def get_margin_total_merged(
               {select_sql}
             FROM merged
             WHERE dt BETWEEN ? AND ?
-            ORDER BY dt ASC
+            ORDER BY dt DESC
             LIMIT ? OFFSET ?
         """
         params = (

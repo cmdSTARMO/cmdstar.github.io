@@ -1,0 +1,80 @@
+{
+  "id": "margin_total_merged",
+  "title": "融资融券余额合并",
+  "summary": "按交易日合并深交所与上交所融资、融券余额，默认只返回两市都有数据的日期。",
+  "group": {
+    "level1": "金融数据",
+    "level2": "融资融券"
+  },
+  "endpoint": "/margin/merged/total",
+  "method": "GET",
+  "params": [
+    {
+      "name": "startdate",
+      "type": "date",
+      "required": true,
+      "label": "开始日期",
+      "default": "2025-01-01"
+    },
+    {
+      "name": "enddate",
+      "type": "date",
+      "required": true,
+      "label": "结束日期",
+      "default": "2026-05-25"
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "required": false,
+      "label": "偏移量",
+      "default": "0"
+    },
+    {
+      "name": "format",
+      "type": "select",
+      "required": false,
+      "label": "返回格式",
+      "default": "json",
+      "options": [
+        {
+          "value": "json",
+          "label": "JSON"
+        },
+        {
+          "value": "csv",
+          "label": "CSV"
+        }
+      ]
+    }
+  ],
+  "columns_zh": {
+    "dt": "日期",
+    "sz_margin_balance_100m_yuan": "深交所融资余额（亿元）",
+    "sh_margin_balance_100m_yuan": "上交所融资余额（亿元）",
+    "total_margin_balance_100m_yuan": "总融资余额（亿元）",
+    "sz_short_value_100m_yuan": "深交所融券余额（亿元）",
+    "sh_short_value_100m_yuan": "上交所融券余额（亿元）",
+    "total_short_value_100m_yuan": "总融券余额（亿元）"
+  },
+  "data_sources": [
+    {
+      "type": "parquet",
+      "glob": "D:/GitHub/cmdstar.github.io/api/data/margin_szse_tab1_data/*.parquet",
+      "date_column": "dt"
+    },
+    {
+      "type": "parquet",
+      "glob": "D:/GitHub/cmdstar.github.io/api/data/margin_sse_tab1_data/*.parquet",
+      "date_column": "dt"
+    }
+  ],
+  "stats": {
+    "row_count": 7338,
+    "min_date": "2010-03-31",
+    "max_date": "2026-05-26",
+    "options": {},
+    "updated_at": "2026-05-27 21:49:10"
+  },
+  "hidden_params": []
+}

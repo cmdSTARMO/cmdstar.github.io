@@ -122,7 +122,7 @@ async def get_global_market_daily(
             FROM ({union_sql})
             WHERE dt BETWEEN ? AND ?
             {symbol_clause}
-            ORDER BY symbol ASC, dt ASC
+            ORDER BY dt DESC, symbol ASC
             LIMIT ? OFFSET ?
         """
         params = month_files + [startdate.isoformat(), enddate.isoformat()] + symbol_params + [limit, offset]

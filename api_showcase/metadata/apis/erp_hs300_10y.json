@@ -1,0 +1,92 @@
+{
+  "id": "erp_hs300_10y",
+  "title": "沪深300 ERP",
+  "summary": "基于沪深300收益率和 10 年期国债收益率计算的 ERP 及 200 日通道。",
+  "group": {
+    "level1": "金融数据",
+    "level2": "派生指标"
+  },
+  "endpoint": "/erp_hs300_10y/data",
+  "method": "GET",
+  "params": [
+    {
+      "name": "startdate",
+      "type": "date",
+      "required": true,
+      "label": "开始日期",
+      "default": "2025-01-01"
+    },
+    {
+      "name": "enddate",
+      "type": "date",
+      "required": true,
+      "label": "结束日期",
+      "default": "2026-05-25"
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "required": false,
+      "label": "偏移量",
+      "default": "0"
+    },
+    {
+      "name": "format",
+      "type": "select",
+      "required": false,
+      "label": "返回格式",
+      "default": "json",
+      "options": [
+        {
+          "value": "json",
+          "label": "JSON"
+        },
+        {
+          "value": "csv",
+          "label": "CSV"
+        }
+      ]
+    },
+    {
+      "name": "frequency",
+      "type": "select",
+      "required": false,
+      "label": "频率",
+      "default": "daily",
+      "options": [
+        {
+          "value": "daily",
+          "label": "日度"
+        },
+        {
+          "value": "weekly",
+          "label": "周度"
+        }
+      ]
+    }
+  ],
+  "columns_zh": {
+    "dt": "日期",
+    "hs300_close": "沪深300收盘",
+    "hs300_ret_pct": "沪深300当日收益率(%)",
+    "cn_gov_10y_yield_pct": "10年期国债收益率(年化,%)",
+    "rf_daily_pct": "10年期国债当日收益率(折算,%)",
+    "erp_daily_pct": "ERP_日度(%)",
+    "erp_ma200_pct": "ERP_200日均线(%)"
+  },
+  "data_sources": [
+    {
+      "type": "parquet",
+      "glob": "D:/GitHub/cmdstar.github.io/api/data/erp_hs300_10y_data/*.parquet",
+      "date_column": "dt"
+    }
+  ],
+  "stats": {
+    "row_count": 725,
+    "min_date": "2023-05-26",
+    "max_date": "2026-05-26",
+    "options": {},
+    "updated_at": "2026-05-27 21:49:41"
+  },
+  "hidden_params": []
+}

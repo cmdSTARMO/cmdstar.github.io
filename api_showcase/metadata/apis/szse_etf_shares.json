@@ -1,0 +1,75 @@
+{
+  "id": "szse_etf_shares",
+  "title": "深交所 ETF 规模",
+  "summary": "深交所 ETF 规模 SQLite 数据源。",
+  "group": {
+    "level1": "金融数据",
+    "level2": "ETF"
+  },
+  "endpoint": "/szse_etf_shares/shares",
+  "method": "GET",
+  "params": [
+    {
+      "name": "startdate",
+      "type": "date",
+      "required": true,
+      "label": "开始日期",
+      "default": "2025-01-01"
+    },
+    {
+      "name": "enddate",
+      "type": "date",
+      "required": true,
+      "label": "结束日期",
+      "default": "2026-05-25"
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "required": false,
+      "label": "偏移量",
+      "default": "0"
+    },
+    {
+      "name": "format",
+      "type": "select",
+      "required": false,
+      "label": "返回格式",
+      "default": "json",
+      "options": [
+        {
+          "value": "json",
+          "label": "JSON"
+        },
+        {
+          "value": "csv",
+          "label": "CSV"
+        }
+      ]
+    }
+  ],
+  "columns_zh": {
+    "dt": "日期",
+    "code": "基金代码",
+    "name": "基金名称",
+    "index_code": "指数代码",
+    "size": "规模(亿)",
+    "manager": "基金公司"
+  },
+  "data_sources": [
+    {
+      "type": "sqlite",
+      "path": "D:/GitHub/cmdstar.github.io/api/data/SZSE_ETF_vol.sqlite",
+      "table": "etf_data",
+      "date_column": "dt"
+    }
+  ],
+  "stats": {
+    "row_count": 118391,
+    "min_date": "2025-07-18",
+    "max_date": "2026-05-26",
+    "options": {},
+    "updated_at": "2026-05-27 21:49:42"
+  },
+  "hidden_params": []
+}

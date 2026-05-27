@@ -90,7 +90,7 @@ async def get_shibor_curve(
               {select_sql}
             FROM ({union_sql})
             WHERE dt BETWEEN ? AND ?
-            ORDER BY dt ASC
+            ORDER BY dt DESC
             LIMIT ? OFFSET ?
         """
         params = month_files + [startdate.isoformat(), enddate.isoformat(), limit, offset]

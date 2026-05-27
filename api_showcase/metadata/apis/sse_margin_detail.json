@@ -1,0 +1,85 @@
+{
+  "id": "sse_margin_detail",
+  "title": "上交所融资融券明细",
+  "summary": "上交所按证券代码拆分的融资融券交易明细。",
+  "group": {
+    "level1": "金融数据",
+    "level2": "融资融券"
+  },
+  "endpoint": "/margin/sse/details",
+  "method": "GET",
+  "params": [
+    {
+      "name": "startdate",
+      "type": "date",
+      "required": true,
+      "label": "开始日期",
+      "default": "2025-01-01"
+    },
+    {
+      "name": "enddate",
+      "type": "date",
+      "required": true,
+      "label": "结束日期",
+      "default": "2026-05-25"
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "required": false,
+      "label": "偏移量",
+      "default": "0"
+    },
+    {
+      "name": "format",
+      "type": "select",
+      "required": false,
+      "label": "返回格式",
+      "default": "json",
+      "options": [
+        {
+          "value": "json",
+          "label": "JSON"
+        },
+        {
+          "value": "csv",
+          "label": "CSV"
+        }
+      ]
+    },
+    {
+      "name": "codes",
+      "type": "text",
+      "required": false,
+      "label": "证券代码",
+      "placeholder": "600000,601318"
+    }
+  ],
+  "columns_zh": {
+    "dt": "日期",
+    "code": "证券代码",
+    "name": "证券简称",
+    "margin_balance": "融资余额(元)",
+    "margin_buy_amt": "融资买入额(元)",
+    "margin_repay_amt": "融资偿还额(元)",
+    "short_qty": "融券余量",
+    "short_sell_qty": "融券卖出量",
+    "short_value": "融券余量金额(元)",
+    "marginnshort_total": "融资融券余额(元)"
+  },
+  "data_sources": [
+    {
+      "type": "parquet",
+      "glob": "D:/GitHub/cmdstar.github.io/api/data/margin_sse_tab2_data/*.parquet",
+      "date_column": "dt"
+    }
+  ],
+  "stats": {
+    "row_count": 3285207,
+    "min_date": "2010-03-31",
+    "max_date": "2026-05-25",
+    "options": {},
+    "updated_at": "2026-05-27 21:49:12"
+  },
+  "hidden_params": []
+}

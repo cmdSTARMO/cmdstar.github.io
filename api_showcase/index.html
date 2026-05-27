@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="HuangDapao API 数据目录与在线预览" />
+  <meta name="author" content="hdp" />
+  <title>API 数据目录 | HuangDapao</title>
+  <link rel="icon" type="image/x-icon" href="../static/assets/icon.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+  <link type="text/css" href="../static/css/styles.css" rel="stylesheet" />
+  <link type="text/css" href="../static/css/main.css" rel="stylesheet" />
+  <script type="text/javascript" src="../static/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="../static/js/theme.js"></script>
+  <script type="text/javascript" src="../static/js/js-yaml.min.js"></script>
+  <style>
+    :root {
+      --api-bg: #071017;
+      --api-surface: rgba(255, 255, 255, 0.76);
+      --api-surface-solid: #f8fbf9;
+      --api-border: rgba(255, 255, 255, 0.42);
+      --api-text: #172025;
+      --api-muted: #526168;
+      --api-green: #497c68;
+      --api-blue: #416d9f;
+      --api-cyan: #7dd3fc;
+      --api-amber: #b77f38;
+      --api-rose: #a95163;
+      --api-line: rgba(20, 32, 38, 0.16);
+      --api-input-bg: rgba(255, 255, 255, 0.72);
+      --api-shadow: 0 26px 80px rgba(3, 9, 14, 0.24);
+      --api-title-gradient: linear-gradient(112deg, #10262b 0%, #227a95 30%, #9b6226 62%, #9d3d59 100%);
+      --nav-height: var(--seen-nav-height, 74px);
+    }
+
+    html[data-theme="dark"] {
+      --api-surface: rgba(14, 20, 26, 0.72);
+      --api-surface-solid: #101820;
+      --api-border: rgba(229, 238, 236, 0.16);
+      --api-text: #eef5f2;
+      --api-muted: #a9b6b8;
+      --api-green: #8ac3ad;
+      --api-blue: #8ab4f8;
+      --api-amber: #e3b46f;
+      --api-rose: #e89aa8;
+      --api-line: rgba(238, 245, 242, 0.16);
+      --api-input-bg: rgba(255, 255, 255, 0.075);
+      --api-shadow: 0 26px 80px rgba(0, 0, 0, 0.38);
+      --api-title-gradient: linear-gradient(112deg, #ffffff 0%, var(--api-cyan) 30%, var(--api-amber) 58%, var(--api-rose) 100%);
+    }
+
+    body.api-page {
+      min-height: 100vh;
+      color: var(--api-text);
+      background:
+        radial-gradient(circle at 14% 10%, rgba(125, 211, 252, 0.23), transparent 28%),
+        radial-gradient(circle at 86% 12%, rgba(227, 180, 111, 0.16), transparent 25%),
+        linear-gradient(135deg, #071017 0%, #0e141d 45%, #080b10 100%);
+      overflow-x: hidden;
+    }
+
+    body.api-page::before,
+    body.api-page::after {
+      content: "";
+      position: fixed;
+      inset: -20%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    body.api-page::before {
+      background:
+        linear-gradient(105deg, transparent 18%, rgba(138, 195, 173, 0.16) 34%, transparent 48%),
+        linear-gradient(252deg, transparent 24%, rgba(138, 180, 248, 0.18) 44%, transparent 58%);
+      filter: blur(34px);
+      animation: apiAurora 18s ease-in-out infinite alternate;
+    }
+
+    body.api-page::after {
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(circle at 50% 20%, #000, transparent 72%);
+    }
+
+    @keyframes apiAurora {
+      from { transform: translate3d(-3%, -2%, 0) rotate(0deg); opacity: 0.75; }
+      to { transform: translate3d(4%, 3%, 0) rotate(6deg); opacity: 1; }
+    }
+
+    .api-shell { width: min(1480px, calc(100% - 40px)); margin: 0 auto; padding: max(72px, calc(var(--nav-height) + 14px)) 0 34px; }
+    .api-panel { border: 1px solid var(--api-border); border-radius: 8px; background: var(--api-surface); box-shadow: var(--api-shadow); backdrop-filter: blur(22px) saturate(1.18); -webkit-backdrop-filter: blur(22px) saturate(1.18); }
+    .api-card { padding: 14px; overflow: hidden; }
+    .api-hero { display: grid; grid-template-columns: minmax(280px, 0.72fr) minmax(640px, 1.28fr); gap: 12px; align-items: stretch; }
+    .api-kicker { display: flex; align-items: center; justify-content: space-between; gap: 14px; color: var(--api-muted); font-size: 0.84rem; letter-spacing: 0; text-transform: uppercase; }
+    .api-title { margin: 12px 0 8px; font-size: clamp(2.25rem, 5vw, 5.2rem); line-height: 0.92; letter-spacing: 0; background: var(--api-title-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 14px 30px rgba(25, 71, 80, 0.2)); }
+    .api-subtitle { margin: 0; color: var(--api-muted); font-size: 1rem; line-height: 1.75; }
+    .api-subtitle code, .url-text code { color: inherit; }
+    .api-doc-link { color: var(--api-text); text-decoration: none; border-bottom: 1px solid rgba(125, 211, 252, 0.55); }
+    .api-doc-link:hover { color: var(--api-blue); }
+    .rule-panel { height: 100%; display: grid; align-content: start; gap: 12px; }
+    .rule-panel h3 { margin: 0; font-size: 1rem; }
+    .api-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+    .metric { border: 1px solid var(--api-border); border-radius: 8px; padding: 10px; background: var(--api-input-bg); min-height: 78px; }
+    .metric strong { display: block; font-size: 1.5rem; line-height: 1; margin-bottom: 10px; }
+    .metric span { color: var(--api-muted); font-size: 0.82rem; line-height: 1.35; display: block; }
+    .metric a { color: inherit; text-decoration: none; }
+    .metric a:hover { color: var(--api-blue); }
+    .api-layout { display: grid; grid-template-columns: 330px minmax(0, 1fr); gap: 12px; margin-top: 12px; align-items: start; }
+    .api-sidebar { position: sticky; top: calc(var(--nav-height) + 12px); max-height: calc(100vh - var(--nav-height) - 30px); overflow: auto; padding: 10px; overscroll-behavior: contain; }
+    .search-box { position: relative; margin-bottom: 10px; }
+    .search-box i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--api-muted); pointer-events: none; }
+    .api-search { width: 100%; border: 1px solid var(--api-border); border-radius: 999px; background: var(--api-input-bg); color: var(--api-text); padding: 11px 12px 11px 38px; font: inherit; font-size: 0.92rem; }
+    .api-search:focus, .param-input:focus, .param-select:focus { outline: 0; border-color: rgba(125, 211, 252, 0.62); box-shadow: 0 0 0 3px rgba(125, 211, 252, 0.14); }
+    .tree-list { display: grid; gap: 8px; }
+    .tree-btn { width: 100%; border: 1px solid var(--api-border); border-radius: 8px; background: var(--api-input-bg); color: var(--api-text); min-height: 44px; padding: 10px; display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; gap: 8px; cursor: pointer; text-align: left; transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease; }
+    .tree-btn:hover, .tree-btn.is-active { transform: translateY(-1px); border-color: rgba(125, 211, 252, 0.55); background: rgba(125, 211, 252, 0.13); }
+    .tree-btn i { color: var(--api-blue); font-size: 1.05rem; }
+    .tree-btn span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .tree-btn small { color: var(--api-muted); font-size: 0.76rem; }
+    .crumbs { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin-bottom: 10px; color: var(--api-muted); font-size: 0.9rem; }
+    .crumbs button { border: 1px solid var(--api-border); border-radius: 999px; background: var(--api-input-bg); color: var(--api-text); padding: 7px 10px; cursor: pointer; }
+    .content-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; padding: 14px; border-bottom: 1px solid var(--api-line); }
+    .content-head h2 { margin: 0 0 6px; font-size: 1.45rem; }
+    .content-head p { margin: 0; color: var(--api-muted); line-height: 1.65; }
+    .api-results { display: grid; gap: 10px; padding: 12px; }
+    .endpoint-card { border: 1px solid var(--api-border); border-radius: 8px; background: var(--api-input-bg); overflow: hidden; }
+    .endpoint-summary { width: 100%; border: 0; background: transparent; color: var(--api-text); padding: 12px; text-align: left; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; }
+    .endpoint-summary:hover { background: rgba(125, 211, 252, 0.1); }
+    .endpoint-title { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+    .endpoint-title strong { font-size: 1.04rem; }
+    .endpoint-title code { color: var(--api-muted); font-size: 0.78rem; }
+    .endpoint-summary p { margin: 0; color: var(--api-muted); line-height: 1.6; }
+    .endpoint-meta { display: flex; gap: 7px; justify-content: flex-end; flex-wrap: wrap; color: var(--api-muted); font-size: 0.8rem; }
+    .chip { display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--api-border); border-radius: 999px; padding: 5px 8px; background: rgba(255, 255, 255, 0.24); white-space: nowrap; }
+    html[data-theme="dark"] .chip { background: rgba(255, 255, 255, 0.045); }
+    .endpoint-detail { display: none; border-top: 1px solid var(--api-line); padding: 12px; }
+    .endpoint-card.is-open .endpoint-detail { display: grid; gap: 12px; }
+    .section { border: 1px solid var(--api-border); border-radius: 8px; background: rgba(255,255,255,0.22); padding: 12px; min-width: 0; }
+    html[data-theme="dark"] .section { background: rgba(255,255,255,0.035); }
+    .section h3 { margin: 0 0 10px; font-size: 1rem; }
+    .stats-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+    .stat-cell { border: 1px solid var(--api-border); border-radius: 8px; padding: 8px 10px; background: rgba(255,255,255,0.32); }
+    html[data-theme="dark"] .stat-cell { background: rgba(255,255,255,0.05); }
+    .stat-cell span { display: block; color: var(--api-muted); font-size: 0.76rem; margin-bottom: 6px; }
+    .stat-cell strong { display: block; font-size: 0.96rem; overflow-wrap: anywhere; }
+    .param-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+    .param-field { display: grid; gap: 6px; min-width: 0; }
+    .param-field label { color: var(--api-muted); font-size: 0.78rem; display: flex; justify-content: space-between; gap: 8px; }
+    .param-input, .param-select { width: 100%; border: 1px solid var(--api-border); border-radius: 8px; background: var(--api-surface-solid); color: var(--api-text); padding: 9px 10px; font: inherit; font-size: 0.9rem; min-height: 40px; }
+    html[data-theme="dark"] .param-input, html[data-theme="dark"] .param-select { color-scheme: dark; }
+    .url-box { display: grid; grid-template-columns: minmax(0, 1fr) auto auto auto; gap: 8px; align-items: center; }
+    .url-text { border: 1px solid var(--api-border); border-radius: 8px; background: var(--api-surface-solid); color: var(--api-text); padding: 10px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.82rem; overflow-x: auto; white-space: nowrap; min-width: 0; }
+    .btn-api { border: 1px solid var(--api-border); border-radius: 8px; background: rgba(255,255,255,0.28); color: var(--api-text); min-height: 40px; padding: 0 12px; display: inline-flex; align-items: center; justify-content: center; gap: 7px; cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease, color 0.2s ease; text-decoration: none; white-space: nowrap; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+    html[data-theme="dark"] .btn-api { background: rgba(255,255,255,0.06); }
+    .btn-api:hover { transform: translateY(-1px); border-color: rgba(227, 180, 111, 0.72); background: rgba(227, 180, 111, 0.14); color: var(--api-text); }
+    .btn-api.is-copied { border-color: rgba(33,198,120,0.72); background: rgba(33,198,120,0.2); color: var(--api-text); }
+    .columns-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+    .column-pill { border: 1px solid var(--api-border); border-radius: 8px; padding: 8px 10px; background: rgba(255,255,255,0.28); display: flex; justify-content: space-between; gap: 10px; align-items: center; min-width: 0; }
+    html[data-theme="dark"] .column-pill { background: rgba(255,255,255,0.05); }
+    .column-pill span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .column-pill code { color: var(--api-muted); font-size: 0.76rem; overflow-wrap: anywhere; text-align: right; }
+    .preview-wrap { position: relative; min-height: 130px; }
+    .table-scroll { overflow: auto; max-height: none; min-height: 0; width: 100%; border: 1px solid var(--api-border); border-radius: 8px; background: var(--api-surface-solid); }
+    .preview-table { border-collapse: separate; border-spacing: 0; font-size: 0.86rem; min-width: 100%; width: max-content; }
+    .preview-table th, .preview-table td { border-bottom: 1px solid var(--api-line); border-right: 1px solid var(--api-line); padding: 10px 12px; text-align: left; white-space: nowrap; background: var(--api-surface-solid); }
+    .preview-table th { position: sticky; top: 0; z-index: 3; color: var(--api-text); font-weight: 700; }
+    .preview-table td { color: var(--api-muted); max-width: 340px; overflow: hidden; text-overflow: ellipsis; }
+    .preview-table th:first-child, .preview-table td:first-child { position: sticky; left: 0; z-index: 2; box-shadow: 1px 0 0 var(--api-line); }
+    .preview-table th:first-child { z-index: 4; }
+    .loading { position: absolute; inset: 0; display: none; place-items: center; border-radius: 8px; background: rgba(8, 12, 18, 0.36); backdrop-filter: blur(4px); color: #fff; z-index: 3; }
+    .loading.is-visible { display: grid; }
+    .spinner { width: 34px; height: 34px; border-radius: 999px; border: 3px solid rgba(255,255,255,0.25); border-top-color: #fff; animation: spin 0.8s linear infinite; margin: 0 auto 10px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .empty { padding: 22px; color: var(--api-muted); text-align: center; }
+    .status-float { position: fixed; left: 50%; bottom: 22px; z-index: 10020; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 10px; border: 1px solid var(--api-border); border-radius: 999px; background: linear-gradient(110deg, rgba(125, 211, 252, 0.18), rgba(138, 195, 173, 0.18), rgba(232, 154, 168, 0.12)), var(--api-surface); box-shadow: 0 18px 54px rgba(3, 9, 14, 0.22); backdrop-filter: blur(20px) saturate(1.16); -webkit-backdrop-filter: blur(20px) saturate(1.16); color: var(--api-text); padding: 7px 8px 7px 13px; min-height: 46px; }
+    .status-dot { width: 11px; height: 11px; border-radius: 999px; background: var(--api-amber); box-shadow: 0 0 0 0 rgba(183,127,56,0.6); animation: pulseAmber 1.6s ease-out infinite; }
+    .status-float.is-ok .status-dot { background: #21c678; animation-name: pulseGreen; }
+    .status-float.is-error .status-dot { background: #e85b6c; animation-name: pulseRed; }
+    .status-refresh { width: 34px; height: 34px; border-radius: 999px; border: 1px solid var(--api-border); background: rgba(255,255,255,0.14); color: var(--api-text); display: grid; place-items: center; cursor: pointer; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+    .status-refresh:hover { background: rgba(125,211,252,0.16); }
+    .status-refresh.is-loading i { animation: spin 0.8s linear infinite; }
+    @keyframes pulseGreen { 0% { box-shadow: 0 0 0 0 rgba(33,198,120,0.58); } 100% { box-shadow: 0 0 0 16px rgba(33,198,120,0); } }
+    @keyframes pulseAmber { 0% { box-shadow: 0 0 0 0 rgba(183,127,56,0.58); } 100% { box-shadow: 0 0 0 16px rgba(183,127,56,0); } }
+    @keyframes pulseRed { 0% { box-shadow: 0 0 0 0 rgba(232,91,108,0.58); } 100% { box-shadow: 0 0 0 16px rgba(232,91,108,0); } }
+
+    @media (max-width: 1100px) {
+      .api-hero, .api-layout { grid-template-columns: 1fr; }
+      .api-sidebar { position: static; max-height: none; }
+      .param-grid, .stats-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .url-box { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .api-shell { width: min(100% - 18px, 1480px); padding-top: max(66px, calc(var(--nav-height) + 10px)); padding-bottom: 86px; }
+      .api-hero { gap: 10px; }
+      .api-card { padding: 12px; }
+      .api-title { font-size: clamp(2.1rem, 14vw, 3.6rem); }
+      .api-subtitle { font-size: 0.92rem; line-height: 1.65; }
+      .api-layout { gap: 10px; }
+      .api-sidebar { padding: 9px; }
+      .api-results { padding: 9px; }
+      .api-metrics, .param-grid, .stats-row, .columns-grid { grid-template-columns: 1fr; }
+      .content-head, .endpoint-summary { grid-template-columns: 1fr; }
+      .endpoint-meta { justify-content: flex-start; }
+      .status-float { width: min(460px, calc(100% - 28px)); justify-content: center; }
+      .url-box { gap: 7px; }
+      .url-text { font-size: 0.75rem; }
+      .btn-api { min-height: 38px; }
+      .preview-table { font-size: 0.8rem; }
+      .preview-table th, .preview-table td { padding: 8px 9px; max-width: 220px; }
+    }
+  </style>
+</head>
+<body id="page-top" class="api-page">
+<div id="navbar"></div>
+
+<main id="apiShowcaseShell" class="api-shell">
+  <section id="apiHeroSection" class="api-hero">
+    <div id="apiIntroPanel" class="api-panel api-card">
+      <div id="apiKicker" class="api-kicker">
+        <span>Data API Catalog</span>
+        <span id="catalogTime">loading</span>
+      </div>
+      <h1 id="apiPageTitle" class="api-title">API 数据目录</h1>
+      <p id="apiPageSubtitle" class="api-subtitle">集中展示当前可用的数据接口、参数构建方式、字段说明、数据规模和在线预览。页面请求默认自动附加 <code>limit=2000</code>，预览只请求前五条。</p>
+      <div id="apiMetrics" class="api-metrics">
+        <div class="metric"><strong id="apiCount">0</strong><span>可用接口</span></div>
+        <div class="metric"><strong id="rowCount">0</strong><span>累计数据行</span></div>
+        <div class="metric"><strong id="groupCount">0</strong><span>二级分类</span></div>
+        <div class="metric"><strong id="baseUrlMetric">-</strong><span>API 域名</span></div>
+      </div>
+    </div>
+    <div id="apiRulePanel" class="api-panel api-card rule-panel">
+        <h3 id="apiRuleTitle">链接构建规则</h3>
+        <p id="apiRuleText" class="api-subtitle">基础域名固定为 <a class="api-doc-link" href="https://api.huangdapao.com/docs" target="_blank" rel="noopener">https://api.huangdapao.com</a>。选择接口后填写参数，页面会生成 JSON 链接、CSV 下载链接，并可直接请求接口预览数据。隐藏参数包括 <code>limit</code> 和 unknown 类字段。</p>
+        <div id="apiRuleUrlBox" class="url-box">
+          <div class="url-text" id="ruleExample">https://api.huangdapao.com/sw_industry_daily/data?startdate=2024-12-30&enddate=2025-12-30&limit=2000&offset=0&format=json</div>
+          <button class="btn-api" id="copyRule" type="button"><i class="bi bi-clipboard"></i>复制示例</button>
+        </div>
+    </div>
+  </section>
+
+  <section id="apiCatalogLayout" class="api-layout">
+    <aside id="apiSidebar" class="api-panel api-sidebar">
+      <div id="apiSearchBox" class="search-box">
+        <i class="bi bi-search"></i>
+        <input id="apiSearch" class="api-search" type="search" placeholder="搜索接口、字段、分类" />
+      </div>
+      <div id="treeList" class="tree-list"></div>
+    </aside>
+
+    <section id="apiContentPanel" class="api-panel">
+      <div id="apiContentHead" class="content-head">
+        <div>
+          <div id="crumbs" class="crumbs"></div>
+          <h2 id="contentTitle">全部 API</h2>
+          <p id="contentSummary">按两级目录浏览接口。点击卡片可展开参数、链接、字段和前五条数据预览。</p>
+        </div>
+        <span class="chip"><i class="bi bi-diagram-3"></i><span id="visibleCount">0 个接口</span></span>
+      </div>
+      <div id="apiResults" class="api-results"></div>
+    </section>
+  </section>
+</main>
+
+<footer id="apiFooter" class="bg-bottom text-center py-5">
+  <div class="container px-5">
+    <div class="text-white-50 small">
+      <div id="copyright-text">&copy; Dapao Huang 2023-202e. All Rights Reserved.</div>
+      <a id="github-link" href="https://github.com/cmdSTARMO">Github</a>
+      <span class="mx-1">&middot;</span>
+      <a id="license-link" href="https://github.com/cmdSTARMO/cmdstar.github.io/blob/main/LICENSE">License</a>
+    </div>
+  </div>
+</footer>
+
+<div id="statusFloat" class="status-float" role="status" aria-live="polite">
+  <span class="status-dot"></span>
+  <span id="statusText">API 服务唤醒中</span>
+  <button id="statusRefresh" class="status-refresh" type="button" title="刷新 API 状态" aria-label="刷新 API 状态"><i class="bi bi-arrow-clockwise"></i></button>
+</div>
+
+<div id="floating-buttons-container"></div>
+
+<script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+<script>
+  const state = { catalog: null, apis: [], baseUrl: 'https://api.huangdapao.com', level1: null, level2: null, openId: null };
+  const DEFAULT_LIMIT = '2000';
+  const PREVIEW_LIMIT = '5';
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => Number(n || 0).toLocaleString('zh-CN');
+  const DATE_KEYS = ['dt', 'date', 'trade_date', 'showDate', 'established_date', 'snapshot_dt'];
+
+  function todayIso() {
+    return new Date().toISOString().slice(0, 10);
+  }
+
+  function oneYearAgoIso() {
+    const d = new Date();
+    d.setFullYear(d.getFullYear() - 1);
+    return d.toISOString().slice(0, 10);
+  }
+
+  async function loadJson(url) {
+    const resp = await fetch(url, { cache: 'no-store' });
+    if (!resp.ok) throw new Error(`${resp.status} ${resp.statusText}`);
+    return resp.json();
+  }
+
+  function groupKey(api) {
+    return [api.group?.level1 || '其他', api.group?.level2 || '未分类'];
+  }
+
+  function slugify(value) {
+    return String(value || '')
+      .toLowerCase()
+      .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, '-')
+      .replace(/^-+|-+$/g, '') || 'item';
+  }
+
+  function getGroups() {
+    const groups = new Map();
+    for (const api of state.apis) {
+      const [l1, l2] = groupKey(api);
+      if (!groups.has(l1)) groups.set(l1, new Map());
+      if (!groups.get(l1).has(l2)) groups.get(l1).set(l2, []);
+      groups.get(l1).get(l2).push(api);
+    }
+    return groups;
+  }
+
+  function isParamHidden(api, param) {
+    const name = param.name.toLowerCase();
+    return name === 'limit' || name.includes('unknown') || (api.hidden_params || []).includes(param.name);
+  }
+
+  function valueForParam(apiId, paramName) {
+    const input = document.querySelector(`[data-api="${apiId}"][data-param="${paramName}"]`);
+    return input ? input.value.trim() : '';
+  }
+
+  function buildUrl(api, overrides = {}) {
+    const params = new URLSearchParams();
+    for (const param of api.params || []) {
+      if (isParamHidden(api, param) || param.name === 'format') continue;
+      const value = overrides[param.name] ?? valueForParam(api.id, param.name);
+      if (value !== undefined && value !== null && String(value).trim() !== '') {
+        params.set(param.name, String(value).trim());
+      }
+    }
+    params.set('limit', overrides.limit || DEFAULT_LIMIT);
+    params.set('format', overrides.format || 'json');
+    const query = params.toString();
+    return `${state.baseUrl}${api.endpoint}${query ? `?${query}` : ''}`;
+  }
+
+  function setDefaultDates(api) {
+    const min = api.stats?.min_date || oneYearAgoIso();
+    const max = api.stats?.max_date || todayIso();
+    for (const param of api.params || []) {
+      if (param.name === 'startdate') param.default = param.default || min;
+      if (param.name === 'enddate') param.default = param.default || max;
+    }
+  }
+
+  function optionList(api, param) {
+    if (param.options) return param.options;
+    const source = param.option_source;
+    return (api.stats?.options?.[source] || api.static_options?.[source] || []);
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  function formatValue(value) {
+    if (typeof value === 'number' && Number.isFinite(value) && !Number.isInteger(value)) {
+      return value.toFixed(4);
+    }
+    if (typeof value === 'string' && value.trim() !== '' && /^-?\d+\.\d+$/.test(value.trim())) {
+      const num = Number(value);
+      if (Number.isFinite(num)) return num.toFixed(4);
+    }
+    return value ?? '';
+  }
+
+  function dateSortKey(row) {
+    const key = DATE_KEYS.find((name) => Object.prototype.hasOwnProperty.call(row, name));
+    if (!key) return '';
+    return String(row[key] ?? '');
+  }
+
+  function sortRowsDesc(rows) {
+    return [...rows].sort((a, b) => dateSortKey(b).localeCompare(dateSortKey(a)));
+  }
+
+  function filteredApis() {
+    const q = $('apiSearch').value.trim().toLowerCase();
+    return state.apis.filter((api) => {
+      const [l1, l2] = groupKey(api);
+      if (state.level1 && l1 !== state.level1) return false;
+      if (state.level2 && l2 !== state.level2) return false;
+      if (!q) return true;
+      const haystack = [
+        api.title, api.summary, api.endpoint, l1, l2,
+        Object.keys(api.columns_zh || {}).join(' '),
+        Object.values(api.columns_zh || {}).join(' ')
+      ].join(' ').toLowerCase();
+      return haystack.includes(q);
+    });
+  }
+
+  function renderTree() {
+    const list = $('treeList');
+    list.innerHTML = '';
+    const groups = getGroups();
+    const all = document.createElement('button');
+    all.type = 'button';
+    all.id = 'tree-all-apis';
+    all.className = `tree-btn${!state.level1 ? ' is-active' : ''}`;
+    all.innerHTML = `<i class="bi bi-grid"></i><span>全部 API</span><small>${state.apis.length}</small>`;
+    all.addEventListener('click', () => { state.level1 = null; state.level2 = null; renderAll(); });
+    list.appendChild(all);
+
+    for (const [l1, level2s] of groups) {
+      const count = [...level2s.values()].reduce((sum, items) => sum + items.length, 0);
+      const l1Btn = document.createElement('button');
+      l1Btn.type = 'button';
+      l1Btn.id = `tree-level1-${slugify(l1)}`;
+      l1Btn.className = `tree-btn${state.level1 === l1 && !state.level2 ? ' is-active' : ''}`;
+      l1Btn.innerHTML = `<i class="bi bi-folder"></i><span>${l1}</span><small>${count}</small>`;
+      l1Btn.addEventListener('click', () => { state.level1 = l1; state.level2 = null; renderAll(); });
+      list.appendChild(l1Btn);
+      if (state.level1 === l1) {
+        for (const [l2, apis] of level2s) {
+          const l2Btn = document.createElement('button');
+          l2Btn.type = 'button';
+          l2Btn.id = `tree-level2-${slugify(l1)}-${slugify(l2)}`;
+          l2Btn.className = `tree-btn${state.level2 === l2 ? ' is-active' : ''}`;
+          l2Btn.style.marginLeft = '18px';
+          l2Btn.style.width = 'calc(100% - 18px)';
+          l2Btn.innerHTML = `<i class="bi bi-folder2-open"></i><span>${l2}</span><small>${apis.length}</small>`;
+          l2Btn.addEventListener('click', () => { state.level1 = l1; state.level2 = l2; renderAll(); });
+          list.appendChild(l2Btn);
+        }
+      }
+    }
+  }
+
+  function renderCrumbs() {
+    const crumbs = $('crumbs');
+    crumbs.innerHTML = '';
+    const root = document.createElement('button');
+    root.type = 'button';
+    root.id = 'crumb-root';
+    root.textContent = '全部';
+    root.addEventListener('click', () => { state.level1 = null; state.level2 = null; renderAll(); });
+    crumbs.appendChild(root);
+    if (state.level1) {
+      const l1 = document.createElement('button');
+      l1.type = 'button';
+      l1.id = `crumb-level1-${slugify(state.level1)}`;
+      l1.textContent = state.level1;
+      l1.addEventListener('click', () => { state.level2 = null; renderAll(); });
+      crumbs.append(' / ', l1);
+    }
+    if (state.level2) {
+      const l2 = document.createElement('span');
+      l2.id = `crumb-level2-${slugify(state.level2)}`;
+      l2.textContent = ` / ${state.level2}`;
+      crumbs.appendChild(l2);
+    }
+    $('contentTitle').textContent = state.level2 || state.level1 || '全部 API';
+  }
+
+  function renderParam(api, param) {
+    const wrap = document.createElement('div');
+    wrap.className = 'param-field';
+    wrap.id = `param-field-${api.id}-${param.name}`;
+    const required = param.required ? '<span>必填</span>' : '<span>可选</span>';
+    wrap.innerHTML = `<label>${param.label || param.name}${required}</label>`;
+    const options = optionList(api, param);
+    let el;
+    if (param.type === 'select') {
+      el = document.createElement('select');
+      el.className = 'param-select';
+      el.id = `param-input-${api.id}-${param.name}`;
+      for (const opt of options) {
+        const option = document.createElement('option');
+        option.value = opt.value;
+        option.textContent = opt.label || opt.value;
+        el.appendChild(option);
+      }
+    } else if (param.type === 'multiselect') {
+      el = document.createElement('input');
+      el.className = 'param-input';
+      el.id = `param-input-${api.id}-${param.name}`;
+      el.setAttribute('list', `${api.id}-${param.name}-list`);
+      el.placeholder = param.placeholder || '多个值用英文逗号分隔';
+      const datalist = document.createElement('datalist');
+      datalist.id = `${api.id}-${param.name}-list`;
+      for (const opt of options) {
+        const option = document.createElement('option');
+        option.value = opt.value;
+        option.label = opt.label || opt.value;
+        datalist.appendChild(option);
+      }
+      wrap.appendChild(datalist);
+    } else {
+      el = document.createElement('input');
+      el.className = 'param-input';
+      el.id = `param-input-${api.id}-${param.name}`;
+      el.type = param.type === 'number' ? 'number' : (param.type === 'date' ? 'date' : 'text');
+      el.placeholder = param.placeholder || '';
+    }
+    el.dataset.api = api.id;
+    el.dataset.param = param.name;
+    el.value = param.default || '';
+    if (param.name === 'startdate' && !el.value) el.value = api.stats?.min_date || oneYearAgoIso();
+    if (param.name === 'enddate' && !el.value) el.value = api.stats?.max_date || todayIso();
+    el.addEventListener('input', () => updateCardUrls(api));
+    el.addEventListener('change', () => updateCardUrls(api));
+    wrap.appendChild(el);
+    return wrap;
+  }
+
+  function renderCard(api) {
+    setDefaultDates(api);
+    const card = document.createElement('article');
+    card.className = `endpoint-card${state.openId === api.id ? ' is-open' : ''}`;
+    card.id = `api-card-${api.id}`;
+    card.dataset.apiCard = api.id;
+    const [l1, l2] = groupKey(api);
+    card.innerHTML = `
+      <button id="api-summary-${api.id}" class="endpoint-summary" type="button" aria-expanded="${state.openId === api.id ? 'true' : 'false'}">
+        <div>
+          <div id="api-title-row-${api.id}" class="endpoint-title"><strong id="api-title-${api.id}">${api.title}</strong><code id="api-endpoint-${api.id}">${api.endpoint}</code></div>
+          <p id="api-summary-text-${api.id}">${api.summary || `${l1} / ${l2}`}</p>
+        </div>
+        <div id="api-meta-${api.id}" class="endpoint-meta">
+          <span id="api-group-chip-${api.id}" class="chip"><i class="bi bi-layers"></i>${l2}</span>
+          <span id="api-row-chip-${api.id}" class="chip"><i class="bi bi-table"></i>${fmt(api.stats?.row_count)} 行</span>
+          <span id="api-date-chip-${api.id}" class="chip"><i class="bi bi-calendar2-check"></i>${api.stats?.max_date || '-'}</span>
+          <i class="bi ${state.openId === api.id ? 'bi-chevron-up' : 'bi-chevron-down'}"></i>
+        </div>
+      </button>
+      <div id="api-detail-${api.id}" class="endpoint-detail">
+        <div id="api-stats-section-${api.id}" class="section">
+          <h3 id="api-stats-title-${api.id}">数据状态</h3>
+          <div id="api-stats-row-${api.id}" class="stats-row">
+            <div id="api-stat-rows-${api.id}" class="stat-cell"><span>数据行数</span><strong>${fmt(api.stats?.row_count)}</strong></div>
+            <div id="api-stat-min-${api.id}" class="stat-cell"><span>最早日期</span><strong>${api.stats?.min_date || '-'}</strong></div>
+            <div id="api-stat-max-${api.id}" class="stat-cell"><span>最新日期</span><strong>${api.stats?.max_date || '-'}</strong></div>
+            <div id="api-stat-updated-${api.id}" class="stat-cell"><span>元数据更新</span><strong>${api.stats?.updated_at || '-'}</strong></div>
+          </div>
+        </div>
+        <div id="api-params-section-${api.id}" class="section">
+          <h3 id="api-params-title-${api.id}">请求参数</h3>
+          <div id="api-param-grid-${api.id}" class="param-grid" data-param-form="${api.id}"></div>
+        </div>
+        <div id="api-url-section-${api.id}" class="section">
+          <h3 id="api-url-title-${api.id}">接口链接</h3>
+          <div id="api-url-box-${api.id}" class="url-box">
+            <div id="api-url-${api.id}" class="url-text" data-url="${api.id}">-</div>
+            <button id="api-copy-${api.id}" class="btn-api" data-copy="${api.id}" type="button"><i class="bi bi-clipboard"></i>复制</button>
+            <a id="api-open-${api.id}" class="btn-api" data-open="${api.id}" href="#" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i>打开</a>
+            <a id="api-csv-${api.id}" class="btn-api" data-csv="${api.id}" href="#" target="_blank" rel="noopener"><i class="bi bi-download"></i>CSV</a>
+          </div>
+        </div>
+        <div id="api-columns-section-${api.id}" class="section">
+          <h3 id="api-columns-title-${api.id}">字段说明</h3>
+          <div id="api-columns-grid-${api.id}" class="columns-grid" data-columns="${api.id}"></div>
+        </div>
+        <div id="api-preview-section-${api.id}" class="section preview-wrap">
+          <h3 id="api-preview-title-${api.id}">前五条数据</h3>
+          <div id="api-loading-${api.id}" class="loading" data-loading="${api.id}"><div><div class="spinner"></div><div>请求数据中</div></div></div>
+          <div id="api-preview-${api.id}" data-preview="${api.id}"><div class="empty">点击“请求并预览”查看当前参数返回的前五条。</div></div>
+          <button id="api-preview-btn-${api.id}" class="btn-api" data-preview-btn="${api.id}" type="button" style="margin-top: 10px;"><i class="bi bi-table"></i>请求并预览</button>
+        </div>
+      </div>`;
+    card.querySelector('.endpoint-summary').addEventListener('click', () => {
+      state.openId = state.openId === api.id ? null : api.id;
+      renderResults();
+    });
+    return card;
+  }
+
+  function hydrateOpenCard(api) {
+    const form = document.querySelector(`[data-param-form="${api.id}"]`);
+    if (!form) return;
+    form.innerHTML = '';
+    for (const param of api.params || []) {
+      if (isParamHidden(api, param)) continue;
+      form.appendChild(renderParam(api, param));
+    }
+    const columns = document.querySelector(`[data-columns="${api.id}"]`);
+    columns.innerHTML = '';
+    for (const [key, label] of Object.entries(api.columns_zh || {})) {
+      const item = document.createElement('div');
+      item.className = 'column-pill';
+      item.id = `column-pill-${api.id}-${slugify(key)}`;
+      item.innerHTML = `<span title="${label}">${label}</span><code>${key}</code>`;
+      columns.appendChild(item);
+    }
+    document.querySelector(`[data-copy="${api.id}"]`).addEventListener('click', (event) => copyWithFeedback(buildUrl(api), event.currentTarget));
+    document.querySelector(`[data-preview-btn="${api.id}"]`).addEventListener('click', () => previewData(api));
+    updateCardUrls(api);
+  }
+
+  function updateCardUrls(api) {
+    const urlEl = document.querySelector(`[data-url="${api.id}"]`);
+    if (!urlEl) return;
+    const url = buildUrl(api);
+    const csvUrl = buildUrl(api, { format: 'csv' });
+    urlEl.textContent = url;
+    document.querySelector(`[data-open="${api.id}"]`).href = url;
+    document.querySelector(`[data-csv="${api.id}"]`).href = csvUrl;
+  }
+
+  function renderResults() {
+    const apis = filteredApis();
+    const results = $('apiResults');
+    results.innerHTML = '';
+    $('visibleCount').textContent = `${apis.length} 个接口`;
+    if (!apis.length) {
+      results.innerHTML = '<div class="empty">没有匹配的 API。</div>';
+      return;
+    }
+    for (const api of apis) results.appendChild(renderCard(api));
+    const openApi = apis.find(api => api.id === state.openId);
+    if (openApi) hydrateOpenCard(openApi);
+  }
+
+  function renderAll() {
+    renderTree();
+    renderCrumbs();
+    renderResults();
+  }
+
+  function renderPreviewTable(api, payload) {
+    const rows = sortRowsDesc(Array.isArray(payload?.data) ? payload.data.slice(0, 5) : []);
+    const metaColumns = payload?.meta?.columns_zh || api.columns_zh || {};
+    const target = document.querySelector(`[data-preview="${api.id}"]`);
+    if (!rows.length) {
+      target.innerHTML = '<div class="empty">当前参数没有返回数据。</div>';
+      return;
+    }
+    const keys = Object.keys(rows[0]);
+    const thead = keys.map(key => `<th title="${escapeHtml(key)}">${escapeHtml(metaColumns[key] || key)}</th>`).join('');
+    const tbody = rows.map((row, rowIndex) => `<tr id="preview-row-${api.id}-${rowIndex}">${keys.map(key => {
+      const value = formatValue(row[key]);
+      return `<td title="${escapeHtml(value)}">${escapeHtml(value)}</td>`;
+    }).join('')}</tr>`).join('');
+    target.innerHTML = `<div id="table-scroll-${api.id}" class="table-scroll"><table id="preview-table-${api.id}" class="preview-table"><thead><tr>${thead}</tr></thead><tbody>${tbody}</tbody></table></div>`;
+  }
+
+  async function previewData(api) {
+    const loading = document.querySelector(`[data-loading="${api.id}"]`);
+    const target = document.querySelector(`[data-preview="${api.id}"]`);
+    loading.classList.add('is-visible');
+    try {
+      const resp = await fetch(buildUrl(api, { limit: PREVIEW_LIMIT, format: 'json' }), { cache: 'no-store' });
+      if (!resp.ok) throw new Error(`${resp.status} ${resp.statusText}`);
+      const payload = await resp.json();
+      renderPreviewTable(api, payload);
+    } catch (err) {
+      target.innerHTML = `<div class="empty">请求失败：${err.message}</div>`;
+    } finally {
+      loading.classList.remove('is-visible');
+    }
+  }
+
+  async function copyWithFeedback(text, button) {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+    } else {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      document.execCommand('copy');
+      textarea.remove();
+    }
+    const old = button.innerHTML;
+    button.classList.add('is-copied');
+    button.innerHTML = '<i class="bi bi-check2"></i>已复制';
+    setTimeout(() => {
+      button.classList.remove('is-copied');
+      button.innerHTML = old;
+    }, 1100);
+  }
+
+  async function checkApiStatus() {
+    const el = $('statusFloat');
+    const text = $('statusText');
+    const btn = $('statusRefresh');
+    el.classList.remove('is-ok', 'is-error');
+    btn.classList.add('is-loading');
+    text.textContent = 'API 服务唤醒中';
+    try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 14000);
+      const resp = await fetch(`${state.baseUrl}/health`, { cache: 'no-store', signal: ctrl.signal });
+      clearTimeout(timer);
+      const payload = await resp.json().catch(() => null);
+      if (resp.ok && payload && payload.status === 'ok') {
+        el.classList.add('is-ok');
+        text.textContent = 'API 服务正常运作';
+      } else {
+        text.textContent = 'API 服务启动中，请稍后 1 min';
+      }
+    } catch (_) {
+      el.classList.add('is-error');
+      text.textContent = 'API 服务启动中，请稍后 1 min';
+    } finally {
+      btn.classList.remove('is-loading');
+    }
+  }
+
+  function updateNavHeight() {
+    const nav = document.getElementById('mainNav');
+    if (nav) document.documentElement.style.setProperty('--seen-nav-height', `${nav.offsetHeight}px`);
+  }
+
+  function executeScripts(container) {
+    container.querySelectorAll('script').forEach((oldScript) => {
+      const newScript = document.createElement('script');
+      Array.from(oldScript.attributes).forEach((attr) => newScript.setAttribute(attr.name, attr.value));
+      newScript.textContent = oldScript.textContent;
+      oldScript.replaceWith(newScript);
+    });
+  }
+
+  async function loadChrome() {
+    try {
+      const navHtml = await fetch('../navbar.html').then((response) => response.text());
+      $('navbar').innerHTML = navHtml;
+      updateNavHeight();
+      if (typeof updateContent === 'function') updateContent();
+      const pageTitle = document.getElementById('page-top-title');
+      if (pageTitle && !pageTitle.textContent.trim()) pageTitle.textContent = 'API 数据目录';
+    } catch (error) {
+      console.error('Error loading navbar:', error);
+    }
+    try {
+      const html = await fetch('../floatingButtons.html').then((response) => response.text());
+      const container = $('floating-buttons-container');
+      container.innerHTML = html;
+      if (typeof updateContent === 'function') updateContent();
+      executeScripts(container);
+    } catch (error) {
+      console.error('Error loading floating buttons:', error);
+    }
+  }
+
+  async function loadConfigFooter() {
+    try {
+      const text = await fetch('/config.yml', { cache: 'no-store' }).then((response) => response.text());
+      const config = jsyaml.load(text);
+      if (!config || !config.footer) return;
+      if (config.footer.copyright) $('copyright-text').innerHTML = config.footer.copyright;
+      if (config.footer.github) {
+        $('github-link').innerText = config.footer.github.text || 'Github';
+        $('github-link').href = config.footer.github.link || '#';
+      }
+      if (config.footer.license) {
+        $('license-link').innerText = config.footer.license.text || 'License';
+        $('license-link').href = config.footer.license.link || '#';
+      }
+    } catch (error) {
+      console.error('加载全局配置失败:', error);
+    }
+  }
+
+  async function init() {
+    loadChrome();
+    loadConfigFooter();
+    state.catalog = await loadJson('metadata/catalog.json');
+    state.baseUrl = state.catalog.base_url || state.baseUrl;
+    const apis = await Promise.all(state.catalog.apis.map(item => loadJson(`metadata/${item.file}`)));
+    state.apis = apis.sort((a, b) => `${a.group?.level1}${a.group?.level2}${a.title}`.localeCompare(`${b.group?.level1}${b.group?.level2}${b.title}`, 'zh-CN'));
+    $('catalogTime').textContent = state.catalog.generated_at || '';
+    $('apiCount').textContent = state.apis.length;
+    $('rowCount').textContent = fmt(state.apis.reduce((sum, api) => sum + Number(api.stats?.row_count || 0), 0));
+    $('groupCount').textContent = new Set(state.apis.map(api => groupKey(api).join('/'))).size;
+    $('baseUrlMetric').innerHTML = `<a href="${state.baseUrl}/docs" target="_blank" rel="noopener">${state.baseUrl.replace(/^https?:\/\//, '')}</a>`;
+    renderAll();
+    checkApiStatus();
+  }
+
+  $('apiSearch').addEventListener('input', () => { state.openId = null; renderAll(); });
+  $('copyRule').addEventListener('click', (event) => copyWithFeedback($('ruleExample').textContent, event.currentTarget));
+  $('statusRefresh').addEventListener('click', (event) => { event.stopPropagation(); checkApiStatus(); });
+  window.addEventListener('resize', updateNavHeight);
+
+  init().catch(err => {
+    $('treeList').innerHTML = `<div class="empty">目录加载失败：${err.message}</div>`;
+  });
+</script>
+</body>
+</html>

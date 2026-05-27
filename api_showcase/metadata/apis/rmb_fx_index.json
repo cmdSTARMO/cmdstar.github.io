@@ -1,0 +1,89 @@
+{
+  "id": "rmb_fx_index",
+  "title": "人民币汇率指数",
+  "summary": "CFETS、BIS、SDR 三类人民币汇率指数。",
+  "group": {
+    "level1": "金融数据",
+    "level2": "宏观指标"
+  },
+  "endpoint": "/rmb_fx_index/data",
+  "method": "GET",
+  "params": [
+    {
+      "name": "startdate",
+      "type": "date",
+      "required": true,
+      "label": "开始日期",
+      "default": "2025-01-01"
+    },
+    {
+      "name": "enddate",
+      "type": "date",
+      "required": true,
+      "label": "结束日期",
+      "default": "2026-05-25"
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "required": false,
+      "label": "偏移量",
+      "default": "0"
+    },
+    {
+      "name": "format",
+      "type": "select",
+      "required": false,
+      "label": "返回格式",
+      "default": "json",
+      "options": [
+        {
+          "value": "json",
+          "label": "JSON"
+        },
+        {
+          "value": "csv",
+          "label": "CSV"
+        }
+      ]
+    },
+    {
+      "name": "fulldata",
+      "type": "select",
+      "required": false,
+      "label": "完整字段",
+      "default": "no",
+      "options": [
+        {
+          "value": "no",
+          "label": "默认字段"
+        },
+        {
+          "value": "yes",
+          "label": "全部字段"
+        }
+      ]
+    }
+  ],
+  "columns_zh": {
+    "dt": "日期",
+    "cfets_index_rate": "CFETS人民币汇率指数",
+    "bis_index_rate": "BIS货币篮子人民币汇率指数",
+    "sdr_index_rate": "SDR货币篮子人民币汇率指数"
+  },
+  "data_sources": [
+    {
+      "type": "parquet",
+      "glob": "D:/GitHub/cmdstar.github.io/api/data/rmb_fx_index_data/*.parquet",
+      "date_column": "dt"
+    }
+  ],
+  "stats": {
+    "row_count": 0,
+    "min_date": null,
+    "max_date": null,
+    "options": {},
+    "updated_at": "2026-05-27 21:49:41"
+  },
+  "hidden_params": []
+}

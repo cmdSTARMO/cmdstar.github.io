@@ -60,6 +60,9 @@ jobs:
           if [ -f base_data_renew_folder/automations/logs/fetcher_daily_runs.csv ]; then
             git add base_data_renew_folder/automations/logs/fetcher_daily_runs.csv
           fi
+          if [ -d api_showcase/metadata ]; then
+            git add api_showcase/metadata
+          fi
           if git diff --cached --quiet; then
             echo "No data/log changes to commit."
           else

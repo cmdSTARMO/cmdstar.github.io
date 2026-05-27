@@ -120,7 +120,7 @@ async def get_sw_industry_daily(
             FROM ({union_sql})
             WHERE dt BETWEEN ? AND ?
             {code_clause}
-            ORDER BY swindexcode ASC, dt ASC
+            ORDER BY dt DESC, swindexcode ASC
             LIMIT ? OFFSET ?
         """
         params = month_files + [startdate.isoformat(), enddate.isoformat()] + code_params + [limit, offset]

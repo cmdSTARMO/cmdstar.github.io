@@ -1,0 +1,206 @@
+{
+  "id": "fund_new_issue",
+  "title": "新发基金数据",
+  "summary": "东方财富新发基金快照，默认包含尚未成立基金并隐藏 unknown 字段。",
+  "group": {
+    "level1": "金融数据",
+    "level2": "基金"
+  },
+  "endpoint": "/fund_new_issue/data",
+  "method": "GET",
+  "params": [
+    {
+      "name": "startdate",
+      "type": "date",
+      "required": false,
+      "label": "成立开始日期",
+      "default": ""
+    },
+    {
+      "name": "enddate",
+      "type": "date",
+      "required": false,
+      "label": "成立结束日期",
+      "default": ""
+    },
+    {
+      "name": "include_pending",
+      "type": "select",
+      "required": false,
+      "label": "尚未成立基金",
+      "default": "yes",
+      "options": [
+        {
+          "value": "yes",
+          "label": "包含"
+        },
+        {
+          "value": "no",
+          "label": "不包含"
+        }
+      ]
+    },
+    {
+      "name": "fund_type",
+      "type": "text",
+      "required": false,
+      "label": "基金类型",
+      "placeholder": "混合型-偏股"
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "required": false,
+      "label": "偏移量",
+      "default": "0"
+    },
+    {
+      "name": "format",
+      "type": "select",
+      "required": false,
+      "label": "返回格式",
+      "default": "json",
+      "options": [
+        {
+          "value": "json",
+          "label": "JSON"
+        },
+        {
+          "value": "csv",
+          "label": "CSV"
+        }
+      ]
+    }
+  ],
+  "hidden_params": [
+    "include_unknown"
+  ],
+  "columns_zh": {
+    "established_date": "成立日期",
+    "fund_code": "基金代码",
+    "fund_name": "基金简称",
+    "fund_company": "发行公司",
+    "fund_type": "基金类型",
+    "raised_shares": "募集份额",
+    "fund_manager": "基金经理",
+    "subscription_status": "申购状态",
+    "subscription_period": "集中认购期",
+    "discount_rate": "优惠费率"
+  },
+  "data_sources": [
+    {
+      "type": "parquet",
+      "glob": "D:/GitHub/cmdstar.github.io/api/data/fund_new_issue_data/**/*.parquet",
+      "date_column": "established_date",
+      "option_columns": [
+        "fund_type"
+      ]
+    }
+  ],
+  "stats": {
+    "row_count": 8166,
+    "min_date": "2013-08-20",
+    "max_date": "2026-05-26",
+    "options": {
+      "fund_type": [
+        {
+          "value": "FOF-均衡型",
+          "label": "FOF-均衡型"
+        },
+        {
+          "value": "FOF-稳健型",
+          "label": "FOF-稳健型"
+        },
+        {
+          "value": "FOF-进取型",
+          "label": "FOF-进取型"
+        },
+        {
+          "value": "QDII-FOF",
+          "label": "QDII-FOF"
+        },
+        {
+          "value": "QDII-普通股票",
+          "label": "QDII-普通股票"
+        },
+        {
+          "value": "QDII-混合债",
+          "label": "QDII-混合债"
+        },
+        {
+          "value": "QDII-混合偏股",
+          "label": "QDII-混合偏股"
+        },
+        {
+          "value": "QDII-混合平衡",
+          "label": "QDII-混合平衡"
+        },
+        {
+          "value": "QDII-混合灵活",
+          "label": "QDII-混合灵活"
+        },
+        {
+          "value": "Reits",
+          "label": "Reits"
+        },
+        {
+          "value": "债券型-中短债",
+          "label": "债券型-中短债"
+        },
+        {
+          "value": "债券型-混合一级",
+          "label": "债券型-混合一级"
+        },
+        {
+          "value": "债券型-混合二级",
+          "label": "债券型-混合二级"
+        },
+        {
+          "value": "债券型-长债",
+          "label": "债券型-长债"
+        },
+        {
+          "value": "指数型-其他",
+          "label": "指数型-其他"
+        },
+        {
+          "value": "指数型-固收",
+          "label": "指数型-固收"
+        },
+        {
+          "value": "指数型-海外股票",
+          "label": "指数型-海外股票"
+        },
+        {
+          "value": "指数型-股票",
+          "label": "指数型-股票"
+        },
+        {
+          "value": "混合型-偏债",
+          "label": "混合型-偏债"
+        },
+        {
+          "value": "混合型-偏股",
+          "label": "混合型-偏股"
+        },
+        {
+          "value": "混合型-平衡",
+          "label": "混合型-平衡"
+        },
+        {
+          "value": "混合型-灵活",
+          "label": "混合型-灵活"
+        },
+        {
+          "value": "股票型",
+          "label": "股票型"
+        },
+        {
+          "value": "货币型-普通货币",
+          "label": "货币型-普通货币"
+        }
+      ]
+    },
+    "updated_at": "2026-05-27 21:49:41"
+  }
+}

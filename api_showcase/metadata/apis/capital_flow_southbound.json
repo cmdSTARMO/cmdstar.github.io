@@ -1,0 +1,89 @@
+{
+  "id": "capital_flow_southbound",
+  "title": "南向资金日净买入",
+  "summary": "南向资金、港股通沪/深日净买入，默认返回常用净买入列。",
+  "group": {
+    "level1": "金融数据",
+    "level2": "资金流"
+  },
+  "endpoint": "/capital_flow/southbound/data",
+  "method": "GET",
+  "params": [
+    {
+      "name": "startdate",
+      "type": "date",
+      "required": true,
+      "label": "开始日期",
+      "default": "2025-01-01"
+    },
+    {
+      "name": "enddate",
+      "type": "date",
+      "required": true,
+      "label": "结束日期",
+      "default": "2026-05-25"
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "required": false,
+      "label": "偏移量",
+      "default": "0"
+    },
+    {
+      "name": "format",
+      "type": "select",
+      "required": false,
+      "label": "返回格式",
+      "default": "json",
+      "options": [
+        {
+          "value": "json",
+          "label": "JSON"
+        },
+        {
+          "value": "csv",
+          "label": "CSV"
+        }
+      ]
+    },
+    {
+      "name": "fulldata",
+      "type": "select",
+      "required": false,
+      "label": "完整字段",
+      "default": "no",
+      "options": [
+        {
+          "value": "no",
+          "label": "默认字段"
+        },
+        {
+          "value": "yes",
+          "label": "全部字段"
+        }
+      ]
+    }
+  ],
+  "columns_zh": {
+    "dt": "交易日期",
+    "southbound_daily_netbuy_100m_yuan": "南向资金日净买入（亿元）",
+    "southbound_hk_sh_daily_netbuy_100m_yuan": "港股通（沪）日净买入（亿元）",
+    "southbound_hk_sz_daily_netbuy_100m_yuan": "港股通（深）日净买入（亿元）"
+  },
+  "data_sources": [
+    {
+      "type": "parquet",
+      "glob": "D:/GitHub/cmdstar.github.io/api/data/capital_flow_data/southbound/*.parquet",
+      "date_column": "dt"
+    }
+  ],
+  "stats": {
+    "row_count": 2635,
+    "min_date": "2014-11-18",
+    "max_date": "2026-05-26",
+    "options": {},
+    "updated_at": "2026-05-27 21:49:41"
+  },
+  "hidden_params": []
+}

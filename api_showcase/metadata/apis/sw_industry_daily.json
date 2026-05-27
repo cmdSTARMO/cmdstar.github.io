@@ -1,0 +1,342 @@
+{
+  "id": "sw_industry_daily",
+  "title": "申万一级行业日度行情",
+  "summary": "申万一级行业指数日度开高低收、涨跌幅、成交量与成交额。",
+  "group": {
+    "level1": "金融数据",
+    "level2": "市场行情"
+  },
+  "endpoint": "/sw_industry_daily/data",
+  "method": "GET",
+  "params": [
+    {
+      "name": "startdate",
+      "type": "date",
+      "required": true,
+      "label": "开始日期",
+      "default": "2025-01-01"
+    },
+    {
+      "name": "enddate",
+      "type": "date",
+      "required": true,
+      "label": "结束日期",
+      "default": "2026-05-25"
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "required": false,
+      "label": "偏移量",
+      "default": "0"
+    },
+    {
+      "name": "format",
+      "type": "select",
+      "required": false,
+      "label": "返回格式",
+      "default": "json",
+      "options": [
+        {
+          "value": "json",
+          "label": "JSON"
+        },
+        {
+          "value": "csv",
+          "label": "CSV"
+        }
+      ]
+    },
+    {
+      "name": "swindexcodes",
+      "type": "multiselect",
+      "required": false,
+      "label": "申万行业",
+      "option_source": "swindexcode",
+      "placeholder": "801010,801030"
+    }
+  ],
+  "columns_zh": {
+    "industry_name": "行业名称",
+    "swindexcode": "申万行业代码",
+    "dt": "日期",
+    "open_index": "开盘指数",
+    "high_index": "最高指数",
+    "low_index": "最低指数",
+    "close_index": "收盘指数",
+    "change": "涨跌点数",
+    "pct_chg": "涨跌幅(%)",
+    "volume_100m_shares": "成交量(亿股)",
+    "amount_100m_yuan": "成交额(亿元)"
+  },
+  "static_options": {
+    "swindexcode": [
+      {
+        "value": "801010",
+        "label": "农林牧渔"
+      },
+      {
+        "value": "801030",
+        "label": "基础化工"
+      },
+      {
+        "value": "801040",
+        "label": "钢铁"
+      },
+      {
+        "value": "801050",
+        "label": "有色金属"
+      },
+      {
+        "value": "801080",
+        "label": "电子"
+      },
+      {
+        "value": "801110",
+        "label": "家用电器"
+      },
+      {
+        "value": "801120",
+        "label": "食品饮料"
+      },
+      {
+        "value": "801130",
+        "label": "纺织服饰"
+      },
+      {
+        "value": "801140",
+        "label": "轻工制造"
+      },
+      {
+        "value": "801150",
+        "label": "医药生物"
+      },
+      {
+        "value": "801160",
+        "label": "公用事业"
+      },
+      {
+        "value": "801170",
+        "label": "交通运输"
+      },
+      {
+        "value": "801180",
+        "label": "房地产"
+      },
+      {
+        "value": "801200",
+        "label": "商贸零售"
+      },
+      {
+        "value": "801210",
+        "label": "社会服务"
+      },
+      {
+        "value": "801230",
+        "label": "综合"
+      },
+      {
+        "value": "801710",
+        "label": "建筑材料"
+      },
+      {
+        "value": "801720",
+        "label": "建筑装饰"
+      },
+      {
+        "value": "801730",
+        "label": "电力设备"
+      },
+      {
+        "value": "801740",
+        "label": "国防军工"
+      },
+      {
+        "value": "801750",
+        "label": "计算机"
+      },
+      {
+        "value": "801760",
+        "label": "传媒"
+      },
+      {
+        "value": "801770",
+        "label": "通信"
+      },
+      {
+        "value": "801780",
+        "label": "银行"
+      },
+      {
+        "value": "801790",
+        "label": "非银金融"
+      },
+      {
+        "value": "801880",
+        "label": "汽车"
+      },
+      {
+        "value": "801890",
+        "label": "机械设备"
+      },
+      {
+        "value": "801950",
+        "label": "煤炭"
+      },
+      {
+        "value": "801960",
+        "label": "石油石化"
+      },
+      {
+        "value": "801970",
+        "label": "环保"
+      },
+      {
+        "value": "801980",
+        "label": "美容护理"
+      }
+    ]
+  },
+  "data_sources": [
+    {
+      "type": "parquet",
+      "glob": "D:/GitHub/cmdstar.github.io/api/data/sw_industry_daily_data/**/*.parquet",
+      "date_column": "dt"
+    }
+  ],
+  "stats": {
+    "row_count": 139642,
+    "min_date": "1999-12-30",
+    "max_date": "2026-05-27",
+    "options": {
+      "swindexcode": [
+        {
+          "value": "801010",
+          "label": "农林牧渔"
+        },
+        {
+          "value": "801030",
+          "label": "基础化工"
+        },
+        {
+          "value": "801040",
+          "label": "钢铁"
+        },
+        {
+          "value": "801050",
+          "label": "有色金属"
+        },
+        {
+          "value": "801080",
+          "label": "电子"
+        },
+        {
+          "value": "801110",
+          "label": "家用电器"
+        },
+        {
+          "value": "801120",
+          "label": "食品饮料"
+        },
+        {
+          "value": "801130",
+          "label": "纺织服饰"
+        },
+        {
+          "value": "801140",
+          "label": "轻工制造"
+        },
+        {
+          "value": "801150",
+          "label": "医药生物"
+        },
+        {
+          "value": "801160",
+          "label": "公用事业"
+        },
+        {
+          "value": "801170",
+          "label": "交通运输"
+        },
+        {
+          "value": "801180",
+          "label": "房地产"
+        },
+        {
+          "value": "801200",
+          "label": "商贸零售"
+        },
+        {
+          "value": "801210",
+          "label": "社会服务"
+        },
+        {
+          "value": "801230",
+          "label": "综合"
+        },
+        {
+          "value": "801710",
+          "label": "建筑材料"
+        },
+        {
+          "value": "801720",
+          "label": "建筑装饰"
+        },
+        {
+          "value": "801730",
+          "label": "电力设备"
+        },
+        {
+          "value": "801740",
+          "label": "国防军工"
+        },
+        {
+          "value": "801750",
+          "label": "计算机"
+        },
+        {
+          "value": "801760",
+          "label": "传媒"
+        },
+        {
+          "value": "801770",
+          "label": "通信"
+        },
+        {
+          "value": "801780",
+          "label": "银行"
+        },
+        {
+          "value": "801790",
+          "label": "非银金融"
+        },
+        {
+          "value": "801880",
+          "label": "汽车"
+        },
+        {
+          "value": "801890",
+          "label": "机械设备"
+        },
+        {
+          "value": "801950",
+          "label": "煤炭"
+        },
+        {
+          "value": "801960",
+          "label": "石油石化"
+        },
+        {
+          "value": "801970",
+          "label": "环保"
+        },
+        {
+          "value": "801980",
+          "label": "美容护理"
+        }
+      ]
+    },
+    "updated_at": "2026-05-27 21:49:24"
+  },
+  "hidden_params": []
+}

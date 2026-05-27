@@ -105,7 +105,7 @@ async def get_index_daily(
             FROM ({union_sql})
             WHERE dt BETWEEN ? AND ?
             {secid_clause}
-            ORDER BY secid ASC, dt ASC
+            ORDER BY dt DESC, secid ASC
             LIMIT ? OFFSET ?
         """
         params = file_params + [startdate.isoformat(), enddate.isoformat()] + secid_params + [limit, offset]

@@ -200,7 +200,7 @@ async def get_southbound_netbuy(
               {select_sql}
             FROM ({union_sql})
             WHERE dt BETWEEN ? AND ?
-            ORDER BY dt ASC
+            ORDER BY dt DESC
             LIMIT ? OFFSET ?
         """
         params = month_files + [startdate.isoformat(), enddate.isoformat(), limit, offset]
@@ -266,7 +266,7 @@ async def get_northbound_dealamt(
               {select_sql}
             FROM ({union_sql})
             WHERE dt BETWEEN ? AND ?
-            ORDER BY dt ASC
+            ORDER BY dt DESC
             LIMIT ? OFFSET ?
         """
         params = month_files + [startdate.isoformat(), enddate.isoformat(), limit, offset]

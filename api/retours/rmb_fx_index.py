@@ -116,7 +116,7 @@ async def get_rmb_fx_index(
               {select_sql}
             FROM ({union_sql})
             WHERE dt BETWEEN ? AND ?
-            ORDER BY dt ASC
+            ORDER BY dt DESC
             LIMIT ? OFFSET ?
         """
         params = month_files + [startdate.isoformat(), enddate.isoformat(), limit, offset]

@@ -1,0 +1,187 @@
+{
+  "id": "ncd_aaa_yield_curve",
+  "title": "同业存单 AAA 收益率曲线",
+  "summary": "中国货币网同业存单 AAA 曲线，支持按期限筛选。",
+  "group": {
+    "level1": "金融数据",
+    "level2": "利率曲线"
+  },
+  "endpoint": "/ncd_aaa_yield_curve/data",
+  "method": "GET",
+  "params": [
+    {
+      "name": "startdate",
+      "type": "date",
+      "required": true,
+      "label": "开始日期",
+      "default": "2025-01-01"
+    },
+    {
+      "name": "enddate",
+      "type": "date",
+      "required": true,
+      "label": "结束日期",
+      "default": "2026-05-25"
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "required": false,
+      "label": "偏移量",
+      "default": "0"
+    },
+    {
+      "name": "format",
+      "type": "select",
+      "required": false,
+      "label": "返回格式",
+      "default": "json",
+      "options": [
+        {
+          "value": "json",
+          "label": "JSON"
+        },
+        {
+          "value": "csv",
+          "label": "CSV"
+        }
+      ]
+    },
+    {
+      "name": "term_year",
+      "type": "multiselect",
+      "required": false,
+      "label": "期限(年)",
+      "option_source": "term_year",
+      "placeholder": "0.1,0.25,0.5"
+    }
+  ],
+  "columns_zh": {
+    "dt": "日期",
+    "term_year": "期限(年)",
+    "maturity_yield": "到期收益率(%)",
+    "current_yield": "当前收益率(%)",
+    "future_yield": "远期收益率(%)"
+  },
+  "data_sources": [
+    {
+      "type": "parquet",
+      "glob": "D:/GitHub/cmdstar.github.io/api/data/ncd_aaa_yield_curve_data/*.parquet",
+      "date_column": "dt",
+      "option_columns": [
+        "term_year"
+      ]
+    }
+  ],
+  "stats": {
+    "row_count": 1600,
+    "min_date": "2026-02-24",
+    "max_date": "2026-05-26",
+    "options": {
+      "term_year": [
+        {
+          "value": "0.019",
+          "label": "0.019"
+        },
+        {
+          "value": "0.038",
+          "label": "0.038"
+        },
+        {
+          "value": "0.058",
+          "label": "0.058"
+        },
+        {
+          "value": "0.083",
+          "label": "0.083"
+        },
+        {
+          "value": "0.1",
+          "label": "0.1"
+        },
+        {
+          "value": "0.125",
+          "label": "0.125"
+        },
+        {
+          "value": "0.167",
+          "label": "0.167"
+        },
+        {
+          "value": "0.2",
+          "label": "0.2"
+        },
+        {
+          "value": "0.208",
+          "label": "0.208"
+        },
+        {
+          "value": "0.25",
+          "label": "0.25"
+        },
+        {
+          "value": "0.3",
+          "label": "0.3"
+        },
+        {
+          "value": "0.333",
+          "label": "0.333"
+        },
+        {
+          "value": "0.4",
+          "label": "0.4"
+        },
+        {
+          "value": "0.417",
+          "label": "0.417"
+        },
+        {
+          "value": "0.5",
+          "label": "0.5"
+        },
+        {
+          "value": "0.583",
+          "label": "0.583"
+        },
+        {
+          "value": "0.6",
+          "label": "0.6"
+        },
+        {
+          "value": "0.667",
+          "label": "0.667"
+        },
+        {
+          "value": "0.7",
+          "label": "0.7"
+        },
+        {
+          "value": "0.75",
+          "label": "0.75"
+        },
+        {
+          "value": "0.8",
+          "label": "0.8"
+        },
+        {
+          "value": "0.833",
+          "label": "0.833"
+        },
+        {
+          "value": "0.9",
+          "label": "0.9"
+        },
+        {
+          "value": "0.917",
+          "label": "0.917"
+        },
+        {
+          "value": "1.0",
+          "label": "1.0"
+        }
+      ]
+    },
+    "updated_at": "2026-05-27 21:49:41"
+  },
+  "hidden_params": []
+}

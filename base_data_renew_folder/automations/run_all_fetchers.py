@@ -48,6 +48,8 @@ FETCHERS = [
     {"name": "ERP HS300 10Y", "script": "erp_hs300_10y_fetcher.py"},
 ]
 
+METADATA_UPDATER = {"name": "API showcase metadata", "script": "update_api_showcase_metadata.py"}
+
 CSV_FIELDS = [
     "run_id",
     "run_date",
@@ -265,6 +267,15 @@ def main():
             f"[run_all_fetchers] {item['name']} -> {result['status']}; "
             f"updated_rows={result['updated_rows']}; duration={result['duration_seconds']}s"
         )
+
+    print(f"[run_all_fetchers] start {METADATA_UPDATER['name']} ({METADATA_UPDATER['script']})")
+    metadata_result = run_fetcher(METADATA_UPDATER, run_id)
+    append_csv(metadata_result)
+    results.append(metadata_result)
+    print(
+        f"[run_all_fetchers] {METADATA_UPDATER['name']} -> {metadata_result['status']}; "
+        f"duration={metadata_result['duration_seconds']}s"
+    )
 
     ended_at = now_text()
     send_feishu_card(results, run_id, started_at, ended_at)

@@ -1,0 +1,77 @@
+{
+  "id": "shibor_curve",
+  "title": "Shibor 利率曲线",
+  "summary": "Shibor 隔夜至一年期限利率曲线。",
+  "group": {
+    "level1": "金融数据",
+    "level2": "利率曲线"
+  },
+  "endpoint": "/shibor_curve/data",
+  "method": "GET",
+  "params": [
+    {
+      "name": "startdate",
+      "type": "date",
+      "required": true,
+      "label": "开始日期",
+      "default": "2025-01-01"
+    },
+    {
+      "name": "enddate",
+      "type": "date",
+      "required": true,
+      "label": "结束日期",
+      "default": "2026-05-25"
+    },
+    {
+      "name": "offset",
+      "type": "number",
+      "required": false,
+      "label": "偏移量",
+      "default": "0"
+    },
+    {
+      "name": "format",
+      "type": "select",
+      "required": false,
+      "label": "返回格式",
+      "default": "json",
+      "options": [
+        {
+          "value": "json",
+          "label": "JSON"
+        },
+        {
+          "value": "csv",
+          "label": "CSV"
+        }
+      ]
+    }
+  ],
+  "columns_zh": {
+    "dt": "日期",
+    "shibor_on": "隔夜(O/N)",
+    "shibor_1w": "1周",
+    "shibor_2w": "2周",
+    "shibor_1m": "1月",
+    "shibor_3m": "3月",
+    "shibor_6m": "6月",
+    "shibor_9m": "9月",
+    "shibor_1y": "1年"
+  },
+  "data_sources": [
+    {
+      "type": "parquet",
+      "glob": "D:/GitHub/cmdstar.github.io/api/data/shibor_curve_data/*.parquet",
+      "date_column": "dt"
+    }
+  ],
+  "stats": {
+    "row_count": 0,
+    "min_date": null,
+    "max_date": null,
+    "options": {},
+    "updated_at": "2026-05-27 21:49:41"
+  },
+  "hidden_params": []
+}

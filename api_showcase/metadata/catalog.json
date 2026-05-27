@@ -1,0 +1,755 @@
+{
+  "title": "HuangDapao API Catalog",
+  "base_url": "https://api.huangdapao.com",
+  "health_endpoint": "/health",
+  "generated_at": "2026-05-27 21:49:42",
+  "apis": [
+    {
+      "id": "margin_total_merged",
+      "title": "融资融券余额合并",
+      "endpoint": "/margin/merged/total",
+      "group": {
+        "level1": "金融数据",
+        "level2": "融资融券"
+      },
+      "file": "apis/margin_total_merged.json",
+      "stats": {
+        "row_count": 7338,
+        "min_date": "2010-03-31",
+        "max_date": "2026-05-26",
+        "options": {},
+        "updated_at": "2026-05-27 21:49:10"
+      }
+    },
+    {
+      "id": "szse_margin_total",
+      "title": "深交所融资融券总量",
+      "endpoint": "/margin/szse/total",
+      "group": {
+        "level1": "金融数据",
+        "level2": "融资融券"
+      },
+      "file": "apis/szse_margin_total.json",
+      "stats": {
+        "row_count": 3417,
+        "min_date": "2012-05-02",
+        "max_date": "2026-05-26",
+        "options": {},
+        "updated_at": "2026-05-27 21:49:11"
+      }
+    },
+    {
+      "id": "sse_margin_total",
+      "title": "上交所融资融券总量",
+      "endpoint": "/margin/sse/total",
+      "group": {
+        "level1": "金融数据",
+        "level2": "融资融券"
+      },
+      "file": "apis/sse_margin_total.json",
+      "stats": {
+        "row_count": 3921,
+        "min_date": "2010-03-31",
+        "max_date": "2026-05-26",
+        "options": {},
+        "updated_at": "2026-05-27 21:49:11"
+      }
+    },
+    {
+      "id": "szse_margin_detail",
+      "title": "深交所融资融券明细",
+      "endpoint": "/margin/szse/details",
+      "group": {
+        "level1": "金融数据",
+        "level2": "融资融券"
+      },
+      "file": "apis/szse_margin_detail.json",
+      "stats": {
+        "row_count": 3005165,
+        "min_date": "2012-05-02",
+        "max_date": "2026-05-26",
+        "options": {},
+        "updated_at": "2026-05-27 21:49:11"
+      }
+    },
+    {
+      "id": "sse_margin_detail",
+      "title": "上交所融资融券明细",
+      "endpoint": "/margin/sse/details",
+      "group": {
+        "level1": "金融数据",
+        "level2": "融资融券"
+      },
+      "file": "apis/sse_margin_detail.json",
+      "stats": {
+        "row_count": 3285207,
+        "min_date": "2010-03-31",
+        "max_date": "2026-05-25",
+        "options": {},
+        "updated_at": "2026-05-27 21:49:12"
+      }
+    },
+    {
+      "id": "sw_industry_daily",
+      "title": "申万一级行业日度行情",
+      "endpoint": "/sw_industry_daily/data",
+      "group": {
+        "level1": "金融数据",
+        "level2": "市场行情"
+      },
+      "file": "apis/sw_industry_daily.json",
+      "stats": {
+        "row_count": 139642,
+        "min_date": "1999-12-30",
+        "max_date": "2026-05-27",
+        "options": {
+          "swindexcode": [
+            {
+              "value": "801010",
+              "label": "农林牧渔"
+            },
+            {
+              "value": "801030",
+              "label": "基础化工"
+            },
+            {
+              "value": "801040",
+              "label": "钢铁"
+            },
+            {
+              "value": "801050",
+              "label": "有色金属"
+            },
+            {
+              "value": "801080",
+              "label": "电子"
+            },
+            {
+              "value": "801110",
+              "label": "家用电器"
+            },
+            {
+              "value": "801120",
+              "label": "食品饮料"
+            },
+            {
+              "value": "801130",
+              "label": "纺织服饰"
+            },
+            {
+              "value": "801140",
+              "label": "轻工制造"
+            },
+            {
+              "value": "801150",
+              "label": "医药生物"
+            },
+            {
+              "value": "801160",
+              "label": "公用事业"
+            },
+            {
+              "value": "801170",
+              "label": "交通运输"
+            },
+            {
+              "value": "801180",
+              "label": "房地产"
+            },
+            {
+              "value": "801200",
+              "label": "商贸零售"
+            },
+            {
+              "value": "801210",
+              "label": "社会服务"
+            },
+            {
+              "value": "801230",
+              "label": "综合"
+            },
+            {
+              "value": "801710",
+              "label": "建筑材料"
+            },
+            {
+              "value": "801720",
+              "label": "建筑装饰"
+            },
+            {
+              "value": "801730",
+              "label": "电力设备"
+            },
+            {
+              "value": "801740",
+              "label": "国防军工"
+            },
+            {
+              "value": "801750",
+              "label": "计算机"
+            },
+            {
+              "value": "801760",
+              "label": "传媒"
+            },
+            {
+              "value": "801770",
+              "label": "通信"
+            },
+            {
+              "value": "801780",
+              "label": "银行"
+            },
+            {
+              "value": "801790",
+              "label": "非银金融"
+            },
+            {
+              "value": "801880",
+              "label": "汽车"
+            },
+            {
+              "value": "801890",
+              "label": "机械设备"
+            },
+            {
+              "value": "801950",
+              "label": "煤炭"
+            },
+            {
+              "value": "801960",
+              "label": "石油石化"
+            },
+            {
+              "value": "801970",
+              "label": "环保"
+            },
+            {
+              "value": "801980",
+              "label": "美容护理"
+            }
+          ]
+        },
+        "updated_at": "2026-05-27 21:49:24"
+      }
+    },
+    {
+      "id": "global_market_daily",
+      "title": "全球主要市场指数日度行情",
+      "endpoint": "/global_market_daily/data",
+      "group": {
+        "level1": "金融数据",
+        "level2": "市场行情"
+      },
+      "file": "apis/global_market_daily.json",
+      "stats": {
+        "row_count": 195644,
+        "min_date": "1999-12-30",
+        "max_date": "2026-05-27",
+        "options": {
+          "symbol": [
+            {
+              "value": "^IXIC",
+              "label": "纳斯达克"
+            },
+            {
+              "value": "^DJI",
+              "label": "道琼斯"
+            },
+            {
+              "value": "^SPX",
+              "label": "标普500"
+            },
+            {
+              "value": "^VIX",
+              "label": "恐慌指数"
+            },
+            {
+              "value": "^GSPTSE",
+              "label": "富时加拿大"
+            },
+            {
+              "value": "^BVSP",
+              "label": "巴西IBOVESPA"
+            },
+            {
+              "value": "^MXX",
+              "label": "墨西哥IPC"
+            },
+            {
+              "value": "^MERV",
+              "label": "阿根廷MERVAL"
+            },
+            {
+              "value": "^N100",
+              "label": "泛欧100"
+            },
+            {
+              "value": "^FTSE",
+              "label": "英国富时100"
+            },
+            {
+              "value": "^FTAI",
+              "label": "英国富时AIM全股"
+            },
+            {
+              "value": "^FCHI",
+              "label": "法国CAC40"
+            },
+            {
+              "value": "^GDAXI",
+              "label": "德国DAX"
+            },
+            {
+              "value": "^SSMI",
+              "label": "瑞士SMI"
+            },
+            {
+              "value": "FTSEMIB.MI",
+              "label": "意大利MIB"
+            },
+            {
+              "value": "^AEX",
+              "label": "荷兰AEX"
+            },
+            {
+              "value": "^BFX",
+              "label": "比利时BEL20"
+            },
+            {
+              "value": "^STOXX50E",
+              "label": "欧元区STOXX50"
+            },
+            {
+              "value": "^N225",
+              "label": "日经225"
+            },
+            {
+              "value": "^BSESN",
+              "label": "孟买SENSEX"
+            },
+            {
+              "value": "^SET.BK",
+              "label": "泰国SET"
+            },
+            {
+              "value": "^KS11",
+              "label": "韩国KOSPI"
+            },
+            {
+              "value": "^STI",
+              "label": "新加坡STI"
+            },
+            {
+              "value": "^JKSE",
+              "label": "印尼综合指数"
+            },
+            {
+              "value": "^KLSE",
+              "label": "马来西亚KLCI"
+            },
+            {
+              "value": "^AORD",
+              "label": "澳大利亚综合指数"
+            },
+            {
+              "value": "^NZ50",
+              "label": "新西兰50"
+            },
+            {
+              "value": "^TA125.TA",
+              "label": "以色列TA-125"
+            },
+            {
+              "value": "DFMGI.AE",
+              "label": "迪拜DFM"
+            },
+            {
+              "value": "^TASI.SR",
+              "label": "沙特TASI"
+            },
+            {
+              "value": "^J203.JO",
+              "label": "南非全股"
+            }
+          ]
+        },
+        "updated_at": "2026-05-27 21:49:41"
+      }
+    },
+    {
+      "id": "ncd_aaa_yield_curve",
+      "title": "同业存单 AAA 收益率曲线",
+      "endpoint": "/ncd_aaa_yield_curve/data",
+      "group": {
+        "level1": "金融数据",
+        "level2": "利率曲线"
+      },
+      "file": "apis/ncd_aaa_yield_curve.json",
+      "stats": {
+        "row_count": 1600,
+        "min_date": "2026-02-24",
+        "max_date": "2026-05-26",
+        "options": {
+          "term_year": [
+            {
+              "value": "0.019",
+              "label": "0.019"
+            },
+            {
+              "value": "0.038",
+              "label": "0.038"
+            },
+            {
+              "value": "0.058",
+              "label": "0.058"
+            },
+            {
+              "value": "0.083",
+              "label": "0.083"
+            },
+            {
+              "value": "0.1",
+              "label": "0.1"
+            },
+            {
+              "value": "0.125",
+              "label": "0.125"
+            },
+            {
+              "value": "0.167",
+              "label": "0.167"
+            },
+            {
+              "value": "0.2",
+              "label": "0.2"
+            },
+            {
+              "value": "0.208",
+              "label": "0.208"
+            },
+            {
+              "value": "0.25",
+              "label": "0.25"
+            },
+            {
+              "value": "0.3",
+              "label": "0.3"
+            },
+            {
+              "value": "0.333",
+              "label": "0.333"
+            },
+            {
+              "value": "0.4",
+              "label": "0.4"
+            },
+            {
+              "value": "0.417",
+              "label": "0.417"
+            },
+            {
+              "value": "0.5",
+              "label": "0.5"
+            },
+            {
+              "value": "0.583",
+              "label": "0.583"
+            },
+            {
+              "value": "0.6",
+              "label": "0.6"
+            },
+            {
+              "value": "0.667",
+              "label": "0.667"
+            },
+            {
+              "value": "0.7",
+              "label": "0.7"
+            },
+            {
+              "value": "0.75",
+              "label": "0.75"
+            },
+            {
+              "value": "0.8",
+              "label": "0.8"
+            },
+            {
+              "value": "0.833",
+              "label": "0.833"
+            },
+            {
+              "value": "0.9",
+              "label": "0.9"
+            },
+            {
+              "value": "0.917",
+              "label": "0.917"
+            },
+            {
+              "value": "1.0",
+              "label": "1.0"
+            }
+          ]
+        },
+        "updated_at": "2026-05-27 21:49:41"
+      }
+    },
+    {
+      "id": "capital_flow_southbound",
+      "title": "南向资金日净买入",
+      "endpoint": "/capital_flow/southbound/data",
+      "group": {
+        "level1": "金融数据",
+        "level2": "资金流"
+      },
+      "file": "apis/capital_flow_southbound.json",
+      "stats": {
+        "row_count": 2635,
+        "min_date": "2014-11-18",
+        "max_date": "2026-05-26",
+        "options": {},
+        "updated_at": "2026-05-27 21:49:41"
+      }
+    },
+    {
+      "id": "capital_flow_northbound",
+      "title": "北向资金成交额",
+      "endpoint": "/capital_flow/northbound/data",
+      "group": {
+        "level1": "金融数据",
+        "level2": "资金流"
+      },
+      "file": "apis/capital_flow_northbound.json",
+      "stats": {
+        "row_count": 2199,
+        "min_date": "2016-12-05",
+        "max_date": "2026-05-26",
+        "options": {},
+        "updated_at": "2026-05-27 21:49:41"
+      }
+    },
+    {
+      "id": "fund_new_issue",
+      "title": "新发基金数据",
+      "endpoint": "/fund_new_issue/data",
+      "group": {
+        "level1": "金融数据",
+        "level2": "基金"
+      },
+      "file": "apis/fund_new_issue.json",
+      "stats": {
+        "row_count": 8166,
+        "min_date": "2013-08-20",
+        "max_date": "2026-05-26",
+        "options": {
+          "fund_type": [
+            {
+              "value": "FOF-均衡型",
+              "label": "FOF-均衡型"
+            },
+            {
+              "value": "FOF-稳健型",
+              "label": "FOF-稳健型"
+            },
+            {
+              "value": "FOF-进取型",
+              "label": "FOF-进取型"
+            },
+            {
+              "value": "QDII-FOF",
+              "label": "QDII-FOF"
+            },
+            {
+              "value": "QDII-普通股票",
+              "label": "QDII-普通股票"
+            },
+            {
+              "value": "QDII-混合债",
+              "label": "QDII-混合债"
+            },
+            {
+              "value": "QDII-混合偏股",
+              "label": "QDII-混合偏股"
+            },
+            {
+              "value": "QDII-混合平衡",
+              "label": "QDII-混合平衡"
+            },
+            {
+              "value": "QDII-混合灵活",
+              "label": "QDII-混合灵活"
+            },
+            {
+              "value": "Reits",
+              "label": "Reits"
+            },
+            {
+              "value": "债券型-中短债",
+              "label": "债券型-中短债"
+            },
+            {
+              "value": "债券型-混合一级",
+              "label": "债券型-混合一级"
+            },
+            {
+              "value": "债券型-混合二级",
+              "label": "债券型-混合二级"
+            },
+            {
+              "value": "债券型-长债",
+              "label": "债券型-长债"
+            },
+            {
+              "value": "指数型-其他",
+              "label": "指数型-其他"
+            },
+            {
+              "value": "指数型-固收",
+              "label": "指数型-固收"
+            },
+            {
+              "value": "指数型-海外股票",
+              "label": "指数型-海外股票"
+            },
+            {
+              "value": "指数型-股票",
+              "label": "指数型-股票"
+            },
+            {
+              "value": "混合型-偏债",
+              "label": "混合型-偏债"
+            },
+            {
+              "value": "混合型-偏股",
+              "label": "混合型-偏股"
+            },
+            {
+              "value": "混合型-平衡",
+              "label": "混合型-平衡"
+            },
+            {
+              "value": "混合型-灵活",
+              "label": "混合型-灵活"
+            },
+            {
+              "value": "股票型",
+              "label": "股票型"
+            },
+            {
+              "value": "货币型-普通货币",
+              "label": "货币型-普通货币"
+            }
+          ]
+        },
+        "updated_at": "2026-05-27 21:49:41"
+      }
+    },
+    {
+      "id": "rmb_fx_index",
+      "title": "人民币汇率指数",
+      "endpoint": "/rmb_fx_index/data",
+      "group": {
+        "level1": "金融数据",
+        "level2": "宏观指标"
+      },
+      "file": "apis/rmb_fx_index.json",
+      "stats": {
+        "row_count": 0,
+        "min_date": null,
+        "max_date": null,
+        "options": {},
+        "updated_at": "2026-05-27 21:49:41"
+      }
+    },
+    {
+      "id": "shibor_curve",
+      "title": "Shibor 利率曲线",
+      "endpoint": "/shibor_curve/data",
+      "group": {
+        "level1": "金融数据",
+        "level2": "利率曲线"
+      },
+      "file": "apis/shibor_curve.json",
+      "stats": {
+        "row_count": 0,
+        "min_date": null,
+        "max_date": null,
+        "options": {},
+        "updated_at": "2026-05-27 21:49:41"
+      }
+    },
+    {
+      "id": "erp_hs300_10y",
+      "title": "沪深300 ERP",
+      "endpoint": "/erp_hs300_10y/data",
+      "group": {
+        "level1": "金融数据",
+        "level2": "派生指标"
+      },
+      "file": "apis/erp_hs300_10y.json",
+      "stats": {
+        "row_count": 725,
+        "min_date": "2023-05-26",
+        "max_date": "2026-05-26",
+        "options": {},
+        "updated_at": "2026-05-27 21:49:41"
+      }
+    },
+    {
+      "id": "sse_etf_shares",
+      "title": "上交所 ETF 份额",
+      "endpoint": "/sse_etf_shares/data",
+      "group": {
+        "level1": "金融数据",
+        "level2": "ETF"
+      },
+      "file": "apis/sse_etf_shares.json",
+      "stats": {
+        "row_count": 856761,
+        "min_date": "2012-01-04",
+        "max_date": "2026-05-26",
+        "options": {
+          "etf_type": [
+            {
+              "value": "其他",
+              "label": "其他"
+            },
+            {
+              "value": "单市",
+              "label": "单市"
+            },
+            {
+              "value": "跨境",
+              "label": "跨境"
+            },
+            {
+              "value": "跨市",
+              "label": "跨市"
+            }
+          ]
+        },
+        "updated_at": "2026-05-27 21:49:42"
+      }
+    },
+    {
+      "id": "szse_etf_shares",
+      "title": "深交所 ETF 规模",
+      "endpoint": "/szse_etf_shares/shares",
+      "group": {
+        "level1": "金融数据",
+        "level2": "ETF"
+      },
+      "file": "apis/szse_etf_shares.json",
+      "stats": {
+        "row_count": 118391,
+        "min_date": "2025-07-18",
+        "max_date": "2026-05-26",
+        "options": {},
+        "updated_at": "2026-05-27 21:49:42"
+      }
+    }
+  ]
+}
