@@ -30,6 +30,7 @@ PATCH_CURRENT = os.getenv("SW_INDUSTRY_DAILY_PATCH_CURRENT", "1") == "1"
 VERIFY_SSL = os.getenv("SW_INDUSTRY_DAILY_VERIFY_SSL", "0") == "1"
 COOKIE = os.getenv("SW_INDUSTRY_DAILY_COOKIE", "").strip()
 CSRF_TOKEN = os.getenv("SW_INDUSTRY_DAILY_CSRFTOKEN", "").strip()
+DEBUG_HTTP = os.getenv("SW_INDUSTRY_DAILY_DEBUG_HTTP", "0") == "1"
 
 TREND_URL = "https://www.swsresearch.com/institute-sw/api/index_publish/trend/"
 CURRENT_URL = "https://www.swsresearch.com/institute-sw/api/index_publish/current/"
@@ -164,7 +165,20 @@ def _to_number(value):
 
 def fetch_trend(session: requests.Session, code: str, start_dt: date, end_dt: date) -> pd.DataFrame:
     params = {"swindexcode": code, "period": "DAY"}
+    url = requests.Request("GET", TREND_URL, params=params).prepare().url
+    started = time.time()
+    if DEBUG_HTTP:
+        print(f"[{code}] trend request url={url}", flush=True)
     resp = session.get(TREND_URL, params=params, timeout=(CONNECT_TIMEOUT_SECONDS, READ_TIMEOUT_SECONDS))
+    elapsed = time.time() - started
+    if DEBUG_HTTP:
+        head = (resp.text or "").strip()[:300].replace("\n", "\\n")
+        print(
+            f"[{code}] trend response status={resp.status_code}; "
+            f"elapsed={elapsed:.2f}s; content_type={resp.headers.get('Content-Type', '')}; "
+            f"encoding={resp.encoding}; bytes={len(resp.content or b'')}; head={head}",
+            flush=True,
+        )
     resp.raise_for_status()
     try:
         payload = resp.json()
@@ -231,7 +245,20 @@ def fetch_current_patch(session: requests.Session, code: str, end_dt: date) -> p
         "sortField": "",
         "rule": "",
     }
+    url = requests.Request("GET", CURRENT_URL, params=params).prepare().url
+    started = time.time()
+    if DEBUG_HTTP:
+        print(f"[{code}] current request url={url}", flush=True)
     resp = session.get(CURRENT_URL, params=params, timeout=(CONNECT_TIMEOUT_SECONDS, READ_TIMEOUT_SECONDS))
+    elapsed = time.time() - started
+    if DEBUG_HTTP:
+        head = (resp.text or "").strip()[:300].replace("\n", "\\n")
+        print(
+            f"[{code}] current response status={resp.status_code}; "
+            f"elapsed={elapsed:.2f}s; content_type={resp.headers.get('Content-Type', '')}; "
+            f"encoding={resp.encoding}; bytes={len(resp.content or b'')}; head={head}",
+            flush=True,
+        )
     resp.raise_for_status()
     try:
         payload = resp.json()
@@ -301,9 +328,11 @@ def run(parquet_dir: str = PARQUET_DIR):
     print(
         "SW industry daily request config: "
         f"ssl_verify={VERIFY_SSL}; timeout=({CONNECT_TIMEOUT_SECONDS}, {READ_TIMEOUT_SECONDS}); "
-        f"retries={RETRIES}; retry_sleep={RETRY_SLEEP_SECONDS}",
+        f"retries={RETRIES}; retry_sleep={RETRY_SLEEP_SECONDS}; debug_http={DEBUG_HTTP}",
         flush=True,
     )
+    if DEBUG_HTTP:
+        print(f"SW industry daily headers: {dict(session.headers)}", flush=True)
 
     total_written = 0
     total_codes = len(INDUSTRIES)
