@@ -80,30 +80,13 @@
     }
   ],
   "stats": {
-    "row_count": 857609,
-    "min_date": "2012-01-04",
-    "max_date": "2026-05-27",
+    "row_count": 0,
+    "min_date": null,
+    "max_date": null,
     "options": {
-      "etf_type": [
-        {
-          "value": "其他",
-          "label": "其他"
-        },
-        {
-          "value": "单市",
-          "label": "单市"
-        },
-        {
-          "value": "跨境",
-          "label": "跨境"
-        },
-        {
-          "value": "跨市",
-          "label": "跨市"
-        }
-      ]
+      "etf_type": []
     },
-    "updated_at": "2026-05-28 13:10:37"
+    "updated_at": "2026-05-28 13:23:16"
   },
   "hidden_params": []
 }
