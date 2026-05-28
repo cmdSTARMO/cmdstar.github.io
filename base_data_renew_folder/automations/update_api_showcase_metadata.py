@@ -43,6 +43,7 @@ DEFAULT_APIS = [
             "sh_margin_balance_100m_yuan": "上交所融资余额（亿元）", "total_margin_balance_100m_yuan": "总融资余额（亿元）",
             "sz_short_value_100m_yuan": "深交所融券余额（亿元）", "sh_short_value_100m_yuan": "上交所融券余额（亿元）",
             "total_short_value_100m_yuan": "总融券余额（亿元）",
+            "total_margin_and_short_balance_100m_yuan": "融资融券余额合计（亿元）",
         },
         "data_sources": [
             {"type": "parquet", "glob": p("margin_szse_tab1_data/*.parquet"), "date_column": "dt"},
@@ -57,7 +58,15 @@ DEFAULT_APIS = [
         "endpoint": "/margin/szse/total",
         "method": "GET",
         "params": COMMON_DATE_PARAMS,
-        "columns_zh": {"dt": "日期", "margin_balance": "融资余额(元)", "margin_buy_amt": "融资买入额(元)", "short_qty": "融券余量", "short_value": "融券余量金额(元)", "short_sell_qty": "融券卖出量", "marginnshort_total": "融资融券余额(元)"},
+        "columns_zh": {
+            "dt": "日期",
+            "margin_balance": "融资余额(亿元)",
+            "margin_buy_amt": "融资买入额(亿元)",
+            "short_qty": "融券余量(亿股/亿份)",
+            "short_value": "融券余额(亿元)",
+            "short_sell_qty": "融券卖出量(亿股/亿份)",
+            "marginnshort_total": "融资融券余额(亿元)",
+        },
         "data_sources": [{"type": "parquet", "glob": p("margin_szse_tab1_data/*.parquet"), "date_column": "dt"}],
     },
     {

@@ -50,12 +50,12 @@
   ],
   "columns_zh": {
     "dt": "日期",
-    "margin_balance": "融资余额(元)",
-    "margin_buy_amt": "融资买入额(元)",
-    "short_qty": "融券余量",
-    "short_value": "融券余量金额(元)",
-    "short_sell_qty": "融券卖出量",
-    "marginnshort_total": "融资融券余额(元)"
+    "margin_balance": "融资余额(亿元)",
+    "margin_buy_amt": "融资买入额(亿元)",
+    "short_qty": "融券余量(亿股/亿份)",
+    "short_value": "融券余额(亿元)",
+    "short_sell_qty": "融券卖出量(亿股/亿份)",
+    "marginnshort_total": "融资融券余额(亿元)"
   },
   "data_sources": [
     {
@@ -65,11 +65,11 @@
     }
   ],
   "stats": {
-    "row_count": 0,
-    "min_date": null,
-    "max_date": null,
+    "row_count": 3418,
+    "min_date": "2012-05-02",
+    "max_date": "2026-05-27",
     "options": {},
-    "updated_at": "2026-05-28 13:23:16"
+    "updated_at": "2026-05-28 16:54:04"
   },
   "hidden_params": []
 }

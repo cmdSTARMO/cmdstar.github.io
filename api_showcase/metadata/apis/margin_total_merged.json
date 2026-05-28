@@ -55,7 +55,8 @@
     "total_margin_balance_100m_yuan": "总融资余额（亿元）",
     "sz_short_value_100m_yuan": "深交所融券余额（亿元）",
     "sh_short_value_100m_yuan": "上交所融券余额（亿元）",
-    "total_short_value_100m_yuan": "总融券余额（亿元）"
+    "total_short_value_100m_yuan": "总融券余额（亿元）",
+    "total_margin_and_short_balance_100m_yuan": "融资融券余额合计（亿元）"
   },
   "data_sources": [
     {
@@ -70,11 +71,11 @@
     }
   ],
   "stats": {
-    "row_count": 0,
-    "min_date": null,
-    "max_date": null,
+    "row_count": 7340,
+    "min_date": "2010-03-31",
+    "max_date": "2026-05-27",
     "options": {},
-    "updated_at": "2026-05-28 13:23:16"
+    "updated_at": "2026-05-28 16:54:04"
   },
   "hidden_params": []
 }

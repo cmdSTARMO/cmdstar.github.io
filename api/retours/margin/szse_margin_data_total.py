@@ -30,12 +30,12 @@ class MarginTotalRecord(BaseModel):
 
 COLUMNS_ZH = {
     "dt": "日期",
-    "margin_balance": "融资余额(元)",
-    "margin_buy_amt": "融资买入额(元)",
-    "short_qty": "融券余量(股/份)",
-    "short_value": "融券余额(元)",
-    "short_sell_qty": "融券卖出量(股/份)",
-    "marginnshort_total": "融资融券余额(元)",
+    "margin_balance": "融资余额(亿元)",
+    "margin_buy_amt": "融资买入额(亿元)",
+    "short_qty": "融券余量(亿股/亿份)",
+    "short_value": "融券余额(亿元)",
+    "short_sell_qty": "融券卖出量(亿股/亿份)",
+    "marginnshort_total": "融资融券余额(亿元)",
 }
 
 

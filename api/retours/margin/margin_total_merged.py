@@ -103,15 +103,18 @@ async def get_margin_total_merged(
             merged AS (
               SELECT
                 sz.dt AS dt,
-                sz.margin_balance / 100000000.0 AS sz_margin_balance_100m_yuan,
+                sz.margin_balance AS sz_margin_balance_100m_yuan,
                 sh.margin_balance / 100000000.0 AS sh_margin_balance_100m_yuan,
-                (sz.margin_balance + sh.margin_balance) / 100000000.0 AS total_margin_balance_100m_yuan,
-                sz.short_value / 100000000.0 AS sz_short_value_100m_yuan,
+                sz.margin_balance + sh.margin_balance / 100000000.0 AS total_margin_balance_100m_yuan,
+                sz.short_value AS sz_short_value_100m_yuan,
                 sh.short_value / 100000000.0 AS sh_short_value_100m_yuan,
-                (sz.short_value + sh.short_value) / 100000000.0 AS total_short_value_100m_yuan,
+                sz.short_value + sh.short_value / 100000000.0 AS total_short_value_100m_yuan,
                 (
-                  sz.margin_balance + sh.margin_balance + sz.short_value + sh.short_value
-                ) / 100000000.0 AS total_margin_and_short_balance_100m_yuan
+                  sz.margin_balance
+                  + sh.margin_balance / 100000000.0
+                  + sz.short_value
+                  + sh.short_value / 100000000.0
+                ) AS total_margin_and_short_balance_100m_yuan
               FROM sz
               INNER JOIN sh ON sz.dt = sh.dt
             )

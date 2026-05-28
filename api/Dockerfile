@@ -1,7 +1,7 @@
 # 基于官方 FastAPI 镜像
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.10
 
-# （可选）把工作目录切到 /app/api，这样后面启动命令导入模块更直观
+# 把工作目录切到 /app/api，这样后面启动命令导入模块更直观
 WORKDIR /app/api
 
 # 把 api/ 下的所有文件（包括 data/）都复制进来
