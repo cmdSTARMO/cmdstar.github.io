@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.79](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.78...v1.1.79) (2026-05-28)
+
+
+### 🐞 Fixes
+
+* **data:** 文章上新！新增文件插入功能！ ([66c363f](https://github.com/cmdSTARMO/cmdstar.github.io/commit/66c363f583501d1095c69c7b90176647767953c1))
+
 ## [1.1.78](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.77...v1.1.78) (2026-05-28)
 
 
