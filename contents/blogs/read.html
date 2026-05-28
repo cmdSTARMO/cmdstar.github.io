@@ -252,8 +252,67 @@
             max-width: 100%;
         }
 
+        #article-md .math-scroll-wrap {
+            display: block;
+            max-width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 4px 0 8px;
+            margin: 0.5rem 0;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        #article-md .math-inline-scroll {
+            display: inline-block;
+            max-width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            vertical-align: middle;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        #article-md .math-scroll-wrap mjx-container {
+            display: inline-block !important;
+            min-width: max-content;
+            max-width: none;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        #article-md .math-inline-scroll mjx-container {
+            display: inline-block !important;
+            min-width: max-content;
+            max-width: none;
+        }
+
+        #article-md .math-scroll-wrap mjx-container > svg {
+            max-width: none !important;
+        }
+
+        #article-md .math-inline-scroll mjx-container > svg {
+            max-width: none !important;
+        }
+
+        #article-md .math-scroll-wrap::-webkit-scrollbar,
+        #article-md .math-inline-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        #article-md .math-scroll-wrap::-webkit-scrollbar-track,
+        #article-md .math-inline-scroll::-webkit-scrollbar-track {
+            background: var(--site-section-muted-bg);
+            border-radius: 999px;
+        }
+
+        #article-md .math-scroll-wrap::-webkit-scrollbar-thumb,
+        #article-md .math-inline-scroll::-webkit-scrollbar-thumb {
+            background: var(--site-card-border);
+            border-radius: 999px;
+        }
+
         #article-md mjx-container[jax="SVG"][display="true"] {
             display: block;
+            width: 100%;
             max-width: 100%;
             overflow-x: auto;
             overflow-y: hidden;
@@ -730,6 +789,33 @@
     articleContent.insertAdjacentHTML('beforeend', summaryHtml);
   }
 
+  function enhanceMathOverflow() {
+    const articleContent = document.getElementById('article-md');
+    if (!articleContent) return;
+    const articleWidth = articleContent.clientWidth || window.innerWidth;
+
+    articleContent.querySelectorAll('mjx-container[jax="SVG"][display="true"]').forEach(container => {
+      if (container.closest('.math-scroll-wrap')) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'math-scroll-wrap';
+      container.parentNode.insertBefore(wrapper, container);
+      wrapper.appendChild(container);
+    });
+
+    articleContent.querySelectorAll('mjx-container[jax="SVG"]:not([display="true"])').forEach(container => {
+      if (container.closest('.math-inline-scroll')) return;
+
+      const rect = container.getBoundingClientRect();
+      if (rect.width <= articleWidth) return;
+
+      const wrapper = document.createElement('span');
+      wrapper.className = 'math-inline-scroll';
+      container.parentNode.insertBefore(wrapper, container);
+      wrapper.appendChild(container);
+    });
+  }
+
   // 确保 highlight.js 初始化
   document.addEventListener('DOMContentLoaded', function() {
       // 初始化 highlight.js
@@ -943,7 +1029,13 @@
 
         // 重新渲染数学公式
         if (window.MathJax) {
-          MathJax.typeset();
+          const mathJaxResult = MathJax.typesetPromise
+            ? MathJax.typesetPromise([document.getElementById('article-md')])
+            : Promise.resolve(MathJax.typeset());
+          mathJaxResult.then(enhanceMathOverflow).catch(error => {
+            console.error('数学公式渲染失败:', error);
+            enhanceMathOverflow();
+          });
         }
 
         // 添加：确保样式应用到所有代码块
