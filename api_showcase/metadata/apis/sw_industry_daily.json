@@ -205,9 +205,9 @@
     }
   ],
   "stats": {
-    "row_count": 139642,
-    "min_date": "1999-12-30",
-    "max_date": "2026-05-27",
+    "row_count": 0,
+    "min_date": null,
+    "max_date": null,
     "options": {
       "swindexcode": [
         {
@@ -336,7 +336,7 @@
         }
       ]
     },
-    "updated_at": "2026-05-27 21:49:24"
+    "updated_at": "2026-05-28 10:12:15"
   },
   "hidden_params": []
 }

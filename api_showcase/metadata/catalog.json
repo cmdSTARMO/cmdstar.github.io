@@ -2,7 +2,7 @@
   "title": "HuangDapao API Catalog",
   "base_url": "https://api.huangdapao.com",
   "health_endpoint": "/health",
-  "generated_at": "2026-05-27 21:49:42",
+  "generated_at": "2026-05-28 10:12:15",
   "apis": [
     {
       "id": "margin_total_merged",
@@ -14,11 +14,11 @@
       },
       "file": "apis/margin_total_merged.json",
       "stats": {
-        "row_count": 7338,
-        "min_date": "2010-03-31",
-        "max_date": "2026-05-26",
+        "row_count": 0,
+        "min_date": null,
+        "max_date": null,
         "options": {},
-        "updated_at": "2026-05-27 21:49:10"
+        "updated_at": "2026-05-28 10:12:15"
       }
     },
     {
@@ -31,11 +31,11 @@
       },
       "file": "apis/szse_margin_total.json",
       "stats": {
-        "row_count": 3417,
-        "min_date": "2012-05-02",
-        "max_date": "2026-05-26",
+        "row_count": 0,
+        "min_date": null,
+        "max_date": null,
         "options": {},
-        "updated_at": "2026-05-27 21:49:11"
+        "updated_at": "2026-05-28 10:12:15"
       }
     },
     {
@@ -48,11 +48,11 @@
       },
       "file": "apis/sse_margin_total.json",
       "stats": {
-        "row_count": 3921,
-        "min_date": "2010-03-31",
-        "max_date": "2026-05-26",
+        "row_count": 0,
+        "min_date": null,
+        "max_date": null,
         "options": {},
-        "updated_at": "2026-05-27 21:49:11"
+        "updated_at": "2026-05-28 10:12:15"
       }
     },
     {
@@ -65,11 +65,11 @@
       },
       "file": "apis/szse_margin_detail.json",
       "stats": {
-        "row_count": 3005165,
-        "min_date": "2012-05-02",
-        "max_date": "2026-05-26",
+        "row_count": 0,
+        "min_date": null,
+        "max_date": null,
         "options": {},
-        "updated_at": "2026-05-27 21:49:11"
+        "updated_at": "2026-05-28 10:12:15"
       }
     },
     {
@@ -82,11 +82,11 @@
       },
       "file": "apis/sse_margin_detail.json",
       "stats": {
-        "row_count": 3285207,
-        "min_date": "2010-03-31",
-        "max_date": "2026-05-25",
+        "row_count": 0,
+        "min_date": null,
+        "max_date": null,
         "options": {},
-        "updated_at": "2026-05-27 21:49:12"
+        "updated_at": "2026-05-28 10:12:15"
       }
     },
     {
@@ -99,9 +99,9 @@
       },
       "file": "apis/sw_industry_daily.json",
       "stats": {
-        "row_count": 139642,
-        "min_date": "1999-12-30",
-        "max_date": "2026-05-27",
+        "row_count": 0,
+        "min_date": null,
+        "max_date": null,
         "options": {
           "swindexcode": [
             {
@@ -230,7 +230,7 @@
             }
           ]
         },
-        "updated_at": "2026-05-27 21:49:24"
+        "updated_at": "2026-05-28 10:12:15"
       }
     },
     {
@@ -243,9 +243,9 @@
       },
       "file": "apis/global_market_daily.json",
       "stats": {
-        "row_count": 195644,
-        "min_date": "1999-12-30",
-        "max_date": "2026-05-27",
+        "row_count": 0,
+        "min_date": null,
+        "max_date": null,
         "options": {
           "symbol": [
             {
@@ -374,7 +374,7 @@
             }
           ]
         },
-        "updated_at": "2026-05-27 21:49:41"
+        "updated_at": "2026-05-28 10:12:15"
       }
     },
     {
@@ -387,114 +387,13 @@
       },
       "file": "apis/ncd_aaa_yield_curve.json",
       "stats": {
-        "row_count": 1600,
-        "min_date": "2026-02-24",
-        "max_date": "2026-05-26",
+        "row_count": 0,
+        "min_date": null,
+        "max_date": null,
         "options": {
-          "term_year": [
-            {
-              "value": "0.019",
-              "label": "0.019"
-            },
-            {
-              "value": "0.038",
-              "label": "0.038"
-            },
-            {
-              "value": "0.058",
-              "label": "0.058"
-            },
-            {
-              "value": "0.083",
-              "label": "0.083"
-            },
-            {
-              "value": "0.1",
-              "label": "0.1"
-            },
-            {
-              "value": "0.125",
-              "label": "0.125"
-            },
-            {
-              "value": "0.167",
-              "label": "0.167"
-            },
-            {
-              "value": "0.2",
-              "label": "0.2"
-            },
-            {
-              "value": "0.208",
-              "label": "0.208"
-            },
-            {
-              "value": "0.25",
-              "label": "0.25"
-            },
-            {
-              "value": "0.3",
-              "label": "0.3"
-            },
-            {
-              "value": "0.333",
-              "label": "0.333"
-            },
-            {
-              "value": "0.4",
-              "label": "0.4"
-            },
-            {
-              "value": "0.417",
-              "label": "0.417"
-            },
-            {
-              "value": "0.5",
-              "label": "0.5"
-            },
-            {
-              "value": "0.583",
-              "label": "0.583"
-            },
-            {
-              "value": "0.6",
-              "label": "0.6"
-            },
-            {
-              "value": "0.667",
-              "label": "0.667"
-            },
-            {
-              "value": "0.7",
-              "label": "0.7"
-            },
-            {
-              "value": "0.75",
-              "label": "0.75"
-            },
-            {
-              "value": "0.8",
-              "label": "0.8"
-            },
-            {
-              "value": "0.833",
-              "label": "0.833"
-            },
-            {
-              "value": "0.9",
-              "label": "0.9"
-            },
-            {
-              "value": "0.917",
-              "label": "0.917"
-            },
-            {
-              "value": "1.0",
-              "label": "1.0"
-            }
-          ]
+          "term_year": []
         },
-        "updated_at": "2026-05-27 21:49:41"
+        "updated_at": "2026-05-28 10:12:15"
       }
     },
     {
@@ -507,11 +406,11 @@
       },
       "file": "apis/capital_flow_southbound.json",
       "stats": {
-        "row_count": 2635,
-        "min_date": "2014-11-18",
-        "max_date": "2026-05-26",
+        "row_count": 0,
+        "min_date": null,
+        "max_date": null,
         "options": {},
-        "updated_at": "2026-05-27 21:49:41"
+        "updated_at": "2026-05-28 10:12:15"
       }
     },
     {
@@ -524,11 +423,11 @@
       },
       "file": "apis/capital_flow_northbound.json",
       "stats": {
-        "row_count": 2199,
-        "min_date": "2016-12-05",
-        "max_date": "2026-05-26",
+        "row_count": 0,
+        "min_date": null,
+        "max_date": null,
         "options": {},
-        "updated_at": "2026-05-27 21:49:41"
+        "updated_at": "2026-05-28 10:12:15"
       }
     },
     {
@@ -541,110 +440,13 @@
       },
       "file": "apis/fund_new_issue.json",
       "stats": {
-        "row_count": 8166,
-        "min_date": "2013-08-20",
-        "max_date": "2026-05-26",
+        "row_count": 0,
+        "min_date": null,
+        "max_date": null,
         "options": {
-          "fund_type": [
-            {
-              "value": "FOF-均衡型",
-              "label": "FOF-均衡型"
-            },
-            {
-              "value": "FOF-稳健型",
-              "label": "FOF-稳健型"
-            },
-            {
-              "value": "FOF-进取型",
-              "label": "FOF-进取型"
-            },
-            {
-              "value": "QDII-FOF",
-              "label": "QDII-FOF"
-            },
-            {
-              "value": "QDII-普通股票",
-              "label": "QDII-普通股票"
-            },
-            {
-              "value": "QDII-混合债",
-              "label": "QDII-混合债"
-            },
-            {
-              "value": "QDII-混合偏股",
-              "label": "QDII-混合偏股"
-            },
-            {
-              "value": "QDII-混合平衡",
-              "label": "QDII-混合平衡"
-            },
-            {
-              "value": "QDII-混合灵活",
-              "label": "QDII-混合灵活"
-            },
-            {
-              "value": "Reits",
-              "label": "Reits"
-            },
-            {
-              "value": "债券型-中短债",
-              "label": "债券型-中短债"
-            },
-            {
-              "value": "债券型-混合一级",
-              "label": "债券型-混合一级"
-            },
-            {
-              "value": "债券型-混合二级",
-              "label": "债券型-混合二级"
-            },
-            {
-              "value": "债券型-长债",
-              "label": "债券型-长债"
-            },
-            {
-              "value": "指数型-其他",
-              "label": "指数型-其他"
-            },
-            {
-              "value": "指数型-固收",
-              "label": "指数型-固收"
-            },
-            {
-              "value": "指数型-海外股票",
-              "label": "指数型-海外股票"
-            },
-            {
-              "value": "指数型-股票",
-              "label": "指数型-股票"
-            },
-            {
-              "value": "混合型-偏债",
-              "label": "混合型-偏债"
-            },
-            {
-              "value": "混合型-偏股",
-              "label": "混合型-偏股"
-            },
-            {
-              "value": "混合型-平衡",
-              "label": "混合型-平衡"
-            },
-            {
-              "value": "混合型-灵活",
-              "label": "混合型-灵活"
-            },
-            {
-              "value": "股票型",
-              "label": "股票型"
-            },
-            {
-              "value": "货币型-普通货币",
-              "label": "货币型-普通货币"
-            }
-          ]
+          "fund_type": []
         },
-        "updated_at": "2026-05-27 21:49:41"
+        "updated_at": "2026-05-28 10:12:15"
       }
     },
     {
@@ -661,7 +463,7 @@
         "min_date": null,
         "max_date": null,
         "options": {},
-        "updated_at": "2026-05-27 21:49:41"
+        "updated_at": "2026-05-28 10:12:15"
       }
     },
     {
@@ -678,7 +480,7 @@
         "min_date": null,
         "max_date": null,
         "options": {},
-        "updated_at": "2026-05-27 21:49:41"
+        "updated_at": "2026-05-28 10:12:15"
       }
     },
     {
@@ -691,11 +493,11 @@
       },
       "file": "apis/erp_hs300_10y.json",
       "stats": {
-        "row_count": 725,
-        "min_date": "2023-05-26",
-        "max_date": "2026-05-26",
+        "row_count": 0,
+        "min_date": null,
+        "max_date": null,
         "options": {},
-        "updated_at": "2026-05-27 21:49:41"
+        "updated_at": "2026-05-28 10:12:15"
       }
     },
     {
@@ -708,30 +510,13 @@
       },
       "file": "apis/sse_etf_shares.json",
       "stats": {
-        "row_count": 856761,
-        "min_date": "2012-01-04",
-        "max_date": "2026-05-26",
+        "row_count": 0,
+        "min_date": null,
+        "max_date": null,
         "options": {
-          "etf_type": [
-            {
-              "value": "其他",
-              "label": "其他"
-            },
-            {
-              "value": "单市",
-              "label": "单市"
-            },
-            {
-              "value": "跨境",
-              "label": "跨境"
-            },
-            {
-              "value": "跨市",
-              "label": "跨市"
-            }
-          ]
+          "etf_type": []
         },
-        "updated_at": "2026-05-27 21:49:42"
+        "updated_at": "2026-05-28 10:12:15"
       }
     },
     {
@@ -744,11 +529,11 @@
       },
       "file": "apis/szse_etf_shares.json",
       "stats": {
-        "row_count": 118391,
-        "min_date": "2025-07-18",
-        "max_date": "2026-05-26",
+        "row_count": 0,
+        "min_date": null,
+        "max_date": null,
         "options": {},
-        "updated_at": "2026-05-27 21:49:42"
+        "updated_at": "2026-05-28 10:12:15"
       }
     }
   ]
