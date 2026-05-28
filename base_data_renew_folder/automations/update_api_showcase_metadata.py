@@ -98,6 +98,7 @@ DEFAULT_APIS = [
         "title": "申万一级行业日度行情",
         "summary": "申万一级行业指数日度开高低收、涨跌幅、成交量与成交额。",
         "group": {"level1": "金融数据", "level2": "市场行情"},
+        "show_in_catalog": False,
         "endpoint": "/sw_industry_daily/data",
         "method": "GET",
         "params": COMMON_DATE_PARAMS + [{"name": "swindexcodes", "type": "multiselect", "required": False, "label": "申万行业", "option_source": "swindexcode", "placeholder": "801010,801030"}],
@@ -354,12 +355,13 @@ def update_one(default_api: dict) -> dict:
         "endpoint": merged["endpoint"],
         "group": merged.get("group", {}),
         "file": f"apis/{merged['id']}.json",
+        "show_in_catalog": merged.get("show_in_catalog", True),
         "stats": merged["stats"],
     }
 
 
 def main():
-    entries = [update_one(item) for item in DEFAULT_APIS]
+    entries = [entry for item in DEFAULT_APIS if (entry := update_one(item)).get("show_in_catalog", True)]
     catalog = {
         "title": "HuangDapao API Catalog",
         "base_url": "https://api.huangdapao.com",

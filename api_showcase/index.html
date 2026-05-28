@@ -245,7 +245,7 @@
         <h3 id="apiRuleTitle">链接构建规则</h3>
         <p id="apiRuleText" class="api-subtitle">基础域名固定为 <a class="api-doc-link" href="https://api.huangdapao.com/docs" target="_blank" rel="noopener">https://api.huangdapao.com</a>。选择接口后填写参数，页面会生成 JSON 链接、CSV 下载链接，并可直接请求接口预览数据。隐藏参数包括 <code>limit</code> 和 unknown 类字段。</p>
         <div id="apiRuleUrlBox" class="url-box">
-          <div class="url-text" id="ruleExample">https://api.huangdapao.com/sw_industry_daily/data?startdate=2024-12-30&enddate=2025-12-30&limit=2000&offset=0&format=json</div>
+          <div class="url-text" id="ruleExample">https://api.huangdapao.com/global_market_daily/data?startdate=2024-12-30&enddate=2025-12-30&limit=2000&offset=0&format=json</div>
           <button class="btn-api" id="copyRule" type="button"><i class="bi bi-clipboard"></i>复制示例</button>
         </div>
     </div>
@@ -810,7 +810,9 @@
     state.catalog = await loadJson('metadata/catalog.json');
     state.baseUrl = state.catalog.base_url || state.baseUrl;
     const apis = await Promise.all(state.catalog.apis.map(item => loadJson(`metadata/${item.file}`)));
-    state.apis = apis.sort((a, b) => `${a.group?.level1}${a.group?.level2}${a.title}`.localeCompare(`${b.group?.level1}${b.group?.level2}${b.title}`, 'zh-CN'));
+    state.apis = apis
+      .filter(api => api.show_in_catalog !== false)
+      .sort((a, b) => `${a.group?.level1}${a.group?.level2}${a.title}`.localeCompare(`${b.group?.level1}${b.group?.level2}${b.title}`, 'zh-CN'));
     $('catalogTime').textContent = state.catalog.generated_at || '';
     $('apiCount').textContent = state.apis.length;
     $('rowCount').textContent = fmt(state.apis.reduce((sum, api) => sum + Number(api.stats?.row_count || 0), 0));

@@ -65,11 +65,11 @@
     }
   ],
   "stats": {
-    "row_count": 0,
-    "min_date": null,
-    "max_date": null,
+    "row_count": 119052,
+    "min_date": "2025-07-18",
+    "max_date": "2026-05-27",
     "options": {},
-    "updated_at": "2026-05-28 10:12:15"
+    "updated_at": "2026-05-28 13:10:37"
   },
   "hidden_params": []
 }

@@ -6,6 +6,7 @@
     "level1": "金融数据",
     "level2": "市场行情"
   },
+  "show_in_catalog": false,
   "endpoint": "/sw_industry_daily/data",
   "method": "GET",
   "params": [
@@ -205,9 +206,9 @@
     }
   ],
   "stats": {
-    "row_count": 0,
-    "min_date": null,
-    "max_date": null,
+    "row_count": 139646,
+    "min_date": "1999-12-30",
+    "max_date": "2026-05-28",
     "options": {
       "swindexcode": [
         {
@@ -336,7 +337,7 @@
         }
       ]
     },
-    "updated_at": "2026-05-28 10:12:15"
+    "updated_at": "2026-05-28 13:10:17"
   },
   "hidden_params": []
 }

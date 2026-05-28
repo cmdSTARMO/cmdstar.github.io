@@ -38,7 +38,12 @@ FETCHERS = [
     {"name": "SZSE margin detail", "script": "szse_margindetail_data.py"},
     {"name": "SSE margin detail", "script": "sse_margindetail_data.py"},
     {"name": "Global market daily", "script": "global_market_daily_fetcher.py"},
-    {"name": "SW industry daily", "script": "sw_industry_daily_fetcher.py"},
+    {
+        "name": "SW industry daily",
+        "script": "sw_industry_daily_fetcher.py",
+        "enabled_env": "RUN_SW_INDUSTRY_DAILY",
+        "default_enabled": False,
+    },
     {"name": "SSE ETF shares", "script": "sse_etf_shares_fetcher.py"},
     {"name": "NCD AAA yield curve", "script": "ncd_aaa_yield_curve_fetcher.py"},
     {"name": "RMB FX index", "script": "rmb_fx_index_fetcher.py"},
@@ -146,6 +151,32 @@ def run_fetcher(item: dict, run_id: str) -> dict:
             "stdout": "",
             "stderr": "",
         }
+
+    enabled_env = item.get("enabled_env")
+    if enabled_env:
+        default_enabled = item.get("default_enabled", True)
+        raw_value = child_env.get(enabled_env)
+        enabled = default_enabled if raw_value is None else raw_value.strip().lower() in {"1", "true", "yes", "on"}
+        if not enabled:
+            ended_at = now_text()
+            message = f"disabled by {enabled_env}; set {enabled_env}=1 to enable"
+            print(f"[run_all_fetchers] skip {item['name']}: {message}", flush=True)
+            return {
+                "run_id": run_id,
+                "run_date": datetime.now().strftime("%Y-%m-%d"),
+                "fetcher": item["name"],
+                "script": item["script"],
+                "status": "success",
+                "updated_rows": 0,
+                "exit_code": 0,
+                "started_at": started_at,
+                "ended_at": ended_at,
+                "duration_seconds": round(time.time() - start_ts, 2),
+                "command": " ".join(command),
+                "error_excerpt": "",
+                "stdout": message,
+                "stderr": "",
+            }
 
     try:
         proc = subprocess.Popen(

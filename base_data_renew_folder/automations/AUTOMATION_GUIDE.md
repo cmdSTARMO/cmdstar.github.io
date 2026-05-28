@@ -2,6 +2,12 @@
 
 本目录存放当前仍在使用的数据抓取、清洗和 Parquet 入库脚本。旧的探针脚本、SQLite 中转脚本、临时产物和已废弃脚本已移动到 `archive/`。
 
+API 展示页与 fetcher 运行开关说明见：
+
+```text
+base_data_renew_folder/automations/API_CATALOG_AND_FETCHER_SWITCHES.md
+```
+
 ## 目录结构
 
 ```text
