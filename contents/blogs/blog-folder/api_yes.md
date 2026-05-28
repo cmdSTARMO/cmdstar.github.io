@@ -1,4 +1,4 @@
-# 用GitHub + Actions + Render零成本搭造一个金融数据中心
+# 用GitHub+Actions+Render零成本搭建一个金融数据API系统！
 
 ——从Excel周报到零成本API数据系统的工程化实践
 
