@@ -136,12 +136,19 @@
   }
 
   function applyTheme(theme, persist) {
+    root.classList.add("theme-switching");
     root.setAttribute("data-theme", theme);
     root.style.colorScheme = theme;
     if (persist) {
       localStorage.setItem(storageKey, theme);
     }
     syncThemeButtons(theme);
+
+    window.requestAnimationFrame(function () {
+      window.requestAnimationFrame(function () {
+        root.classList.remove("theme-switching");
+      });
+    });
   }
 
   function toggleTheme() {

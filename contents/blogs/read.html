@@ -248,6 +248,167 @@
             scroll-margin-top: 96px;
         }
 
+        .article-file-card {
+            display: flex;
+            gap: 14px;
+            align-items: stretch;
+            margin: 18px 0;
+            padding: 16px;
+            border: 1px solid var(--site-card-border);
+            border-radius: 8px;
+            background: var(--site-card-bg);
+            background: color-mix(in srgb, var(--site-card-bg) 92%, transparent);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            color: var(--site-text-color);
+            transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+        }
+
+        .article-file-icon {
+            flex: 0 0 48px;
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            background: #455a64;
+            font-size: 24px;
+        }
+
+        .article-file-icon.file-pdf { background: #b42318; }
+        .article-file-icon.file-excel { background: #147a46; }
+        .article-file-icon.file-word { background: #1f5fbf; }
+        .article-file-icon.file-powerpoint { background: #b64a22; }
+        .article-file-icon.file-archive { background: #6f4aa8; }
+
+        .article-file-body {
+            min-width: 0;
+            flex: 1 1 auto;
+        }
+
+        .article-file-title {
+            margin: 0 0 6px;
+            font-size: 17px;
+            line-height: 1.35;
+            font-weight: 700;
+            color: var(--site-text-color);
+            overflow-wrap: anywhere;
+        }
+
+        .article-file-meta,
+        .article-file-desc {
+            margin: 0;
+            color: var(--site-muted-color);
+            font-size: 14px;
+            line-height: 1.55;
+            overflow-wrap: anywhere;
+        }
+
+        .article-file-actions {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .article-file-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            min-height: 38px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--site-card-border);
+            color: var(--site-text-color);
+            background: var(--site-section-bg);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .article-file-btn:hover {
+            color: var(--site-link-hover-color);
+            background: var(--site-section-muted-bg);
+            text-decoration: none;
+        }
+
+        .article-file-btn.primary {
+            color: #fff;
+            background: var(--site-link-color);
+            border-color: var(--site-link-color);
+        }
+
+        .article-file-btn.primary:hover {
+            color: #fff;
+            background: var(--site-link-hover-color);
+            border-color: var(--site-link-hover-color);
+        }
+
+        .article-files-summary {
+            margin-top: 42px;
+            padding-top: 24px;
+            border-top: 1px solid var(--site-card-border);
+        }
+
+        .article-files-summary h2 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .article-files-summary .article-file-card {
+            margin: 12px 0;
+        }
+
+        html[data-theme="dark"] .article-file-card {
+            background: var(--site-card-bg);
+            background: color-mix(in srgb, var(--site-card-bg) 94%, transparent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.34);
+        }
+
+        html[data-theme="dark"] .article-file-btn {
+            background: var(--site-section-muted-bg);
+        }
+
+        html[data-theme="dark"] .article-file-btn:hover {
+            background: color-mix(in srgb, var(--site-section-muted-bg) 78%, #ffffff 22%);
+        }
+
+        @media (max-width: 767px) {
+            .article-file-card {
+                align-items: flex-start;
+                gap: 12px;
+                padding: 14px;
+            }
+
+            .article-file-icon {
+                flex-basis: 42px;
+                width: 42px;
+                height: 42px;
+                font-size: 21px;
+            }
+
+            .article-file-actions {
+                width: 100%;
+                margin-top: 12px;
+                grid-column: 1 / -1;
+            }
+
+            .article-file-card {
+                display: grid;
+                grid-template-columns: 42px minmax(0, 1fr);
+            }
+
+            .article-file-btn {
+                flex: 1 1 0;
+            }
+        }
+
         /* 关闭按钮 */
         #toc-close {
             position: absolute;
@@ -424,6 +585,111 @@
       .replace(/&amp;/g, '&');
   }
 
+  function escapeAttribute(value) {
+    return escapeHtml(String(value || '')).replace(/`/g, '&#096;');
+  }
+
+  function getFileExtension(path) {
+    const cleanPath = String(path || '').split('?')[0].split('#')[0];
+    const match = cleanPath.match(/\.([a-z0-9]+)$/i);
+    return match ? match[1].toLowerCase() : '';
+  }
+
+  function getArticleFileType(path) {
+    const ext = getFileExtension(path);
+    if (['xls', 'xlsx', 'xlsm', 'csv'].includes(ext)) {
+      return { label: ext.toUpperCase() || 'Excel', icon: 'bi-file-earmark-excel', className: 'file-excel' };
+    }
+    if (['doc', 'docx'].includes(ext)) {
+      return { label: ext.toUpperCase() || 'Word', icon: 'bi-file-earmark-word', className: 'file-word' };
+    }
+    if (ext === 'pdf') {
+      return { label: 'PDF', icon: 'bi-file-earmark-pdf', className: 'file-pdf' };
+    }
+    if (['ppt', 'pptx'].includes(ext)) {
+      return { label: ext.toUpperCase() || 'PPT', icon: 'bi-file-earmark-ppt', className: 'file-powerpoint' };
+    }
+    if (['zip', 'rar', '7z'].includes(ext)) {
+      return { label: ext.toUpperCase() || 'Archive', icon: 'bi-file-earmark-zip', className: 'file-archive' };
+    }
+    return { label: ext ? ext.toUpperCase() : '文件', icon: 'bi-file-earmark', className: 'file-generic' };
+  }
+
+  function resolveArticleFileHref(rawHref, articleName) {
+    const href = String(rawHref || '').trim().replace(/^file:/i, '');
+    if (!href) return '';
+    if (/^(https?:)?\/\//i.test(href) || href.startsWith('/') || href.startsWith('./') || href.startsWith('../')) {
+      return href;
+    }
+    return `./blog-folder/${articleName}/${href}`;
+  }
+
+  function renderArticleFileCard(file, isSummary) {
+    const fileType = getArticleFileType(file.href);
+    const title = file.title || file.name || file.href.split('/').pop() || '关联文件';
+    const descHtml = file.description ? `<p class="article-file-desc">${escapeHtml(file.description)}</p>` : '';
+    const summaryClass = isSummary ? ' article-file-card-summary' : '';
+
+    return `
+      <div class="article-file-card${summaryClass}" data-file-href="${escapeAttribute(file.href)}">
+        <div class="article-file-icon ${fileType.className}" aria-hidden="true">
+          <i class="bi ${fileType.icon}"></i>
+        </div>
+        <div class="article-file-body">
+          <p class="article-file-title">${escapeHtml(title)}</p>
+          <p class="article-file-meta">${escapeHtml(fileType.label)} · ${escapeHtml(file.href)}</p>
+          ${descHtml}
+        </div>
+        <div class="article-file-actions">
+          <a class="article-file-btn" href="${escapeAttribute(file.href)}" target="_blank" rel="noopener">
+            <i class="bi bi-box-arrow-up-right"></i> 打开
+          </a>
+          <a class="article-file-btn primary" href="${escapeAttribute(file.href)}" download>
+            <i class="bi bi-download"></i> 下载
+          </a>
+        </div>
+      </div>`;
+  }
+
+  function parseFilesCodeBlock(code, articleName, registerFile) {
+    const rows = String(code || '').split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+    const cards = rows.map(row => {
+      const parts = row.split('|').map(part => part.trim());
+      const href = resolveArticleFileHref(parts[0], articleName);
+      const file = {
+        href: href,
+        title: parts[1] || '',
+        description: parts.slice(2).join(' | ')
+      };
+      registerFile(file);
+      return renderArticleFileCard(file, false);
+    });
+    return `<div class="article-files-inline">${cards.join('')}</div>`;
+  }
+
+  function appendArticleFileSummary(articleFiles) {
+    if (!articleFiles.length) return;
+
+    const articleContent = document.getElementById('article-md');
+    const uniqueFiles = [];
+    const seen = new Set();
+
+    articleFiles.forEach(file => {
+      if (!file.href || seen.has(file.href)) return;
+      seen.add(file.href);
+      uniqueFiles.push(file);
+    });
+
+    if (!uniqueFiles.length) return;
+
+    const summaryHtml = `
+      <section class="article-files-summary" id="article-files-summary">
+        <h2><i class="bi bi-paperclip"></i> 关联文件</h2>
+        ${uniqueFiles.map(file => renderArticleFileCard(file, true)).join('')}
+      </section>`;
+    articleContent.insertAdjacentHTML('beforeend', summaryHtml);
+  }
+
   // 确保 highlight.js 初始化
   document.addEventListener('DOMContentLoaded', function() {
       // 初始化 highlight.js
@@ -505,6 +771,12 @@
     const yamlPath = `./blog-folder/${articleName}.yml`;
     const mdPath = `./blog-folder/${articleName}.md`;
     const headingSlugCounts = new Map();
+    const articleFiles = [];
+
+    function registerArticleFile(file) {
+      if (!file || !file.href) return;
+      articleFiles.push(file);
+    }
 
     // 自定义渲染器
     const renderer = new marked.Renderer();
@@ -516,6 +788,29 @@
       renderer.heading = function(text, level) {
         const headingId = generateHeadingId(level, text);
         return `<h${level} id="${headingId}">${text}</h${level}>`;
+      };
+
+      renderer.paragraph = function(text) {
+        if (String(text || '').includes('article-file-card')) {
+          return `${text}\n`;
+        }
+        return `<p>${text}</p>\n`;
+      };
+
+      renderer.link = function(href, title, text) {
+        const normalizedHref = String(href || '');
+        if (normalizedHref.toLowerCase().startsWith('file:')) {
+          const file = {
+            href: resolveArticleFileHref(normalizedHref, articleName),
+            title: getPlainTextFromHtml(text) || title || '',
+            description: title || ''
+          };
+          registerArticleFile(file);
+          return renderArticleFileCard(file, false);
+        }
+
+        const titleAttr = title ? ` title="${escapeAttribute(title)}"` : '';
+        return `<a href="${escapeAttribute(normalizedHref)}"${titleAttr}>${text}</a>`;
       };
 
       marked.setOptions({
@@ -555,6 +850,8 @@
       // 处理不支持的语言
       if (language === 'commandline') {
         language = 'bash';
+      } else if (language === 'files' || language === 'file') {
+        return parseFilesCodeBlock(code, articleName, registerArticleFile);
       } else if (!language) {
         language = 'plaintext';
       }
@@ -600,6 +897,9 @@
 
         // 更新 DOM
         document.getElementById('article-md').innerHTML = highlightedHtml;
+
+        // 在文章末尾汇总所有通过 file 链接或 files 代码块声明的附件
+        appendArticleFileSummary(articleFiles);
 
         // 重新渲染数学公式
         if (window.MathJax) {
