@@ -1,0 +1,7 @@
+title: "用GitHub + Actions + Render零成本搭造一个金融数据中心"
+page-top-title: "博客"
+author: "黄大炮"
+description: "一篇从Excel周报演进到零成本金融数据API系统的工程化实践记录，围绕GitHub Actions、Render、FastAPI、Parquet、DuckDB与GitHub Pages，系统梳理数据获取、存储、部署、接口服务和前端查询页面的完整搭建过程。"
+top-section-bg-text: "用GitHub + Actions + Render零成本搭造一个金融数据中心"
+top-section: "blog-folder/api_yes/cover.png"
+article-date: "2026-05-28 黄大炮 & 曲径共融数据部"
