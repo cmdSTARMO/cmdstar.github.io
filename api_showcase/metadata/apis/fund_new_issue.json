@@ -98,109 +98,12 @@
     }
   ],
   "stats": {
-    "row_count": 8193,
-    "min_date": "2013-08-20",
-    "max_date": "2026-05-27",
+    "row_count": 0,
+    "min_date": null,
+    "max_date": null,
     "options": {
-      "fund_type": [
-        {
-          "value": "FOF-均衡型",
-          "label": "FOF-均衡型"
-        },
-        {
-          "value": "FOF-稳健型",
-          "label": "FOF-稳健型"
-        },
-        {
-          "value": "FOF-进取型",
-          "label": "FOF-进取型"
-        },
-        {
-          "value": "QDII-FOF",
-          "label": "QDII-FOF"
-        },
-        {
-          "value": "QDII-普通股票",
-          "label": "QDII-普通股票"
-        },
-        {
-          "value": "QDII-混合债",
-          "label": "QDII-混合债"
-        },
-        {
-          "value": "QDII-混合偏股",
-          "label": "QDII-混合偏股"
-        },
-        {
-          "value": "QDII-混合平衡",
-          "label": "QDII-混合平衡"
-        },
-        {
-          "value": "QDII-混合灵活",
-          "label": "QDII-混合灵活"
-        },
-        {
-          "value": "Reits",
-          "label": "Reits"
-        },
-        {
-          "value": "债券型-中短债",
-          "label": "债券型-中短债"
-        },
-        {
-          "value": "债券型-混合一级",
-          "label": "债券型-混合一级"
-        },
-        {
-          "value": "债券型-混合二级",
-          "label": "债券型-混合二级"
-        },
-        {
-          "value": "债券型-长债",
-          "label": "债券型-长债"
-        },
-        {
-          "value": "指数型-其他",
-          "label": "指数型-其他"
-        },
-        {
-          "value": "指数型-固收",
-          "label": "指数型-固收"
-        },
-        {
-          "value": "指数型-海外股票",
-          "label": "指数型-海外股票"
-        },
-        {
-          "value": "指数型-股票",
-          "label": "指数型-股票"
-        },
-        {
-          "value": "混合型-偏债",
-          "label": "混合型-偏债"
-        },
-        {
-          "value": "混合型-偏股",
-          "label": "混合型-偏股"
-        },
-        {
-          "value": "混合型-平衡",
-          "label": "混合型-平衡"
-        },
-        {
-          "value": "混合型-灵活",
-          "label": "混合型-灵活"
-        },
-        {
-          "value": "股票型",
-          "label": "股票型"
-        },
-        {
-          "value": "货币型-普通货币",
-          "label": "货币型-普通货币"
-        }
-      ]
+      "fund_type": []
     },
-    "updated_at": "2026-05-28 16:54:40"
+    "updated_at": "2026-05-29 10:07:14"
   }
 }
