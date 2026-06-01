@@ -2,7 +2,7 @@
   "title": "HuangDapao API Catalog",
   "base_url": "https://api.huangdapao.com",
   "health_endpoint": "/health",
-  "generated_at": "2026-05-29 10:07:14",
+  "generated_at": "2026-06-01 10:39:32",
   "apis": [
     {
       "id": "margin_total_merged",
@@ -19,7 +19,7 @@
         "min_date": null,
         "max_date": null,
         "options": {},
-        "updated_at": "2026-05-29 10:07:14"
+        "updated_at": "2026-06-01 10:39:32"
       }
     },
     {
@@ -37,7 +37,7 @@
         "min_date": null,
         "max_date": null,
         "options": {},
-        "updated_at": "2026-05-29 10:07:14"
+        "updated_at": "2026-06-01 10:39:32"
       }
     },
     {
@@ -55,7 +55,7 @@
         "min_date": null,
         "max_date": null,
         "options": {},
-        "updated_at": "2026-05-29 10:07:14"
+        "updated_at": "2026-06-01 10:39:32"
       }
     },
     {
@@ -73,7 +73,7 @@
         "min_date": null,
         "max_date": null,
         "options": {},
-        "updated_at": "2026-05-29 10:07:14"
+        "updated_at": "2026-06-01 10:39:32"
       }
     },
     {
@@ -91,7 +91,7 @@
         "min_date": null,
         "max_date": null,
         "options": {},
-        "updated_at": "2026-05-29 10:07:14"
+        "updated_at": "2026-06-01 10:39:32"
       }
     },
     {
@@ -236,7 +236,7 @@
             }
           ]
         },
-        "updated_at": "2026-05-29 10:07:14"
+        "updated_at": "2026-06-01 10:39:32"
       }
     },
     {
@@ -256,7 +256,7 @@
         "options": {
           "term_year": []
         },
-        "updated_at": "2026-05-29 10:07:14"
+        "updated_at": "2026-06-01 10:39:32"
       }
     },
     {
@@ -274,7 +274,7 @@
         "min_date": null,
         "max_date": null,
         "options": {},
-        "updated_at": "2026-05-29 10:07:14"
+        "updated_at": "2026-06-01 10:39:32"
       }
     },
     {
@@ -292,7 +292,7 @@
         "min_date": null,
         "max_date": null,
         "options": {},
-        "updated_at": "2026-05-29 10:07:14"
+        "updated_at": "2026-06-01 10:39:32"
       }
     },
     {
@@ -312,7 +312,7 @@
         "options": {
           "fund_type": []
         },
-        "updated_at": "2026-05-29 10:07:14"
+        "updated_at": "2026-06-01 10:39:32"
       }
     },
     {
@@ -330,7 +330,7 @@
         "min_date": null,
         "max_date": null,
         "options": {},
-        "updated_at": "2026-05-29 10:07:14"
+        "updated_at": "2026-06-01 10:39:32"
       }
     },
     {
@@ -348,7 +348,7 @@
         "min_date": null,
         "max_date": null,
         "options": {},
-        "updated_at": "2026-05-29 10:07:14"
+        "updated_at": "2026-06-01 10:39:32"
       }
     },
     {
@@ -366,7 +366,7 @@
         "min_date": null,
         "max_date": null,
         "options": {},
-        "updated_at": "2026-05-29 10:07:14"
+        "updated_at": "2026-06-01 10:39:32"
       }
     },
     {
@@ -386,7 +386,7 @@
         "options": {
           "etf_type": []
         },
-        "updated_at": "2026-05-29 10:07:14"
+        "updated_at": "2026-06-01 10:39:32"
       }
     },
     {
@@ -404,7 +404,7 @@
         "min_date": null,
         "max_date": null,
         "options": {},
-        "updated_at": "2026-05-29 10:07:14"
+        "updated_at": "2026-06-01 10:39:32"
       }
     }
   ]
