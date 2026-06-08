@@ -3433,3 +3433,241 @@ requests.exceptions.ConnectionError: HTTPSConnectionPool(host='www.chinamoney.or
 20260605100717,2026-06-05,API showcase metadata,update_api_showcase_metadata.py,success,0,0,2026-06-05 10:41:58,2026-06-05 10:41:58,0.47,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/update_api_showcase_metadata.py,,"[api_showcase] updated 15 API metadata files.
 [api_showcase] catalog: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api_showcase/metadata/catalog.json
 ",
+20260608103100,2026-06-08,SZSE margin total,szse_margintotal_data.py,success,2,0,2026-06-08 10:31:00,2026-06-08 10:32:59,119.07,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/szse_margintotal_data.py,,"Parquet dir: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/margin_szse_tab1_data
+Latest stored date: 2026-06-04; start fetching from 2026-06-05
+Checking 2026-06-05: records found = 1
+[2026-06-05] parquet upserted 1 rows
+Checking 2026-06-06: records found = 0
+Checking 2026-06-07: records found = 0
+Checking 2026-06-08: records found = 0
+All done.
+",
+20260608103100,2026-06-08,SSE margin total,sse_margintotal_data.py,success,2,0,2026-06-08 10:32:59,2026-06-08 10:34:40,101.57,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_margintotal_data.py,,"[WINDOW] 2026-06-05 -> 2026-06-08 fetching...
+  request error: HTTPSConnectionPool(host='query.sse.com.cn', port=443): Max retries exceeded with url: /commonSoaQuery.do?jsonCallBack=jsonpCallback13467126&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260605&endDate=20260608&sqlId=RZRQ_HZ_INFO&_=1780885980103 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))); retrying this window
+[WINDOW] 2026-06-05 -> 2026-06-08 fetching...
+  request error: HTTPSConnectionPool(host='query.sse.com.cn', port=443): Max retries exceeded with url: /commonSoaQuery.do?jsonCallBack=jsonpCallback25694656&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260605&endDate=20260608&sqlId=RZRQ_HZ_INFO&_=1780885988171 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))); retrying this window
+[WINDOW] 2026-06-05 -> 2026-06-08 fetching...
+  request error: HTTPSConnectionPool(host='query.sse.com.cn', port=443): Max retries exceeded with url: /commonSoaQuery.do?jsonCallBack=jsonpCallback55027639&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260605&endDate=20260608&sqlId=RZRQ_HZ_INFO&_=1780885995843 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))); retrying this window
+[WINDOW] 2026-06-05 -> 2026-06-08 fetching...
+  request error: HTTPSConnectionPool(host='query.sse.com.cn', port=443): Max retries exceeded with url: /commonSoaQuery.do?jsonCallBack=jsonpCallback89869781&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260605&endDate=20260608&sqlId=RZRQ_HZ_INFO&_=1780886003539 (Caused by NewConnectionError(""HTTPSConnection(host='query.sse.com.cn', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"")); retrying this window
+[WINDOW] 2026-06-05 -> 2026-06-08 fetching...
+  request error: HTTPSConnectionPool(host='query.sse.com.cn', port=443): Max retries exceeded with url: /commonSoaQuery.do?jsonCallBack=jsonpCallback54383744&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260605&endDate=20260608&sqlId=RZRQ_HZ_INFO&_=1780886013301 (Caused by NewConnectionError(""HTTPSConnection(host='query.sse.com.cn', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"")); retrying this window
+[WINDOW] 2026-06-05 -> 2026-06-08 fetching...
+  request error: HTTPSConnectionPool(host='query.sse.com.cn', port=443): Max retries exceeded with url: /commonSoaQuery.do?jsonCallBack=jsonpCallback99187606&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260605&endDate=20260608&sqlId=RZRQ_HZ_INFO&_=1780886021969 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))); retrying this window
+[WINDOW] 2026-06-05 -> 2026-06-08 fetching...
+  request error: HTTPSConnectionPool(host='query.sse.com.cn', port=443): Max retries exceeded with url: /commonSoaQuery.do?jsonCallBack=jsonpCallback13116739&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260605&endDate=20260608&sqlId=RZRQ_HZ_INFO&_=1780886030691 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))); retrying this window
+[WINDOW] 2026-06-05 -> 2026-06-08 fetching...
+  request error: HTTPSConnectionPool(host='query.sse.com.cn', port=443): Max retries exceeded with url: /commonSoaQuery.do?jsonCallBack=jsonpCallback46742714&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260605&endDate=20260608&sqlId=RZRQ_HZ_INFO&_=1780886038340 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))); retrying this window
+[WINDOW] 2026-06-05 -> 2026-06-08 fetching...
+  done: fetched 1 rows, parquet upserted 1 rows.
+All done.
+",
+20260608103100,2026-06-08,SZSE margin detail,szse_margindetail_data.py,success,4144,0,2026-06-08 10:34:40,2026-06-08 10:36:47,126.33,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/szse_margindetail_data.py,,"Parquet dir: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/margin_szse_tab2_data
+Latest stored date: 2026-06-04; start fetching from 2026-06-05
+Checking 2026-06-05: records found = 2072
+[2026-06-05] parquet upserted 2072 rows
+Checking 2026-06-06: records found = 0
+Checking 2026-06-07: records found = 0
+Checking 2026-06-08: records found = 0
+All done.
+","/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+"
+20260608103100,2026-06-08,SSE margin detail,sse_margindetail_data.py,success,0,0,2026-06-08 10:36:47,2026-06-08 10:37:59,72.05,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_margindetail_data.py,,"[2026-05-26] downloading/parsing... request failed: HTTPSConnectionPool(host='www.sse.com.cn', port=443): Max retries exceeded with url: /market/dealingdata/overview/margin/a/rzrqjygk20260526.xls (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))); skip
+[2026-05-27] downloading/parsing... request failed: HTTPSConnectionPool(host='www.sse.com.cn', port=443): Max retries exceeded with url: /market/dealingdata/overview/margin/a/rzrqjygk20260527.xls (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))); skip
+[2026-05-28] downloading/parsing... request failed: HTTPSConnectionPool(host='www.sse.com.cn', port=443): Max retries exceeded with url: /market/dealingdata/overview/margin/a/rzrqjygk20260528.xls (Caused by NewConnectionError(""HTTPSConnection(host='www.sse.com.cn', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"")); skip
+[2026-05-29] downloading/parsing... request failed: HTTPSConnectionPool(host='www.sse.com.cn', port=443): Max retries exceeded with url: /market/dealingdata/overview/margin/a/rzrqjygk20260529.xls (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))); skip
+[2026-05-30] downloading/parsing... request failed: HTTPSConnectionPool(host='www.sse.com.cn', port=443): Max retries exceeded with url: /market/dealingdata/overview/margin/a/rzrqjygk20260530.xls (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))); skip
+[2026-05-31] downloading/parsing... request failed: HTTPSConnectionPool(host='www.sse.com.cn', port=443): Max retries exceeded with url: /market/dealingdata/overview/margin/a/rzrqjygk20260531.xls (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))); skip
+[2026-06-01] downloading/parsing... request failed: HTTPSConnectionPool(host='www.sse.com.cn', port=443): Max retries exceeded with url: /market/dealingdata/overview/margin/a/rzrqjygk20260601.xls (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))); skip
+[2026-06-02] downloading/parsing... request failed: HTTPSConnectionPool(host='www.sse.com.cn', port=443): Max retries exceeded with url: /market/dealingdata/overview/margin/a/rzrqjygk20260602.xls (Caused by NewConnectionError(""HTTPSConnection(host='www.sse.com.cn', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"")); skip
+[2026-06-03] downloading/parsing... request failed: HTTPSConnectionPool(host='www.sse.com.cn', port=443): Max retries exceeded with url: /market/dealingdata/overview/margin/a/rzrqjygk20260603.xls (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))); skip
+[2026-06-04] downloading/parsing... request failed: HTTPSConnectionPool(host='www.sse.com.cn', port=443): Max retries exceeded with url: /market/dealingdata/overview/margin/a/rzrqjygk20260604.xls (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))); skip
+[2026-06-05] downloading/parsing... request failed: HTTPSConnectionPool(host='www.sse.com.cn', port=443): Max retries exceeded with url: /market/dealingdata/overview/margin/a/rzrqjygk20260605.xls (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))); skip
+[2026-06-06] downloading/parsing... request failed: HTTPSConnectionPool(host='www.sse.com.cn', port=443): Max retries exceeded with url: /market/dealingdata/overview/margin/a/rzrqjygk20260606.xls (Caused by NewConnectionError(""HTTPSConnection(host='www.sse.com.cn', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"")); skip
+[2026-06-07] downloading/parsing... request failed: HTTPSConnectionPool(host='www.sse.com.cn', port=443): Max retries exceeded with url: /market/dealingdata/overview/margin/a/rzrqjygk20260607.xls (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))); skip
+[2026-06-08] downloading/parsing... request failed: HTTPSConnectionPool(host='www.sse.com.cn', port=443): Max retries exceeded with url: /market/dealingdata/overview/margin/a/rzrqjygk20260608.xls (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))); skip
+Done. No new rows.
+",
+20260608103100,2026-06-08,Global market daily,global_market_daily_fetcher.py,success,30,0,2026-06-08 10:37:59,2026-06-08 10:40:04,125.61,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/global_market_daily_fetcher.py,,"[^IXIC] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^IXIC] parquet upserted 1 rows.
+[^DJI] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^DJI] parquet upserted 1 rows.
+[^SPX] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^SPX] parquet upserted 1 rows.
+[^VIX] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^VIX] parquet upserted 1 rows.
+[^GSPTSE] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^GSPTSE] parquet upserted 1 rows.
+[^BVSP] mode=incremental; latest=2026-06-03; fetch 2026-06-04 -> 2026-06-08
+[^BVSP] parquet upserted 1 rows.
+[^MXX] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^MXX] parquet upserted 1 rows.
+[^MERV] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^MERV] parquet upserted 1 rows.
+[^N100] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^N100] parquet upserted 1 rows.
+[^FTSE] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^FTSE] parquet upserted 1 rows.
+[^FTAI] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^FTAI] parquet upserted 1 rows.
+[^FCHI] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^FCHI] parquet upserted 1 rows.
+[^GDAXI] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^GDAXI] parquet upserted 1 rows.
+[^SSMI] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^SSMI] parquet upserted 1 rows.
+[FTSEMIB.MI] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[FTSEMIB.MI] parquet upserted 1 rows.
+[^AEX] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^AEX] parquet upserted 1 rows.
+[^BFX] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^BFX] parquet upserted 1 rows.
+[^STOXX50E] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^STOXX50E] parquet upserted 1 rows.
+[^N225] mode=incremental; latest=2026-06-05; fetch 2026-06-06 -> 2026-06-08
+[^N225] parquet upserted 1 rows.
+[^BSESN] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^BSESN] parquet upserted 1 rows.
+[^SET.BK] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^SET.BK] parquet upserted 1 rows.
+[^KS11] mode=incremental; latest=2026-06-05; fetch 2026-06-06 -> 2026-06-08
+[^KS11] parquet upserted 1 rows.
+[^STI] mode=incremental; latest=2026-06-05; fetch 2026-06-06 -> 2026-06-08
+[^STI] parquet upserted 1 rows.
+[^JKSE] mode=incremental; latest=2026-06-05; fetch 2026-06-06 -> 2026-06-08
+[^JKSE] parquet upserted 1 rows.
+[^KLSE] mode=incremental; latest=2026-06-05; fetch 2026-06-06 -> 2026-06-08
+[^KLSE] parquet upserted 1 rows.
+[^AORD] mode=incremental; latest=2026-06-05; fetch 2026-06-06 -> 2026-06-08
+[^AORD] no new rows.
+[^NZ50] mode=incremental; latest=2026-06-05; fetch 2026-06-06 -> 2026-06-08
+[^NZ50] parquet upserted 1 rows.
+[^TA125.TA] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^TA125.TA] parquet upserted 1 rows.
+[DFMGI.AE] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[DFMGI.AE] parquet upserted 1 rows.
+[^TASI.SR] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^TASI.SR] parquet upserted 1 rows.
+[^J203.JO] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[^J203.JO] parquet upserted 1 rows.
+All done. Total parquet upserted 30 rows.
+",
+20260608103100,2026-06-08,SW industry daily,sw_industry_daily_fetcher.py,success,0,0,2026-06-08 10:40:04,2026-06-08 10:40:04,0.0,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sw_industry_daily_fetcher.py,,disabled by RUN_SW_INDUSTRY_DAILY; set RUN_SW_INDUSTRY_DAILY=1 to enable,
+20260608103100,2026-06-08,SSE ETF shares,sse_etf_shares_fetcher.py,success,0,0,2026-06-08 10:40:04,2026-06-08 10:44:28,264.24,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_etf_shares_fetcher.py,,"[sse_etf_shares] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08
+[2026-06-05] request failed attempt 1/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-05&_=20260608104005 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))
+[2026-06-05] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-05&_=20260608104005
+[2026-06-05] request failed attempt 2/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-05&_=20260608104013 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))
+[2026-06-05] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-05&_=20260608104005
+[2026-06-05] request failed attempt 3/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-05&_=20260608104026 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))
+[2026-06-05] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-05&_=20260608104005
+[2026-06-05] request failed attempt 4/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-05&_=20260608104044 (Caused by NewConnectionError(""HTTPConnection(host='query.sse.com.cn', port=80): Failed to establish a new connection: [Errno 101] Network is unreachable""))
+[2026-06-05] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-05&_=20260608104005
+[2026-06-05] request failed attempt 5/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-05&_=20260608104107 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))
+[2026-06-05] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-05&_=20260608104005
+[2026-06-05] failed after retries; skip. Next run will retry from current latest date.
+[2026-06-06] request failed attempt 1/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-06&_=20260608104111 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))
+[2026-06-06] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-06&_=20260608104111
+[2026-06-06] request failed attempt 2/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-06&_=20260608104119 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))
+[2026-06-06] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-06&_=20260608104111
+[2026-06-06] request failed attempt 3/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-06&_=20260608104131 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))
+[2026-06-06] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-06&_=20260608104111
+[2026-06-06] request failed attempt 4/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-06&_=20260608104149 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))
+[2026-06-06] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-06&_=20260608104111
+[2026-06-06] request failed attempt 5/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-06&_=20260608104212 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))
+[2026-06-06] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-06&_=20260608104111
+[2026-06-06] failed after retries; skip. Next run will retry from current latest date.
+[2026-06-07] request failed attempt 1/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-07&_=20260608104216 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))
+[2026-06-07] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-07&_=20260608104216
+[2026-06-07] request failed attempt 2/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-07&_=20260608104224 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))
+[2026-06-07] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-07&_=20260608104216
+[2026-06-07] request failed attempt 3/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-07&_=20260608104236 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))
+[2026-06-07] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-07&_=20260608104216
+[2026-06-07] request failed attempt 4/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-07&_=20260608104254 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))
+[2026-06-07] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-07&_=20260608104216
+[2026-06-07] request failed attempt 5/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-07&_=20260608104319 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))
+[2026-06-07] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-07&_=20260608104216
+[2026-06-07] failed after retries; skip. Next run will retry from current latest date.
+[2026-06-08] request failed attempt 1/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-08&_=20260608104322 (Caused by NewConnectionError(""HTTPConnection(host='query.sse.com.cn', port=80): Failed to establish a new connection: [Errno 101] Network is unreachable""))
+[2026-06-08] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-08&_=20260608104322
+[2026-06-08] request failed attempt 2/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-08&_=20260608104330 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))
+[2026-06-08] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-08&_=20260608104322
+[2026-06-08] request failed attempt 3/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-08&_=20260608104343 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))
+[2026-06-08] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-08&_=20260608104322
+[2026-06-08] request failed attempt 4/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-08&_=20260608104401 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))
+[2026-06-08] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-08&_=20260608104322
+[2026-06-08] request failed attempt 5/5: HTTPConnectionPool(host='query.sse.com.cn', port=80): Max retries exceeded with url: /commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-08&_=20260608104425 (Caused by ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')))
+[2026-06-08] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-06-08&_=20260608104322
+[2026-06-08] failed after retries; skip. Next run will retry from current latest date.
+[sse_etf_shares] all done. Total parquet upserted 0 rows.
+",
+20260608103100,2026-06-08,NCD AAA yield curve,ncd_aaa_yield_curve_fetcher.py,success,100,0,2026-06-08 10:44:28,2026-06-08 10:44:31,2.12,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/ncd_aaa_yield_curve_fetcher.py,,"[1] Fetch 2026-06-04 ~ 2026-06-08
+  -> 50 rows
+Done. Parquet upserted 50 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/ncd_aaa_yield_curve_data
+",
+20260608103100,2026-06-08,RMB FX index,rmb_fx_index_fetcher.py,success,2,0,2026-06-08 10:44:31,2026-06-08 10:44:33,2.32,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/rmb_fx_index_fetcher.py,,"[rmb_fx_index] mode=incremental; latest=2026-05-22; fetch 2026-05-23 -> 2026-06-01
+[rmb_fx_index] fetch 2026-05-23 -> 2026-06-01
+[rmb_fx_index] parquet upserted 1 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/rmb_fx_index_data
+",
+20260608103100,2026-06-08,Shibor curve,shibor_curve_fetcher.py,success,1496,0,2026-06-08 10:44:33,2026-06-08 10:44:35,2.52,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/shibor_curve_fetcher.py,,"[shibor_curve] parquet upserted 748 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/shibor_curve_data
+[shibor_curve] date range: 2023-06-05 -> 2026-06-05
+",
+20260608103100,2026-06-08,Southbound netbuy,southbound_netbuy_fetcher.py,success,2,0,2026-06-08 10:44:35,2026-06-08 10:44:37,1.37,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/southbound_netbuy_fetcher.py,,"[southbound] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08; query_start=2026-05-26
+[southbound] page=1; rows=9; pages=1
+[southbound] parquet upserted 1 rows.
+",
+20260608103100,2026-06-08,Northbound deal amount,northbound_dealamt_fetcher.py,success,2,0,2026-06-08 10:44:37,2026-06-08 10:44:38,1.22,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/northbound_dealamt_fetcher.py,,"[northbound] mode=incremental; latest=2026-06-04; fetch 2026-06-05 -> 2026-06-08; query_start=2026-05-26
+[northbound] page=1; rows=9; pages=1
+[northbound] parquet upserted 1 rows.
+",
+20260608103100,2026-06-08,Fund new issue,fund_new_issue_fetcher.py,success,8428,0,2026-06-08 10:44:38,2026-06-08 10:44:56,18.26,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/fund_new_issue_fetcher.py,,"[fund_new_issue] fast update enabled: latest snapshot=2026-06-05, fetch first 10 pages.
+fetch page 1: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=1%2C100&isbuy=2
+page 1: rows=100
+fetch page 2: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=2%2C100&isbuy=2
+page 2: rows=100
+fetch page 3: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=3%2C100&isbuy=2
+page 3: rows=100
+fetch page 4: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=4%2C100&isbuy=2
+page 4: rows=100
+fetch page 5: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=5%2C100&isbuy=2
+page 5: rows=100
+fetch page 6: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=6%2C100&isbuy=2
+page 6: rows=100
+fetch page 7: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=7%2C100&isbuy=2
+page 7: rows=100
+fetch page 8: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=8%2C100&isbuy=2
+page 8: rows=100
+fetch page 9: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=9%2C100&isbuy=2
+page 9: rows=100
+fetch page 10: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=10%2C100&isbuy=2
+page 10: rows=100
+[fund_new_issue] mode=fast, old_rows=8387, fetched_rows=1000, final_rows=8428, sliced_rows=8428, parquet_dir=/home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/fund_new_issue_data
+[fund_new_issue] established_date range: 2013-08-20 -> 2026-06-05
+",
+20260608103100,2026-06-08,ERP HS300 10Y,erp_hs300_10y_fetcher.py,success,1448,0,2026-06-08 10:44:56,2026-06-08 10:45:07,10.94,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/erp_hs300_10y_fetcher.py,,"[erp] fetch gov yield 2023-06-08 -> 2023-09-07
+[erp] fetch gov yield 2023-09-08 -> 2023-12-07
+[erp] fetch gov yield 2023-12-08 -> 2024-03-07
+[erp] fetch gov yield 2024-03-08 -> 2024-06-07
+[erp] fetch gov yield 2024-06-08 -> 2024-09-07
+[erp] fetch gov yield 2024-09-08 -> 2024-12-07
+[erp] fetch gov yield 2024-12-08 -> 2025-03-07
+[erp] fetch gov yield 2025-03-08 -> 2025-06-07
+[erp] fetch gov yield 2025-06-08 -> 2025-09-07
+[erp] fetch gov yield 2025-09-08 -> 2025-12-07
+[erp] fetch gov yield 2025-12-08 -> 2026-03-07
+[erp] fetch gov yield 2026-03-08 -> 2026-06-07
+[erp] fetch gov yield 2026-06-08 -> 2026-06-08
+[erp] gov rows=745
+[erp] hs300 rows=725
+[erp] parquet upserted 724 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/erp_hs300_10y_data
+[erp] date range: 2023-06-08 -> 2026-06-05
+",
+20260608103100,2026-06-08,API showcase metadata,update_api_showcase_metadata.py,success,0,0,2026-06-08 10:45:07,2026-06-08 10:45:08,0.42,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/update_api_showcase_metadata.py,,"[api_showcase] updated 15 API metadata files.
+[api_showcase] catalog: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api_showcase/metadata/catalog.json
+",
