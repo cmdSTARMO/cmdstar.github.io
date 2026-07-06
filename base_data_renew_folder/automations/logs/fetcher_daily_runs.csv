@@ -7281,3 +7281,213 @@ page 10: rows=100
 20260703094720,2026-07-03,API showcase metadata,update_api_showcase_metadata.py,success,0,0,2026-07-03 09:56:09,2026-07-03 09:56:10,0.42,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/update_api_showcase_metadata.py,,"[api_showcase] updated 15 API metadata files.
 [api_showcase] catalog: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api_showcase/metadata/catalog.json
 ",
+20260706095846,2026-07-06,SZSE margin total,szse_margintotal_data.py,success,2,0,2026-07-06 09:58:46,2026-07-06 10:00:55,128.65,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/szse_margintotal_data.py,,"Parquet dir: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/margin_szse_tab1_data
+Latest stored date: 2026-07-02; start fetching from 2026-07-03
+Checking 2026-07-03: records found = 1
+[2026-07-03] parquet upserted 1 rows
+Checking 2026-07-04: records found = 0
+Checking 2026-07-05: records found = 0
+Checking 2026-07-06: records found = 0
+All done.
+",
+20260706095846,2026-07-06,SSE margin total,sse_margintotal_data.py,success,2,0,2026-07-06 10:00:55,2026-07-06 10:01:23,28.83,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_margintotal_data.py,,"[WINDOW] 2026-07-03 -> 2026-07-06 fetching...
+  done: fetched 1 rows, parquet upserted 1 rows.
+All done.
+",
+20260706095846,2026-07-06,SZSE margin detail,szse_margindetail_data.py,success,4146,0,2026-07-06 10:01:23,2026-07-06 10:03:22,118.43,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/szse_margindetail_data.py,,"Parquet dir: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/margin_szse_tab2_data
+Latest stored date: 2026-07-02; start fetching from 2026-07-03
+Checking 2026-07-03: records found = 2073
+[2026-07-03] parquet upserted 2073 rows
+Checking 2026-07-04: records found = 0
+Checking 2026-07-05: records found = 0
+Checking 2026-07-06: records found = 0
+All done.
+","/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+/opt/hostedtoolcache/Python/3.12.13/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+"
+20260706095846,2026-07-06,SSE margin detail,sse_margindetail_data.py,success,0,0,2026-07-06 10:03:22,2026-07-06 10:06:44,201.7,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_margindetail_data.py,,"[2026-05-26] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-05-27] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-05-28] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-05-29] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-05-30] downloading/parsing... no data
+[2026-05-31] downloading/parsing... no data
+[2026-06-01] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-02] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-03] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-04] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-05] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-06] downloading/parsing... no data
+[2026-06-07] downloading/parsing... no data
+[2026-06-08] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-09] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-10] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-11] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-12] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-13] downloading/parsing... no data
+[2026-06-14] downloading/parsing... no data
+[2026-06-15] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-16] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-17] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-18] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-19] downloading/parsing... no data
+[2026-06-20] downloading/parsing... no data
+[2026-06-21] downloading/parsing... no data
+[2026-06-22] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-23] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-24] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-25] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-26] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-27] downloading/parsing... no data
+[2026-06-28] downloading/parsing... no data
+[2026-06-29] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-30] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-01] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-02] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-03] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-04] downloading/parsing... no data
+[2026-07-05] downloading/parsing... no data
+[2026-07-06] downloading/parsing... no data
+Done. No new rows.
+",
+20260706095846,2026-07-06,Global market daily,global_market_daily_fetcher.py,success,28,0,2026-07-06 10:06:44,2026-07-06 10:08:44,120.36,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/global_market_daily_fetcher.py,,"[^IXIC] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^IXIC] no new rows.
+[^DJI] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^DJI] no new rows.
+[^SPX] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^SPX] no new rows.
+[^VIX] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^VIX] parquet upserted 1 rows.
+[^GSPTSE] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^GSPTSE] parquet upserted 1 rows.
+[^BVSP] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^BVSP] parquet upserted 1 rows.
+[^MXX] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^MXX] parquet upserted 1 rows.
+[^MERV] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^MERV] parquet upserted 1 rows.
+[^N100] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^N100] parquet upserted 1 rows.
+[^FTSE] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^FTSE] parquet upserted 1 rows.
+[^FTAI] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^FTAI] parquet upserted 1 rows.
+[^FCHI] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^FCHI] parquet upserted 1 rows.
+[^GDAXI] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^GDAXI] parquet upserted 1 rows.
+[^SSMI] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^SSMI] parquet upserted 1 rows.
+[FTSEMIB.MI] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[FTSEMIB.MI] parquet upserted 1 rows.
+[^AEX] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^AEX] parquet upserted 1 rows.
+[^BFX] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^BFX] parquet upserted 1 rows.
+[^STOXX50E] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^STOXX50E] parquet upserted 1 rows.
+[^N225] mode=incremental; latest=2026-07-03; fetch 2026-07-04 -> 2026-07-06
+[^N225] parquet upserted 1 rows.
+[^BSESN] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^BSESN] parquet upserted 1 rows.
+[^SET.BK] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^SET.BK] parquet upserted 1 rows.
+[^KS11] mode=incremental; latest=2026-07-03; fetch 2026-07-04 -> 2026-07-06
+[^KS11] parquet upserted 1 rows.
+[^STI] mode=incremental; latest=2026-07-03; fetch 2026-07-04 -> 2026-07-06
+[^STI] parquet upserted 1 rows.
+[^JKSE] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^JKSE] parquet upserted 1 rows.
+[^KLSE] mode=incremental; latest=2026-07-03; fetch 2026-07-04 -> 2026-07-06
+[^KLSE] parquet upserted 1 rows.
+[^AORD] mode=incremental; latest=2026-07-03; fetch 2026-07-04 -> 2026-07-06
+[^AORD] parquet upserted 1 rows.
+[^NZ50] mode=incremental; latest=2026-07-03; fetch 2026-07-04 -> 2026-07-06
+[^NZ50] parquet upserted 1 rows.
+[^TA125.TA] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^TA125.TA] parquet upserted 1 rows.
+[DFMGI.AE] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[DFMGI.AE] parquet upserted 1 rows.
+[^TASI.SR] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^TASI.SR] parquet upserted 1 rows.
+[^J203.JO] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[^J203.JO] parquet upserted 1 rows.
+All done. Total parquet upserted 28 rows.
+",
+20260706095846,2026-07-06,SW industry daily,sw_industry_daily_fetcher.py,success,0,0,2026-07-06 10:08:44,2026-07-06 10:08:44,0.0,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sw_industry_daily_fetcher.py,,disabled by RUN_SW_INDUSTRY_DAILY; set RUN_SW_INDUSTRY_DAILY=1 to enable,
+20260706095846,2026-07-06,SSE ETF shares,sse_etf_shares_fetcher.py,success,869,0,2026-07-06 10:08:44,2026-07-06 10:08:48,4.52,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_etf_shares_fetcher.py,,"[sse_etf_shares] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06
+[2026-07-03] parquet upserted 869 rows.
+[2026-07-04] no rows.
+[2026-07-05] no rows.
+[2026-07-06] no rows.
+[sse_etf_shares] all done. Total parquet upserted 869 rows.
+",
+20260706095846,2026-07-06,NCD AAA yield curve,ncd_aaa_yield_curve_fetcher.py,success,50,0,2026-07-06 10:08:48,2026-07-06 10:08:50,1.72,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/ncd_aaa_yield_curve_fetcher.py,,"[1] Fetch 2026-07-03 ~ 2026-07-06
+  -> 25 rows
+Done. Parquet upserted 25 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/ncd_aaa_yield_curve_data
+",
+20260706095846,2026-07-06,RMB FX index,rmb_fx_index_fetcher.py,success,0,0,2026-07-06 10:08:50,2026-07-06 10:08:52,2.27,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/rmb_fx_index_fetcher.py,,"[rmb_fx_index] mode=incremental; latest=2026-06-26; fetch 2026-06-27 -> 2026-06-29
+[rmb_fx_index] fetch 2026-06-27 -> 2026-06-29
+[rmb_fx_index] no new rows.
+",
+20260706095846,2026-07-06,Shibor curve,shibor_curve_fetcher.py,success,1496,0,2026-07-06 10:08:52,2026-07-06 10:08:55,2.52,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/shibor_curve_fetcher.py,,"[shibor_curve] parquet upserted 748 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/shibor_curve_data
+[shibor_curve] date range: 2023-07-03 -> 2026-07-03
+",
+20260706095846,2026-07-06,Southbound netbuy,southbound_netbuy_fetcher.py,success,2,0,2026-07-06 10:08:55,2026-07-06 10:08:57,1.87,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/southbound_netbuy_fetcher.py,,"[southbound] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06; query_start=2026-06-23
+[southbound] page=1; rows=8; pages=1
+[southbound] parquet upserted 1 rows.
+",
+20260706095846,2026-07-06,Northbound deal amount,northbound_dealamt_fetcher.py,success,2,0,2026-07-06 10:08:57,2026-07-06 10:08:58,1.47,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/northbound_dealamt_fetcher.py,,"[northbound] mode=incremental; latest=2026-07-02; fetch 2026-07-03 -> 2026-07-06; query_start=2026-06-23
+[northbound] page=1; rows=8; pages=1
+[northbound] parquet upserted 1 rows.
+",
+20260706095846,2026-07-06,Fund new issue,fund_new_issue_fetcher.py,success,9008,0,2026-07-06 10:08:58,2026-07-06 10:09:15,16.45,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/fund_new_issue_fetcher.py,,"[fund_new_issue] fast update enabled: latest snapshot=2026-07-03, fetch first 10 pages.
+fetch page 1: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=1%2C100&isbuy=2
+page 1: rows=100
+fetch page 2: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=2%2C100&isbuy=2
+page 2: rows=100
+fetch page 3: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=3%2C100&isbuy=2
+page 3: rows=100
+fetch page 4: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=4%2C100&isbuy=2
+page 4: rows=100
+fetch page 5: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=5%2C100&isbuy=2
+page 5: rows=100
+fetch page 6: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=6%2C100&isbuy=2
+page 6: rows=100
+fetch page 7: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=7%2C100&isbuy=2
+page 7: rows=100
+fetch page 8: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=8%2C100&isbuy=2
+page 8: rows=100
+fetch page 9: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=9%2C100&isbuy=2
+page 9: rows=100
+fetch page 10: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=10%2C100&isbuy=2
+page 10: rows=100
+[fund_new_issue] mode=fast, old_rows=8983, fetched_rows=1000, final_rows=9008, sliced_rows=9008, parquet_dir=/home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/fund_new_issue_data
+[fund_new_issue] established_date range: 2013-08-20 -> 2026-07-03
+",
+20260706095846,2026-07-06,ERP HS300 10Y,erp_hs300_10y_fetcher.py,success,1450,0,2026-07-06 10:09:15,2026-07-06 10:09:26,11.39,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/erp_hs300_10y_fetcher.py,,"[erp] fetch gov yield 2023-07-06 -> 2023-10-05
+[erp] fetch gov yield 2023-10-06 -> 2024-01-05
+[erp] fetch gov yield 2024-01-06 -> 2024-04-05
+[erp] fetch gov yield 2024-04-06 -> 2024-07-05
+[erp] fetch gov yield 2024-07-06 -> 2024-10-05
+[erp] fetch gov yield 2024-10-06 -> 2025-01-05
+[erp] fetch gov yield 2025-01-06 -> 2025-04-05
+[erp] fetch gov yield 2025-04-06 -> 2025-07-05
+[erp] fetch gov yield 2025-07-06 -> 2025-10-05
+[erp] fetch gov yield 2025-10-06 -> 2026-01-05
+[erp] fetch gov yield 2026-01-06 -> 2026-04-05
+[erp] fetch gov yield 2026-04-06 -> 2026-07-05
+[erp] fetch gov yield 2026-07-06 -> 2026-07-06
+[erp] gov rows=745
+[erp] hs300 rows=726
+[erp] parquet upserted 725 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/erp_hs300_10y_data
+[erp] date range: 2023-07-06 -> 2026-07-03
+",
+20260706095846,2026-07-06,API showcase metadata,update_api_showcase_metadata.py,success,0,0,2026-07-06 10:09:26,2026-07-06 10:09:26,0.32,/opt/hostedtoolcache/Python/3.12.13/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/update_api_showcase_metadata.py,,"[api_showcase] updated 15 API metadata files.
+[api_showcase] catalog: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api_showcase/metadata/catalog.json
+",
