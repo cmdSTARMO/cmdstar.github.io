@@ -16473,3 +16473,448 @@ page 10: rows=100
 20260903094949,2026-09-03,API showcase metadata,update_api_showcase_metadata.py,success,0,0,2026-09-03 10:20:22,2026-09-03 10:20:22,0.42,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/update_api_showcase_metadata.py,,"[api_showcase] updated 15 API metadata files.
 [api_showcase] catalog: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api_showcase/metadata/catalog.json
 ",
+20260907093719,2026-09-07,SZSE margin total,szse_margintotal_data.py,success,4,0,2026-09-07 09:37:19,2026-09-07 09:39:49,150.47,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/szse_margintotal_data.py,,"Parquet dir: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/margin_szse_tab1_data
+Latest stored date: 2026-09-02; start fetching from 2026-09-03
+Checking 2026-09-03: records found = 1
+[2026-09-03] parquet upserted 1 rows
+Checking 2026-09-04: records found = 1
+[2026-09-04] parquet upserted 1 rows
+Checking 2026-09-05: records found = 0
+Checking 2026-09-06: records found = 0
+Checking 2026-09-07: records found = 0
+All done.
+",
+20260907093719,2026-09-07,SSE margin total,sse_margintotal_data.py,success,6,0,2026-09-07 09:39:49,2026-09-07 09:40:23,34.09,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_margintotal_data.py,,"[WINDOW] 2026-09-02 -> 2026-09-07 fetching...
+  done: fetched 3 rows, parquet upserted 3 rows.
+All done.
+",
+20260907093719,2026-09-07,SZSE margin detail,szse_margindetail_data.py,success,8412,0,2026-09-07 09:40:23,2026-09-07 09:42:57,154.16,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/szse_margindetail_data.py,,"Parquet dir: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/margin_szse_tab2_data
+Latest stored date: 2026-09-02; start fetching from 2026-09-03
+Checking 2026-09-03: records found = 2103
+[2026-09-03] parquet upserted 2103 rows
+Checking 2026-09-04: records found = 2103
+[2026-09-04] parquet upserted 2103 rows
+Checking 2026-09-05: records found = 0
+Checking 2026-09-06: records found = 0
+Checking 2026-09-07: records found = 0
+All done.
+","/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+"
+20260907093719,2026-09-07,SSE margin detail,sse_margindetail_data.py,success,0,0,2026-09-07 09:42:57,2026-09-07 09:51:51,533.4,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_margindetail_data.py,,"[2026-05-26] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-05-27] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-05-28] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-05-29] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-05-30] downloading/parsing... no data
+[2026-05-31] downloading/parsing... no data
+[2026-06-01] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-02] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-03] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-04] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-05] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-06] downloading/parsing... no data
+[2026-06-07] downloading/parsing... no data
+[2026-06-08] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-09] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-10] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-11] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-12] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-13] downloading/parsing... no data
+[2026-06-14] downloading/parsing... no data
+[2026-06-15] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-16] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-17] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-18] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-19] downloading/parsing... no data
+[2026-06-20] downloading/parsing... no data
+[2026-06-21] downloading/parsing... no data
+[2026-06-22] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-23] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-24] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-25] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-26] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-27] downloading/parsing... no data
+[2026-06-28] downloading/parsing... no data
+[2026-06-29] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-30] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-01] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-02] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-03] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-04] downloading/parsing... no data
+[2026-07-05] downloading/parsing... no data
+[2026-07-06] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-07] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-08] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-09] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-10] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-11] downloading/parsing... no data
+[2026-07-12] downloading/parsing... no data
+[2026-07-13] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-14] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-15] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-16] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-17] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-18] downloading/parsing... no data
+[2026-07-19] downloading/parsing... no data
+[2026-07-20] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-21] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-22] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-23] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-24] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-25] downloading/parsing... no data
+[2026-07-26] downloading/parsing... no data
+[2026-07-27] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-28] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-29] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-30] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-31] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-01] downloading/parsing... no data
+[2026-08-02] downloading/parsing... no data
+[2026-08-03] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-04] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-05] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-06] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-07] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-08] downloading/parsing... no data
+[2026-08-09] downloading/parsing... no data
+[2026-08-10] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-11] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-12] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-13] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-14] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-15] downloading/parsing... no data
+[2026-08-16] downloading/parsing... no data
+[2026-08-17] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-18] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-19] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-20] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-21] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-22] downloading/parsing... no data
+[2026-08-23] downloading/parsing... no data
+[2026-08-24] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-25] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-26] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-27] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-28] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-29] downloading/parsing... no data
+[2026-08-30] downloading/parsing... no data
+[2026-08-31] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-09-01] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-09-02] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-09-03] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-09-04] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-09-05] downloading/parsing... no data
+[2026-09-06] downloading/parsing... no data
+[2026-09-07] downloading/parsing... no data
+Done. No new rows.
+",
+20260907093719,2026-09-07,Global market daily,global_market_daily_fetcher.py,success,58,0,2026-09-07 09:51:51,2026-09-07 09:53:44,112.68,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/global_market_daily_fetcher.py,,"[^IXIC] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^IXIC] parquet upserted 2 rows.
+[^DJI] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^DJI] parquet upserted 2 rows.
+[^SPX] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^SPX] parquet upserted 2 rows.
+[^VIX] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^VIX] parquet upserted 2 rows.
+[^GSPTSE] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^GSPTSE] parquet upserted 2 rows.
+[^BVSP] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^BVSP] parquet upserted 2 rows.
+[^MXX] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^MXX] parquet upserted 2 rows.
+[^MERV] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^MERV] parquet upserted 2 rows.
+[^N100] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^N100] parquet upserted 2 rows.
+[^FTSE] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^FTSE] parquet upserted 2 rows.
+[^FTAI] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^FTAI] parquet upserted 2 rows.
+[^FCHI] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^FCHI] parquet upserted 2 rows.
+[^GDAXI] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^GDAXI] parquet upserted 2 rows.
+[^SSMI] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^SSMI] parquet upserted 2 rows.
+[FTSEMIB.MI] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[FTSEMIB.MI] parquet upserted 2 rows.
+[^AEX] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^AEX] parquet upserted 2 rows.
+[^BFX] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^BFX] parquet upserted 2 rows.
+[^STOXX50E] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^STOXX50E] parquet upserted 2 rows.
+[^N225] mode=incremental; latest=2026-09-03; fetch 2026-09-04 -> 2026-09-07
+[^N225] parquet upserted 2 rows.
+[^BSESN] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^BSESN] parquet upserted 2 rows.
+[^SET.BK] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^SET.BK] parquet upserted 1 rows.
+[^KS11] mode=incremental; latest=2026-09-03; fetch 2026-09-04 -> 2026-09-07
+[^KS11] parquet upserted 2 rows.
+[^STI] mode=incremental; latest=2026-09-03; fetch 2026-09-04 -> 2026-09-07
+[^STI] parquet upserted 2 rows.
+[^JKSE] mode=incremental; latest=2026-09-03; fetch 2026-09-04 -> 2026-09-07
+[^JKSE] parquet upserted 1 rows.
+[^KLSE] mode=incremental; latest=2026-09-03; fetch 2026-09-04 -> 2026-09-07
+[^KLSE] parquet upserted 2 rows.
+[^AORD] mode=incremental; latest=2026-09-03; fetch 2026-09-04 -> 2026-09-07
+[^AORD] parquet upserted 2 rows.
+[^NZ50] mode=incremental; latest=2026-09-03; fetch 2026-09-04 -> 2026-09-07
+[^NZ50] parquet upserted 2 rows.
+[^TA125.TA] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^TA125.TA] parquet upserted 2 rows.
+[DFMGI.AE] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[DFMGI.AE] parquet upserted 1 rows.
+[^TASI.SR] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^TASI.SR] parquet upserted 1 rows.
+[^J203.JO] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07
+[^J203.JO] parquet upserted 2 rows.
+All done. Total parquet upserted 58 rows.
+",
+20260907093719,2026-09-07,SW industry daily,sw_industry_daily_fetcher.py,success,0,0,2026-09-07 09:53:44,2026-09-07 09:53:44,0.0,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sw_industry_daily_fetcher.py,,disabled by RUN_SW_INDUSTRY_DAILY; set RUN_SW_INDUSTRY_DAILY=1 to enable,
+20260907093719,2026-09-07,SSE ETF shares,sse_etf_shares_fetcher.py,success,2701,0,2026-09-07 09:53:44,2026-09-07 09:53:49,5.08,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_etf_shares_fetcher.py,,"[sse_etf_shares] mode=incremental; latest=2026-09-01; fetch 2026-09-02 -> 2026-09-07
+[2026-09-02] parquet upserted 899 rows.
+[2026-09-03] parquet upserted 900 rows.
+[2026-09-04] parquet upserted 902 rows.
+[2026-09-05] no rows.
+[2026-09-06] no rows.
+[2026-09-07] no rows.
+[sse_etf_shares] all done. Total parquet upserted 2701 rows.
+",
+20260907093719,2026-09-07,NCD AAA yield curve,ncd_aaa_yield_curve_fetcher.py,success,100,0,2026-09-07 09:53:49,2026-09-07 09:53:50,1.67,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/ncd_aaa_yield_curve_fetcher.py,,"[1] Fetch 2026-09-03 ~ 2026-09-07
+  -> 50 rows
+Done. Parquet upserted 50 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/ncd_aaa_yield_curve_data
+",
+20260907093719,2026-09-07,RMB FX index,rmb_fx_index_fetcher.py,success,4,0,2026-09-07 09:53:50,2026-09-07 09:53:52,2.07,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/rmb_fx_index_fetcher.py,,"[rmb_fx_index] mode=incremental; latest=2026-08-21; fetch 2026-08-22 -> 2026-08-31
+[rmb_fx_index] fetch 2026-08-22 -> 2026-08-31
+[rmb_fx_index] parquet upserted 2 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/rmb_fx_index_data
+",
+20260907093719,2026-09-07,Shibor curve,shibor_curve_fetcher.py,success,1496,0,2026-09-07 09:53:52,2026-09-07 09:53:55,2.37,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/shibor_curve_fetcher.py,,"[shibor_curve] parquet upserted 748 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/shibor_curve_data
+[shibor_curve] date range: 2023-09-04 -> 2026-09-04
+",
+20260907093719,2026-09-07,Southbound netbuy,southbound_netbuy_fetcher.py,success,4,0,2026-09-07 09:53:55,2026-09-07 09:53:56,1.52,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/southbound_netbuy_fetcher.py,,"[southbound] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07; query_start=2026-08-24
+[southbound] page=1; rows=10; pages=1
+[southbound] parquet upserted 2 rows.
+",
+20260907093719,2026-09-07,Northbound deal amount,northbound_dealamt_fetcher.py,success,4,0,2026-09-07 09:53:56,2026-09-07 09:53:57,0.97,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/northbound_dealamt_fetcher.py,,"[northbound] mode=incremental; latest=2026-09-02; fetch 2026-09-03 -> 2026-09-07; query_start=2026-08-24
+[northbound] page=1; rows=10; pages=1
+[northbound] parquet upserted 2 rows.
+",
+20260907093719,2026-09-07,Fund new issue,fund_new_issue_fetcher.py,success,9060,0,2026-09-07 09:53:57,2026-09-07 09:56:38,161.07,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/fund_new_issue_fetcher.py,,"[fund_new_issue] full snapshot update: latest snapshot=2026-09-03, fetch up to 300 pages.
+fetch page 1: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=1%2C100&isbuy=2
+page 1: rows=100
+fetch page 2: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=2%2C100&isbuy=2
+page 2: rows=100
+fetch page 3: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=3%2C100&isbuy=2
+page 3: rows=100
+fetch page 4: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=4%2C100&isbuy=2
+page 4: rows=100
+fetch page 5: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=5%2C100&isbuy=2
+page 5: rows=100
+fetch page 6: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=6%2C100&isbuy=2
+page 6: rows=100
+fetch page 7: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=7%2C100&isbuy=2
+page 7: rows=100
+fetch page 8: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=8%2C100&isbuy=2
+page 8: rows=100
+fetch page 9: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=9%2C100&isbuy=2
+page 9: rows=100
+fetch page 10: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=10%2C100&isbuy=2
+page 10: rows=100
+fetch page 11: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=11%2C100&isbuy=2
+page 11: rows=100
+fetch page 12: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=12%2C100&isbuy=2
+page 12: rows=100
+fetch page 13: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=13%2C100&isbuy=2
+page 13: rows=100
+fetch page 14: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=14%2C100&isbuy=2
+page 14: rows=100
+fetch page 15: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=15%2C100&isbuy=2
+page 15: rows=100
+fetch page 16: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=16%2C100&isbuy=2
+page 16: rows=100
+fetch page 17: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=17%2C100&isbuy=2
+page 17: rows=100
+fetch page 18: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=18%2C100&isbuy=2
+page 18: rows=100
+fetch page 19: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=19%2C100&isbuy=2
+page 19: rows=100
+fetch page 20: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=20%2C100&isbuy=2
+page 20: rows=100
+fetch page 21: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=21%2C100&isbuy=2
+page 21: rows=100
+fetch page 22: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=22%2C100&isbuy=2
+page 22: rows=100
+fetch page 23: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=23%2C100&isbuy=2
+page 23: rows=100
+fetch page 24: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=24%2C100&isbuy=2
+page 24: rows=100
+fetch page 25: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=25%2C100&isbuy=2
+page 25: rows=100
+fetch page 26: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=26%2C100&isbuy=2
+page 26: rows=100
+fetch page 27: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=27%2C100&isbuy=2
+page 27: rows=100
+fetch page 28: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=28%2C100&isbuy=2
+page 28: rows=100
+fetch page 29: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=29%2C100&isbuy=2
+page 29: rows=100
+fetch page 30: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=30%2C100&isbuy=2
+page 30: rows=100
+fetch page 31: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=31%2C100&isbuy=2
+page 31: rows=100
+fetch page 32: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=32%2C100&isbuy=2
+page 32: rows=100
+fetch page 33: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=33%2C100&isbuy=2
+page 33: rows=100
+fetch page 34: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=34%2C100&isbuy=2
+page 34: rows=100
+fetch page 35: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=35%2C100&isbuy=2
+page 35: rows=100
+fetch page 36: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=36%2C100&isbuy=2
+page 36: rows=100
+fetch page 37: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=37%2C100&isbuy=2
+page 37: rows=100
+fetch page 38: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=38%2C100&isbuy=2
+page 38: rows=100
+fetch page 39: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=39%2C100&isbuy=2
+page 39: rows=100
+fetch page 40: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=40%2C100&isbuy=2
+page 40: rows=100
+fetch page 41: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=41%2C100&isbuy=2
+page 41: rows=100
+fetch page 42: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=42%2C100&isbuy=2
+page 42: rows=100
+fetch page 43: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=43%2C100&isbuy=2
+page 43: rows=100
+fetch page 44: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=44%2C100&isbuy=2
+page 44: rows=100
+fetch page 45: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=45%2C100&isbuy=2
+page 45: rows=100
+fetch page 46: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=46%2C100&isbuy=2
+page 46: rows=100
+fetch page 47: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=47%2C100&isbuy=2
+page 47: rows=100
+fetch page 48: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=48%2C100&isbuy=2
+page 48: rows=100
+fetch page 49: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=49%2C100&isbuy=2
+page 49: rows=100
+fetch page 50: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=50%2C100&isbuy=2
+page 50: rows=100
+fetch page 51: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=51%2C100&isbuy=2
+page 51: rows=100
+fetch page 52: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=52%2C100&isbuy=2
+page 52: rows=100
+fetch page 53: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=53%2C100&isbuy=2
+page 53: rows=100
+fetch page 54: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=54%2C100&isbuy=2
+page 54: rows=100
+fetch page 55: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=55%2C100&isbuy=2
+page 55: rows=100
+fetch page 56: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=56%2C100&isbuy=2
+page 56: rows=100
+fetch page 57: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=57%2C100&isbuy=2
+page 57: rows=100
+fetch page 58: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=58%2C100&isbuy=2
+page 58: rows=100
+fetch page 59: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=59%2C100&isbuy=2
+page 59: rows=100
+fetch page 60: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=60%2C100&isbuy=2
+page 60: rows=100
+fetch page 61: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=61%2C100&isbuy=2
+page 61: rows=100
+fetch page 62: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=62%2C100&isbuy=2
+page 62: rows=100
+fetch page 63: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=63%2C100&isbuy=2
+page 63: rows=100
+fetch page 64: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=64%2C100&isbuy=2
+page 64: rows=100
+fetch page 65: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=65%2C100&isbuy=2
+page 65: rows=100
+fetch page 66: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=66%2C100&isbuy=2
+page 66: rows=100
+fetch page 67: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=67%2C100&isbuy=2
+page 67: rows=100
+fetch page 68: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=68%2C100&isbuy=2
+page 68: rows=100
+fetch page 69: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=69%2C100&isbuy=2
+page 69: rows=100
+fetch page 70: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=70%2C100&isbuy=2
+page 70: rows=100
+fetch page 71: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=71%2C100&isbuy=2
+page 71: rows=100
+fetch page 72: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=72%2C100&isbuy=2
+page 72: rows=100
+fetch page 73: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=73%2C100&isbuy=2
+page 73: rows=100
+fetch page 74: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=74%2C100&isbuy=2
+page 74: rows=100
+fetch page 75: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=75%2C100&isbuy=2
+page 75: rows=100
+fetch page 76: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=76%2C100&isbuy=2
+page 76: rows=100
+fetch page 77: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=77%2C100&isbuy=2
+page 77: rows=100
+fetch page 78: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=78%2C100&isbuy=2
+page 78: rows=100
+fetch page 79: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=79%2C100&isbuy=2
+page 79: rows=100
+fetch page 80: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=80%2C100&isbuy=2
+page 80: rows=100
+fetch page 81: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=81%2C100&isbuy=2
+page 81: rows=100
+fetch page 82: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=82%2C100&isbuy=2
+page 82: rows=100
+fetch page 83: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=83%2C100&isbuy=2
+page 83: rows=100
+fetch page 84: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=84%2C100&isbuy=2
+page 84: rows=100
+fetch page 85: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=85%2C100&isbuy=2
+page 85: rows=100
+fetch page 86: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=86%2C100&isbuy=2
+page 86: rows=100
+fetch page 87: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=87%2C100&isbuy=2
+page 87: rows=100
+fetch page 88: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=88%2C100&isbuy=2
+page 88: rows=100
+fetch page 89: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=89%2C100&isbuy=2
+page 89: rows=100
+fetch page 90: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=90%2C100&isbuy=2
+page 90: rows=100
+fetch page 91: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=91%2C100&isbuy=2
+page 91: rows=60
+fetch page 92: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=92%2C100&isbuy=2
+page 92: rows=0
+[fund_new_issue] mode=full, old_rows=9104, fetched_rows=9060, final_rows=9060, sliced_rows=9060, parquet_dir=/home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/fund_new_issue_data
+[fund_new_issue] established_date range: 2013-08-20 -> 2026-09-04
+",
+20260907093719,2026-09-07,ERP HS300 10Y,erp_hs300_10y_fetcher.py,success,1380,0,2026-09-07 09:56:38,2026-09-07 09:56:48,9.84,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/erp_hs300_10y_fetcher.py,,"[erp] fetch gov yield 2023-09-07 -> 2023-12-06
+[erp] fetch gov yield 2023-12-07 -> 2024-03-06
+[erp] fetch gov yield 2024-03-07 -> 2024-06-06
+[erp] fetch gov yield 2024-06-07 -> 2024-09-06
+[erp] fetch gov yield 2024-09-07 -> 2024-12-06
+[erp] fetch gov yield 2024-12-07 -> 2025-03-06
+[erp] fetch gov yield 2025-03-07 -> 2025-06-06
+[erp] fetch gov yield 2025-06-07 -> 2025-09-06
+[erp] fetch gov yield 2025-09-07 -> 2025-12-06
+[erp] fetch gov yield 2025-12-07 -> 2026-03-06
+[erp] fetch gov yield 2026-03-07 -> 2026-06-06
+[erp] fetch gov yield 2026-06-07 -> 2026-09-06
+[erp] fetch gov yield 2026-09-07 -> 2026-09-07
+[erp] gov rows=745
+[erp] hs300 rows=691
+[erp] parquet upserted 690 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/erp_hs300_10y_data
+[erp] date range: 2023-09-07 -> 2026-07-17
+",
+20260907093719,2026-09-07,API showcase metadata,update_api_showcase_metadata.py,success,0,0,2026-09-07 09:56:48,2026-09-07 09:56:48,0.32,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/update_api_showcase_metadata.py,,"[api_showcase] updated 15 API metadata files.
+[api_showcase] catalog: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api_showcase/metadata/catalog.json
+",
