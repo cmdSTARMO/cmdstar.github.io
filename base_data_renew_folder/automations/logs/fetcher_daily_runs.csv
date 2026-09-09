@@ -17192,3 +17192,631 @@ page 10: rows=100
 20260908094724,2026-09-08,API showcase metadata,update_api_showcase_metadata.py,success,0,0,2026-09-08 10:03:11,2026-09-08 10:03:12,0.42,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/update_api_showcase_metadata.py,,"[api_showcase] updated 15 API metadata files.
 [api_showcase] catalog: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api_showcase/metadata/catalog.json
 ",
+20260909095357,2026-09-09,SZSE margin total,szse_margintotal_data.py,success,2,0,2026-09-09 09:53:57,2026-09-09 09:55:00,62.71,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/szse_margintotal_data.py,,"Parquet dir: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/margin_szse_tab1_data
+Latest stored date: 2026-09-07; start fetching from 2026-09-08
+Checking 2026-09-08: records found = 1
+[2026-09-08] parquet upserted 1 rows
+Checking 2026-09-09: records found = 0
+All done.
+",
+20260909095357,2026-09-09,SSE margin total,sse_margintotal_data.py,failed,0,-9,2026-09-09 09:55:00,2026-09-09 10:10:00,900.01,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_margintotal_data.py,timeout after 900s,"[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback88636862&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918901146; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback25628424&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918907425; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback50667889&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918912640; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback46667418&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918917854; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback43104790&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918923069; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback33506308&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918928283; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback38838675&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918933499; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback56483947&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918938716; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback51801610&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918943930; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback40666351&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918949145; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback44077290&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918954361; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback58654861&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918959577; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback13263071&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918964792; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback30643943&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918970008; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback48807996&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918975223; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback22487332&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918980439; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback23614723&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918985654; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback81074335&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918990865; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback91012209&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788918996081; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback94934626&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919001296; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback75187575&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919006512; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback20049263&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919012144; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback34922792&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919017359; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback85193218&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919022573; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback55501726&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919027788; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback18150678&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919033003; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback57031551&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919038216; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback48537435&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919043431; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback80443822&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919048647; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback31836465&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919053864; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback27317153&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919059079; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback67742115&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919064293; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback11198476&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919069511; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback89356270&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919074724; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback18999947&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919079938; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback43203206&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919085154; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback73846643&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919090786; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback93619483&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919096001; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback40813120&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919101216; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback48813804&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919106431; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback25377920&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919111644; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback54913847&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919116859; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback99040090&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919122075; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback94175120&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919127288; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback15331185&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919132502; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback39741831&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919137717; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback80351881&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919142932; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback55538604&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919148145; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback67238757&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919153360; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback74619062&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919158575; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback50098892&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919164211; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback94205484&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919169425; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback52720183&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919174640; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback47232183&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919179855; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback26468715&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919185066; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback64113124&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919190280; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback22923116&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919195496; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback85575811&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919200711; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback18820624&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919205927; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback98301167&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919211143; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback38431582&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919216359; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback92384530&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919221575; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback56262512&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919226790; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback99337148&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919232006; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback56715176&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919237221; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback97865836&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919242437; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback95943647&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919247653; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback51564587&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919252867; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback92017483&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919258082; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback48909879&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919263298; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback71841670&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919268931; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback16527987&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919274147; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback91422796&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919280195; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback44362557&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919285413; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback91485938&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919290628; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback54899552&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919295844; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback60092832&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919301059; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback42367098&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919306275; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback66915265&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919311488; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback80773227&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919316704; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback77700573&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919321920; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback22071908&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919327137; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback84751208&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919332353; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback78511757&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919337570; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback86535834&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919342784; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback69909988&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919348000; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback81379410&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919353215; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback16366896&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919358851; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback89077015&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919364069; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback46793409&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919369284; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback50789516&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919374499; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback73048726&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919379716; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback22524224&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919384932; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback47434436&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919390147; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback21921578&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919395364; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback25783291&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919400579; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback99721211&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919405795; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback57980904&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919411009; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback69457734&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919416224; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback63274062&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919421440; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback45580551&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919427074; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback32238985&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919432289; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback55734298&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919437505; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback57909975&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919442721; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback56166049&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919447937; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback61252424&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919453153; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback82878425&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919458368; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback99085167&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919463583; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback69411452&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919468799; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback70118656&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919474015; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback72946846&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919479230; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback84269604&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919484445; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback83725210&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919489660; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback59777980&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919494875; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback92750954&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919500091; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback33395867&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919505318; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback17940999&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919510533; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback90875224&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919515748; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback84757127&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919520962; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback48613429&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919526177; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback57582146&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919531389; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback72929286&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919536603; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback86781246&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919541816; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback27791243&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919547447; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback61358082&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919552663; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback87137762&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919557876; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback73214978&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919563093; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback33496187&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919568308; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback38256242&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919573524; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback21069570&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919578739; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback12286334&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919583954; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback12490232&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919589170; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback24426794&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919594386; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback41230052&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919599601; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback56221710&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919604817; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback49276402&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919610033; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback97833530&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919615668; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback30628309&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919620883; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback41815783&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919626098; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback50702746&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919631314; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback72333487&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919636529; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback52398653&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919641740; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback12154014&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919646956; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback41381628&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919652171; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback79180967&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919657387; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback56356311&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919662603; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback11454793&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919667819; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback37031323&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919673034; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback38891393&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919678250; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback48524939&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919683465; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback56144953&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919688681; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback18914054&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919694730; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback89806756&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919699946; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback72873736&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919705163; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback89866427&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919710378; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback53796110&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919715593; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback46979683&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919720808; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback22436164&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919726024; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback46281442&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919731239; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback20999014&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919736454; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback60189661&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919741669; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback97166245&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919746884; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback91011366&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919752100; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback73670600&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919757315; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback67916594&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919762531; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback95566603&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919767748; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback32318950&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919772963; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback92510509&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919778178; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback86593634&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919783394; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback21906027&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919788610; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback34302227&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919793825; retrying this window
+[WINDOW] 2026-09-08 -> 2026-09-09 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback45019933&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20260908&endDate=20260909&sqlId=RZRQ_HZ_INFO&_=1788919799041; retrying this window
+","
+timeout after 900s
+"
+20260909095357,2026-09-09,SZSE margin detail,szse_margindetail_data.py,success,4206,0,2026-09-09 10:10:00,2026-09-09 10:11:04,64.48,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/szse_margindetail_data.py,,"Parquet dir: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/margin_szse_tab2_data
+Latest stored date: 2026-09-07; start fetching from 2026-09-08
+Checking 2026-09-08: records found = 2103
+[2026-09-08] parquet upserted 2103 rows
+Checking 2026-09-09: records found = 0
+All done.
+","/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+"
+20260909095357,2026-09-09,SSE margin detail,sse_margindetail_data.py,success,0,0,2026-09-09 10:11:04,2026-09-09 10:19:31,507.05,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_margindetail_data.py,,"[2026-05-26] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-05-27] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-05-28] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-05-29] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-05-30] downloading/parsing... no data
+[2026-05-31] downloading/parsing... no data
+[2026-06-01] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-02] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-03] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-04] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-05] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-06] downloading/parsing... no data
+[2026-06-07] downloading/parsing... no data
+[2026-06-08] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-09] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-10] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-11] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-12] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-13] downloading/parsing... no data
+[2026-06-14] downloading/parsing... no data
+[2026-06-15] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-16] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-17] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-18] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-19] downloading/parsing... no data
+[2026-06-20] downloading/parsing... no data
+[2026-06-21] downloading/parsing... no data
+[2026-06-22] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-23] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-24] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-25] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-26] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-27] downloading/parsing... no data
+[2026-06-28] downloading/parsing... no data
+[2026-06-29] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-06-30] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-01] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-02] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-03] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-04] downloading/parsing... no data
+[2026-07-05] downloading/parsing... no data
+[2026-07-06] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-07] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-08] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-09] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-10] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-11] downloading/parsing... no data
+[2026-07-12] downloading/parsing... no data
+[2026-07-13] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-14] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-15] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-16] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-17] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-18] downloading/parsing... no data
+[2026-07-19] downloading/parsing... no data
+[2026-07-20] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-21] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-22] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-23] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-24] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-25] downloading/parsing... no data
+[2026-07-26] downloading/parsing... no data
+[2026-07-27] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-28] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-29] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-30] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-07-31] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-01] downloading/parsing... no data
+[2026-08-02] downloading/parsing... no data
+[2026-08-03] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-04] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-05] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-06] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-07] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-08] downloading/parsing... no data
+[2026-08-09] downloading/parsing... no data
+[2026-08-10] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-11] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-12] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-13] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-14] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-15] downloading/parsing... no data
+[2026-08-16] downloading/parsing... no data
+[2026-08-17] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-18] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-19] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-20] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-21] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-22] downloading/parsing... no data
+[2026-08-23] downloading/parsing... no data
+[2026-08-24] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-25] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-26] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-27] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-28] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-08-29] downloading/parsing... no data
+[2026-08-30] downloading/parsing... no data
+[2026-08-31] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-09-01] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-09-02] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-09-03] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-09-04] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-09-05] downloading/parsing... no data
+[2026-09-06] downloading/parsing... no data
+[2026-09-07] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-09-08] downloading/parsing... parse failed: `Import xlrd` failed. Install xlrd >= 2.0.1 for xls Excel support Use pip or conda to install the xlrd package.; skip
+[2026-09-09] downloading/parsing... no data
+Done. No new rows.
+",
+20260909095357,2026-09-09,Global market daily,global_market_daily_fetcher.py,success,32,0,2026-09-09 10:19:31,2026-09-09 10:21:39,127.78,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/global_market_daily_fetcher.py,,"[^IXIC] mode=incremental; latest=2026-09-04; fetch 2026-09-05 -> 2026-09-09
+[^IXIC] parquet upserted 1 rows.
+[^DJI] mode=incremental; latest=2026-09-04; fetch 2026-09-05 -> 2026-09-09
+[^DJI] parquet upserted 1 rows.
+[^SPX] mode=incremental; latest=2026-09-04; fetch 2026-09-05 -> 2026-09-09
+[^SPX] parquet upserted 1 rows.
+[^VIX] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[^VIX] parquet upserted 1 rows.
+[^GSPTSE] mode=incremental; latest=2026-09-04; fetch 2026-09-05 -> 2026-09-09
+[^GSPTSE] parquet upserted 1 rows.
+[^BVSP] mode=incremental; latest=2026-09-04; fetch 2026-09-05 -> 2026-09-09
+[^BVSP] parquet upserted 1 rows.
+[^MXX] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[^MXX] parquet upserted 1 rows.
+[^MERV] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[^MERV] parquet upserted 1 rows.
+[^N100] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[^N100] parquet upserted 1 rows.
+[^FTSE] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[^FTSE] parquet upserted 1 rows.
+[^FTAI] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[^FTAI] parquet upserted 1 rows.
+[^FCHI] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[^FCHI] parquet upserted 1 rows.
+[^GDAXI] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[^GDAXI] parquet upserted 1 rows.
+[^SSMI] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[^SSMI] parquet upserted 1 rows.
+[FTSEMIB.MI] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[FTSEMIB.MI] parquet upserted 1 rows.
+[^AEX] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[^AEX] parquet upserted 1 rows.
+[^BFX] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[^BFX] parquet upserted 1 rows.
+[^STOXX50E] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[^STOXX50E] parquet upserted 1 rows.
+[^N225] mode=incremental; latest=2026-09-08; fetch 2026-09-09 -> 2026-09-09
+[^N225] parquet upserted 1 rows.
+[^BSESN] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[^BSESN] parquet upserted 1 rows.
+[^SET.BK] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[^SET.BK] parquet upserted 1 rows.
+[^KS11] mode=incremental; latest=2026-09-08; fetch 2026-09-09 -> 2026-09-09
+[^KS11] parquet upserted 1 rows.
+[^STI] mode=incremental; latest=2026-09-08; fetch 2026-09-09 -> 2026-09-09
+[^STI] parquet upserted 1 rows.
+[^JKSE] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[^JKSE] parquet upserted 2 rows.
+[^KLSE] mode=incremental; latest=2026-09-08; fetch 2026-09-09 -> 2026-09-09
+[^KLSE] parquet upserted 1 rows.
+[^AORD] mode=incremental; latest=2026-09-08; fetch 2026-09-09 -> 2026-09-09
+[^AORD] parquet upserted 1 rows.
+[^NZ50] mode=incremental; latest=2026-09-08; fetch 2026-09-09 -> 2026-09-09
+[^NZ50] parquet upserted 1 rows.
+[^TA125.TA] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[^TA125.TA] parquet upserted 1 rows.
+[DFMGI.AE] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[DFMGI.AE] parquet upserted 1 rows.
+[^TASI.SR] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[^TASI.SR] parquet upserted 1 rows.
+[^J203.JO] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[^J203.JO] parquet upserted 1 rows.
+All done. Total parquet upserted 32 rows.
+",
+20260909095357,2026-09-09,SW industry daily,sw_industry_daily_fetcher.py,success,0,0,2026-09-09 10:21:39,2026-09-09 10:21:39,0.0,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sw_industry_daily_fetcher.py,,disabled by RUN_SW_INDUSTRY_DAILY; set RUN_SW_INDUSTRY_DAILY=1 to enable,
+20260909095357,2026-09-09,SSE ETF shares,sse_etf_shares_fetcher.py,success,0,0,2026-09-09 10:21:39,2026-09-09 10:23:24,104.7,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_etf_shares_fetcher.py,,"[sse_etf_shares] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09
+[2026-09-08] request failed attempt 1/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-08&_=20260909102140
+[2026-09-08] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-08&_=20260909102140
+[2026-09-08] request failed attempt 2/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-08&_=20260909102145
+[2026-09-08] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-08&_=20260909102140
+[2026-09-08] request failed attempt 3/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-08&_=20260909102156
+[2026-09-08] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-08&_=20260909102140
+[2026-09-08] request failed attempt 4/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-08&_=20260909102211
+[2026-09-08] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-08&_=20260909102140
+[2026-09-08] request failed attempt 5/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-08&_=20260909102232
+[2026-09-08] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-08&_=20260909102140
+[2026-09-08] failed after retries; skip. Next run will retry from current latest date.
+[2026-09-09] request failed attempt 1/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-09&_=20260909102232
+[2026-09-09] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-09&_=20260909102232
+[2026-09-09] request failed attempt 2/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-09&_=20260909102237
+[2026-09-09] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-09&_=20260909102232
+[2026-09-09] request failed attempt 3/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-09&_=20260909102248
+[2026-09-09] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-09&_=20260909102232
+[2026-09-09] request failed attempt 4/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-09&_=20260909102303
+[2026-09-09] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-09&_=20260909102232
+[2026-09-09] request failed attempt 5/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-09&_=20260909102323
+[2026-09-09] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-09-09&_=20260909102232
+[2026-09-09] failed after retries; skip. Next run will retry from current latest date.
+[sse_etf_shares] all done. Total parquet upserted 0 rows.
+",
+20260909095357,2026-09-09,NCD AAA yield curve,ncd_aaa_yield_curve_fetcher.py,success,50,0,2026-09-09 10:23:24,2026-09-09 10:23:25,1.82,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/ncd_aaa_yield_curve_fetcher.py,,"[1] Fetch 2026-09-08 ~ 2026-09-09
+  -> 25 rows
+Done. Parquet upserted 25 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/ncd_aaa_yield_curve_data
+",
+20260909095357,2026-09-09,RMB FX index,rmb_fx_index_fetcher.py,success,0,0,2026-09-09 10:23:25,2026-09-09 10:23:28,2.27,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/rmb_fx_index_fetcher.py,,"[rmb_fx_index] mode=incremental; latest=2026-08-31; fetch 2026-09-01 -> 2026-09-02
+[rmb_fx_index] fetch 2026-09-01 -> 2026-09-02
+[rmb_fx_index] no new rows.
+",
+20260909095357,2026-09-09,Shibor curve,shibor_curve_fetcher.py,success,1492,0,2026-09-09 10:23:28,2026-09-09 10:23:30,2.42,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/shibor_curve_fetcher.py,,"[shibor_curve] parquet upserted 746 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/shibor_curve_data
+[shibor_curve] date range: 2023-09-08 -> 2026-09-08
+",
+20260909095357,2026-09-09,Southbound netbuy,southbound_netbuy_fetcher.py,success,2,0,2026-09-09 10:23:30,2026-09-09 10:23:32,2.12,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/southbound_netbuy_fetcher.py,,"[southbound] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09; query_start=2026-08-29
+[southbound] page=1; rows=7; pages=1
+[southbound] parquet upserted 1 rows.
+",
+20260909095357,2026-09-09,Northbound deal amount,northbound_dealamt_fetcher.py,success,2,0,2026-09-09 10:23:32,2026-09-09 10:23:33,1.22,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/northbound_dealamt_fetcher.py,,"[northbound] mode=incremental; latest=2026-09-07; fetch 2026-09-08 -> 2026-09-09; query_start=2026-08-29
+[northbound] page=1; rows=7; pages=1
+[northbound] parquet upserted 1 rows.
+",
+20260909095357,2026-09-09,Fund new issue,fund_new_issue_fetcher.py,success,9117,0,2026-09-09 10:23:33,2026-09-09 10:23:50,16.92,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/fund_new_issue_fetcher.py,,"[fund_new_issue] fast update enabled: latest snapshot=2026-09-08, fetch first 10 pages.
+fetch page 1: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=1%2C100&isbuy=2
+page 1: rows=100
+fetch page 2: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=2%2C100&isbuy=2
+page 2: rows=100
+fetch page 3: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=3%2C100&isbuy=2
+page 3: rows=100
+fetch page 4: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=4%2C100&isbuy=2
+page 4: rows=100
+fetch page 5: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=5%2C100&isbuy=2
+page 5: rows=100
+fetch page 6: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=6%2C100&isbuy=2
+page 6: rows=100
+fetch page 7: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=7%2C100&isbuy=2
+page 7: rows=100
+fetch page 8: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=8%2C100&isbuy=2
+page 8: rows=100
+fetch page 9: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=9%2C100&isbuy=2
+page 9: rows=100
+fetch page 10: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=10%2C100&isbuy=2
+page 10: rows=100
+[fund_new_issue] mode=fast, old_rows=9076, fetched_rows=1000, final_rows=9117, sliced_rows=9117, parquet_dir=/home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/fund_new_issue_data
+[fund_new_issue] established_date range: 2013-08-20 -> 2026-09-08
+",
+20260909095357,2026-09-09,ERP HS300 10Y,erp_hs300_10y_fetcher.py,success,1376,0,2026-09-09 10:23:50,2026-09-09 10:24:00,9.75,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/erp_hs300_10y_fetcher.py,,"[erp] fetch gov yield 2023-09-09 -> 2023-12-08
+[erp] fetch gov yield 2023-12-09 -> 2024-03-08
+[erp] fetch gov yield 2024-03-09 -> 2024-06-08
+[erp] fetch gov yield 2024-06-09 -> 2024-09-08
+[erp] fetch gov yield 2024-09-09 -> 2024-12-08
+[erp] fetch gov yield 2024-12-09 -> 2025-03-08
+[erp] fetch gov yield 2025-03-09 -> 2025-06-08
+[erp] fetch gov yield 2025-06-09 -> 2025-09-08
+[erp] fetch gov yield 2025-09-09 -> 2025-12-08
+[erp] fetch gov yield 2025-12-09 -> 2026-03-08
+[erp] fetch gov yield 2026-03-09 -> 2026-06-08
+[erp] fetch gov yield 2026-06-09 -> 2026-09-08
+[erp] fetch gov yield 2026-09-09 -> 2026-09-09
+[erp] gov rows=745
+[erp] hs300 rows=689
+[erp] parquet upserted 688 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/erp_hs300_10y_data
+[erp] date range: 2023-09-11 -> 2026-07-17
+",
+20260909095357,2026-09-09,API showcase metadata,update_api_showcase_metadata.py,success,0,0,2026-09-09 10:24:00,2026-09-09 10:24:01,0.47,/opt/hostedtoolcache/Python/3.12.14/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/update_api_showcase_metadata.py,,"[api_showcase] updated 15 API metadata files.
+[api_showcase] catalog: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api_showcase/metadata/catalog.json
+",
