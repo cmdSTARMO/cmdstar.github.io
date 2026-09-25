@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.81](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.80...v1.1.81) (2026-09-25)
+
+
+### 🐞 Fixes
+
+* **data:** 文章上新！新增文件插入功能！修复公式溢出问题 ([a384548](https://github.com/cmdSTARMO/cmdstar.github.io/commit/a384548822832464d682c78f8bf4b38dd8a35c8c))
+* **data:** 文章上新！新增文件插入功能！修复公式溢出问题 ([52e7334](https://github.com/cmdSTARMO/cmdstar.github.io/commit/52e73344ad262ba95fa386c8a6acce54068d8f9b))
+
 ## [1.1.80](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.79...v1.1.80) (2026-05-28)
 
 
