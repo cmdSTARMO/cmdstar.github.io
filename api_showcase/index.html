@@ -370,7 +370,7 @@
     const max = api.stats?.max_date || todayIso();
     for (const param of api.params || []) {
       if (param.name === 'startdate') param.default = param.default || min;
-      if (param.name === 'enddate') param.default = param.default || max;
+      if (param.name === 'enddate' && param.required) param.default = max;
     }
   }
 

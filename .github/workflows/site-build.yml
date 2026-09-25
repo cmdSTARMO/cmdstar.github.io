@@ -1,6 +1,13 @@
 name: site-build
 
 on:
+  workflow_dispatch:
+  # GITHUB_TOKEN commits do not trigger push workflows. Publish after either
+  # data pipeline finishes, including partial-success batches.
+  workflow_run:
+    workflows: ["Data Fetchers", "SZSE ETF Pipeline"]
+    types: [completed]
+    branches: [main]
   push:
     branches: [main]
     # 合并 Release PR 通常只改这些文件，直接忽略可避免被触发
@@ -24,13 +31,27 @@ jobs:
   build:
     # 双保险：就算 paths-ignore 失效，看到 release-please 的典型提交也跳过
     if: |
-      !startsWith(github.event.head_commit.message, 'chore(main): release')
+      (github.event_name != 'workflow_run' || github.event.workflow_run.head_repository.full_name == github.repository)
+      && !startsWith(github.event.head_commit.message, 'chore(main): release')
       && !contains(github.event.head_commit.message, 'release-please')
       && !contains(github.event.head_commit.message, 'autorelease')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Rebuild API metadata from the data being published
+        env:
+          TZ: Asia/Shanghai
+        run: |
+          python -m pip install pandas pyarrow
+          python base_data_renew_folder/automations/update_api_showcase_metadata.py
 
       # 如果你的站点需要构建（例如产物在 ./dist），在这里执行构建
       # 纯静态（仓库根目录就是站点）可略过这步

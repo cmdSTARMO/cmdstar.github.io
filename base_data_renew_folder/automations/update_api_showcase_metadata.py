@@ -16,7 +16,7 @@ API_DATA_DIR = REPO_ROOT / "api" / "data"
 
 COMMON_DATE_PARAMS = [
     {"name": "startdate", "type": "date", "required": True, "label": "开始日期", "default": "2025-01-01"},
-    {"name": "enddate", "type": "date", "required": True, "label": "结束日期", "default": "2026-05-25"},
+    {"name": "enddate", "type": "date", "required": True, "label": "结束日期", "default": ""},
     {"name": "offset", "type": "number", "required": False, "label": "偏移量", "default": "0"},
     {"name": "format", "type": "select", "required": False, "label": "返回格式", "default": "json", "options": [
         {"value": "json", "label": "JSON"},
@@ -26,7 +26,12 @@ COMMON_DATE_PARAMS = [
 
 
 def p(pattern: str) -> str:
-    return str((API_DATA_DIR / pattern).as_posix())
+    return (Path("api/data") / pattern).as_posix()
+
+
+def source_path(value: str) -> str:
+    path = Path(value)
+    return str(path if path.is_absolute() else REPO_ROOT / path)
 
 
 DEFAULT_APIS = [
@@ -262,7 +267,9 @@ def normalize_date(value):
 
 
 def parquet_stats(source: dict) -> dict:
-    files = [Path(item) for item in sorted(glob.glob(source["glob"], recursive=True))]
+    files = [Path(item) for item in sorted(glob.glob(source_path(source["glob"]), recursive=True))]
+    if not files:
+        raise FileNotFoundError(f"No Parquet files matched: {source['glob']}")
     total = 0
     min_date = None
     max_date = None
@@ -278,8 +285,8 @@ def parquet_stats(source: dict) -> dict:
         except Exception:
             try:
                 df = pd.read_parquet(file)
-            except Exception:
-                continue
+            except Exception as exc:
+                raise RuntimeError(f"Cannot read Parquet file: {file}") from exc
         total += len(df)
         if date_col and date_col in df.columns and not df.empty:
             dates = pd.to_datetime(df[date_col], errors="coerce").dropna()
@@ -303,9 +310,9 @@ def parquet_stats(source: dict) -> dict:
 
 
 def sqlite_stats(source: dict) -> dict:
-    path = Path(source["path"])
+    path = Path(source_path(source["path"]))
     if not path.is_file():
-        return {"row_count": 0, "min_date": None, "max_date": None, "options": {}}
+        raise FileNotFoundError(f"SQLite source does not exist: {path}")
     table = source["table"]
     date_col = source.get("date_column")
     with sqlite3.connect(path) as con:
@@ -355,7 +362,12 @@ def update_one(default_api: dict) -> dict:
     path = API_META_DIR / f"{default_api['id']}.json"
     existing = read_json(path)
     merged = {**default_api, **existing}
+    # Source definitions are code-owned; old metadata contains machine-specific paths.
+    merged["data_sources"] = default_api["data_sources"]
     merged["stats"] = stats_for(merged)
+    for param in merged.get("params", []):
+        if param["name"] == "enddate" and param.get("required"):
+            param["default"] = merged["stats"]["max_date"] or ""
     merged.setdefault("hidden_params", [])
     write_json(path, merged)
     return {

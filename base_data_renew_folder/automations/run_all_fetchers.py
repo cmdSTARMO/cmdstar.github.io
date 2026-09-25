@@ -36,7 +36,7 @@ FETCHERS = [
     {"name": "SZSE margin total", "script": "szse_margintotal_data.py"},
     {"name": "SSE margin total", "script": "sse_margintotal_data.py"},
     {"name": "SZSE margin detail", "script": "szse_margindetail_data.py"},
-    {"name": "SSE margin detail", "script": "sse_margindetail_data.py"},
+    {"name": "SSE margin detail", "script": "sse_margindetail_data.py", "timeout_seconds": 3600},
     {"name": "Global market daily", "script": "global_market_daily_fetcher.py"},
     {
         "name": "SW industry daily",
@@ -102,7 +102,6 @@ def parse_updated_rows(output: str) -> int:
         r"all done\. Total parquet upserted\s+(\d+)\s+rows",
         r"sliced_rows=(\d+)",
         r"parquet upserted\s+(\d+)\s+rows",
-        r"Parquet upserted\s+(\d+)\s+rows",
         r"snapshot rows=\d+\s+sliced rows=(\d+)",
     ]
 
@@ -125,6 +124,7 @@ def parse_updated_rows(output: str) -> int:
 
 
 def run_fetcher(item: dict, run_id: str) -> dict:
+    timeout_seconds = item.get("timeout_seconds", TIMEOUT_SECONDS)
     script = AUTOMATION_DIR / item["script"]
     started_at = now_text()
     start_ts = time.time()
@@ -166,7 +166,7 @@ def run_fetcher(item: dict, run_id: str) -> dict:
                 "run_date": datetime.now().strftime("%Y-%m-%d"),
                 "fetcher": item["name"],
                 "script": item["script"],
-                "status": "success",
+                "status": "skipped",
                 "updated_rows": 0,
                 "exit_code": 0,
                 "started_at": started_at,
@@ -214,13 +214,13 @@ def run_fetcher(item: dict, run_id: str) -> dict:
         stderr_thread.start()
 
         try:
-            exit_code = proc.wait(timeout=TIMEOUT_SECONDS)
+            exit_code = proc.wait(timeout=timeout_seconds)
         except subprocess.TimeoutExpired:
             proc.kill()
             proc.wait(timeout=10)
             exit_code = -9
-            stderr_parts.append(f"\ntimeout after {TIMEOUT_SECONDS}s\n")
-            print(f"\ntimeout after {TIMEOUT_SECONDS}s", file=sys.stderr, flush=True)
+            stderr_parts.append(f"\ntimeout after {timeout_seconds}s\n")
+            print(f"\ntimeout after {timeout_seconds}s", file=sys.stderr, flush=True)
 
         stdout_thread.join(timeout=5)
         stderr_thread.join(timeout=5)
@@ -258,6 +258,8 @@ def run_fetcher(item: dict, run_id: str) -> dict:
 
 
 def result_line(result: dict) -> str:
+    if result["status"] == "skipped":
+        return f"⏭️ **{result['fetcher']}**：已跳过，未执行更新"
     icon = "✅" if result["status"] == "success" else "❌"
     if result["status"] == "success":
         return f"{icon} **{result['fetcher']}**：成功，更新/写入 {result['updated_rows']} 行"
@@ -271,7 +273,8 @@ def send_feishu_card(results: list[dict], run_id: str, started_at: str, ended_at
         return
 
     success_count = sum(1 for item in results if item["status"] == "success")
-    failed_count = len(results) - success_count
+    failed_count = sum(1 for item in results if item["status"] == "failed")
+    skipped_count = sum(1 for item in results if item["status"] == "skipped")
     total_rows = sum(int(item.get("updated_rows") or 0) for item in results if item["status"] == "success")
     title = "数据自动化运行完成" if failed_count == 0 else "数据自动化运行存在失败"
     color = "green" if failed_count == 0 else "red"
@@ -281,7 +284,7 @@ def send_feishu_card(results: list[dict], run_id: str, started_at: str, ended_at
         f"**运行批次**：{run_id}\n"
         f"**开始时间**：{started_at}\n"
         f"**结束时间**：{ended_at}\n"
-        f"**成功/失败**：{success_count}/{failed_count}\n"
+        f"**成功/失败/跳过**：{success_count}/{failed_count}/{skipped_count}\n"
         f"**成功写入/更新行数合计**：{total_rows}\n"
         f"**CSV 日志**：`{LOG_FILE}`\n\n"
         f"{details}"
@@ -339,8 +342,9 @@ def main():
     ended_at = now_text()
     send_feishu_card(results, run_id, started_at, ended_at)
 
-    failed = [item for item in results if item["status"] != "success"]
-    print(f"[run_all_fetchers] done. success={len(results) - len(failed)}, failed={len(failed)}")
+    failed = [item for item in results if item["status"] == "failed"]
+    skipped = [item for item in results if item["status"] == "skipped"]
+    print(f"[run_all_fetchers] done. success={len(results) - len(failed) - len(skipped)}, failed={len(failed)}, skipped={len(skipped)}")
     return 1 if failed else 0
 
 

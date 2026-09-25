@@ -3,8 +3,8 @@ name: Data Fetchers
 on:
   workflow_dispatch:
   schedule:
-    # 08:00 Asia/Shanghai, Monday-Friday.
-    - cron: "0 0 * * 1-5"
+    # Daily at 08:00 Asia/Shanghai, including Saturday for Friday's data.
+    - cron: "0 0 * * *"
 
 permissions:
   contents: write
@@ -17,7 +17,7 @@ jobs:
   run-fetchers:
     name: Run data fetchers
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 300
     env:
       TZ: Asia/Shanghai
       PYTHONPATH: ${{ github.workspace }}

@@ -10,3 +10,4 @@ orjson
 duckdb
 pyarrow
 pandas
+xlrd>=2.0.1

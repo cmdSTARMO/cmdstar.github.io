@@ -106,17 +106,21 @@ def parse_number(value):
 def fetch_one_day(session: requests.Session, d: date):
     url = URL_TPL.format(yyyymmdd=ymd_compact(d))
     resp = session.get(url, headers=HEADERS, timeout=20)
-    if resp.status_code != 200 or not resp.content:
+    if resp.status_code == 404:
         return None
+    resp.raise_for_status()
+    if not resp.content:
+        raise ValueError(f"Empty XLS response for {d}")
 
     bio = io.BytesIO(resp.content)
     try:
         df = pd.read_excel(bio, sheet_name="明细信息", dtype=str, engine="xlrd")
     except Exception:
+        bio.seek(0)
         xls = pd.ExcelFile(bio, engine="xlrd")
         target = next((name for name in xls.sheet_names if "明细" in name), None)
         if not target:
-            return None
+            raise ValueError(f"No detail worksheet for {d}")
         df = pd.read_excel(xls, sheet_name=target, dtype=str)
 
     df = df.dropna(how="all").copy()
@@ -126,7 +130,7 @@ def fetch_one_day(session: requests.Session, d: date):
     keep_cols = [c for c in df.columns if c in RENAME_MAP]
     df = df[keep_cols].rename(columns=RENAME_MAP)
     if "code" not in df.columns or "name" not in df.columns:
-        return None
+        raise ValueError(f"Missing security code/name columns for {d}")
 
     for col in ["margin_balance", "margin_buy_amt", "margin_repay_amt", "short_qty", "short_sell_qty", "short_repay_qty"]:
         df[col] = df[col].map(parse_number) if col in df.columns else None
@@ -151,45 +155,33 @@ def run(end_date_str=END_DATE, parquet_dir=PARQUET_DIR):
 
     session = create_retry_session()
     cur_date = start_date
-    frames = []
+    total_written = 0
 
     while cur_date <= end_date:
         ds = ymd_dash(cur_date)
         print(f"[{ds}] downloading/parsing...", end="", flush=True)
         try:
             df = fetch_one_day(session, cur_date)
-        except requests.exceptions.RequestException as exc:
-            print(f" request failed: {exc}; skip")
-            cur_date += timedelta(days=1)
-            time.sleep(2)
-            continue
         except Exception as exc:
-            print(f" parse failed: {exc}; skip")
-            cur_date += timedelta(days=1)
-            time.sleep(1)
-            continue
+            # Stop at the failed date so the next incremental run retries it.
+            raise RuntimeError(f"SSE margin detail failed for {ds}") from exc
 
         if df is None or df.empty:
             print(" no data")
         else:
-            frames.append(df)
+            total_written += upsert_monthly_parquet(
+                df,
+                parquet_dir=parquet_dir,
+                filename_template=FNAME_TPL,
+                key_cols=["dt", "code"],
+                sort_cols=["dt", "code"],
+            )
             print(f" OK, {len(df)} rows")
 
         time.sleep(SLEEP_BASE + SLEEP_JITTER * random.random())
         cur_date += timedelta(days=1)
 
-    if frames:
-        full = pd.concat(frames, ignore_index=True)
-        written = upsert_monthly_parquet(
-            full,
-            parquet_dir=parquet_dir,
-            filename_template=FNAME_TPL,
-            key_cols=["dt", "code"],
-            sort_cols=["dt", "code"],
-        )
-        print(f"Done. Parquet upserted {written} rows.")
-    else:
-        print("Done. No new rows.")
+    print(f"Done. Total parquet upserted {total_written} rows.")
 
 
 if __name__ == "__main__":
