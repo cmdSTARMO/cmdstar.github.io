@@ -21,7 +21,7 @@
       "type": "date",
       "required": true,
       "label": "结束日期",
-      "default": "2026-05-25"
+      "default": "2026-09-24"
     },
     {
       "name": "offset",
@@ -61,21 +61,21 @@
   "data_sources": [
     {
       "type": "parquet",
-      "glob": "D:/GitHub/cmdstar.github.io/api/data/margin_szse_tab1_data/*.parquet",
+      "glob": "api/data/margin_szse_tab1_data/*.parquet",
       "date_column": "dt"
     },
     {
       "type": "parquet",
-      "glob": "D:/GitHub/cmdstar.github.io/api/data/margin_sse_tab1_data/*.parquet",
+      "glob": "api/data/margin_sse_tab1_data/*.parquet",
       "date_column": "dt"
     }
   ],
   "stats": {
-    "row_count": 0,
-    "min_date": null,
-    "max_date": null,
+    "row_count": 7509,
+    "min_date": "2010-03-31",
+    "max_date": "2026-09-24",
     "options": {},
-    "updated_at": "2026-09-25 10:30:04"
+    "updated_at": "2026-09-26 12:18:14"
   },
   "hidden_params": []
 }

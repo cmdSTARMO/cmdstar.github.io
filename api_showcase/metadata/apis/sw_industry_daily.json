@@ -22,7 +22,7 @@
       "type": "date",
       "required": true,
       "label": "结束日期",
-      "default": "2026-05-25"
+      "default": "2026-05-28"
     },
     {
       "name": "offset",
@@ -201,14 +201,14 @@
   "data_sources": [
     {
       "type": "parquet",
-      "glob": "D:/GitHub/cmdstar.github.io/api/data/sw_industry_daily_data/**/*.parquet",
+      "glob": "api/data/sw_industry_daily_data/**/*.parquet",
       "date_column": "dt"
     }
   ],
   "stats": {
-    "row_count": 0,
-    "min_date": null,
-    "max_date": null,
+    "row_count": 139646,
+    "min_date": "1999-12-30",
+    "max_date": "2026-05-28",
     "options": {
       "swindexcode": [
         {
@@ -337,7 +337,7 @@
         }
       ]
     },
-    "updated_at": "2026-09-25 10:30:04"
+    "updated_at": "2026-09-26 12:18:27"
   },
   "hidden_params": []
 }
