@@ -1,0 +1,160 @@
+/* Shared layout geometry. Overlay elements are anchored to their own component,
+   while dialogs and tool palettes retain viewport positioning intentionally. */
+:root { --seen-overlay-gap: clamp(.5rem, 2vmin, 1.25rem); }
+.detail-dialog {
+  box-sizing: border-box;
+  inline-size: min(74rem, calc(100% - 2 * var(--seen-overlay-gap)));
+  block-size: min(54rem, calc(100dvh - 2 * var(--seen-overlay-gap) - env(safe-area-inset-top) - env(safe-area-inset-bottom)));
+  max-inline-size: none; max-block-size: none;
+  margin: auto; padding: 0; border: 0; border-radius: .875rem;
+  background: transparent; color: var(--seen-text); overflow: visible;
+  overscroll-behavior: contain;
+}
+.detail-dialog[open] { display: grid; grid-template-rows: auto minmax(0, 1fr); gap: .625rem; }
+.detail-dialog::backdrop { background: rgb(3 8 12 / .65); backdrop-filter: blur(10px); }
+.detail-toolbar { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+.detail-record-nav { display: flex; gap: .5rem; }
+.detail-toolbar .icon-btn { inline-size: 2.75rem; block-size: 2.75rem; border-radius: 50%; background: var(--seen-surface-solid); }
+.detail-toolbar [hidden] { display: none; }
+.detail-switch, .detail-switch:hover { position: static; transform: none; }
+.detail-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 21rem); align-items: start; gap: var(--seen-overlay-gap); min-inline-size: 0; min-block-size: 0; }
+.detail-card { margin: 0; block-size: 100%; max-block-size: 100%; min-block-size: 0; min-inline-size: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr); overflow: auto; }
+.detail-media { min-block-size: 0; block-size: 100%; min-height: 0; height: auto; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); align-self: stretch; }
+.detail-media > img { position: relative; inset: auto; grid-area: 1 / 1; min-block-size: 0; min-inline-size: 0; max-block-size: 100%; padding: .625rem; }
+.detail-media::before, .detail-media::after { position: relative; inset: auto; transform: none; grid-area: 1 / 1; align-self: center; justify-self: center; }
+.detail-media::before { margin-inline-end: 4.5rem; }
+.detail-copy { min-inline-size: 0; overflow: auto; padding: clamp(.75rem, 2vw, 1.25rem); overflow-wrap: anywhere; }
+.detail-copy h2 { font-size: clamp(1.125rem, 2vw, 1.5rem); }
+.image-nav { position: relative; inset: auto; grid-area: 1 / 1; align-self: end; justify-self: stretch; margin: .625rem; opacity: 1; }
+.image-count { position: relative; inset: auto; grid-area: 1 / 1; align-self: start; justify-self: end; margin: .625rem; }
+.image-nav .icon-btn { min-inline-size: 2.5rem; min-block-size: 2.5rem; }
+.detail-actions { flex-wrap: wrap; }
+.route-dock { --route-step: clamp(3.5rem, 7vw, 4.875rem); display: none; position: relative; inset: auto; transform: none; inline-size: 100%; min-inline-size: 0; max-block-size: 100%; overflow: auto; border-radius: 1.25rem; box-shadow: var(--seen-shadow); scrollbar-width: thin; }
+.route-dock.is-visible { display: block; }
+.route-dock-info { grid-template-columns: minmax(0, 1fr) auto; gap: .5rem; }
+.route-dock-info strong { white-space: normal; overflow-wrap: anywhere; font-size: .9375rem; }
+.route-dock-info span { display: block; font-size: .75rem; white-space: normal; }
+.sub-dock-panel[data-sub-panel="map"].is-active { display: grid; grid-template-columns: minmax(0, 1fr); }
+.sub-dock-map { grid-area: 1 / 1; block-size: clamp(8rem, 23dvh, 14rem); }
+.dock-reset { position: relative; inset: auto; grid-area: 1 / 1; align-self: start; justify-self: end; margin: .5rem; }
+.ios-action-btn { min-block-size: 2.75rem; }
+.route-viewport { overflow-x: auto; overflow-y: hidden; touch-action: pan-x pan-y; overscroll-behavior-inline: contain; scroll-snap-type: x proximity; scrollbar-width: thin; scrollbar-color: var(--seen-muted) transparent; padding-block: .375rem; }
+.route-track { display: flex; align-items: center; inline-size: max-content; min-inline-size: 100%; padding-inline: calc(50% - var(--route-step) / 2); box-sizing: content-box; }
+/* Mask the viewport so the fade stays at its edges while stations scroll. */
+.route-viewport {
+  --route-fade-width: clamp(.75rem, 7%, 1.5rem);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--route-fade-width), #000 calc(100% - var(--route-fade-width)), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 var(--route-fade-width), #000 calc(100% - var(--route-fade-width)), transparent);
+}
+.route-node-cell { flex: 0 0 var(--route-step); display: grid; grid-template-columns: minmax(0, 1fr) 34px minmax(0, 1fr); align-items: center; min-block-size: 62px; scroll-snap-align: center; }
+.route-node-cell::before, .route-node-cell::after { content: ""; grid-row: 1; height: 3px; background-image: radial-gradient(circle, currentColor 1.4px, transparent 1.6px); background-size: 11px 3px; color: var(--seen-muted); opacity: .62; pointer-events: none; }
+.route-node-cell::before { grid-column: 1; }
+.route-node-cell::after { grid-column: 3; }
+.route-node-cell:first-child::before, .route-node-cell:last-child::after { visibility: hidden; }
+.route-node { grid-area: 1 / 2; justify-self: center; position: relative; width: 14px; height: 14px; padding: 0; border: 2px solid rgba(82,97,104,.72); border-radius: 999px; background: var(--seen-surface-solid); color: transparent; font-size: 0; cursor: pointer; transition: transform 460ms cubic-bezier(.16,1,.3,1), border-color 260ms ease, box-shadow 260ms ease, background 260ms ease, opacity 260ms ease; }
+.route-node:hover { transform: scale(1.16); border-color: var(--seen-blue); }
+.route-node:focus-visible { outline: 2px solid var(--seen-blue); outline-offset: 6px; }
+.route-node.is-active { width: 12px; height: 12px; border-color: rgba(255,255,255,.98); background: #21ff82; box-shadow: 0 0 20px rgba(33,255,130,1), 0 0 0 6px rgba(33,255,130,.24); animation: routeNodeBreathe 1.7s ease-out infinite; }
+.route-node.is-active::before { content: ""; position: absolute; inset: -8px; border-radius: inherit; border: 2px solid rgba(33,255,130,.86); animation: routeNodeRing 1.7s ease-out infinite; }
+@keyframes routeNodeBreathe { 0%,100% { transform: scale(1); filter: brightness(1); } 50% { transform: scale(1.16); filter: brightness(1.18); } }
+@keyframes routeNodeRing { 0% { transform: scale(.42); opacity: .9; } 100% { transform: scale(1.72); opacity: 0; } }
+/* Search owns one viewport-wide backdrop, including the footer and navigation. */
+body.search-open { overflow: hidden; }
+.floating-search.is-open { position: fixed; inset: var(--seen-visual-top, 0px) 0 auto; box-sizing: border-box; inline-size: 100%; width: 100%; block-size: min(100dvh, var(--seen-visual-height, 100dvh)); transform: none; z-index: 11000; display: grid; place-items: center; padding: max(var(--seen-overlay-gap), env(safe-area-inset-top)) max(var(--seen-overlay-gap), env(safe-area-inset-right)) max(var(--seen-overlay-gap), env(safe-area-inset-bottom)) max(var(--seen-overlay-gap), env(safe-area-inset-left)); background: rgb(3 8 12 / .32); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: none; }
+.floating-search.is-open .search-glass { box-sizing: border-box; inline-size: min(40rem, 100%); max-block-size: 100%; overflow: auto; display: grid; grid-template-columns: minmax(0, 1fr) auto; padding-block-start: .5rem; }
+.search-close { display: none; }
+.floating-search.is-open .search-close { display: grid; grid-column: 2; grid-row: 1; align-self: start; margin: .25rem .5rem 0 0; }
+.search-main { min-inline-size: 0; }
+.floating-search.is-open .search-main { grid-area: 1 / 1; grid-template-columns: 1.25rem minmax(0, 1fr); }
+.floating-search.is-open .search-scope { grid-column: 1 / -1; justify-self: start; margin-block: .375rem; }
+.floating-search.is-open .search-results { grid-column: 1 / -1; min-inline-size: 0; }
+.search-card, .search-hit { overflow-wrap: anywhere; }
+.search-card { min-block-size: 0; }
+/* Grid overlays replace image/content offsets without changing their visual layering. */
+.feature-photo { display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); }
+.feature-photo img { position: relative; inset: auto; grid-area: 1 / 1; }
+.feature-photo::after { position: relative; inset: auto; grid-area: 1 / 1; pointer-events: none; }
+.feature-copy { position: relative; inset: auto; grid-area: 1 / 1; align-self: end; min-inline-size: 0; padding: clamp(.75rem, 2vw, 1rem); }
+.calendar-panel { max-inline-size: min(100%, 18rem); }
+@media (max-width: 68rem) {
+  .detail-dialog { inline-size: min(52rem, calc(100% - 2 * var(--seen-overlay-gap))); }
+  .detail-layout { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; align-items: stretch; }
+  .route-dock { max-block-size: min(42dvh, 18rem); }
+  .sub-dock-map { block-size: clamp(6rem, 18dvh, 10rem); }
+}
+@media (max-width: 40rem) {
+  .detail-card { grid-template-columns: minmax(0, 1fr); grid-template-rows: clamp(9rem, 29dvh, 18rem) auto; }
+  .detail-copy { overflow: visible; }
+  .detail-media { min-block-size: 0; }
+  .detail-actions { margin-block-start: .5rem; padding-block: .5rem; }
+}
+@media (max-height: 32rem) and (min-width: 40rem) {
+  .detail-layout { grid-template-columns: minmax(0, 1fr) minmax(14rem, 35%); grid-template-rows: minmax(0, 1fr); align-items: start; }
+  .detail-card { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(9rem, 50dvh) auto; }
+  .detail-copy { overflow: visible; }
+  .route-dock { max-block-size: 100%; }
+}
+/* Quiet context; motion is reserved for the selected route or point. */
+.seen-route-core { stroke-dasharray: none; stroke-linecap: round; stroke-linejoin: round; animation: none; filter: drop-shadow(0 1px 1px rgb(6 17 26 / .2)); }
+.seen-route-active { filter: drop-shadow(0 0 3px rgb(125 211 252 / .3)); }
+.seen-route-flow { stroke-linecap: round; stroke-dasharray: 8 88; animation: seenRouteCurrent 6s linear infinite; pointer-events: none; }
+.seen-route-flow.is-quiet { opacity: .38; }
+/* Negative offset moves highlights forward along Leaflet's ordered path. */
+@keyframes seenRouteCurrent { to { stroke-dashoffset: -96; } }
+.waypoint-node { box-sizing: border-box; width: 14px; height: 14px; background: #7dd3fc; border: 3px solid #f4fbff; box-shadow: 0 0 0 1px rgb(37 91 118 / .6), 0 2px 5px rgb(6 17 26 / .22); }
+.waypoint-node.is-active { background: #a8e4ff; box-shadow: 0 0 0 1px rgb(37 91 118 / .6), 0 0 0 4px rgb(125 211 252 / .16); }
+.record-node::after, .waypoint-node::before { display: none; }
+.record-node { background: #21ff82; border-color: rgba(255,255,255,.86); box-shadow: 0 0 12px rgba(91,210,143,.86); }
+.record-node::before { display: block; animation-duration: 2.8s; }
+.record-node.is-active { background: #21ff82; }
+.record-node.is-active::before { display: block; animation-duration: 2.8s; }
+.waypoint-node.is-active::before { display: block; inset: -7px; border: 1px solid rgb(125 211 252 / .4); animation: seenWaypointBreath 3.6s ease-in-out infinite; }
+@keyframes seenWaypointBreath { 0%, 100% { opacity: .2; transform: none; } 50% { opacity: .7; transform: none; } }
+.record-cluster { display: grid; place-items: center; border-radius: 50%; background: var(--seen-surface-solid); color: var(--seen-text); border: 2px solid #248565; box-shadow: 0 2px 8px rgb(0 0 0 / .25); font-size: .75rem; font-weight: 700; }
+.waypoint-node.is-start { border-radius: 50%; background: #379e80; }
+.waypoint-node.is-end { border-radius: 4px; background: #bd6178; }
+.legend-swatch.route { display: inline-grid; align-items: center; width: 30px; height: 3px; border: 0; border-radius: 999px; background: #7dd3fc; box-shadow: 0 0 0 1px rgb(37 91 118 / .3); overflow: hidden; }
+.legend-swatch.route::after { content: ''; width: 7px; height: 2px; border-radius: inherit; background: #f4fbff; animation: seenLegendCurrent 2.8s linear infinite; }
+@keyframes seenLegendCurrent { from { transform: translateX(-7px); } to { transform: translateX(30px); } }
+.seen-point-marker span { animation: none; }
+.seen-point-marker.is-active span::after { display: none; }
+.seen-point-marker.is-active span::before { animation-duration: 2.8s; }
+html.seen-map-idle #seen-map *, html.seen-map-idle #seen-map *::before { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: reduce) {
+  .seen-route-flow, .legend-swatch.route::after, .route-node.is-active, .route-node.is-active::before { animation: none; }
+  .record-node::before, .waypoint-node.is-active::before, .seen-point-marker.is-active span::before { animation: none; opacity: .35; }
+}
+/* A single flex stack replaces independently positioned page-tool buttons. */
+body.seen-page #seen-tools { position: fixed; inset-inline-end: max(var(--seen-overlay-gap), env(safe-area-inset-right)); inset-block-end: max(var(--seen-overlay-gap), env(safe-area-inset-bottom)); z-index: 10030; display: flex; flex-direction: column; align-items: flex-end; gap: .625rem; }
+body.seen-page #seen-tools .manager-fab, body.seen-page #seen-tools .draft-box, body.seen-page #seen-tools #floating-buttons { position: relative; inset: auto; margin: 0; }
+body.seen-page #seen-tools #floating-buttons { gap: .625rem; }
+body.seen-page #seen-tools .manager-fab, body.seen-page #seen-tools .draft-button, body.seen-page #seen-tools .float-btn button { inline-size: 2.75rem; block-size: 2.75rem; }
+body.seen-page #seen-tools .draft-panel { position: absolute; inset-inline-end: calc(100% + .625rem); inset-block-end: 0; inline-size: min(22rem, calc(100vw - 5.5rem)); max-block-size: min(32rem, calc(100dvh - 2 * var(--seen-overlay-gap))); overflow: auto; }
+.floating-search:focus-visible { outline: 2px solid var(--seen-blue); outline-offset: 3px; border-radius: 2rem; }
+@supports not (backdrop-filter: blur(1px)) {
+  body.search-open :is(.seen-shell, footer, #navbar, #seen-tools) { filter: blur(12px); }
+}
+/* Clip swipe transitions to the card's grid cell, not over the adjacent dock. */
+.detail-card-frame { min-inline-size: 0; min-block-size: 0; block-size: 100%; overflow: hidden; border-radius: .75rem; isolation: isolate; box-shadow: var(--seen-shadow); }
+/* One glass surface per panel; children must not stack different tints. */
+.detail-card-frame, .route-dock {
+  background: var(--seen-detail-surface, rgba(248, 251, 249, .9));
+  border: 1px solid var(--seen-border);
+  /* The dialog backdrop already blurs the page. Avoid independent backdrop
+     sampling and stacking contexts producing different glass on each panel. */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+html[data-theme="dark"] .detail-dialog { --seen-detail-surface: rgba(14, 20, 26, .9); }
+.detail-layout > .route-dock { padding: 0; margin: 0; color: var(--seen-text); border-radius: .75rem; }
+.detail-card-frame .detail-card { background: transparent; border: 0; box-shadow: none; }
+#record-detail-dialog .detail-media,
+.route-dock .sub-dock-display,
+.detail-layout .route-dock .ios-alert-actions {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+#record-detail-dialog .detail-media { box-shadow: none; }
+.route-dock .sub-dock-display { border: 0; border-radius: 0; }
+.detail-layout .route-dock .ios-alert-actions { margin-top: 0; border-radius: 0; border-top-color: var(--seen-border); }
