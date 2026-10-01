@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.82](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.81...v1.1.82) (2026-10-01)
+
+
+### 🐞 Fixes
+
+* **data:** 文章上新！ ([4015e4e](https://github.com/cmdSTARMO/cmdstar.github.io/commit/4015e4e98c5cbc91fa68ab5753cf99011d11e0d2))
+
 ## [1.1.81](https://github.com/cmdSTARMO/cmdstar.github.io/compare/v1.1.80...v1.1.81) (2026-09-25)
 
 
