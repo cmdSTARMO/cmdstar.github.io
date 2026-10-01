@@ -1,8 +1,56 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-05-21T15:37:09.115Z",
+  "updated_at": "2026-09-27T10:25:30.552Z",
   "records": [
     {
+      "record": {
+        "id": "1778927924556-seen",
+        "title": "呼和浩特测试",
+        "created_at": "2026-05-16T10:51:05.733Z",
+        "updated_at": "2026-05-21T10:41:55.525Z",
+        "route_id": null,
+        "route_index": null,
+        "tags": [
+          "呼和浩特"
+        ],
+        "location": {
+          "place": "中国 / 内蒙古 / 回民区 / 玉泉区",
+          "lat": 40.818453,
+          "lng": 111.66019400000005,
+          "region": {
+            "country": "cn",
+            "province": "inner-mongolia",
+            "city": "回民",
+            "district": "玉泉"
+          },
+          "region_names": {
+            "country": "China",
+            "province": "Inner Mongolia",
+            "city": "回民区",
+            "district": "玉泉区"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2002-05-16",
+        "place": "中国 / 内蒙古 / 回民区 / 玉泉区",
+        "lat": 40.818453,
+        "lng": 111.66019400000005,
+        "region": {
+          "country": "cn",
+          "province": "inner-mongolia",
+          "city": "回民",
+          "district": "玉泉"
+        },
+        "note": "呼和浩特测试"
+      },
       "id": "1778927924556-seen",
       "title": "呼和浩特测试",
       "path": "records/1778927924556-seen/record.json",
@@ -29,12 +77,66 @@
           "district": "玉泉区"
         }
       },
+      "cover": null,
       "created_at": "2026-05-16T10:51:05.733Z",
       "updated_at": "2026-05-21T10:41:55.525Z",
       "favorite": false,
       "archived": false
     },
     {
+      "record": {
+        "id": "1778944886402-在路上-sfo",
+        "title": "在路上！旧金山版",
+        "created_at": "2026-05-16T15:21:47.792Z",
+        "updated_at": "2026-05-21T10:41:55.646Z",
+        "route_id": null,
+        "route_index": null,
+        "tags": [
+          "窗户",
+          "鸟瞰"
+        ],
+        "location": {
+          "place": "美国 / 加利福尼亚 / 圣布鲁诺 / 圣马刁县",
+          "lat": 37.62465,
+          "lng": -122.389927,
+          "region": {
+            "country": "us",
+            "province": "california",
+            "city": "圣布鲁诺",
+            "district": "圣马刁"
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "California",
+            "city": "圣布鲁诺",
+            "district": "圣马刁县"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-2.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2026-02-06",
+        "place": "美国 / 加利福尼亚 / 圣布鲁诺 / 圣马刁县",
+        "lat": 37.62465,
+        "lng": -122.389927,
+        "region": {
+          "country": "us",
+          "province": "california",
+          "city": "圣布鲁诺",
+          "district": "圣马刁"
+        },
+        "note": "回国在旧金山SFO转机的时候拍的！飞机窗视角"
+      },
       "id": "1778944886402-在路上-sfo",
       "title": "在路上！旧金山版",
       "path": "records/1778944886402-在路上-sfo/record.json",
@@ -62,12 +164,136 @@
           "district": "圣马刁县"
         }
       },
+      "cover": null,
       "created_at": "2026-05-16T15:21:47.792Z",
       "updated_at": "2026-05-21T10:41:55.646Z",
       "favorite": false,
       "archived": false
     },
     {
+      "record": {
+        "id": "1778945827426-bill-baggs-park",
+        "title": "Bill Baggs Park",
+        "created_at": "2026-05-16T15:39:02.148Z",
+        "updated_at": "2026-05-21T10:41:55.757Z",
+        "route_id": null,
+        "route_index": null,
+        "tags": [
+          "海边",
+          "鸟",
+          "落日",
+          "人像"
+        ],
+        "location": {
+          "place": "美国 / 佛罗里达 / Key Biscayne / 迈阿密-戴德县",
+          "lat": 25.674098,
+          "lng": -80.15693699999997,
+          "region": {
+            "country": "us",
+            "province": "florida",
+            "city": "key-biscayne",
+            "district": "迈阿密-戴德"
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "Florida",
+            "city": "Key Biscayne",
+            "district": "迈阿密-戴德县"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-2.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-3.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-4.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-5.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-6.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-7.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-8.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-9.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-10.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-11.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-12.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-13.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-14.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-15.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-16.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-17.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-18.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-19.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2025-12-21",
+        "place": "美国 / 佛罗里达 / Key Biscayne / 迈阿密-戴德县",
+        "lat": 25.674098,
+        "lng": -80.15693699999997,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "key-biscayne",
+          "district": "迈阿密-戴德"
+        },
+        "note": "鸥 你说海的那边到底是什么\n\n据闻是候鸟公园//不过走半天鸟也没拍到几只，但是拍到了满意的鸟和夕阳 :)"
+      },
       "id": "1778945827426-bill-baggs-park",
       "title": "Bill Baggs Park",
       "path": "records/1778945827426-bill-baggs-park/record.json",
@@ -97,854 +323,102 @@
           "district": "迈阿密-戴德县"
         }
       },
+      "cover": null,
       "created_at": "2026-05-16T15:39:02.148Z",
       "updated_at": "2026-05-21T10:41:55.757Z",
       "favorite": false,
       "archived": false
     },
     {
-      "id": "brooklyn-bridge_test",
-      "title": "桥上的风",
-      "path": "records/brooklyn-bridge_test/record.json",
-      "content_path": "records/brooklyn-bridge_test/content.md",
-      "route_id": "longest-test",
-      "route_index": 1,
-      "tags": [
-        "桥",
-        "街角"
-      ],
-      "location": {
-        "place": "美国 / 纽约州 / New York County",
-        "lat": 40.7061,
-        "lng": -73.99689999999998,
-        "region": {
-          "country": "us",
-          "province": "new-york",
-          "city": "new-york-county",
-          "district": null
+      "record": {
+        "id": "1778946696723-south-pointe-beach-海滩",
+        "title": "South Pointe Beach 海滩！",
+        "created_at": "2026-05-16T15:51:45.917Z",
+        "updated_at": "2026-05-21T15:37:06.775Z",
+        "route_id": null,
+        "route_index": null,
+        "tags": [
+          "海边",
+          "日出"
+        ],
+        "location": {
+          "place": "美国 / 佛罗里达 / 迈阿密海滩 / 迈阿密-戴德县",
+          "lat": 25.764067,
+          "lng": -80.130179,
+          "region": {
+            "country": "us",
+            "province": "florida",
+            "city": "迈阿密海滩",
+            "district": "迈阿密-戴德"
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "Florida",
+            "city": "迈阿密海滩",
+            "district": "迈阿密-戴德县"
+          }
         },
-        "region_names": {
-          "country": "United States",
-          "province": "New York",
-          "city": "New York County",
-          "district": ""
-        }
-      },
-      "created_at": "2024-12-23T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:55.980Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "everglades-flat_test",
-      "title": "湿地边缘",
-      "path": "records/everglades-flat_test/record.json",
-      "content_path": "records/everglades-flat_test/content.md",
-      "route_id": "longest-test",
-      "route_index": 0,
-      "tags": [
-        "山路",
-        "日落"
-      ],
-      "location": {
-        "place": "美国 / 佛罗里达 / 门罗县",
-        "lat": 25.2866,
-        "lng": -80.89870000000002,
-        "region": {
-          "country": "us",
-          "province": "florida",
-          "city": "门罗",
-          "district": null
-        },
-        "region_names": {
-          "country": "United States",
-          "province": "Florida",
-          "city": "门罗县",
-          "district": ""
-        }
-      },
-      "created_at": "2025-02-02T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:56.093Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "guangzhou-rain_test",
-      "title": "旧街和雨后的灯",
-      "path": "records/guangzhou-rain_test/record.json",
-      "content_path": "records/guangzhou-rain_test/content.md",
-      "route_id": "longest-test",
-      "route_index": 2,
-      "tags": [
-        "街角",
-        "夜色",
-        "雨后"
-      ],
-      "location": {
-        "place": "中国 / 广东 / 越秀区 / 北京街道",
-        "lat": 23.1291,
-        "lng": 113.26440000000002,
-        "region": {
-          "country": "cn",
-          "province": "guangdong",
-          "city": "越秀",
-          "district": "北京街道"
-        },
-        "region_names": {
-          "country": "China",
-          "province": "Guangdong",
-          "city": "越秀区",
-          "district": "北京街道"
-        }
-      },
-      "created_at": "2024-07-06T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:56.209Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "guangzhou-river_test",
-      "title": "珠江边的慢走",
-      "path": "records/guangzhou-river_test/record.json",
-      "content_path": "records/guangzhou-river_test/content.md",
-      "route_id": "pearl-river_test",
-      "route_index": 0,
-      "tags": [
-        "桥",
-        "夜色"
-      ],
-      "location": {
-        "place": "中国 / 广东 / 海珠区 / 赤岗街道",
-        "lat": 23.108,
-        "lng": 113.31860000000006,
-        "region": {
-          "country": "cn",
-          "province": "guangdong",
-          "city": "海珠",
-          "district": "赤岗街道"
-        },
-        "region_names": {
-          "country": "China",
-          "province": "Guangdong",
-          "city": "海珠区",
-          "district": "赤岗街道"
-        }
-      },
-      "created_at": "2024-07-06T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:56.326Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "hangzhou-lake_test",
-      "title": "湖边雨后",
-      "path": "records/hangzhou-lake_test/record.json",
-      "content_path": "records/hangzhou-lake_test/content.md",
-      "route_id": null,
-      "route_index": null,
-      "tags": [
-        "雨后",
-        "城市漫游"
-      ],
-      "location": {
-        "place": "中国 / 浙江 / 拱墅区 / 天水街道",
-        "lat": 30.2741,
-        "lng": 120.15509999999995,
-        "region": {
-          "country": "cn",
-          "province": "zhejiang",
-          "city": "拱墅",
-          "district": "天水街道"
-        },
-        "region_names": {
-          "country": "China",
-          "province": "Zhejiang",
-          "city": "拱墅区",
-          "district": "天水街道"
-        }
-      },
-      "created_at": "2023-09-24T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:56.438Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "hongkong-harbour_test",
-      "title": "海港夜色",
-      "path": "records/hongkong-harbour_test/record.json",
-      "content_path": "records/hongkong-harbour_test/content.md",
-      "route_id": "pearl-river_test",
-      "route_index": 1,
-      "tags": [
-        "海边",
-        "夜色"
-      ],
-      "location": {
-        "place": "中国 / 九龍 / 香港 / 旺角",
-        "lat": 22.3193,
-        "lng": 114.1694,
-        "region": {
-          "country": "cn",
-          "province": "九龍",
-          "city": "香港",
-          "district": "旺角"
-        },
-        "region_names": {
-          "country": "China",
-          "province": "九龍",
-          "city": "香港",
-          "district": "旺角"
-        }
-      },
-      "created_at": "2024-02-11T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:56.553Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "key-largo-blue_test",
-      "title": "Key Largo 的蓝",
-      "path": "records/key-largo-blue_test/record.json",
-      "content_path": "records/key-largo-blue_test/content.md",
-      "route_id": "florida-coast_test",
-      "route_index": 1,
-      "tags": [
-        "海边",
-        "公路"
-      ],
-      "location": {
-        "place": "美国 / 佛罗里达 / 拉戈島 / 门罗县",
-        "lat": 25.0865,
-        "lng": -80.44729999999998,
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-2.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-3.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-4.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-5.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-6.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-7.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-8.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-9.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-10.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-11.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2025-04-22",
+        "place": "美国 / 佛罗里达 / 迈阿密海滩 / 迈阿密-戴德县",
+        "lat": 25.764067,
+        "lng": -80.130179,
         "region": {
           "country": "us",
           "province": "florida",
-          "city": "拉戈島",
-          "district": "门罗"
-        },
-        "region_names": {
-          "country": "United States",
-          "province": "Florida",
-          "city": "拉戈島",
-          "district": "门罗县"
-        }
-      },
-      "created_at": "2025-03-12T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:56.663Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "keywest-road_test",
-      "title": "从海上公路看见云",
-      "path": "records/keywest-road_test/record.json",
-      "content_path": "records/keywest-road_test/content.md",
-      "route_id": "florida-coast_test",
-      "route_index": 2,
-      "tags": [
-        "公路",
-        "海边"
-      ],
-      "location": {
-        "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
-        "lat": 24.5551,
-        "lng": -81.77999999999997,
-        "region": {
-          "country": "us",
-          "province": "florida",
-          "city": "基韦斯特",
-          "district": "门罗"
-        },
-        "region_names": {
-          "country": "United States",
-          "province": "Florida",
-          "city": "基韦斯特",
-          "district": "门罗县"
-        }
-      },
-      "created_at": "2025-03-12T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:56.776Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "losangeles-sunset_test",
-      "title": "洛杉矶日落",
-      "path": "records/losangeles-sunset_test/record.json",
-      "content_path": "records/losangeles-sunset_test/content.md",
-      "route_id": null,
-      "route_index": null,
-      "tags": [
-        "日落",
-        "城市漫游"
-      ],
-      "location": {
-        "place": "美国 / 加利福尼亚 / 洛杉矶 / Los Angeles County",
-        "lat": 34.0522,
-        "lng": -118.24369999999999,
-        "region": {
-          "country": "us",
-          "province": "california",
-          "city": "los-angeles",
-          "district": "los-angeles-county"
-        },
-        "region_names": {
-          "country": "United States",
-          "province": "California",
-          "city": "Los Angeles",
-          "district": "Los Angeles County"
-        }
-      },
-      "created_at": "2023-04-12T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:56.893Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "macau-density_test",
-      "title": "窗口里的城市密度",
-      "path": "records/macau-density_test/record.json",
-      "content_path": "records/macau-density_test/content.md",
-      "route_id": null,
-      "route_index": null,
-      "tags": [
-        "城市漫游",
-        "街角"
-      ],
-      "location": {
-        "place": "中国 / 澳門 / 花王堂區",
-        "lat": 22.1987,
-        "lng": 113.54390000000001,
-        "region": {
-          "country": "cn",
-          "province": "澳門",
-          "city": "花王堂區",
-          "district": null
-        },
-        "region_names": {
-          "country": "China",
-          "province": "澳門",
-          "city": "花王堂區",
-          "district": ""
-        }
-      },
-      "created_at": "2024-02-09T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:57.011Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "macau-walk_test",
-      "title": "澳门步行线",
-      "path": "records/macau-walk_test/record.json",
-      "content_path": "records/macau-walk_test/content.md",
-      "route_id": "pearl-river_test",
-      "route_index": 2,
-      "tags": [
-        "建筑",
-        "街角"
-      ],
-      "location": {
-        "place": "中国 / 澳門 / 風順堂區",
-        "lat": 22.1919,
-        "lng": 113.53800000000001,
-        "region": {
-          "country": "cn",
-          "province": "澳門",
-          "city": "風順堂區",
-          "district": null
-        },
-        "region_names": {
-          "country": "China",
-          "province": "澳門",
-          "city": "風順堂區",
-          "district": ""
-        }
-      },
-      "created_at": "2024-02-10T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:57.121Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "miami-bay-dusk_test",
-      "title": "海湾边的傍晚",
-      "path": "records/miami-bay-dusk_test/record.json",
-      "content_path": "records/miami-bay-dusk_test/content.md",
-      "route_id": "florida-coast_test",
-      "route_index": 0,
-      "tags": [
-        "海边",
-        "日落",
-        "城市漫游"
-      ],
-      "location": {
-        "place": "美国 / 佛罗里达 / 迈阿密 / 迈阿密-戴德县",
-        "lat": 25.7617,
-        "lng": -80.1918,
-        "region": {
-          "country": "us",
-          "province": "florida",
-          "city": "miami",
+          "city": "迈阿密海滩",
           "district": "迈阿密-戴德"
         },
-        "region_names": {
-          "country": "United States",
-          "province": "Florida",
-          "city": "Miami",
-          "district": "迈阿密-戴德县"
-        }
+        "note": "其实海风也是那张空着的25号底片之一\n闻着海风真的很有沉浸感\\\\"
       },
-      "created_at": "2025-04-18T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:57.240Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "miami-campus_test",
-      "title": "校园午后的树影",
-      "path": "records/miami-campus_test/record.json",
-      "content_path": "records/miami-campus_test/content.md",
-      "route_id": null,
-      "route_index": null,
-      "tags": [
-        "校园",
-        "建筑"
-      ],
-      "location": {
-        "place": "美国 / 佛罗里达 / Coral Gables / 迈阿密-戴德县",
-        "lat": 25.7215,
-        "lng": -80.27930000000003,
-        "region": {
-          "country": "us",
-          "province": "florida",
-          "city": "coral-gables",
-          "district": "迈阿密-戴德"
-        },
-        "region_names": {
-          "country": "United States",
-          "province": "Florida",
-          "city": "Coral Gables",
-          "district": "迈阿密-戴德县"
-        }
-      },
-      "created_at": "2025-04-20T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:57.351Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "newyork-window_test",
-      "title": "纽约窗口",
-      "path": "records/newyork-window_test/record.json",
-      "content_path": "records/newyork-window_test/content.md",
-      "route_id": null,
-      "route_index": null,
-      "tags": [
-        "建筑",
-        "城市漫游"
-      ],
-      "location": {
-        "place": "美国 / 纽约州 / New York County",
-        "lat": 40.7128,
-        "lng": -74.00599999999997,
-        "region": {
-          "country": "us",
-          "province": "new-york",
-          "city": "new-york-county",
-          "district": null
-        },
-        "region_names": {
-          "country": "United States",
-          "province": "New York",
-          "city": "New York County",
-          "district": ""
-        }
-      },
-      "created_at": "2024-12-22T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:57.461Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "orlando-night_test",
-      "title": "奥兰多夜色",
-      "path": "records/orlando-night_test/record.json",
-      "content_path": "records/orlando-night_test/content.md",
-      "route_id": null,
-      "route_index": null,
-      "tags": [
-        "夜色",
-        "城市漫游"
-      ],
-      "location": {
-        "place": "美国 / 佛罗里达 / 奥兰多 / 橙县",
-        "lat": 28.5383,
-        "lng": -81.37919999999997,
-        "region": {
-          "country": "us",
-          "province": "florida",
-          "city": "orlando",
-          "district": "橙"
-        },
-        "region_names": {
-          "country": "United States",
-          "province": "Florida",
-          "city": "Orlando",
-          "district": "橙县"
-        }
-      },
-      "created_at": "2025-01-18T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:57.577Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "portland-corner_test",
-      "title": "Portland 的街角",
-      "path": "records/portland-corner_test/record.json",
-      "content_path": "records/portland-corner_test/content.md",
-      "route_id": null,
-      "route_index": null,
-      "tags": [
-        "街角",
-        "咖啡"
-      ],
-      "location": {
-        "place": "美国 / 俄勒冈 / 波特兰 / Multnomah County",
-        "lat": 45.5152,
-        "lng": -122.67840000000001,
-        "region": {
-          "country": "us",
-          "province": "oregon",
-          "city": "portland",
-          "district": "multnomah-county"
-        },
-        "region_names": {
-          "country": "United States",
-          "province": "Oregon",
-          "city": "Portland",
-          "district": "Multnomah County"
-        }
-      },
-      "created_at": "2023-05-17T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:57.687Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "seattle-ferry_test",
-      "title": "渡轮上的风",
-      "path": "records/seattle-ferry_test/record.json",
-      "content_path": "records/seattle-ferry_test/content.md",
-      "route_id": null,
-      "route_index": null,
-      "tags": [
-        "海边",
-        "城市漫游"
-      ],
-      "location": {
-        "place": "美国 / 华盛顿州 / 西雅圖 / King County",
-        "lat": 47.6062,
-        "lng": -122.33209999999997,
-        "region": {
-          "country": "us",
-          "province": "washington",
-          "city": "西雅圖",
-          "district": "king-county"
-        },
-        "region_names": {
-          "country": "United States",
-          "province": "Washington",
-          "city": "西雅圖",
-          "district": "King County"
-        }
-      },
-      "created_at": "2023-05-20T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:57.797Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "shanghai-coffee_test",
-      "title": "上海咖啡店窗口",
-      "path": "records/shanghai-coffee_test/record.json",
-      "content_path": "records/shanghai-coffee_test/content.md",
-      "route_id": null,
-      "route_index": null,
-      "tags": [
-        "咖啡",
-        "街角"
-      ],
-      "location": {
-        "place": "中国 / 上海 / 南京东路街道",
-        "lat": 31.2304,
-        "lng": 121.47370000000001,
-        "region": {
-          "country": "cn",
-          "province": "shanghai",
-          "city": "南京东路街道",
-          "district": null
-        },
-        "region_names": {
-          "country": "China",
-          "province": "Shanghai",
-          "city": "南京东路街道",
-          "district": ""
-        }
-      },
-      "created_at": "2023-09-22T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:57.906Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "shenzhen-market_test",
-      "title": "深圳市场清晨",
-      "path": "records/shenzhen-market_test/record.json",
-      "content_path": "records/shenzhen-market_test/content.md",
-      "route_id": null,
-      "route_index": null,
-      "tags": [
-        "市场",
-        "城市漫游"
-      ],
-      "location": {
-        "place": "中国 / 广东 / 福田区 / 莲花街道",
-        "lat": 22.5431,
-        "lng": 114.05790000000002,
-        "region": {
-          "country": "cn",
-          "province": "guangdong",
-          "city": "福田",
-          "district": "莲花街道"
-        },
-        "region_names": {
-          "country": "China",
-          "province": "Guangdong",
-          "city": "福田区",
-          "district": "莲花街道"
-        }
-      },
-      "created_at": "2024-07-08T00:00:00.000Z",
-      "updated_at": "2026-05-21T10:41:58.017Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "1779107789762-佛州大环线起点",
-      "title": "佛州大环线1.1起点",
-      "path": "records/1779107789762-佛州大环线起点/record.json",
-      "content_path": "records/1779107789762-佛州大环线起点/content.md",
-      "route_id": "florida-self-driving-tour-1.1",
-      "route_index": 0,
-      "tags": [
-        "启程",
-        "自驾"
-      ],
-      "location": {
-        "place": "美国 / 佛罗里达 / 迈阿密-戴德县",
-        "lat": 25.706936,
-        "lng": -80.290843,
-        "region": {
-          "country": "us",
-          "province": "florida",
-          "city": "迈阿密-戴德",
-          "district": null
-        },
-        "region_names": {
-          "country": "United States",
-          "province": "Florida",
-          "city": "迈阿密-戴德县",
-          "district": ""
-        }
-      },
-      "created_at": "2026-05-18T12:39:11.373Z",
-      "updated_at": "2026-05-21T12:16:11.318Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "1779113357465-途中加油站",
-      "title": "佛州大环线1.1随拍",
-      "path": "records/1779113357465-途中加油站/record.json",
-      "content_path": "records/1779113357465-途中加油站/content.md",
-      "route_id": "florida-self-driving-tour-1.1",
-      "route_index": 1,
-      "tags": [
-        "自驾"
-      ],
-      "location": {
-        "place": "美国 / 佛罗里达 / 门罗县",
-        "lat": 25.127627,
-        "lng": -80.41159600000003,
-        "region": {
-          "country": "us",
-          "province": "florida",
-          "city": "门罗",
-          "district": null
-        },
-        "region_names": {
-          "country": "United States",
-          "province": "Florida",
-          "city": "门罗县",
-          "district": ""
-        }
-      },
-      "created_at": "2026-05-18T14:14:39.111Z",
-      "updated_at": "2026-05-21T10:41:58.238Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "1779114230318-fiesta-key-海边",
-      "title": "Fiesta Key - 海边",
-      "path": "records/1779114230318-fiesta-key-海边/record.json",
-      "content_path": "records/1779114230318-fiesta-key-海边/content.md",
-      "route_id": "florida-self-driving-tour-1.1",
-      "route_index": 2,
-      "tags": [
-        "海边"
-      ],
-      "location": {
-        "place": "美国 / 佛罗里达 / 门罗县",
-        "lat": 24.839753,
-        "lng": -80.780464,
-        "region": {
-          "country": "us",
-          "province": "florida",
-          "city": "门罗",
-          "district": null
-        },
-        "region_names": {
-          "country": "United States",
-          "province": "Florida",
-          "city": "门罗县",
-          "district": ""
-        }
-      },
-      "created_at": "2026-05-18T14:24:04.001Z",
-      "updated_at": "2026-05-21T10:41:58.351Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "1779169692398-福田",
-      "title": "福田",
-      "path": "records/1779169692398-福田/record.json",
-      "content_path": "records/1779169692398-福田/content.md",
-      "route_id": null,
-      "route_index": null,
-      "tags": [
-        "福田"
-      ],
-      "location": {
-        "place": "中国 / 广东 / 福田区 / 福田街道",
-        "lat": 22.523935,
-        "lng": 114.05181900000002,
-        "region": {
-          "country": "cn",
-          "province": "guangdong",
-          "city": "福田",
-          "district": "福田街道"
-        },
-        "region_names": {
-          "country": "China",
-          "province": "Guangdong",
-          "city": "福田区",
-          "district": "福田街道"
-        }
-      },
-      "created_at": "2026-05-19T05:48:24.226Z",
-      "updated_at": "2026-05-21T10:41:58.460Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "1779204884155-龙虾卷",
-      "title": "龙虾卷",
-      "path": "records/1779204884155-龙虾卷/record.json",
-      "content_path": "records/1779204884155-龙虾卷/content.md",
-      "route_id": "keywest-1.0-inner-journey",
-      "route_index": 0,
-      "tags": [
-        "好吃的"
-      ],
-      "location": {
-        "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
-        "lat": 24.554364,
-        "lng": -81.801335,
-        "region": {
-          "country": "us",
-          "province": "florida",
-          "city": "基韦斯特",
-          "district": "门罗"
-        },
-        "region_names": {
-          "country": "United States",
-          "province": "Florida",
-          "city": "基韦斯特",
-          "district": "门罗县"
-        }
-      },
-      "created_at": "2026-05-19T15:35:03.521Z",
-      "updated_at": "2026-05-21T15:12:37.064Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "1779369286828-佛州最南点",
-      "title": "佛州最南点！",
-      "path": "records/1779369286828-佛州最南点/record.json",
-      "content_path": "records/1779369286828-佛州最南点/content.md",
-      "route_id": "keywest-1.0-inner-journey",
-      "route_index": 1,
-      "tags": [
-        "景点"
-      ],
-      "location": {
-        "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
-        "lat": 24.546535,
-        "lng": -81.79749900000002,
-        "region": {
-          "country": "us",
-          "province": "florida",
-          "city": "基韦斯特",
-          "district": "门罗"
-        }
-      },
-      "created_at": "2026-05-21T13:15:29.784Z",
-      "updated_at": "2026-05-21T15:12:37.064Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
-      "id": "1779375715173-晚饭time",
-      "title": "kw晚饭time",
-      "path": "records/1779375715173-晚饭time/record.json",
-      "content_path": "records/1779375715173-晚饭time/content.md",
-      "route_id": "keywest-1.0-inner-journey",
-      "route_index": 2,
-      "tags": [
-        "好吃的"
-      ],
-      "location": {
-        "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
-        "lat": 24.551733,
-        "lng": -81.799827,
-        "region": {
-          "country": "us",
-          "province": "florida",
-          "city": "基韦斯特",
-          "district": "门罗"
-        }
-      },
-      "created_at": "2026-05-21T15:10:40.186Z",
-      "updated_at": "2026-05-21T15:12:37.064Z",
-      "favorite": false,
-      "archived": false
-    },
-    {
       "id": "1778946696723-south-pointe-beach-海滩",
       "title": "South Pointe Beach 海滩！",
       "path": "records/1778946696723-south-pointe-beach-海滩/record.json",
@@ -972,12 +446,461 @@
           "district": "迈阿密-戴德县"
         }
       },
+      "cover": null,
       "created_at": "2026-05-16T15:51:45.917Z",
-      "updated_at": "2026-05-21T15:36:43.391Z",
+      "updated_at": "2026-05-21T15:37:06.775Z",
       "favorite": false,
       "archived": false
     },
     {
+      "record": {
+        "id": "1779107789762-佛州大环线起点",
+        "title": "佛州大环线1.1起点",
+        "created_at": "2026-05-18T12:39:11.373Z",
+        "updated_at": "2026-05-21T12:16:11.318Z",
+        "route_id": "florida-self-driving-tour-1.1",
+        "route_index": 0,
+        "tags": [
+          "启程",
+          "自驾"
+        ],
+        "location": {
+          "place": "美国 / 佛罗里达 / 迈阿密-戴德县",
+          "lat": 25.706936,
+          "lng": -80.290843,
+          "region": {
+            "country": "us",
+            "province": "florida",
+            "city": "迈阿密-戴德",
+            "district": null
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "Florida",
+            "city": "迈阿密-戴德县",
+            "district": ""
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-2.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-3.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-4.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2024-12-13",
+        "place": "美国 / 佛罗里达 / 迈阿密-戴德县",
+        "lat": 25.706936,
+        "lng": -80.290843,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "迈阿密-戴德",
+          "district": null
+        },
+        "note": "2024.12.13启程！开始佛州大环线自驾\n提前几天在Hertz租了辆XC90结果到场发现年龄不到25不能租SUV:( ，折腾半天去Avis分到一辆美丽的丰田卡罗拉小姐，遂启程 :)\n*内含美丽正脸照"
+      },
+      "id": "1779107789762-佛州大环线起点",
+      "title": "佛州大环线1.1起点",
+      "path": "records/1779107789762-佛州大环线起点/record.json",
+      "content_path": "records/1779107789762-佛州大环线起点/content.md",
+      "route_id": "florida-self-driving-tour-1.1",
+      "route_index": 0,
+      "tags": [
+        "启程",
+        "自驾"
+      ],
+      "location": {
+        "place": "美国 / 佛罗里达 / 迈阿密-戴德县",
+        "lat": 25.706936,
+        "lng": -80.290843,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "迈阿密-戴德",
+          "district": null
+        },
+        "region_names": {
+          "country": "United States",
+          "province": "Florida",
+          "city": "迈阿密-戴德县",
+          "district": ""
+        }
+      },
+      "cover": null,
+      "created_at": "2026-05-18T12:39:11.373Z",
+      "updated_at": "2026-05-21T12:16:11.318Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "1779113357465-途中加油站",
+        "title": "佛州大环线1.1随拍",
+        "created_at": "2026-05-18T14:14:39.111Z",
+        "updated_at": "2026-05-21T10:41:58.238Z",
+        "route_id": "florida-self-driving-tour-1.1",
+        "route_index": 1,
+        "tags": [
+          "自驾"
+        ],
+        "location": {
+          "place": "美国 / 佛罗里达 / 门罗县",
+          "lat": 25.127627,
+          "lng": -80.41159600000003,
+          "region": {
+            "country": "us",
+            "province": "florida",
+            "city": "门罗",
+            "district": null
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "Florida",
+            "city": "门罗县",
+            "district": ""
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-2.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2024-12-13",
+        "place": "美国 / 佛罗里达 / 门罗县",
+        "lat": 25.127627,
+        "lng": -80.41159600000003,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "门罗",
+          "district": null
+        },
+        "note": "路上第一次加油// 好像也是第一次*真正意义上*加油\n还有神秘载具皮肤*圣诞节前夕版"
+      },
+      "id": "1779113357465-途中加油站",
+      "title": "佛州大环线1.1随拍",
+      "path": "records/1779113357465-途中加油站/record.json",
+      "content_path": "records/1779113357465-途中加油站/content.md",
+      "route_id": "florida-self-driving-tour-1.1",
+      "route_index": 1,
+      "tags": [
+        "自驾"
+      ],
+      "location": {
+        "place": "美国 / 佛罗里达 / 门罗县",
+        "lat": 25.127627,
+        "lng": -80.41159600000003,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "门罗",
+          "district": null
+        },
+        "region_names": {
+          "country": "United States",
+          "province": "Florida",
+          "city": "门罗县",
+          "district": ""
+        }
+      },
+      "cover": null,
+      "created_at": "2026-05-18T14:14:39.111Z",
+      "updated_at": "2026-05-21T10:41:58.238Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "1779114230318-fiesta-key-海边",
+        "title": "Fiesta Key - 海边",
+        "created_at": "2026-05-18T14:24:04.001Z",
+        "updated_at": "2026-05-21T10:41:58.351Z",
+        "route_id": "florida-self-driving-tour-1.1",
+        "route_index": 2,
+        "tags": [
+          "海边"
+        ],
+        "location": {
+          "place": "美国 / 佛罗里达 / 门罗县",
+          "lat": 24.839753,
+          "lng": -80.780464,
+          "region": {
+            "country": "us",
+            "province": "florida",
+            "city": "门罗",
+            "district": null
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "Florida",
+            "city": "门罗县",
+            "district": ""
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-2.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-3.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-4.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-5.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2024-12-13",
+        "place": "美国 / 佛罗里达 / 门罗县",
+        "lat": 24.839753,
+        "lng": -80.780464,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "门罗",
+          "district": null
+        },
+        "note": "犹记得这里是刚下一座很长很长的桥，还在桥上的时候就觉得两边的海那叫一个旷人心怡，刚好有个停车区停，甚好甚好"
+      },
+      "id": "1779114230318-fiesta-key-海边",
+      "title": "Fiesta Key - 海边",
+      "path": "records/1779114230318-fiesta-key-海边/record.json",
+      "content_path": "records/1779114230318-fiesta-key-海边/content.md",
+      "route_id": "florida-self-driving-tour-1.1",
+      "route_index": 2,
+      "tags": [
+        "海边"
+      ],
+      "location": {
+        "place": "美国 / 佛罗里达 / 门罗县",
+        "lat": 24.839753,
+        "lng": -80.780464,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "门罗",
+          "district": null
+        },
+        "region_names": {
+          "country": "United States",
+          "province": "Florida",
+          "city": "门罗县",
+          "district": ""
+        }
+      },
+      "cover": null,
+      "created_at": "2026-05-18T14:24:04.001Z",
+      "updated_at": "2026-05-21T10:41:58.351Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "1779169692398-福田",
+        "title": "福田",
+        "created_at": "2026-05-19T05:48:24.226Z",
+        "updated_at": "2026-05-21T10:41:58.460Z",
+        "route_id": null,
+        "route_index": null,
+        "tags": [
+          "福田"
+        ],
+        "location": {
+          "place": "中国 / 广东 / 福田区 / 福田街道",
+          "lat": 22.523935,
+          "lng": 114.05181900000002,
+          "region": {
+            "country": "cn",
+            "province": "guangdong",
+            "city": "福田",
+            "district": "福田街道"
+          },
+          "region_names": {
+            "country": "China",
+            "province": "Guangdong",
+            "city": "福田区",
+            "district": "福田街道"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2004-05-19",
+        "place": "中国 / 广东 / 福田区 / 福田街道",
+        "lat": 22.523935,
+        "lng": 114.05181900000002,
+        "region": {
+          "country": "cn",
+          "province": "guangdong",
+          "city": "福田",
+          "district": "福田街道"
+        },
+        "note": "能到福田吗\n恭喜你发现了测试集！"
+      },
+      "id": "1779169692398-福田",
+      "title": "福田",
+      "path": "records/1779169692398-福田/record.json",
+      "content_path": "records/1779169692398-福田/content.md",
+      "route_id": null,
+      "route_index": null,
+      "tags": [
+        "福田"
+      ],
+      "location": {
+        "place": "中国 / 广东 / 福田区 / 福田街道",
+        "lat": 22.523935,
+        "lng": 114.05181900000002,
+        "region": {
+          "country": "cn",
+          "province": "guangdong",
+          "city": "福田",
+          "district": "福田街道"
+        },
+        "region_names": {
+          "country": "China",
+          "province": "Guangdong",
+          "city": "福田区",
+          "district": "福田街道"
+        }
+      },
+      "cover": null,
+      "created_at": "2026-05-19T05:48:24.226Z",
+      "updated_at": "2026-05-21T10:41:58.460Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "1779202520610-基韦斯特",
+        "title": "基韦斯特1.0",
+        "created_at": "2026-05-19T14:55:40.002Z",
+        "updated_at": "2026-05-21T15:37:07.866Z",
+        "route_id": "florida-self-driving-tour-1.1",
+        "route_index": 3,
+        "tags": [
+          "海边",
+          "自驾",
+          "落日"
+        ],
+        "location": {
+          "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
+          "lat": 24.551478,
+          "lng": -81.79664600000001,
+          "region": {
+            "country": "us",
+            "province": "florida",
+            "city": "基韦斯特",
+            "district": "门罗"
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "Florida",
+            "city": "基韦斯特",
+            "district": "门罗县"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-2.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-3.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-4.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-5.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-6.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-7.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-8.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-9.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-10.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-11.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2024-12-13",
+        "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
+        "lat": 24.551478,
+        "lng": -81.79664600000001,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "基韦斯特",
+          "district": "门罗"
+        },
+        "note": "*内含子路线~\n首次出游，很早就听说Key West久负盛名，实地一看确实并非虚传！\n早上十点多左右出发的，好像下午四五点才到，因为本来想去跳伞，中途停了一下，结果那天似乎是天气不好，说跳不了/好不容易鼓起的勇气，但回想跳了伞的话可能就看不到夕阳了 *冥冥之中\n停好车天当时已经有点黄了，凑巧锁定了一个免费停车场哈哈哈哈哈哈哈 *第二次再来的时候停的也还是这个停车场\n非常值得一来的地方，理想定居小镇之一\n附上多张照片与骑单车的圣诞老人街拍~"
+      },
       "id": "1779202520610-基韦斯特",
       "title": "基韦斯特1.0",
       "path": "records/1779202520610-基韦斯特/record.json",
@@ -1006,8 +929,1829 @@
           "district": "门罗县"
         }
       },
+      "cover": null,
       "created_at": "2026-05-19T14:55:40.002Z",
-      "updated_at": "2026-05-21T15:36:52.994Z",
+      "updated_at": "2026-05-21T15:37:07.866Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "1779204884155-龙虾卷",
+        "title": "龙虾卷",
+        "created_at": "2026-05-19T15:35:03.521Z",
+        "updated_at": "2026-05-21T15:37:09.115Z",
+        "route_id": "keywest-1.0-inner-journey",
+        "route_index": 0,
+        "tags": [
+          "好吃的"
+        ],
+        "location": {
+          "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
+          "lat": 24.554364,
+          "lng": -81.801335,
+          "region": {
+            "country": "us",
+            "province": "florida",
+            "city": "基韦斯特",
+            "district": "门罗"
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "Florida",
+            "city": "基韦斯特",
+            "district": "门罗县"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-2.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-3.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-4.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2024-12-13",
+        "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
+        "lat": 24.554364,
+        "lng": -81.801335,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "基韦斯特",
+          "district": "门罗"
+        },
+        "note": "到了后其实还差一会才到夕阳的金调时刻，遂应小红书帖子推荐特来体验龙虾卷\n店名是DJ‘s Clam Shack\n好样的！虾有虾味，比较推荐~\n还有试图从可乐中采蜜的蜜蜂🐝"
+      },
+      "id": "1779204884155-龙虾卷",
+      "title": "龙虾卷",
+      "path": "records/1779204884155-龙虾卷/record.json",
+      "content_path": "records/1779204884155-龙虾卷/content.md",
+      "route_id": "keywest-1.0-inner-journey",
+      "route_index": 0,
+      "tags": [
+        "好吃的"
+      ],
+      "location": {
+        "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
+        "lat": 24.554364,
+        "lng": -81.801335,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "基韦斯特",
+          "district": "门罗"
+        },
+        "region_names": {
+          "country": "United States",
+          "province": "Florida",
+          "city": "基韦斯特",
+          "district": "门罗县"
+        }
+      },
+      "cover": null,
+      "created_at": "2026-05-19T15:35:03.521Z",
+      "updated_at": "2026-05-21T15:37:09.115Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "1779369286828-佛州最南点",
+        "title": "佛州最南点！",
+        "created_at": "2026-05-21T13:15:29.784Z",
+        "updated_at": "2026-05-21T15:37:09.115Z",
+        "route_id": "keywest-1.0-inner-journey",
+        "route_index": 1,
+        "tags": [
+          "景点"
+        ],
+        "location": {
+          "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
+          "lat": 24.546535,
+          "lng": -81.79749900000002,
+          "region": {
+            "country": "us",
+            "province": "florida",
+            "city": "基韦斯特",
+            "district": "门罗"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2024-12-13",
+        "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
+        "lat": 24.546535,
+        "lng": -81.79749900000002,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "基韦斯特",
+          "district": "门罗"
+        },
+        "note": "美国最南点地标，一般多人排队/ 一个大柱子"
+      },
+      "id": "1779369286828-佛州最南点",
+      "title": "佛州最南点！",
+      "path": "records/1779369286828-佛州最南点/record.json",
+      "content_path": "records/1779369286828-佛州最南点/content.md",
+      "route_id": "keywest-1.0-inner-journey",
+      "route_index": 1,
+      "tags": [
+        "景点"
+      ],
+      "location": {
+        "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
+        "lat": 24.546535,
+        "lng": -81.79749900000002,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "基韦斯特",
+          "district": "门罗"
+        }
+      },
+      "cover": null,
+      "created_at": "2026-05-21T13:15:29.784Z",
+      "updated_at": "2026-05-21T15:37:09.115Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "1779375715173-晚饭time",
+        "title": "kw晚饭time",
+        "created_at": "2026-05-21T15:10:40.186Z",
+        "updated_at": "2026-05-21T15:37:09.115Z",
+        "route_id": "keywest-1.0-inner-journey",
+        "route_index": 2,
+        "tags": [
+          "好吃的"
+        ],
+        "location": {
+          "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
+          "lat": 24.551733,
+          "lng": -81.799827,
+          "region": {
+            "country": "us",
+            "province": "florida",
+            "city": "基韦斯特",
+            "district": "门罗"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-2.jpg",
+            "type": "image/jpeg"
+          },
+          {
+            "path": "assets/image-3.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2024-12-13",
+        "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
+        "lat": 24.551733,
+        "lng": -81.799827,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "基韦斯特",
+          "district": "门罗"
+        },
+        "note": "平平淡淡的晚餐，店名叫Old Town Tavern & Beer Garden，开在一家小小的酒店下边，中规中矩~\n但是人生初品血腥玛丽🍷 *P2（还是无酒精版因为开车），才知道原来是用番茄做的/怪不得是红色的，不合口味最后还没喝完...\n地址：900 Duval St, Key West, FL 33040, United States"
+      },
+      "id": "1779375715173-晚饭time",
+      "title": "kw晚饭time",
+      "path": "records/1779375715173-晚饭time/record.json",
+      "content_path": "records/1779375715173-晚饭time/content.md",
+      "route_id": "keywest-1.0-inner-journey",
+      "route_index": 2,
+      "tags": [
+        "好吃的"
+      ],
+      "location": {
+        "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
+        "lat": 24.551733,
+        "lng": -81.799827,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "基韦斯特",
+          "district": "门罗"
+        }
+      },
+      "cover": null,
+      "created_at": "2026-05-21T15:10:40.186Z",
+      "updated_at": "2026-05-21T15:37:09.115Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "brooklyn-bridge_test",
+        "title": "桥上的风",
+        "created_at": "2024-12-23T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:55.980Z",
+        "route_id": "longest-test",
+        "route_index": 1,
+        "tags": [
+          "桥",
+          "街角"
+        ],
+        "location": {
+          "place": "美国 / 纽约州 / New York County",
+          "lat": 40.7061,
+          "lng": -73.99689999999998,
+          "region": {
+            "country": "us",
+            "province": "new-york",
+            "city": "new-york-county",
+            "district": null
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "New York",
+            "city": "New York County",
+            "district": ""
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2002-12-23",
+        "place": "美国 / 纽约州 / New York County",
+        "lat": 40.7061,
+        "lng": -73.99689999999998,
+        "region": {
+          "country": "us",
+          "province": "new-york",
+          "city": "new-york-county",
+          "district": null
+        },
+        "note": "桥面上每个人都走得很快，河面反而显得安静。\n恭喜你发现了测试集！"
+      },
+      "id": "brooklyn-bridge_test",
+      "title": "桥上的风",
+      "path": "records/brooklyn-bridge_test/record.json",
+      "content_path": "records/brooklyn-bridge_test/content.md",
+      "route_id": "longest-test",
+      "route_index": 1,
+      "tags": [
+        "桥",
+        "街角"
+      ],
+      "location": {
+        "place": "美国 / 纽约州 / New York County",
+        "lat": 40.7061,
+        "lng": -73.99689999999998,
+        "region": {
+          "country": "us",
+          "province": "new-york",
+          "city": "new-york-county",
+          "district": null
+        },
+        "region_names": {
+          "country": "United States",
+          "province": "New York",
+          "city": "New York County",
+          "district": ""
+        }
+      },
+      "cover": null,
+      "created_at": "2024-12-23T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:55.980Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "everglades-flat_test",
+        "title": "湿地边缘",
+        "created_at": "2025-02-02T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:56.093Z",
+        "route_id": "longest-test",
+        "route_index": 0,
+        "tags": [
+          "山路",
+          "日落"
+        ],
+        "location": {
+          "place": "美国 / 佛罗里达 / 门罗县",
+          "lat": 25.2866,
+          "lng": -80.89870000000002,
+          "region": {
+            "country": "us",
+            "province": "florida",
+            "city": "门罗",
+            "district": null
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "Florida",
+            "city": "门罗县",
+            "district": ""
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "photo",
+        "date": "2003-02-01",
+        "place": "美国 / 佛罗里达 / 门罗县",
+        "lat": 25.2866,
+        "lng": -80.89870000000002,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "门罗",
+          "district": null
+        },
+        "note": "恭喜你发现了测试集！"
+      },
+      "id": "everglades-flat_test",
+      "title": "湿地边缘",
+      "path": "records/everglades-flat_test/record.json",
+      "content_path": "records/everglades-flat_test/content.md",
+      "route_id": "longest-test",
+      "route_index": 0,
+      "tags": [
+        "山路",
+        "日落"
+      ],
+      "location": {
+        "place": "美国 / 佛罗里达 / 门罗县",
+        "lat": 25.2866,
+        "lng": -80.89870000000002,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "门罗",
+          "district": null
+        },
+        "region_names": {
+          "country": "United States",
+          "province": "Florida",
+          "city": "门罗县",
+          "district": ""
+        }
+      },
+      "cover": null,
+      "created_at": "2025-02-02T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:56.093Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "guangzhou-rain_test",
+        "title": "旧街和雨后的灯",
+        "created_at": "2024-07-06T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:56.209Z",
+        "route_id": "longest-test",
+        "route_index": 2,
+        "tags": [
+          "街角",
+          "夜色",
+          "雨后"
+        ],
+        "location": {
+          "place": "中国 / 广东 / 越秀区 / 北京街道",
+          "lat": 23.1291,
+          "lng": 113.26440000000002,
+          "region": {
+            "country": "cn",
+            "province": "guangdong",
+            "city": "越秀",
+            "district": "北京街道"
+          },
+          "region_names": {
+            "country": "China",
+            "province": "Guangdong",
+            "city": "越秀区",
+            "district": "北京街道"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "photo",
+        "date": "2002-07-06",
+        "place": "中国 / 广东 / 越秀区 / 北京街道",
+        "lat": 23.1291,
+        "lng": 113.26440000000002,
+        "region": {
+          "country": "cn",
+          "province": "guangdong",
+          "city": "越秀",
+          "district": "北京街道"
+        },
+        "note": "恭喜你发现了测试集！"
+      },
+      "id": "guangzhou-rain_test",
+      "title": "旧街和雨后的灯",
+      "path": "records/guangzhou-rain_test/record.json",
+      "content_path": "records/guangzhou-rain_test/content.md",
+      "route_id": "longest-test",
+      "route_index": 2,
+      "tags": [
+        "街角",
+        "夜色",
+        "雨后"
+      ],
+      "location": {
+        "place": "中国 / 广东 / 越秀区 / 北京街道",
+        "lat": 23.1291,
+        "lng": 113.26440000000002,
+        "region": {
+          "country": "cn",
+          "province": "guangdong",
+          "city": "越秀",
+          "district": "北京街道"
+        },
+        "region_names": {
+          "country": "China",
+          "province": "Guangdong",
+          "city": "越秀区",
+          "district": "北京街道"
+        }
+      },
+      "cover": null,
+      "created_at": "2024-07-06T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:56.209Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "guangzhou-river_test",
+        "title": "珠江边的慢走",
+        "created_at": "2024-07-06T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:56.326Z",
+        "route_id": "pearl-river_test",
+        "route_index": 0,
+        "tags": [
+          "桥",
+          "夜色"
+        ],
+        "location": {
+          "place": "中国 / 广东 / 海珠区 / 赤岗街道",
+          "lat": 23.108,
+          "lng": 113.31860000000006,
+          "region": {
+            "country": "cn",
+            "province": "guangdong",
+            "city": "海珠",
+            "district": "赤岗街道"
+          },
+          "region_names": {
+            "country": "China",
+            "province": "Guangdong",
+            "city": "海珠区",
+            "district": "赤岗街道"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2002-07-06",
+        "place": "中国 / 广东 / 海珠区 / 赤岗街道",
+        "lat": 23.108,
+        "lng": 113.31860000000006,
+        "region": {
+          "country": "cn",
+          "province": "guangdong",
+          "city": "海珠",
+          "district": "赤岗街道"
+        },
+        "note": "路线记录可以在这一段插入多条照片或随笔。\n恭喜你发现了测试集！"
+      },
+      "id": "guangzhou-river_test",
+      "title": "珠江边的慢走",
+      "path": "records/guangzhou-river_test/record.json",
+      "content_path": "records/guangzhou-river_test/content.md",
+      "route_id": "pearl-river_test",
+      "route_index": 0,
+      "tags": [
+        "桥",
+        "夜色"
+      ],
+      "location": {
+        "place": "中国 / 广东 / 海珠区 / 赤岗街道",
+        "lat": 23.108,
+        "lng": 113.31860000000006,
+        "region": {
+          "country": "cn",
+          "province": "guangdong",
+          "city": "海珠",
+          "district": "赤岗街道"
+        },
+        "region_names": {
+          "country": "China",
+          "province": "Guangdong",
+          "city": "海珠区",
+          "district": "赤岗街道"
+        }
+      },
+      "cover": null,
+      "created_at": "2024-07-06T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:56.326Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "hangzhou-lake_test",
+        "title": "湖边雨后",
+        "created_at": "2023-09-24T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:56.438Z",
+        "route_id": null,
+        "route_index": null,
+        "tags": [
+          "雨后",
+          "城市漫游"
+        ],
+        "location": {
+          "place": "中国 / 浙江 / 拱墅区 / 天水街道",
+          "lat": 30.2741,
+          "lng": 120.15509999999995,
+          "region": {
+            "country": "cn",
+            "province": "zhejiang",
+            "city": "拱墅",
+            "district": "天水街道"
+          },
+          "region_names": {
+            "country": "China",
+            "province": "Zhejiang",
+            "city": "拱墅区",
+            "district": "天水街道"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2003-09-24",
+        "place": "中国 / 浙江 / 拱墅区 / 天水街道",
+        "lat": 30.2741,
+        "lng": 120.15509999999995,
+        "region": {
+          "country": "cn",
+          "province": "zhejiang",
+          "city": "拱墅",
+          "district": "天水街道"
+        },
+        "note": "湿润的空气让远处的轮廓变得很轻。\n恭喜你发现了测试集！"
+      },
+      "id": "hangzhou-lake_test",
+      "title": "湖边雨后",
+      "path": "records/hangzhou-lake_test/record.json",
+      "content_path": "records/hangzhou-lake_test/content.md",
+      "route_id": null,
+      "route_index": null,
+      "tags": [
+        "雨后",
+        "城市漫游"
+      ],
+      "location": {
+        "place": "中国 / 浙江 / 拱墅区 / 天水街道",
+        "lat": 30.2741,
+        "lng": 120.15509999999995,
+        "region": {
+          "country": "cn",
+          "province": "zhejiang",
+          "city": "拱墅",
+          "district": "天水街道"
+        },
+        "region_names": {
+          "country": "China",
+          "province": "Zhejiang",
+          "city": "拱墅区",
+          "district": "天水街道"
+        }
+      },
+      "cover": null,
+      "created_at": "2023-09-24T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:56.438Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "hongkong-harbour_test",
+        "title": "海港夜色",
+        "created_at": "2024-02-11T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:56.553Z",
+        "route_id": "pearl-river_test",
+        "route_index": 1,
+        "tags": [
+          "海边",
+          "夜色"
+        ],
+        "location": {
+          "place": "中国 / 九龍 / 香港 / 旺角",
+          "lat": 22.3193,
+          "lng": 114.1694,
+          "region": {
+            "country": "cn",
+            "province": "九龍",
+            "city": "香港",
+            "district": "旺角"
+          },
+          "region_names": {
+            "country": "China",
+            "province": "九龍",
+            "city": "香港",
+            "district": "旺角"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "photo",
+        "date": "2002-02-11",
+        "place": "中国 / 九龍 / 香港 / 旺角",
+        "lat": 22.3193,
+        "lng": 114.1694,
+        "region": {
+          "country": "cn",
+          "province": "九龍",
+          "city": "香港",
+          "district": "旺角"
+        },
+        "note": "恭喜你发现了测试集！"
+      },
+      "id": "hongkong-harbour_test",
+      "title": "海港夜色",
+      "path": "records/hongkong-harbour_test/record.json",
+      "content_path": "records/hongkong-harbour_test/content.md",
+      "route_id": "pearl-river_test",
+      "route_index": 1,
+      "tags": [
+        "海边",
+        "夜色"
+      ],
+      "location": {
+        "place": "中国 / 九龍 / 香港 / 旺角",
+        "lat": 22.3193,
+        "lng": 114.1694,
+        "region": {
+          "country": "cn",
+          "province": "九龍",
+          "city": "香港",
+          "district": "旺角"
+        },
+        "region_names": {
+          "country": "China",
+          "province": "九龍",
+          "city": "香港",
+          "district": "旺角"
+        }
+      },
+      "cover": null,
+      "created_at": "2024-02-11T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:56.553Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "key-largo-blue_test",
+        "title": "Key Largo 的蓝",
+        "created_at": "2025-03-12T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:56.663Z",
+        "route_id": "florida-coast_test",
+        "route_index": 1,
+        "tags": [
+          "海边",
+          "公路"
+        ],
+        "location": {
+          "place": "美国 / 佛罗里达 / 拉戈島 / 门罗县",
+          "lat": 25.0865,
+          "lng": -80.44729999999998,
+          "region": {
+            "country": "us",
+            "province": "florida",
+            "city": "拉戈島",
+            "district": "门罗"
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "Florida",
+            "city": "拉戈島",
+            "district": "门罗县"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "photo",
+        "date": "2003-03-12",
+        "place": "美国 / 佛罗里达 / 拉戈島 / 门罗县",
+        "lat": 25.0865,
+        "lng": -80.44729999999998,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "拉戈島",
+          "district": "门罗"
+        },
+        "note": "恭喜你发现了测试集！"
+      },
+      "id": "key-largo-blue_test",
+      "title": "Key Largo 的蓝",
+      "path": "records/key-largo-blue_test/record.json",
+      "content_path": "records/key-largo-blue_test/content.md",
+      "route_id": "florida-coast_test",
+      "route_index": 1,
+      "tags": [
+        "海边",
+        "公路"
+      ],
+      "location": {
+        "place": "美国 / 佛罗里达 / 拉戈島 / 门罗县",
+        "lat": 25.0865,
+        "lng": -80.44729999999998,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "拉戈島",
+          "district": "门罗"
+        },
+        "region_names": {
+          "country": "United States",
+          "province": "Florida",
+          "city": "拉戈島",
+          "district": "门罗县"
+        }
+      },
+      "cover": null,
+      "created_at": "2025-03-12T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:56.663Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "keywest-road_test",
+        "title": "从海上公路看见云",
+        "created_at": "2025-03-12T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:56.776Z",
+        "route_id": "florida-coast_test",
+        "route_index": 2,
+        "tags": [
+          "公路",
+          "海边"
+        ],
+        "location": {
+          "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
+          "lat": 24.5551,
+          "lng": -81.77999999999997,
+          "region": {
+            "country": "us",
+            "province": "florida",
+            "city": "基韦斯特",
+            "district": "门罗"
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "Florida",
+            "city": "基韦斯特",
+            "district": "门罗县"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2003-03-12",
+        "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
+        "lat": 24.5551,
+        "lng": -81.77999999999997,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "基韦斯特",
+          "district": "门罗"
+        },
+        "note": "这条记录挂在路线段上，适合描述两个坐标之间发生的事情。\n恭喜你发现了测试集！"
+      },
+      "id": "keywest-road_test",
+      "title": "从海上公路看见云",
+      "path": "records/keywest-road_test/record.json",
+      "content_path": "records/keywest-road_test/content.md",
+      "route_id": "florida-coast_test",
+      "route_index": 2,
+      "tags": [
+        "公路",
+        "海边"
+      ],
+      "location": {
+        "place": "美国 / 佛罗里达 / 基韦斯特 / 门罗县",
+        "lat": 24.5551,
+        "lng": -81.77999999999997,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "基韦斯特",
+          "district": "门罗"
+        },
+        "region_names": {
+          "country": "United States",
+          "province": "Florida",
+          "city": "基韦斯特",
+          "district": "门罗县"
+        }
+      },
+      "cover": null,
+      "created_at": "2025-03-12T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:56.776Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "losangeles-sunset_test",
+        "title": "洛杉矶日落",
+        "created_at": "2023-04-12T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:56.893Z",
+        "route_id": null,
+        "route_index": null,
+        "tags": [
+          "日落",
+          "城市漫游"
+        ],
+        "location": {
+          "place": "美国 / 加利福尼亚 / 洛杉矶 / Los Angeles County",
+          "lat": 34.0522,
+          "lng": -118.24369999999999,
+          "region": {
+            "country": "us",
+            "province": "california",
+            "city": "los-angeles",
+            "district": "los-angeles-county"
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "California",
+            "city": "Los Angeles",
+            "district": "Los Angeles County"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "photo",
+        "date": "2001-04-12",
+        "place": "美国 / 加利福尼亚 / 洛杉矶 / Los Angeles County",
+        "lat": 34.0522,
+        "lng": -118.24369999999999,
+        "region": {
+          "country": "us",
+          "province": "california",
+          "city": "los-angeles",
+          "district": "los-angeles-county"
+        },
+        "note": "恭喜你发现了测试集！"
+      },
+      "id": "losangeles-sunset_test",
+      "title": "洛杉矶日落",
+      "path": "records/losangeles-sunset_test/record.json",
+      "content_path": "records/losangeles-sunset_test/content.md",
+      "route_id": null,
+      "route_index": null,
+      "tags": [
+        "日落",
+        "城市漫游"
+      ],
+      "location": {
+        "place": "美国 / 加利福尼亚 / 洛杉矶 / Los Angeles County",
+        "lat": 34.0522,
+        "lng": -118.24369999999999,
+        "region": {
+          "country": "us",
+          "province": "california",
+          "city": "los-angeles",
+          "district": "los-angeles-county"
+        },
+        "region_names": {
+          "country": "United States",
+          "province": "California",
+          "city": "Los Angeles",
+          "district": "Los Angeles County"
+        }
+      },
+      "cover": null,
+      "created_at": "2023-04-12T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:56.893Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "macau-density_test",
+        "title": "窗口里的城市密度",
+        "created_at": "2024-02-09T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:57.011Z",
+        "route_id": null,
+        "route_index": null,
+        "tags": [
+          "城市漫游",
+          "街角"
+        ],
+        "location": {
+          "place": "中国 / 澳門 / 花王堂區",
+          "lat": 22.1987,
+          "lng": 113.54390000000001,
+          "region": {
+            "country": "cn",
+            "province": "澳門",
+            "city": "花王堂區",
+            "district": null
+          },
+          "region_names": {
+            "country": "China",
+            "province": "澳門",
+            "city": "花王堂區",
+            "district": ""
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "photo",
+        "date": "2002-02-09",
+        "place": "中国 / 澳門 / 花王堂區",
+        "lat": 22.1987,
+        "lng": 113.54390000000001,
+        "region": {
+          "country": "cn",
+          "province": "澳門",
+          "city": "花王堂區",
+          "district": null
+        },
+        "note": "恭喜你发现了测试集！"
+      },
+      "id": "macau-density_test",
+      "title": "窗口里的城市密度",
+      "path": "records/macau-density_test/record.json",
+      "content_path": "records/macau-density_test/content.md",
+      "route_id": null,
+      "route_index": null,
+      "tags": [
+        "城市漫游",
+        "街角"
+      ],
+      "location": {
+        "place": "中国 / 澳門 / 花王堂區",
+        "lat": 22.1987,
+        "lng": 113.54390000000001,
+        "region": {
+          "country": "cn",
+          "province": "澳門",
+          "city": "花王堂區",
+          "district": null
+        },
+        "region_names": {
+          "country": "China",
+          "province": "澳門",
+          "city": "花王堂區",
+          "district": ""
+        }
+      },
+      "cover": null,
+      "created_at": "2024-02-09T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:57.011Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "macau-walk_test",
+        "title": "澳门步行线",
+        "created_at": "2024-02-10T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:57.121Z",
+        "route_id": "pearl-river_test",
+        "route_index": 2,
+        "tags": [
+          "建筑",
+          "街角"
+        ],
+        "location": {
+          "place": "中国 / 澳門 / 風順堂區",
+          "lat": 22.1919,
+          "lng": 113.53800000000001,
+          "region": {
+            "country": "cn",
+            "province": "澳門",
+            "city": "風順堂區",
+            "district": null
+          },
+          "region_names": {
+            "country": "China",
+            "province": "澳門",
+            "city": "風順堂區",
+            "district": ""
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2002-02-10",
+        "place": "中国 / 澳門 / 風順堂區",
+        "lat": 22.1919,
+        "lng": 113.53800000000001,
+        "region": {
+          "country": "cn",
+          "province": "澳門",
+          "city": "風順堂區",
+          "district": null
+        },
+        "note": "街巷很窄，但每个转角都有不同的垂直层次。\n恭喜你发现了测试集！"
+      },
+      "id": "macau-walk_test",
+      "title": "澳门步行线",
+      "path": "records/macau-walk_test/record.json",
+      "content_path": "records/macau-walk_test/content.md",
+      "route_id": "pearl-river_test",
+      "route_index": 2,
+      "tags": [
+        "建筑",
+        "街角"
+      ],
+      "location": {
+        "place": "中国 / 澳門 / 風順堂區",
+        "lat": 22.1919,
+        "lng": 113.53800000000001,
+        "region": {
+          "country": "cn",
+          "province": "澳門",
+          "city": "風順堂區",
+          "district": null
+        },
+        "region_names": {
+          "country": "China",
+          "province": "澳門",
+          "city": "風順堂區",
+          "district": ""
+        }
+      },
+      "cover": null,
+      "created_at": "2024-02-10T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:57.121Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "miami-bay-dusk_test",
+        "title": "海湾边的傍晚",
+        "created_at": "2025-04-18T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:57.240Z",
+        "route_id": "florida-coast_test",
+        "route_index": 0,
+        "tags": [
+          "海边",
+          "日落",
+          "城市漫游"
+        ],
+        "location": {
+          "place": "美国 / 佛罗里达 / 迈阿密 / 迈阿密-戴德县",
+          "lat": 25.7617,
+          "lng": -80.1918,
+          "region": {
+            "country": "us",
+            "province": "florida",
+            "city": "miami",
+            "district": "迈阿密-戴德"
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "Florida",
+            "city": "Miami",
+            "district": "迈阿密-戴德县"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2003-04-18",
+        "place": "美国 / 佛罗里达 / 迈阿密 / 迈阿密-戴德县",
+        "lat": 25.7617,
+        "lng": -80.1918,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "miami",
+          "district": "迈阿密-戴德"
+        },
+        "note": "风从海湾吹过来，玻璃幕墙把落日切成几块。\n恭喜你发现了测试集！"
+      },
+      "id": "miami-bay-dusk_test",
+      "title": "海湾边的傍晚",
+      "path": "records/miami-bay-dusk_test/record.json",
+      "content_path": "records/miami-bay-dusk_test/content.md",
+      "route_id": "florida-coast_test",
+      "route_index": 0,
+      "tags": [
+        "海边",
+        "日落",
+        "城市漫游"
+      ],
+      "location": {
+        "place": "美国 / 佛罗里达 / 迈阿密 / 迈阿密-戴德县",
+        "lat": 25.7617,
+        "lng": -80.1918,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "miami",
+          "district": "迈阿密-戴德"
+        },
+        "region_names": {
+          "country": "United States",
+          "province": "Florida",
+          "city": "Miami",
+          "district": "迈阿密-戴德县"
+        }
+      },
+      "cover": null,
+      "created_at": "2025-04-18T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:57.240Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "miami-campus_test",
+        "title": "校园午后的树影",
+        "created_at": "2025-04-20T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:57.351Z",
+        "route_id": null,
+        "route_index": null,
+        "tags": [
+          "校园",
+          "建筑"
+        ],
+        "location": {
+          "place": "美国 / 佛罗里达 / Coral Gables / 迈阿密-戴德县",
+          "lat": 25.7215,
+          "lng": -80.27930000000003,
+          "region": {
+            "country": "us",
+            "province": "florida",
+            "city": "coral-gables",
+            "district": "迈阿密-戴德"
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "Florida",
+            "city": "Coral Gables",
+            "district": "迈阿密-戴德县"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "photo",
+        "date": "2003-04-20",
+        "place": "美国 / 佛罗里达 / Coral Gables / 迈阿密-戴德县",
+        "lat": 25.7215,
+        "lng": -80.27930000000003,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "coral-gables",
+          "district": "迈阿密-戴德"
+        },
+        "note": "恭喜你发现了测试集！"
+      },
+      "id": "miami-campus_test",
+      "title": "校园午后的树影",
+      "path": "records/miami-campus_test/record.json",
+      "content_path": "records/miami-campus_test/content.md",
+      "route_id": null,
+      "route_index": null,
+      "tags": [
+        "校园",
+        "建筑"
+      ],
+      "location": {
+        "place": "美国 / 佛罗里达 / Coral Gables / 迈阿密-戴德县",
+        "lat": 25.7215,
+        "lng": -80.27930000000003,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "coral-gables",
+          "district": "迈阿密-戴德"
+        },
+        "region_names": {
+          "country": "United States",
+          "province": "Florida",
+          "city": "Coral Gables",
+          "district": "迈阿密-戴德县"
+        }
+      },
+      "cover": null,
+      "created_at": "2025-04-20T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:57.351Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "newyork-window_test",
+        "title": "纽约窗口",
+        "created_at": "2024-12-22T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:57.461Z",
+        "route_id": null,
+        "route_index": null,
+        "tags": [
+          "建筑",
+          "城市漫游"
+        ],
+        "location": {
+          "place": "美国 / 纽约州 / New York County",
+          "lat": 40.7128,
+          "lng": -74.00599999999997,
+          "region": {
+            "country": "us",
+            "province": "new-york",
+            "city": "new-york-county",
+            "district": null
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "New York",
+            "city": "New York County",
+            "district": ""
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "photo",
+        "date": "2002-12-22",
+        "place": "美国 / 纽约州 / New York County",
+        "lat": 40.7128,
+        "lng": -74.00599999999997,
+        "region": {
+          "country": "us",
+          "province": "new-york",
+          "city": "new-york-county",
+          "district": null
+        },
+        "note": "恭喜你发现了测试集！"
+      },
+      "id": "newyork-window_test",
+      "title": "纽约窗口",
+      "path": "records/newyork-window_test/record.json",
+      "content_path": "records/newyork-window_test/content.md",
+      "route_id": null,
+      "route_index": null,
+      "tags": [
+        "建筑",
+        "城市漫游"
+      ],
+      "location": {
+        "place": "美国 / 纽约州 / New York County",
+        "lat": 40.7128,
+        "lng": -74.00599999999997,
+        "region": {
+          "country": "us",
+          "province": "new-york",
+          "city": "new-york-county",
+          "district": null
+        },
+        "region_names": {
+          "country": "United States",
+          "province": "New York",
+          "city": "New York County",
+          "district": ""
+        }
+      },
+      "cover": null,
+      "created_at": "2024-12-22T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:57.461Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "orlando-night_test",
+        "title": "奥兰多夜色",
+        "created_at": "2025-01-18T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:57.577Z",
+        "route_id": null,
+        "route_index": null,
+        "tags": [
+          "夜色",
+          "城市漫游"
+        ],
+        "location": {
+          "place": "美国 / 佛罗里达 / 奥兰多 / 橙县",
+          "lat": 28.5383,
+          "lng": -81.37919999999997,
+          "region": {
+            "country": "us",
+            "province": "florida",
+            "city": "orlando",
+            "district": "橙"
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "Florida",
+            "city": "Orlando",
+            "district": "橙县"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2002-01-18",
+        "place": "美国 / 佛罗里达 / 奥兰多 / 橙县",
+        "lat": 28.5383,
+        "lng": -81.37919999999997,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "orlando",
+          "district": "橙"
+        },
+        "note": "灯光把街区切成很清楚的层次。\n恭喜你发现了测试集！"
+      },
+      "id": "orlando-night_test",
+      "title": "奥兰多夜色",
+      "path": "records/orlando-night_test/record.json",
+      "content_path": "records/orlando-night_test/content.md",
+      "route_id": null,
+      "route_index": null,
+      "tags": [
+        "夜色",
+        "城市漫游"
+      ],
+      "location": {
+        "place": "美国 / 佛罗里达 / 奥兰多 / 橙县",
+        "lat": 28.5383,
+        "lng": -81.37919999999997,
+        "region": {
+          "country": "us",
+          "province": "florida",
+          "city": "orlando",
+          "district": "橙"
+        },
+        "region_names": {
+          "country": "United States",
+          "province": "Florida",
+          "city": "Orlando",
+          "district": "橙县"
+        }
+      },
+      "cover": null,
+      "created_at": "2025-01-18T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:57.577Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "portland-corner_test",
+        "title": "Portland 的街角",
+        "created_at": "2023-05-17T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:57.687Z",
+        "route_id": null,
+        "route_index": null,
+        "tags": [
+          "街角",
+          "咖啡"
+        ],
+        "location": {
+          "place": "美国 / 俄勒冈 / 波特兰 / Multnomah County",
+          "lat": 45.5152,
+          "lng": -122.67840000000001,
+          "region": {
+            "country": "us",
+            "province": "oregon",
+            "city": "portland",
+            "district": "multnomah-county"
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "Oregon",
+            "city": "Portland",
+            "district": "Multnomah County"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "photo",
+        "date": "2001-05-17",
+        "place": "美国 / 俄勒冈 / 波特兰 / Multnomah County",
+        "lat": 45.5152,
+        "lng": -122.67840000000001,
+        "region": {
+          "country": "us",
+          "province": "oregon",
+          "city": "portland",
+          "district": "multnomah-county"
+        },
+        "note": ""
+      },
+      "id": "portland-corner_test",
+      "title": "Portland 的街角",
+      "path": "records/portland-corner_test/record.json",
+      "content_path": "records/portland-corner_test/content.md",
+      "route_id": null,
+      "route_index": null,
+      "tags": [
+        "街角",
+        "咖啡"
+      ],
+      "location": {
+        "place": "美国 / 俄勒冈 / 波特兰 / Multnomah County",
+        "lat": 45.5152,
+        "lng": -122.67840000000001,
+        "region": {
+          "country": "us",
+          "province": "oregon",
+          "city": "portland",
+          "district": "multnomah-county"
+        },
+        "region_names": {
+          "country": "United States",
+          "province": "Oregon",
+          "city": "Portland",
+          "district": "Multnomah County"
+        }
+      },
+      "cover": null,
+      "created_at": "2023-05-17T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:57.687Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "seattle-ferry_test",
+        "title": "渡轮上的风",
+        "created_at": "2023-05-20T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:57.797Z",
+        "route_id": null,
+        "route_index": null,
+        "tags": [
+          "海边",
+          "城市漫游"
+        ],
+        "location": {
+          "place": "美国 / 华盛顿州 / 西雅圖 / King County",
+          "lat": 47.6062,
+          "lng": -122.33209999999997,
+          "region": {
+            "country": "us",
+            "province": "washington",
+            "city": "西雅圖",
+            "district": "king-county"
+          },
+          "region_names": {
+            "country": "United States",
+            "province": "Washington",
+            "city": "西雅圖",
+            "district": "King County"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "note",
+        "date": "2001-05-20",
+        "place": "美国 / 华盛顿州 / 西雅圖 / King County",
+        "lat": 47.6062,
+        "lng": -122.33209999999997,
+        "region": {
+          "country": "us",
+          "province": "washington",
+          "city": "西雅圖",
+          "district": "king-county"
+        },
+        "note": "水面、天色和城市边界被风混在一起。\n恭喜你发现了测试集！"
+      },
+      "id": "seattle-ferry_test",
+      "title": "渡轮上的风",
+      "path": "records/seattle-ferry_test/record.json",
+      "content_path": "records/seattle-ferry_test/content.md",
+      "route_id": null,
+      "route_index": null,
+      "tags": [
+        "海边",
+        "城市漫游"
+      ],
+      "location": {
+        "place": "美国 / 华盛顿州 / 西雅圖 / King County",
+        "lat": 47.6062,
+        "lng": -122.33209999999997,
+        "region": {
+          "country": "us",
+          "province": "washington",
+          "city": "西雅圖",
+          "district": "king-county"
+        },
+        "region_names": {
+          "country": "United States",
+          "province": "Washington",
+          "city": "西雅圖",
+          "district": "King County"
+        }
+      },
+      "cover": null,
+      "created_at": "2023-05-20T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:57.797Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "shanghai-coffee_test",
+        "title": "上海咖啡店窗口",
+        "created_at": "2023-09-22T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:57.906Z",
+        "route_id": null,
+        "route_index": null,
+        "tags": [
+          "咖啡",
+          "街角"
+        ],
+        "location": {
+          "place": "中国 / 上海 / 南京东路街道",
+          "lat": 31.2304,
+          "lng": 121.47370000000001,
+          "region": {
+            "country": "cn",
+            "province": "shanghai",
+            "city": "南京东路街道",
+            "district": null
+          },
+          "region_names": {
+            "country": "China",
+            "province": "Shanghai",
+            "city": "南京东路街道",
+            "district": ""
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "photo",
+        "date": "2001-09-22",
+        "place": "中国 / 上海 / 南京东路街道",
+        "lat": 31.2304,
+        "lng": 121.47370000000001,
+        "region": {
+          "country": "cn",
+          "province": "shanghai",
+          "city": "南京东路街道",
+          "district": null
+        },
+        "note": "恭喜你发现了测试集！"
+      },
+      "id": "shanghai-coffee_test",
+      "title": "上海咖啡店窗口",
+      "path": "records/shanghai-coffee_test/record.json",
+      "content_path": "records/shanghai-coffee_test/content.md",
+      "route_id": null,
+      "route_index": null,
+      "tags": [
+        "咖啡",
+        "街角"
+      ],
+      "location": {
+        "place": "中国 / 上海 / 南京东路街道",
+        "lat": 31.2304,
+        "lng": 121.47370000000001,
+        "region": {
+          "country": "cn",
+          "province": "shanghai",
+          "city": "南京东路街道",
+          "district": null
+        },
+        "region_names": {
+          "country": "China",
+          "province": "Shanghai",
+          "city": "南京东路街道",
+          "district": ""
+        }
+      },
+      "cover": null,
+      "created_at": "2023-09-22T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:57.906Z",
+      "favorite": false,
+      "archived": false
+    },
+    {
+      "record": {
+        "id": "shenzhen-market_test",
+        "title": "深圳市场清晨",
+        "created_at": "2024-07-08T00:00:00.000Z",
+        "updated_at": "2026-05-21T10:41:58.017Z",
+        "route_id": null,
+        "route_index": null,
+        "tags": [
+          "市场",
+          "城市漫游"
+        ],
+        "location": {
+          "place": "中国 / 广东 / 福田区 / 莲花街道",
+          "lat": 22.5431,
+          "lng": 114.05790000000002,
+          "region": {
+            "country": "cn",
+            "province": "guangdong",
+            "city": "福田",
+            "district": "莲花街道"
+          },
+          "region_names": {
+            "country": "China",
+            "province": "Guangdong",
+            "city": "福田区",
+            "district": "莲花街道"
+          }
+        },
+        "assets": [
+          {
+            "path": "assets/image-1.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "favorite": false,
+        "archived": false,
+        "type": "photo",
+        "date": "2003-07-08",
+        "place": "中国 / 广东 / 福田区 / 莲花街道",
+        "lat": 22.5431,
+        "lng": 114.05790000000002,
+        "region": {
+          "country": "cn",
+          "province": "guangdong",
+          "city": "福田",
+          "district": "莲花街道"
+        },
+        "note": "恭喜你发现了测试集！"
+      },
+      "id": "shenzhen-market_test",
+      "title": "深圳市场清晨",
+      "path": "records/shenzhen-market_test/record.json",
+      "content_path": "records/shenzhen-market_test/content.md",
+      "route_id": null,
+      "route_index": null,
+      "tags": [
+        "市场",
+        "城市漫游"
+      ],
+      "location": {
+        "place": "中国 / 广东 / 福田区 / 莲花街道",
+        "lat": 22.5431,
+        "lng": 114.05790000000002,
+        "region": {
+          "country": "cn",
+          "province": "guangdong",
+          "city": "福田",
+          "district": "莲花街道"
+        },
+        "region_names": {
+          "country": "China",
+          "province": "Guangdong",
+          "city": "福田区",
+          "district": "莲花街道"
+        }
+      },
+      "cover": null,
+      "created_at": "2024-07-08T00:00:00.000Z",
+      "updated_at": "2026-05-21T10:41:58.017Z",
       "favorite": false,
       "archived": false
     }

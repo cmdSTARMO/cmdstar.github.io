@@ -182,6 +182,7 @@ function rebuildIndexes() {
   const records = listRecordIds().map((recordId) => {
     const record = loadRecord(recordId);
     return {
+      record,
       id: record.id,
       title: record.title,
       path: `records/${record.id}/record.json`,
@@ -201,6 +202,7 @@ function rebuildIndexes() {
   const routes = listRouteIds().map((routeId) => {
     const route = loadRoute(routeId);
     return {
+      route,
       id: route.id,
       name: route.name,
       path: `routes/${route.id}.json`,

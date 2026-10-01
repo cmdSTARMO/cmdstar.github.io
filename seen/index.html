@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="所见：旅途照片与游记" />
   <meta name="author" content="hdp" />
   <title>所见 | Seen</title>
@@ -16,6 +16,8 @@
   <script src="https://unpkg.com/i18next@21.6.3/dist/umd/i18next.min.js"></script>
   <script src="https://unpkg.com/i18next-http-backend@1.4.1/i18nextHttpBackend.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="./seen-storage.js"></script>
+  <script src="./map-config.js"></script>
   <!-- YAML 解析库 -->
   <script type="text/javascript" src="../static/js/js-yaml.min.js"></script>
 
@@ -119,11 +121,11 @@
     @keyframes seenMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     .seen-tag { border: 1px solid var(--seen-border); border-radius: 999px; background: var(--seen-input-bg); color: var(--seen-text); padding: 6px 10px; font-size: 0.82rem; line-height: 1; white-space: nowrap; cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease; }
     .seen-tag:hover, .seen-tag.is-active { border-color: rgba(138, 195, 173, 0.72); background: rgba(138, 195, 173, 0.16); transform: translateY(-1px); }
-    .feature-photo { position: relative; min-height: 252px; border-radius: 8px; overflow: hidden; background: #111820; isolation: isolate; cursor: pointer; }
+    .feature-photo { position: relative; aspect-ratio: 4 / 3; min-height: 252px; border-radius: 8px; overflow: hidden; background: #111820; isolation: isolate; cursor: pointer; }
     .feature-photo:focus-visible { outline: 0; box-shadow: none; }
-    .feature-photo img { width: 100%; height: 100%; min-height: 252px; object-fit: cover; display: block; filter: saturate(0.92) contrast(1.05); }
-    .feature-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5, 8, 10, 0.08) 20%, rgba(5, 8, 10, 0.82)); z-index: 1; }
-    .feature-copy { position: absolute; left: 16px; right: 16px; bottom: 14px; z-index: 2; color: #fff; }
+    .feature-photo img { width: 100%; height: 100%; min-height: 0; object-fit: cover; display: block; filter: saturate(0.92) contrast(1.05); }
+    .feature-photo::after { content: ""; background: linear-gradient(180deg, rgba(5, 8, 10, 0.08) 20%, rgba(5, 8, 10, 0.82)); z-index: 1; }
+    .feature-copy { z-index: 2; color: #fff; }
     .feature-copy h2 { margin: 0 0 6px; font-size: 1.35rem; line-height: 1.25; letter-spacing: 0; }
     .feature-copy p { margin: 0; color: rgba(255, 255, 255, 0.82); line-height: 1.7; font-size: 0.95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .feature-actions { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 14px; }
@@ -150,6 +152,8 @@
     .map-fallback { position: absolute; inset: 0; display: none; place-items: center; padding: 28px; color: var(--seen-muted); text-align: center; background: rgba(7, 11, 16, 0.86); z-index: 3; }
     .map-fallback.is-visible { display: grid; }
     .leaflet-container { font-family: var(--site-font-family); background: #091016; }
+    /* Night adaptation affects only raster basemaps, never overlays or attribution. */
+    html[data-theme="dark"] .seen-osm-tiles { filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9) saturate(0.65); }
     .leaflet-control-attribution { background: rgba(8, 12, 18, 0.72) !important; color: rgba(255, 255, 255, 0.72) !important; }
     .leaflet-control-attribution a { color: var(--seen-cyan) !important; }
     .seen-boundary { cursor: pointer; transition: opacity 0.2s ease, fill-opacity 0.2s ease; }
@@ -351,29 +355,29 @@
     .post-card .post-note { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
     .post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
     .post-tags .seen-tag { padding: 5px 8px; font-size: 0.76rem; }
-    .detail-dialog { --detail-card-height: clamp(360px, calc(100vh - 245px), 820px); width: min(860px, calc(100% - 32px)); max-height: min(820px, calc(100vh - 32px)); overflow: visible; border: 0; border-radius: 12px; background: transparent; box-shadow: none; overscroll-behavior: contain; touch-action: pan-y; }
-    .detail-card { --detail-shift-x: 0px; --detail-shift-y: 0px; --detail-rotate: 0deg; --detail-scale: 1; position: relative; display: grid; grid-template-columns: minmax(260px, 0.95fr) minmax(280px, 1.05fr); align-items: stretch; gap: 0; padding: 0; margin-top: 8px; overflow-x: hidden; overflow-y: auto; height: var(--detail-card-height); max-height: var(--detail-card-height); border: 1px solid var(--seen-border); border-radius: 12px; background: var(--seen-surface-solid); box-shadow: var(--seen-shadow); transition: transform 360ms cubic-bezier(0.18, 0.9, 0.24, 1), opacity 240ms ease, filter 240ms ease; will-change: transform, opacity; overscroll-behavior: contain; touch-action: pan-y; -webkit-overflow-scrolling: touch; clip-path: inset(0 round 12px); scrollbar-width: thin; scrollbar-color: rgba(125, 211, 252, 0.3) transparent; }
+
+    .detail-card { --detail-shift-x: 0px; --detail-shift-y: 0px; --detail-rotate: 0deg; --detail-scale: 1; position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; gap: 0; padding: 0; margin-top: 8px; overflow-x: hidden; overflow-y: auto; min-width: 0; min-height: 0; border: 1px solid var(--seen-border); border-radius: 12px; background: var(--seen-surface-solid); box-shadow: var(--seen-shadow); transition: transform 360ms cubic-bezier(0.18, 0.9, 0.24, 1), opacity 240ms ease, filter 240ms ease; will-change: transform, opacity; overscroll-behavior: contain; touch-action: pan-y; -webkit-overflow-scrolling: touch; clip-path: inset(0 round 12px); scrollbar-width: thin; scrollbar-color: rgba(125, 211, 252, 0.3) transparent; }
     .detail-card.is-dragging { transition: none; cursor: grabbing; }
     .detail-card.is-dragging, .detail-card.is-switching { transform: translate(var(--detail-shift-x), var(--detail-shift-y)) rotate(var(--detail-rotate)) scale(var(--detail-scale)); }
     .detail-card.is-switching { --detail-shift-x: var(--switch-direction, -18px); --detail-scale: 0.985; opacity: 0.72; filter: saturate(0.84); }
-    .detail-dialog.has-route-dock { --detail-card-height: clamp(280px, calc(100vh - 330px), 700px); }
+
     .detail-media, .detail-copy { transition: opacity 220ms ease, transform 220ms cubic-bezier(0.16, 1, 0.3, 1); }
     .detail-card.is-switching .detail-media, .detail-card.is-switching .detail-copy { opacity: 0.72; }
     .detail-card img { width: 100%; height: auto; min-height: 0; object-fit: contain; display: block; background: transparent; }
     .detail-media { position: relative; display: grid; place-items: center; overflow: hidden; min-height: 360px; height: clamp(360px, 56vh, 620px); min-width: 0; background: rgba(248, 251, 249, 0.54); backdrop-filter: blur(20px) saturate(1.08); -webkit-backdrop-filter: blur(20px) saturate(1.08); overscroll-behavior: contain; }
-    .detail-media::after { content: "Loading"; position: absolute; left: 50%; top: 50%; display: none; transform: translate(-50%, -50%); border: 1px solid rgba(255,255,255,0.22); border-radius: 999px; background: rgba(7, 11, 16, 0.58); color: #fff; padding: 8px 13px 8px 32px; font-size: 0.78rem; z-index: 2; }
-    .detail-media::before { content: ""; position: absolute; left: calc(50% - 45px); top: calc(50% - 7px); z-index: 3; display: none; width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.34); border-top-color: #fff; animation: seenSpin 0.8s linear infinite; }
+    .detail-media::after { content: "Loading"; display: none; border: 1px solid rgba(255,255,255,0.22); border-radius: 999px; background: rgba(7, 11, 16, 0.58); color: #fff; padding: 8px 13px 8px 32px; font-size: 0.78rem; z-index: 2; }
+    .detail-media::before { content: ""; z-index: 3; display: none; width: 14px; height: 14px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.34); border-top-color: #fff; animation: seenSpin 0.8s linear infinite; }
     .detail-media.is-loading::before, .detail-media.is-loading::after { display: block; }
-    .detail-media > img { position: absolute; inset: 0; z-index: 1; box-sizing: border-box; width: 100%; height: 100%; max-height: none; object-fit: contain; display: block; padding: 10px; cursor: zoom-in; user-select: none; touch-action: pan-y; opacity: 1; transition: opacity 180ms ease; }
+    .detail-media > img { z-index: 1; box-sizing: border-box; width: 100%; height: 100%; max-height: none; object-fit: contain; display: block; padding: 10px; cursor: zoom-in; user-select: none; touch-action: pan-y; opacity: 1; transition: opacity 180ms ease; }
     .detail-media img.is-loading { opacity: 0; }
     .detail-media.is-portrait { background: linear-gradient(135deg, rgba(255,255,255,0.68), rgba(255,255,255,0.22)), rgba(248, 251, 249, 0.44); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.42), inset 0 -32px 64px rgba(7, 18, 16, 0.08); }
     .detail-media.is-portrait img { object-fit: contain; }
     .detail-media.is-landscape img { object-fit: contain; }
     html[data-theme="dark"] .detail-media { background: rgba(7, 11, 16, 0.72); }
     html[data-theme="dark"] .detail-media.is-portrait { background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02)), rgba(7, 11, 16, 0.70); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), inset 0 -36px 72px rgba(0, 0, 0, 0.28); }
-    .image-nav { position: absolute; left: 12px; right: 12px; bottom: 12px; z-index: 3; display: flex; justify-content: space-between; gap: 8px; pointer-events: none; }
+    .image-nav { z-index: 3; display: flex; justify-content: space-between; gap: 8px; pointer-events: none; }
     .image-nav button { pointer-events: auto; }
-    .image-count { position: absolute; top: 12px; right: 12px; z-index: 3; border-radius: 999px; border: 1px solid rgba(255,255,255,0.32); background: rgba(7, 11, 16, 0.64); color: #fff; padding: 5px 9px; font-size: 0.78rem; cursor: pointer; }
+    .image-count { z-index: 3; border-radius: 999px; border: 1px solid rgba(255,255,255,0.32); background: rgba(7, 11, 16, 0.64); color: #fff; padding: 5px 9px; font-size: 0.78rem; cursor: pointer; }
     .image-count:hover { background: rgba(7, 11, 16, 0.82); }
     .detail-copy { position: relative; display: flex; flex-direction: column; min-height: 0; padding: 20px; overflow: visible; overscroll-behavior: contain; touch-action: pan-y; scrollbar-width: thin; scrollbar-color: rgba(125, 211, 252, 0.3) transparent; }
     .detail-card::-webkit-scrollbar, .detail-copy::-webkit-scrollbar { width: 6px; height: 0; }
@@ -403,7 +407,6 @@
       line-height: 1;
     }
     .data-note { margin: 18px 0 0; color: var(--seen-muted); font-size: 0.9rem; line-height: 1.8; }
-    body.search-open .seen-shell { filter: blur(12px); transform: scale(0.992); pointer-events: none; transition: filter 0.24s ease, transform 0.24s ease; }
     .floating-search { position: fixed; left: 50%; bottom: 24px; z-index: 10020; width: 46px; transform: translateX(-50%); transition: inset 0.28s ease, width 0.28s ease, transform 0.28s ease; }
     .search-glass { border: 1px solid var(--seen-border); border-radius: 999px; background: linear-gradient(110deg, rgba(125, 211, 252, 0.18), rgba(138, 195, 173, 0.18), rgba(232, 154, 168, 0.12)), var(--seen-surface); box-shadow: 0 18px 54px rgba(3, 9, 14, 0.22); backdrop-filter: blur(20px) saturate(1.16); -webkit-backdrop-filter: blur(20px) saturate(1.16); overflow: hidden; }
     .floating-search.is-open { left: 50%; right: auto; top: 50%; bottom: auto; width: min(640px, calc(100% - 36px)); transform: translate(-50%, -50%); }
@@ -417,9 +420,9 @@
     .floating-search:not(.is-open):hover { width: 132px; }
     .floating-search:not(.is-open):hover .search-main { grid-template-columns: 22px auto; padding: 0 13px; justify-content: start; }
     .floating-search:not(.is-open):hover .search-main::after { content: "搜索"; color: var(--seen-text); font-size: 0.9rem; }
-    .draft-box { position: fixed; right: 20px; bottom: 215px; z-index: 10030; display: grid; gap: 8px; justify-items: end; }
+    .draft-box { position: relative; z-index: 10030; display: grid; gap: 8px; justify-items: end; }
     .draft-button { position: relative; width: 46px; height: 46px; border-radius: 999px; border: 1px solid var(--seen-border); background: var(--seen-surface); color: var(--seen-text); box-shadow: var(--seen-shadow); padding: 0; cursor: pointer; backdrop-filter: blur(18px); display: grid; place-items: center; }
-    .manager-fab { position: fixed; right: 20px; bottom: 269px; z-index: 10030; width: 46px; height: 46px; border-radius: 999px; border: 1px solid var(--seen-border); background: var(--seen-surface); color: var(--seen-text); box-shadow: var(--seen-shadow); padding: 0; cursor: pointer; backdrop-filter: blur(18px); display: grid; place-items: center; transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease; }
+    .manager-fab { position: relative; z-index: 10030; width: 46px; height: 46px; border-radius: 999px; border: 1px solid var(--seen-border); background: var(--seen-surface); color: var(--seen-text); box-shadow: var(--seen-shadow); padding: 0; cursor: pointer; backdrop-filter: blur(18px); display: grid; place-items: center; transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease; }
     .manager-fab:hover, .manager-fab.is-active { transform: translateY(-2px); border-color: rgba(125, 211, 252, 0.5); background: rgba(125, 211, 252, 0.14); }
     .manager-fab i { font-size: 1.05rem; }
     .draft-button strong { display: grid; place-items: center; font-size: 0; }
@@ -446,14 +449,11 @@
     .search-hit { color: var(--seen-muted); font-size: 0.86rem; line-height: 1.55; }
     mark { border-radius: 4px; background: rgba(227, 180, 111, 0.34); color: inherit; padding: 0 2px; }
     .search-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; color: var(--seen-muted); font-size: 0.8rem; }
-    .detail-switch { position: fixed; top: 50%; transform: translateY(-50%); z-index: 10003; width: 34px; height: 96px; border-radius: 999px; background: rgba(7, 11, 16, 0.58); color: #fff; border-color: rgba(255,255,255,0.22); }
-    .detail-switch:hover { transform: translateY(-50%); background: rgba(7, 11, 16, 0.78); }
-    .detail-switch.prev { left: max(12px, calc(50% - 488px)); }
-    .detail-switch.next { right: max(12px, calc(50% - 488px)); }
+
     .image-nav { opacity: 0; transition: opacity 0.2s ease; }
     .detail-media:hover .image-nav { opacity: 1; }
     .image-nav .icon-btn { background: rgba(7, 11, 16, 0.68); color: #fff; border-color: rgba(255,255,255,0.26); box-shadow: 0 10px 30px rgba(0,0,0,0.28); }
-    .route-dock { --route-step: 78px; --active-index: 0; --route-width: 0px; --route-viewport-width: 0px; display: none; position: fixed; left: 50%; bottom: clamp(34px, 5vh, 58px); z-index: 4; width: min(620px, calc(100% - 36px)); transform: translateX(-50%); filter: drop-shadow(0 18px 54px rgba(3, 9, 14, 0.28)); overflow: visible; }
+
     .route-dock.is-visible { display: block; }
     .sub-dock-display { position: relative; z-index: 1; min-height: 108px; border: 1px solid var(--seen-border); border-bottom: 0; border-radius: 24px 24px 0 0; overflow: hidden; background: var(--seen-surface); backdrop-filter: blur(22px) saturate(1.16); -webkit-backdrop-filter: blur(22px) saturate(1.16); }
     .sub-dock-panel { display: none; min-height: 108px; }
@@ -462,7 +462,7 @@
     .sub-dock-map { width: 100%; height: 116px; background: #05080c; cursor: grab; touch-action: none; }
     .sub-dock-map, .sub-dock-map .leaflet-container, .sub-dock-map .leaflet-pane { pointer-events: auto; }
     .sub-dock-map:active { cursor: grabbing; }
-    .dock-reset { position: absolute; right: 10px; top: 10px; z-index: 700; min-width: 66px; height: 30px; border: 1px solid rgba(23, 32, 37, 0.16); border-radius: 999px; background: rgba(248, 251, 249, 0.72); color: #172025; display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 0 10px; cursor: pointer; font: inherit; font-size: 0.72rem; font-weight: 700; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 10px 28px rgba(3, 9, 14, 0.18); }
+    .dock-reset { z-index: 700; min-width: 66px; height: 30px; border: 1px solid rgba(23, 32, 37, 0.16); border-radius: 999px; background: rgba(248, 251, 249, 0.72); color: #172025; display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 0 10px; cursor: pointer; font: inherit; font-size: 0.72rem; font-weight: 700; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 10px 28px rgba(3, 9, 14, 0.18); }
     .dock-reset:hover { background: rgba(248, 251, 249, 0.92); }
     html[data-theme="dark"] .dock-reset { border-color: rgba(255,255,255,0.22); background: rgba(7, 11, 16, 0.62); color: #fff; box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32); }
     html[data-theme="dark"] .dock-reset:hover { background: rgba(7, 11, 16, 0.82); }
@@ -493,36 +493,25 @@
     .seen-point-marker.is-active span::before { content: ""; position: absolute; inset: -7px; border-radius: inherit; border: 2px solid rgba(33, 255, 130, 0.86); animation: seenPointRing 1.8s ease-out infinite; }
     .seen-point-marker.is-active span::after { content: ""; position: absolute; inset: -2px; border-radius: inherit; border: 1px solid rgba(91, 210, 143, 0.42); animation: seenPointRing 1.8s ease-out infinite 0.42s; }
     .seen-point-marker.is-muted span { width: 8px; height: 8px; background: rgba(160, 169, 179, 0.84); box-shadow: 0 0 0 4px rgba(160, 169, 179, 0.14); animation: none; }
-    .sub-dock-map .leaflet-control-attribution { display: none; }
+    .sub-dock-map .leaflet-control-attribution { display: block; font-size: 9px; }
     .route-dock-info { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: start; margin-bottom: 10px; }
     .route-dock-info strong { display: block; color: var(--seen-text); font-size: 0.96rem; line-height: 1.24; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .route-dock-info span { display: block; margin-top: 3px; color: var(--seen-muted); font-size: 0.73rem; line-height: 1.35; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .route-station-count { text-align: right; color: var(--seen-text); font-size: 0.86rem; line-height: 1.25; white-space: nowrap; }
     .route-station-count span { color: var(--seen-muted); font-size: 0.72rem; }
-    .route-viewport { position: relative; height: 62px; overflow: visible; touch-action: pan-y; cursor: grab; mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%); -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 18%, #000 82%, transparent 100%); }
-    .route-viewport:active { cursor: grabbing; }
-    .route-track { display: flex; align-items: center; width: var(--route-width); height: 100%; transform: translateX(calc((var(--route-viewport-width) - var(--route-step)) / 2 - (var(--active-index) * var(--route-step)))); transition: transform 760ms cubic-bezier(0.22, 1.18, 0.36, 1); will-change: transform; }
-    .route-node-cell { position: relative; width: var(--route-step); height: 62px; flex: 0 0 var(--route-step); display: grid; place-items: center; }
-    .route-node-cell:not(:last-child)::after { content: ""; position: absolute; left: calc(50% + 17px); width: calc(var(--route-step) - 34px); top: 50%; height: 3px; transform: translateY(-50%); background-image: radial-gradient(circle, currentColor 1.4px, transparent 1.6px); background-size: 11px 3px; background-repeat: repeat-x; color: var(--seen-muted); opacity: 0.62; pointer-events: none; }
-    .route-node { width: 14px; height: 14px; border: 2px solid rgba(82, 97, 104, 0.72); border-radius: 999px; background: var(--seen-surface-solid); color: transparent; cursor: pointer; transition: transform 460ms cubic-bezier(0.16, 1, 0.3, 1), border-color 260ms ease, box-shadow 260ms ease, background 260ms ease, opacity 260ms ease; }
-    .route-node:hover { transform: scale(1.16); border-color: var(--seen-blue); }
-    .route-node.is-active { position: relative; width: 12px; height: 12px; border-color: rgba(255,255,255,0.98); background: #21ff82; box-shadow: 0 0 20px rgba(33, 255, 130, 1), 0 0 0 6px rgba(33, 255, 130, 0.24); animation: routeNodeBreathe 1.7s ease-out infinite; }
-    .route-node.is-active::before { content: ""; position: absolute; inset: -8px; border-radius: inherit; border: 2px solid rgba(33, 255, 130, 0.86); animation: routeNodeRing 1.7s ease-out infinite; }
+
     @keyframes routeNodeBreathe { 0%, 100% { transform: scale(1); filter: brightness(1); } 50% { transform: scale(1.16); filter: brightness(1.18); } }
     @keyframes routeNodeRing { 0% { transform: scale(0.42); opacity: 0.9; } 100% { transform: scale(1.72); opacity: 0; } }
-    .route-node-cell.is-edge .route-node { opacity: 1; }
     @media (max-width: 1180px) { .seen-hero, .record-strip { grid-template-columns: 1fr; } .seen-map-panel { min-height: auto; } }
     @media (max-width: 920px) { .record-form { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     @media (max-width: 920px) { .route-builder-meta { padding-left: 0; } }
-    @media (max-width: 960px) { .detail-switch.prev { left: 8px; } .detail-switch.next { right: 8px; } }
-    @media (max-width: 720px) { .seen-shell { width: min(100% - 24px, 1480px); padding-top: max(62px, calc(var(--seen-nav-height, 0px) + 10px)); } .seen-particle-field { height: 28px; margin-bottom: 2px; } .seen-left, .record-form { grid-template-columns: 1fr; } .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .form-wide { grid-column: auto; } .map-toolbar, .filter-bar, .management-head { align-items: flex-start; flex-direction: column; } .map-controls, .zoom-tabs { width: 100%; justify-content: space-between; } .zoom-tabs button { flex: 1; } .post-card.with-note, .detail-card, .route-card { grid-template-columns: 1fr; } .detail-dialog { --detail-card-height: clamp(260px, calc(100vh - 285px), 560px); } .detail-dialog.has-route-dock { --detail-card-height: clamp(220px, calc(93vh - 340px), 440px); } .detail-card { overflow-x: hidden; overflow-y: auto; } .detail-media { min-height: 220px; height: 30vh; } .detail-card img { max-height: none; } .detail-copy { overflow: visible; } .drawer-item { align-items: flex-start; flex-direction: column; } .detail-switch, .image-nav { display: none; } .route-dock { --route-step: 58px; bottom: clamp(42px, 8vh, 82px); width: min(360px, calc(100% - 20px)); padding: 0; border-radius: 22px; } .route-dock-info { margin-bottom: 6px; } .route-dock-info strong { font-size: 0.86rem; } .route-dock-info span, .route-station-count span { font-size: 0.68rem; } .route-station-count { font-size: 0.78rem; } .route-viewport { height: 52px; } .route-node-cell { height: 52px; } .floating-search { bottom: 14px; } .draft-box { bottom: 215px; } .manager-fab { bottom: 269px; } }
+    @media (max-width: 720px) { .seen-shell { width: min(100% - 24px, 1480px); padding-top: max(62px, calc(var(--seen-nav-height, 0px) + 10px)); } .seen-particle-field { height: 28px; margin-bottom: 2px; } .seen-left, .record-form { grid-template-columns: 1fr; } .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .form-wide { grid-column: auto; } .map-toolbar, .filter-bar, .management-head { align-items: flex-start; flex-direction: column; } .map-controls, .zoom-tabs { width: 100%; justify-content: space-between; } .zoom-tabs button { flex: 1; } .post-card.with-note, .detail-card, .route-card { grid-template-columns: 1fr; }   .detail-card { overflow-x: hidden; overflow-y: auto; } .detail-media { min-height: 220px; height: 30vh; } .detail-card img { max-height: none; } .detail-copy { overflow: visible; } .drawer-item { align-items: flex-start; flex-direction: column; }   .route-dock-info { margin-bottom: 6px; } .route-dock-info strong { font-size: 0.86rem; } .route-dock-info span, .route-station-count span { font-size: 0.68rem; } .route-station-count { font-size: 0.78rem; }   .floating-search { bottom: 14px; }  }
     @media (max-width: 720px) {
       .seen-shell { width: min(100% - 18px, 1480px); padding-top: max(62px, calc(var(--seen-nav-height, 0px) + 10px)); }
       .dashboard-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
       .metric { min-height: 78px; padding: 10px; }
       .feature-photo { min-height: 178px; aspect-ratio: 16 / 10; }
       .feature-photo img { min-height: 178px; object-fit: cover; }
-      .feature-copy { left: 12px; right: 12px; bottom: 11px; }
       .feature-copy h2 { font-size: 1.12rem; }
       .seen-map-panel { min-height: auto; grid-template-rows: auto minmax(318px, auto) auto; }
       .seen-map { min-height: 318px; }
@@ -536,17 +525,24 @@
       .post-meta { font-size: 0.7rem; }
       .post-tags { gap: 4px; }
       .post-tags .seen-tag { padding: 4px 6px; font-size: 0.68rem; }
-      .detail-dialog[open] { width: min(100% - 18px, 860px); max-height: calc(100vh - 112px); margin-top: clamp(60px, 6vh, 120px); margin-bottom: auto; }
-      .detail-dialog { --detail-card-height: clamp(260px, calc(100vh - 285px), 560px); }
-      .detail-dialog.has-route-dock { --detail-card-height: clamp(220px, calc(93vh - 340px), 520px); }
+
       .detail-card { overflow-x: hidden; overflow-y: auto; border-radius: 12px; }
       .detail-media { min-height: 210px; height: 30vh; }
       .detail-card img, .detail-media > img { max-height: none; object-fit: contain; }
       .detail-copy { overflow: visible; padding: 16px; }
-      .route-dock { bottom: clamp(42px, 8vh, 82px); }
+
       .photo-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 10px; }
     }
+    .post-body { min-width: 0; overflow-wrap: anywhere; }
+    .post-card:focus-visible, .seen-action:focus-visible, .seen-tag:focus-visible { outline: 3px solid var(--seen-blue); outline-offset: 3px; }
+    @media (min-width: 769px) and (max-width: 1180px) { .record-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (hover: none) { .post-card:hover { transform: none; box-shadow: none; } }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+    }
+    html.seen-background *, html.seen-background *::before, html.seen-background *::after { animation-play-state: paused !important; }
   </style>
+  <link rel="stylesheet" href="./seen-responsive.css">
 </head>
 <body id="page-top" class="seen-page">
   <div id="navbar"></div>
@@ -557,7 +553,7 @@
         <article class="seen-panel seen-card">
           <div class="seen-kicker"><span>Seen / Travel Notes</span><span id="feature-count">0 records</span></div>
           <h1 class="seen-title">所见</h1>
-          <p class="seen-subtitle">旅途照片、城市碎片、路线记录在这里汇总。现在已经按底层记录集自动汇总统计、区域、路线与标签，后续只需要替换数据源。</p>
+          <p class="seen-subtitle">收藏旅途中的照片与城市片段，沿着地图重温走过的路。</p>
           <div class="keyword-rail" aria-label="关键词滚动推荐"><div class="keyword-track" id="keyword-track"></div></div>
           <div class="feature-photo" id="feature-photo">
             <img src="../static/assets/img/background.jpeg" alt="随机地点推荐" />
@@ -575,7 +571,7 @@
       </div>
       <section class="seen-panel seen-map-panel" aria-label="地图区域选择">
         <div class="map-toolbar">
-          <div><h2>地图区域选择</h2><p>真实底图用于导航与缩放；边界层先以可替换的 GeoJSON 风格结构维护，后续可直接接市级边界文件。</p></div>
+          <div><h2>地图区域选择</h2><p>缩放地图探索足迹，点击地点或路线查看相关记录。</p></div>
           <div class="map-controls">
             <div class="zoom-tabs" aria-label="地图缩放级别">
               <button type="button" class="is-active" data-zoom="country">国家</button>
@@ -685,13 +681,20 @@
     <section class="record-strip" id="record-strip" aria-label="照片与游记列表"></section>
     <p class="data-note">维护建议：真实记录落在 Seen/records/&lt;record_id&gt;/，路线落在 Seen/routes/&lt;route_id&gt;.json，索引落在 Seen/indexes/。页面运行时会维护 records_index / routes_index，并用 Route.records 的顺序驱动导航条。</p>
   </main>
-  <dialog class="seen-dialog detail-dialog" id="record-detail-dialog">
-    <div class="detail-card">
+  <dialog class="seen-dialog detail-dialog" id="record-detail-dialog" aria-labelledby="detail-title">
+    <header class="detail-toolbar">
+      <nav class="detail-record-nav" aria-label="切换记录">
       <button class="icon-btn detail-switch prev" id="prev-detail-record" type="button" title="上一条记录" aria-label="上一条记录"><i class="bi-chevron-left"></i></button>
       <button class="icon-btn detail-switch next" id="next-detail-record" type="button" title="下一条记录" aria-label="下一条记录"><i class="bi-chevron-right"></i></button>
+      </nav>
+      <button class="icon-btn" id="close-record-detail" type="button" aria-label="关闭详情" title="关闭详情"><i class="bi-x-lg"></i></button>
+    </header>
+    <div class="detail-layout">
+    <div class="detail-card-frame">
+    <div class="detail-card">
       <div class="detail-media">
         <img id="detail-image" src="../static/assets/img/background.jpeg" alt="">
-        <span class="image-count" id="detail-image-count">1 / 1</span>
+        <button type="button" class="image-count" id="detail-image-count" aria-label="查看本条记录的所有照片">1 / 1</button>
         <div class="image-nav">
           <button class="icon-btn" id="prev-detail-image" type="button" title="上一张" aria-label="上一张"><i class="bi-chevron-left"></i></button>
           <button class="icon-btn" id="next-detail-image" type="button" title="下一张" aria-label="下一张"><i class="bi-chevron-right"></i></button>
@@ -711,7 +714,9 @@
         </div>
       </div>
     </div>
-    <div class="route-dock" id="route-dock" aria-live="polite"></div>
+    </div>
+    <aside class="route-dock" id="route-dock" aria-label="路线与坐标导航"></aside>
+    </div>
   </dialog>
   <dialog class="photo-browser" id="photo-browser-dialog">
     <div class="route-browser-shell">
@@ -776,7 +781,8 @@
       <div class="route-browser-list" id="route-browser-list"></div>
     </div>
   </dialog>
-  <div class="toast-stack" id="toast-stack"></div>
+  <div class="toast-stack" id="toast-stack" role="status" aria-live="polite"></div>
+  <aside id="seen-tools" aria-label="页面工具">
   <button class="manager-fab" id="manager-fab" type="button" title="记录管理" aria-label="记录管理"><i class="bi-plus-lg"></i></button>
   <div class="draft-box" id="draft-box">
     <div class="draft-panel">
@@ -786,12 +792,18 @@
       <div class="form-actions">
         <button class="seen-action" id="draft-connect" type="button">连接归档目录</button>
         <button class="seen-action primary" id="draft-commit" type="button">提交全部</button>
+        <button class="seen-action" id="draft-export" type="button">导出草稿备份</button>
+        <button class="seen-action" id="draft-import" type="button">恢复草稿备份</button>
+        <input id="draft-import-file" type="file" accept="application/json,.json" hidden>
       </div>
     </div>
     <button class="draft-button" id="draft-toggle" type="button" title="草稿箱" aria-label="草稿箱"><strong><i class="bi-inbox"></i><span class="draft-dot"></span><span id="draft-count">0</span></strong><span class="draft-badge" id="draft-badge">0</span></button>
   </div>
-  <div class="floating-search" id="floating-search">
+    <div id="floating-buttons-container"></div>
+  </aside>
+  <div class="floating-search" id="floating-search" role="search" tabindex="0" aria-label="搜索所见">
     <div class="search-glass">
+      <button class="icon-btn search-close" id="close-search" type="button" aria-label="关闭搜索"><i class="bi-x-lg"></i></button>
       <div class="search-main">
         <i class="bi-search"></i>
         <input id="global-search-input" type="search" placeholder="搜索记录、路线、ID 或关键词" aria-label="搜索">
@@ -820,7 +832,6 @@
       </div>
     </div>
   </dialog>
-  <div id="floating-buttons-container"></div>
 
   <!-- 页脚部分，从全局配置中加载版权信息 -->
   <footer class="bg-bottom text-center py-5">
@@ -896,7 +907,6 @@
         });
     }
 
-
     // Static geographic boundaries stay in-page; records and routes are loaded from the archive filesystem.
     const SEEN_DATA = {
       tags: [],
@@ -971,7 +981,7 @@
     const remoteBoundarySources = {
       country: ["https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.json"]
     };
-    const NOMINATIM_BASE_URL = "https://nominatim.openstreetmap.org";
+    const NOMINATIM_BASE_URL = window.SEEN_MAP_CONFIG.geocodeUrl;
     const NOMINATIM_LANGUAGE = "zh-CN";
     const GEOCODE_CACHE_NAME = `seen-geocode-json-v2-${NOMINATIM_LANGUAGE}`;
     const VIEWER_SINGLE_TAP_CLOSE_DELAY_MS = 120;
@@ -1299,19 +1309,38 @@
       return compacted;
     }
 
-    function persistRecords() {
-      syncRouteBindings();
-      archiveIndexes = buildArchiveIndexes();
-      safeSetJson(STORAGE_KEYS.customRecords, customRecords);
-      safeSetJson(STORAGE_KEYS.customRoutes, customRoutes);
-      safeSetJson(STORAGE_KEYS.routeDrafts, routeDrafts);
-      safeSetJson(STORAGE_KEYS.recordDrafts, recordDrafts);
-      safeSetJson(STORAGE_KEYS.pendingDeletes, pendingDeletes);
-      safeSetJson(STORAGE_KEYS.archiveIndexes, archiveIndexes);
-      safeSetJson(STORAGE_KEYS.hiddenRecords, [...hiddenRecordIds]);
-      safeSetJson(STORAGE_KEYS.deletedRecords, [...deletedRecordIds]);
-      safeSetJson(STORAGE_KEYS.deletedRoutes, [...deletedRouteIds]);
-      safeSetJson(STORAGE_KEYS.customLocations, customLocationEntries);
+    let draftSavePending = 0, draftStorageReady = false;
+    function draftSnapshot() {
+      return { customRecords, customRoutes, routeDrafts, recordDrafts, pendingDeletes,
+        hiddenRecords: [...hiddenRecordIds], deletedRecords: [...deletedRecordIds],
+        deletedRoutes: [...deletedRouteIds], customLocations: customLocationEntries };
+    }
+    function applyDraftSnapshot(data) {
+      customRecords = data.customRecords || []; customRoutes = data.customRoutes || [];
+      routeDrafts = data.routeDrafts || []; recordDrafts = data.recordDrafts || [];
+      pendingDeletes = data.pendingDeletes || [];
+      hiddenRecordIds = new Set(data.hiddenRecords || []); deletedRecordIds = new Set(data.deletedRecords || []);
+      deletedRouteIds = new Set(data.deletedRoutes || []);
+      customLocationEntries.splice(0, customLocationEntries.length, ...(data.customLocations || []));
+      customLocationEntries.forEach(addLocationEntry);
+    }
+    async function restoreDrafts() {
+      try {
+        const saved = await SeenStorage.load();
+        if (saved) applyDraftSnapshot(saved); else await SeenStorage.save(draftSnapshot());
+        draftStorageReady = true;
+        Object.entries(STORAGE_KEYS).filter(([key]) => key !== 'boundaryCache').forEach(([, key]) => {
+          try { localStorage.removeItem(key); } catch (_) {}
+        });
+      } catch (error) { showToast('草稿储存不可用', '旧草稿仍保留；请导出备份，勿关闭页面。' + error.message, 'error'); }
+    }
+    async function persistRecords() {
+      syncRouteBindings(); archiveIndexes = buildArchiveIndexes(); draftSavePending++;
+      try {
+        if (!draftStorageReady) throw new Error('草稿数据库尚未就绪');
+        await SeenStorage.save(draftSnapshot()); return true;
+      } catch (error) { showToast('草稿未保存', '内容仍在当前页面，请导出备份。' + error.message, 'error'); return false; }
+      finally { draftSavePending--; }
     }
 
     function showToast(title, message = "", type = "ok") {
@@ -1357,14 +1386,18 @@
         canvas.width = Math.max(1, Math.floor(rect.width * devicePixelRatio));
         canvas.height = Math.max(1, Math.floor(rect.height * devicePixelRatio));
       };
-      const draw = () => {
+      let animationFrame = 0, lastFrame = 0, visible = false;
+      const motion = matchMedia("(prefers-reduced-motion: reduce)");
+      const draw = (time = 0) => {
+        animationFrame = 0;
+        const step = Math.min((time - lastFrame) / 16.67 || 1, 2); lastFrame = time;
         const w = canvas.width, h = canvas.height;
         const pad = 8 * devicePixelRatio;
         const innerW = Math.max(1, w - pad * 2);
         const innerH = Math.max(1, h - pad * 2);
         ctx.clearRect(0, 0, w, h);
         particles.forEach((p) => {
-          p.x += p.vx; p.y += p.vy;
+          p.x += p.vx * step; p.y += p.vy * step;
           if (p.x < 0 || p.x > 1) p.vx *= -1;
           if (p.y < 0 || p.y > 1) p.vy *= -1;
         });
@@ -1385,11 +1418,14 @@
           ctx.fillStyle = p.color;
           ctx.beginPath(); ctx.arc(x, y, 4.2 * devicePixelRatio, 0, Math.PI * 2); ctx.fill();
         });
-        requestAnimationFrame(draw);
+        if (visible && !document.hidden && !motion.matches) animationFrame = requestAnimationFrame(draw);
       };
+      const resume = () => { cancelAnimationFrame(animationFrame); lastFrame = 0; if (visible && !document.hidden) draw(); };
       resize();
-      window.addEventListener("resize", resize);
-      draw();
+      new ResizeObserver(() => { resize(); resume(); }).observe(canvas);
+      new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; resume(); }).observe(canvas);
+      document.addEventListener("visibilitychange", resume);
+      motion.addEventListener("change", resume);
     }
 
     function removeDraftItem(type, id) {
@@ -1428,6 +1464,12 @@
       return ((((value + 180) % 360) + 360) % 360) - 180;
     }
 
+    function versionArchiveImage(src, version) {
+      const [path, query = ""] = src.split("?");
+      const params = new URLSearchParams(query); params.set("v", version);
+      return `${path}?${params}`;
+    }
+
     function normalizeRecord(record) {
       const routeId = record.route_id ?? record.routeId ?? null;
       const routeIndex = record.route_index ?? record.routeIndex ?? record.segmentIndex ?? null;
@@ -1440,7 +1482,9 @@
       const assetImages = (record.assets || []).map((asset) => asset.src || asset.path).filter(Boolean);
       const legacyCover = record.cover || record.image;
       const rawImages = uniqueValues((record.images && record.images.length ? record.images : (assetImages.length ? assetImages : [legacyCover])).filter(Boolean));
-      const images = uniqueValues(rawImages.map(withArchiveBase));
+      const images = uniqueValues(rawImages.map(withArchiveBase)).map(src =>
+        record.__archive_base && record.updated_at && !/^(data:|blob:|https?:)/.test(src)
+          ? versionArchiveImage(src, record.updated_at) : src);
       const cover = images[0] || withArchiveBase(legacyCover) || "../static/assets/img/background.jpeg";
       const region = normalizeRegion(record.region, record);
       return {
@@ -1662,13 +1706,14 @@
     async function loadArchiveFiles() {
       try {
         const [recordsIndex, routesIndex] = await Promise.all([
-          fetch(archiveUrl("indexes/records_index.json")).then((response) => response.ok ? response.json() : null).catch(() => null),
-          fetch(archiveUrl("indexes/routes_index.json")).then((response) => response.ok ? response.json() : null).catch(() => null)
+          fetch(archiveUrl("indexes/records_index.json"), { cache: "no-cache" }).then((response) => response.ok ? response.json() : null).catch(() => null),
+          fetch(archiveUrl("indexes/routes_index.json"), { cache: "no-cache" }).then((response) => response.ok ? response.json() : null).catch(() => null)
         ]);
+        if (!recordsIndex || !routesIndex) throw new Error("归档索引加载失败，请检查网络后刷新");
         const recordEntries = recordsIndex?.records || [];
         const routeEntries = routesIndex?.routes || [];
-        archiveRecords = (await Promise.all(recordEntries.map((entry) => fetch(archiveUrl(entry.path))
-          .then((response) => response.ok ? response.json() : null)
+        archiveRecords = (await Promise.all(recordEntries.map((entry) => (entry.record ? Promise.resolve(entry.record) : fetch(archiveUrl(entry.path), { cache: "no-cache" })
+          .then((response) => response.ok ? response.json() : null))
           .then((record) => record ? {
             ...record,
             route_id: record.route_id ?? entry.route_id ?? null,
@@ -1679,14 +1724,15 @@
             __archive_base: String(entry.path || "").replace(/\/record\.json$/, "")
           } : null)
           .catch(() => null)))).filter(Boolean);
-        archiveRoutes = (await Promise.all(routeEntries.map((entry) => fetch(archiveUrl(entry.path))
-          .then((response) => response.ok ? response.json() : null)
+        archiveRoutes = (await Promise.all(routeEntries.map((entry) => (entry.route ? Promise.resolve(entry.route) : fetch(archiveUrl(entry.path), { cache: "no-cache" })
+          .then((response) => response.ok ? response.json() : null))
           .then((route) => route || routeFromIndexEntry(entry, archiveRecords))
           .catch(() => routeFromIndexEntry(entry, archiveRecords))))).filter(Boolean);
         syncRouteBindings();
         archiveIndexes = buildArchiveIndexes();
       } catch (error) {
         console.warn("Seen archive files could not be loaded.", error);
+        showToast("归档加载不完整", error.message, "error");
       }
     }
 
@@ -1697,6 +1743,8 @@
     function thumbImageUrl(src) {
       if (!src || src.startsWith("data:") || src.startsWith("blob:")) return src;
       const normalized = String(src);
+      const queryAt = normalized.indexOf("?");
+      if (queryAt >= 0) return thumbImageUrl(normalized.slice(0, queryAt)) + normalized.slice(queryAt);
       if (!normalized.includes("/records/") && !normalized.includes("records/")) return normalized;
       const parts = normalized.split("/");
       const file = parts.pop();
@@ -1715,7 +1763,7 @@
 
     function originalImageUrl(src) {
       if (!src) return src;
-      return String(src).replace(/\/thumbs\/([^/]+)\.jpg$/, "/assets/$1.jpg");
+      return String(src).replace(/\/thumbs\/([^/?]+)\.jpg(?=\?|$)/, "/assets/$1.jpg");
     }
 
     const imageDecodeCache = new Map();
@@ -1747,6 +1795,7 @@
         })
       };
       imageDecodeCache.set(url, entry);
+      while (imageDecodeCache.size > 16) imageDecodeCache.delete(imageDecodeCache.keys().next().value);
       image.src = url;
       return entry.promise;
     }
@@ -1885,10 +1934,14 @@
     }
 
     function renderDashboard() {
-      byId("dashboard-grid").innerHTML = getMetrics().map((item, index) => `<div class="metric" ${index === 0 ? 'role="button" tabindex="0" data-open-routes' : ""}><strong class="is-ticking">${item.value}</strong><span>${item.label}<br>${item.hint}</span></div>`).join("");
+      const metrics = getMetrics(), signature = JSON.stringify(metrics);
+      if (byId("dashboard-grid").dataset.signature === signature) return;
+      byId("dashboard-grid").dataset.signature = signature;
+      byId("dashboard-grid").innerHTML = metrics.map((item, index) => `<div class="metric" ${index === 0 ? 'role="button" tabindex="0" data-open-routes' : ""}><strong class="is-ticking">${item.value}</strong><span>${item.label}<br>${item.hint}</span></div>`).join("");
       byId("dashboard-grid").querySelectorAll("[data-open-routes]").forEach((card) => {
         card.addEventListener("click", openRouteBrowser);
         card.addEventListener("keydown", (event) => {
+          if (event.target !== card) return;
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
             openRouteBrowser();
@@ -1899,7 +1952,7 @@
 
     function renderKeywords() {
       const activeTags = [...new Set(SEEN_DATA.tags.concat(activeRecords().flatMap((record) => record.tags)))];
-      byId("keyword-track").innerHTML = activeTags.concat(activeTags).map((tag) => `<button class="seen-tag ${state.activeTag === tag ? "is-active" : ""}" type="button" data-tag="${tag}">#${tag}</button>`).join("");
+      byId("keyword-track").innerHTML = activeTags.concat(activeTags).map((tag) => `<button class="seen-tag ${state.activeTag === tag ? "is-active" : ""}" type="button" data-tag="${escapeHtml(tag)}">#${escapeHtml(tag)}</button>`).join("");
       byId("keyword-track").querySelectorAll("[data-tag]").forEach((button) => button.addEventListener("click", () => { state.activeTag = state.activeTag === button.dataset.tag ? null : button.dataset.tag; state.visibleRecords = 10; renderAll(); }));
     }
 
@@ -2101,6 +2154,18 @@
     }
 
     async function writeArchiveJson(relativePath, data) {
+      // Build read indexes only from files that actually reached the archive.
+      const kind = relativePath === 'indexes/records_index.json' ? 'records' : relativePath === 'indexes/routes_index.json' ? 'routes' : null;
+      if (kind) {
+        const entries = [];
+        for (const entry of data[kind]) {
+          try {
+            const source = await readArchiveJson(entry.path);
+            entries.push({ ...entry, ...(kind === 'records' ? { record: source, route_id: source.route_id ?? null, route_index: source.route_index ?? null, archived: Boolean(source.archived) } : { route: source }) });
+          } catch (error) { if (error.name !== 'NotFoundError') throw error; }
+        }
+        data = { ...data, [kind]: entries };
+      }
       const handle = await archiveRootHandle();
       const parts = relativePath.split("/").filter(Boolean);
       let dir = handle;
@@ -2216,7 +2281,7 @@
         record.updated_at = now;
         await writeArchiveJson(`records/${recordId}/record.json`, record);
       }));
-      await removeArchiveEntry(`routes/${routeId}.json`).catch(() => {});
+      await removeArchiveEntry(`routes/${routeId}.json`).catch(error => { if (error.name !== "NotFoundError") throw error; });
       archiveRoutes = archiveRoutes.filter((route) => route.id !== routeId);
       customRoutes = customRoutes.filter((route) => route.id !== routeId);
       routeDrafts = routeDrafts.filter((route) => route.id !== routeId);
@@ -2276,7 +2341,7 @@
     }
 
     function archiveImagePath(recordId, src) {
-      const normalized = String(src || "").replace(/\\/g, "/").replace(/^\.?\//, "");
+      const normalized = String(src || "").split("?")[0].replace(/\\/g, "/").replace(/^\.?\//, "");
       const archivePrefix = `records/${recordId}/`;
       return normalized.startsWith(archivePrefix) ? normalized.slice(archivePrefix.length) : normalized;
     }
@@ -2376,10 +2441,10 @@
         region: record.region || null,
         note: record.note || ""
       };
-      await writeArchiveJson(`records/${record.id}/record.json`, metadata);
       await writeArchiveText(`records/${record.id}/content.md`, `# ${record.title}\n\n${record.note || ""}\n`);
       await Promise.all(archiveImages.map(({ image, path }) => writeArchiveBlob(`records/${record.id}/${path}`, dataUrlToBlob(image.src))));
       await syncArchiveThumbnails(record.id, archiveImages.map((item) => item.path), archiveImages.map((item) => item.image.src));
+      await writeArchiveJson(`records/${record.id}/record.json`, metadata);
       await cleanupRecordImageFiles(record.id, archiveImages.map((item) => item.path));
       await writeArchiveJson("indexes/records_index.json", {
         schema_version: 1,
@@ -2387,6 +2452,7 @@
         records: archiveRecordIndexItems()
       });
       if (record.routeId) await persistRouteToArchive(record.routeId);
+      archiveRecords = archiveRecords.filter(item => item.id !== record.id).concat({ ...metadata, __archive_base: `records/${record.id}` });
       return true;
     }
 
@@ -2418,81 +2484,89 @@
       };
       delete nextMetadata.cover;
       delete nextMetadata.image;
-      await writeArchiveJson(`records/${record.id}/record.json`, nextMetadata);
-      if (record.note !== undefined) await writeArchiveText(`records/${record.id}/content.md`, `# ${record.title}\n\n${record.note || ""}\n`);
-      if (metadataOnly) return true;
-      await Promise.all(selectedImages.map(async (src, index) => {
-        const targetPath = imagePaths[index];
-        const sourcePath = archiveImagePath(record.id, src);
-        if (!String(src).startsWith("data:") && sourcePath === targetPath) return;
-        const blob = await blobFromImageSource(src);
-        if (blob) await writeArchiveBlob(`records/${record.id}/${targetPath}`, blob);
-      }));
-      await syncArchiveThumbnails(record.id, imagePaths, selectedImages);
+      if (metadataOnly) {
+        await writeArchiveJson(`records/${record.id}/record.json`, nextMetadata);
+        await writeArchiveIndexes();
+        return true;
+      }
+      // Read all sources before replacing numbered assets (reordering must not overwrite a source).
+      const imageBlobs = await Promise.all(selectedImages.map(src => blobFromImageSource(src)));
+      if (imageBlobs.some(blob => !blob)) throw new Error('部分图片无法读取，草稿已保留');
+      await Promise.all(imageBlobs.map((blob, index) => writeArchiveBlob('records/' + record.id + '/' + imagePaths[index], blob)));
+      const thumbnailSources = imageBlobs.map(blob => URL.createObjectURL(blob));
+      try { await syncArchiveThumbnails(record.id, imagePaths, thumbnailSources); }
+      finally { thumbnailSources.forEach(src => URL.revokeObjectURL(src)); }
+      await writeArchiveJson('records/' + record.id + '/record.json', nextMetadata);
+      if (record.note !== undefined) await writeArchiveText('records/' + record.id + '/content.md', '# ' + record.title + '\n\n' + (record.note || '') + '\n');
       await cleanupRecordImageFiles(record.id, imagePaths);
+      await writeArchiveIndexes();
       return true;
     }
 
     async function commitAllDrafts() {
-      if (!state.archiveHandle) await connectArchiveDirectory();
-      if (!state.archiveHandle) {
-        showToast("提交已取消", "没有连接归档目录，草稿仍保留。", "error");
-        return;
-      }
-      const failures = [];
-      for (const record of customRecords) {
-        try {
-          const images = (record.images || []).filter((src) => String(src).startsWith("data:")).map((src, index) => ({ src, name: `image-${index + 1}.jpg` }));
-          const written = await persistRecordToArchive(record, images);
-          if (written) customRecords = customRecords.filter((item) => item.id !== record.id);
-          else failures.push(`记录 ${record.id}`);
-        } catch (error) {
-          failures.push(`记录 ${record.id}: ${error.message}`);
+      if (state.committingDrafts) return;
+      state.committingDrafts = true;
+      byId("draft-commit").disabled = true;
+      try {
+        if (!state.archiveHandle) await connectArchiveDirectory();
+        if (!state.archiveHandle) {
+          showToast("提交已取消", "没有连接归档目录，草稿仍保留。", "error");
+          return;
         }
-      }
-      for (const record of [...recordDrafts]) {
-        try {
-          const written = await persistRecordMetadataToArchive(record);
-          if (written) {
-            recordDrafts = recordDrafts.filter((item) => item.id !== record.id);
-            archiveRecords = archiveRecords.filter((item) => item.id !== record.id).concat({ ...record, __archive_base: `records/${record.id}` });
-          } else {
-            failures.push(`记录编辑 ${record.id}`);
+        const failures = [];
+        for (const record of customRecords) {
+          try {
+            const images = (record.images || []).filter((src) => String(src).startsWith("data:")).map((src, index) => ({ src, name: `image-${index + 1}.jpg` }));
+            const written = await persistRecordToArchive(record, images);
+            if (written) customRecords = customRecords.filter((item) => item.id !== record.id);
+            else failures.push(`记录 ${record.id}`);
+          } catch (error) {
+            failures.push(`记录 ${record.id}: ${error.message}`);
           }
-        } catch (error) {
-          failures.push(`记录编辑 ${record.id}: ${error.message}`);
         }
-      }
-      for (const route of [...routeDrafts]) {
-        try {
-          const written = await persistRouteToArchive(route.id);
-          if (written) routeDrafts = routeDrafts.filter((item) => item.id !== route.id);
-          else failures.push(`路线 ${route.id}`);
-        } catch (error) {
-          failures.push(`路线 ${route.id}: ${error.message}`);
+        for (const record of [...recordDrafts]) {
+          try {
+            const written = await persistRecordMetadataToArchive(record);
+            if (written) {
+              recordDrafts = recordDrafts.filter((item) => item.id !== record.id);
+              archiveRecords = archiveRecords.filter((item) => item.id !== record.id).concat({ ...record, __archive_base: `records/${record.id}` });
+            } else {
+              failures.push(`记录编辑 ${record.id}`);
+            }
+          } catch (error) {
+            failures.push(`记录编辑 ${record.id}: ${error.message}`);
+          }
         }
+        for (const route of [...routeDrafts]) {
+          try {
+            const written = await persistRouteToArchive(route.id);
+            if (written) routeDrafts = routeDrafts.filter((item) => item.id !== route.id);
+            else failures.push(`路线 ${route.id}`);
+          } catch (error) {
+            failures.push(`路线 ${route.id}: ${error.message}`);
+          }
+        }
+        for (const id of [...deletedRouteIds]) await removeRouteFromArchive(id).then(written => { if (!written) throw new Error("归档目录未连接"); deletedRouteIds.delete(id); }).catch((error) => failures.push(`路线删除 ${id}: ${error.message}`));
+        for (const id of [...hiddenRecordIds]) {
+          const record = allRecords().find((item) => item.id === id);
+          if (record) await persistRecordMetadataToArchive({ ...record, archived: true, __metadata_only: true }).then(written => { if (written) hiddenRecordIds.delete(id); else failures.push(`隐藏 ${id}`); }).catch((error) => failures.push(`隐藏 ${id}: ${error.message}`));
+          else failures.push(`隐藏 ${id}: 记录不存在`);
+        }
+        for (const id of [...pendingDeletes]) {
+          await removeRecordFromArchive(id).then(written => {
+            if (!written) throw new Error("归档目录未连接");
+            pendingDeletes = pendingDeletes.filter((item) => item !== id);
+            deletedRecordIds.delete(id);
+          }).catch((error) => failures.push(`删除 ${id}: ${error.message}`));
+        }
+        const saved = await persistRecords();
+        renderAll();
+        renderDraftBox();
+        if (saved) showToast(failures.length ? "部分提交失败" : "草稿已提交", failures.length ? failures.join("；") : "待提交变更已写入本地归档。", failures.length ? "error" : "ok");
+      } finally {
+        state.committingDrafts = false;
+        byId("draft-commit").disabled = false;
       }
-      for (const id of [...deletedRouteIds]) await removeRouteFromArchive(id).then(() => deletedRouteIds.delete(id)).catch((error) => failures.push(`路线删除 ${id}: ${error.message}`));
-      for (const id of [...hiddenRecordIds]) {
-        const record = allRecords().find((item) => item.id === id);
-        if (record) await persistRecordMetadataToArchive({ ...record, archived: true, __metadata_only: true }).then(() => hiddenRecordIds.delete(id)).catch((error) => failures.push(`隐藏 ${id}: ${error.message}`));
-      }
-      for (const id of [...pendingDeletes]) {
-        await removeRecordFromArchive(id).then(() => {
-          pendingDeletes = pendingDeletes.filter((item) => item !== id);
-          deletedRecordIds.delete(id);
-        }).catch((error) => failures.push(`删除 ${id}: ${error.message}`));
-      }
-      customRecords = [];
-      recordDrafts = [];
-      routeDrafts = [];
-      pendingDeletes = [];
-      hiddenRecordIds = new Set();
-      deletedRecordIds = new Set();
-      persistRecords();
-      renderAll();
-      renderDraftBox();
-      showToast("草稿已提交", "待提交变更已写入本地归档。");
     }
 
     async function removeRecordFromArchive(recordId) {
@@ -2505,24 +2579,15 @@
         routeDrafts = routeDrafts.filter((item) => item.id !== route.id).concat(route);
         await persistRouteToArchive(route.id);
       }
-      await removeArchiveEntry(`records/${recordId}`).catch(async () => {
-        const record = await readArchiveJson(`records/${recordId}/record.json`).catch(() => null);
-        if (!record) return;
-        record.archived = true;
-        record.deleted = true;
-        record.route_id = null;
-        record.route_index = null;
-        record.updated_at = new Date().toISOString();
-        await writeArchiveJson(`records/${recordId}/record.json`, record);
-      });
+      await removeArchiveEntry(`records/${recordId}`).catch(error => { if (error.name !== "NotFoundError") throw error; });
       archiveRecords = archiveRecords.filter((record) => record.id !== recordId);
       customRecords = customRecords.filter((record) => record.id !== recordId);
       recordDrafts = recordDrafts.filter((record) => record.id !== recordId);
       routeDrafts = routeDrafts.filter((route) => !affectedRouteIds.includes(route.id));
       hiddenRecordIds.delete(recordId);
-      deletedRecordIds.delete(recordId);
-      pendingDeletes = pendingDeletes.filter((id) => id !== recordId);
       await writeArchiveIndexes(new Set([recordId]));
+      pendingDeletes = pendingDeletes.filter((id) => id !== recordId);
+      deletedRecordIds.delete(recordId);
       persistRecords();
       renderDraftBox();
       return true;
@@ -2602,7 +2667,7 @@
       featureImage.alt = record.title;
       byId("feature-title").textContent = record.title;
       byId("feature-note").textContent = record.note || `${formatRecordPlace(record)} / ${record.tags.join(" · ")}`;
-      byId("feature-tags").innerHTML = record.tags.map((tag) => `<button class="seen-tag" type="button" data-tag="${tag}">#${tag}</button>`).join("");
+      byId("feature-tags").innerHTML = record.tags.map((tag) => `<button class="seen-tag" type="button" data-tag="${escapeHtml(tag)}">#${escapeHtml(tag)}</button>`).join("");
       byId("feature-tags").querySelectorAll("[data-tag]").forEach((button) => button.addEventListener("click", () => { state.activeTag = button.dataset.tag; state.visibleRecords = 10; renderAll(); }));
     }
 
@@ -2635,28 +2700,35 @@
       const records = filteredRecords();
       const visible = records.slice(0, state.visibleRecords);
       byId("load-more-wrap")?.remove();
-      byId("record-strip").innerHTML = visible.map((record) => {
-        const tags = record.tags.map((tag) => `<button class="seen-tag" type="button" data-tag="${tag}">#${tag}</button>`).join("");
+      const strip = byId("record-strip");
+      const markup = visible.map((record) => {
+        const tags = record.tags.map((tag) => `<button class="seen-tag" type="button" data-tag="${escapeHtml(tag)}">#${escapeHtml(tag)}</button>`).join("");
         const place = formatRecordPlace(record);
         const original = getRecordImages(record)[0] || "../static/assets/img/background.jpeg";
         if (record.type === "note") return `<article class="post-card with-note" role="button" tabindex="0" data-open-record="${escapeHtml(record.id)}"><div class="post-photo"><img src="${escapeHtml(firstRecordImage(record))}" data-full-src="${escapeHtml(original)}" alt="${escapeHtml(record.title)}" loading="lazy" decoding="async"></div><div class="post-body"><div class="post-meta">${escapeHtml(record.date)} / ${escapeHtml(place)}</div><h3>${escapeHtml(record.title)}</h3><p class="post-note">${escapeHtml(record.note)}</p><div class="post-tags">${tags}</div></div></article>`;
         return `<article class="post-card" role="button" tabindex="0" data-open-record="${escapeHtml(record.id)}"><div class="post-photo"><img src="${escapeHtml(firstRecordImage(record))}" data-full-src="${escapeHtml(original)}" alt="${escapeHtml(record.title)}" loading="lazy" decoding="async"></div><div class="post-body"><div class="post-meta">${escapeHtml(record.date)} / ${escapeHtml(place)}</div><h3>${escapeHtml(record.title)}</h3><div class="post-tags">${tags}</div></div></article>`;
       }).join("") || `<article class="post-card seen-card"><h3>没有匹配记录</h3><p class="post-note">换一个标签、区域或路线即可恢复展示。</p></article>`;
+      const previous = strip._seenMarkup || "";
+      if (previous && markup.startsWith(previous)) strip.insertAdjacentHTML("beforeend", markup.slice(previous.length));
+      else if (markup !== previous) strip.innerHTML = markup;
+      strip._seenMarkup = markup;
       if (records.length > visible.length) {
         byId("record-strip").insertAdjacentHTML("afterend", `<div class="load-more-wrap" id="load-more-wrap"><button class="seen-action" id="load-more-records" type="button">继续展开 10 条</button></div>`);
       }
-      byId("record-strip").querySelectorAll("[data-tag]").forEach((button) => button.addEventListener("click", (event) => {
+      byId("record-strip").querySelectorAll("[data-tag]:not([data-bound])").forEach((button) => { button.dataset.bound = "1"; button.addEventListener("click", (event) => {
         event.stopPropagation();
         state.activeTag = state.activeTag === button.dataset.tag ? null : button.dataset.tag;
         state.visibleRecords = 10;
         renderAll();
-      }));
-      byId("record-strip").querySelectorAll("[data-open-record]").forEach((card) => {
-        card.addEventListener("click", () => openRecordDetail(card.dataset.openRecord, records, "全部记录", { sourceElement: card }));
+      }); });
+      byId("record-strip").querySelectorAll("[data-open-record]:not([data-bound])").forEach((card) => {
+        card.dataset.bound = "1";
+        card.addEventListener("click", () => openRecordDetail(card.dataset.openRecord, filteredRecords(), "全部记录", { sourceElement: card }));
         card.addEventListener("keydown", (event) => {
+          if (event.target !== card) return;
           if (event.key === "Enter" || event.key === " ") {
             event.preventDefault();
-            openRecordDetail(card.dataset.openRecord, records, "全部记录", { sourceElement: card });
+            openRecordDetail(card.dataset.openRecord, filteredRecords(), "全部记录", { sourceElement: card });
           }
         });
       });
@@ -2734,6 +2806,7 @@
     }
 
     function animateDetailOpenFrom(sourceRect) {
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       const card = byId("record-detail-dialog").querySelector(".detail-card");
       if (!card) return;
       const targetRect = card.getBoundingClientRect();
@@ -2787,7 +2860,6 @@
 
     function transitionDetailRecord(recordId, pool, poolLabel, options = {}) {
       const card = byId("record-detail-dialog").querySelector(".detail-card");
-      animateRouteDockTravel(recordId, pool);
       if (!card) {
         openRecordDetail(recordId, pool, poolLabel, options);
         return;
@@ -2796,19 +2868,11 @@
       const nextIndex = (pool || []).findIndex((record) => record.id === recordId);
       card.style.setProperty("--switch-direction", `${nextIndex >= currentIndex ? -18 : 18}px`);
       card.classList.add("is-switching");
-      window.setTimeout(() => {
+      clearTimeout(state.detailTransitionTimer);
+      state.detailTransitionTimer = window.setTimeout(() => {
         openRecordDetail(recordId, pool, poolLabel, options);
         requestAnimationFrame(() => card.classList.remove("is-switching"));
-      }, 130);
-    }
-
-    function animateRouteDockTravel(recordId, pool = []) {
-      const dock = byId("route-dock");
-      const nextIndex = pool.findIndex((record) => record.id === recordId);
-      if (!dock || nextIndex < 0 || !dock.classList.contains("is-visible")) return;
-      dock.classList.add("is-moving");
-      dock.style.setProperty("--active-index", nextIndex);
-      window.setTimeout(() => dock.classList.remove("is-moving"), 640);
+      }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 130);
     }
 
     function renderDetailRecordSwitch() {
@@ -2825,6 +2889,9 @@
     function renderRouteDock(record) {
       const route = routeForRecord(record);
       const dock = byId("route-dock");
+      const sameRoute = dock.dataset.routeId === (route?.id || "");
+      const previousScroll = sameRoute ? dock.querySelector("[data-route-viewport]")?.scrollLeft || 0 : 0;
+      dock.dataset.routeId = route?.id || "";
       byId("record-detail-dialog").classList.add("has-route-dock");
       if (!route && state.dockMode === "route") state.dockMode = "point";
       if (!state.dockMode) state.dockMode = route ? "route" : "point";
@@ -2834,22 +2901,17 @@
       const total = navigatorData?.total_count || 1;
       const routePanel = route ? `
         <div class="route-dock-info">
-          <div><strong>${escapeHtml(route.name)}</strong><span>Route ID · ${escapeHtml(route.id)}</span></div>
+          <div><strong>${escapeHtml(route.name)}</strong><span>滑动浏览各站，点击序号切换记录</span></div>
           <div class="route-station-count">第 ${activeIndex + 1} 站<span>共 ${total} 站</span></div>
         </div>
         <div class="route-viewport" data-route-viewport>
           <div class="route-track">
-            ${routeRecords.map((item, index) => `<div class="route-node-cell ${index === 0 || index === total - 1 ? "is-edge" : ""}"><button class="route-node ${item.id === record.id ? "is-active" : ""}" type="button" data-route-record="${item.id}" aria-label="${escapeHtml(item.title)}"></button></div>`).join("")}
+            ${routeRecords.map((item, index) => `<div class="route-node-cell ${index < activeIndex ? "is-visited" : ""}"><button class="route-node ${item.id === record.id ? "is-active" : ""}" type="button" data-route-record="${escapeHtml(item.id)}" ${item.id === record.id ? 'aria-current="step"' : ""} title="${escapeHtml(item.title)}" aria-label="第 ${index + 1} 站：${escapeHtml(item.title)}">${index + 1}</button></div>`).join("")}
           </div>
         </div>` : "";
       const mapMode = route ? state.dockMapMode : "point";
       const mapLabel = route ? `<span class="ios-sub-actions"><span class="sub-point">坐标</span><span class="divider">/</span><span class="sub-route-map">全线</span></span>` : "地图";
-      if (mapState.dockMap) {
-        mapState.dockMap.remove();
-        mapState.dockMap = null;
-        mapState.dockTileLayer = null;
-        mapState.dockLayers = [];
-      }
+      const existingMapElement = mapState.dockMap ? byId("sub-dock-map") : null;
       dock.innerHTML = `
         <div class="sub-dock-display">
           <div class="sub-dock-panel ${state.dockMode === "route" ? "is-active" : ""}" data-sub-panel="route">${routePanel}</div>
@@ -2863,13 +2925,13 @@
           ${route ? `<button class="ios-action-btn btn-confirm ${state.dockMode === "route" ? "is-active" : ""}" type="button" data-dock-tab="route">路线</button>` : ""}
         </div>
       `;
-      dock.style.setProperty("--active-index", activeIndex);
-      const step = window.matchMedia("(max-width: 720px)").matches ? 58 : 78;
-      dock.style.setProperty("--route-width", `${Math.max(total, 1) * step}px`);
+
+      if (existingMapElement) dock.querySelector("#sub-dock-map").replaceWith(existingMapElement);
       dock.classList.add("is-visible");
       requestAnimationFrame(() => {
         const viewport = dock.querySelector("[data-route-viewport]");
-        if (viewport) dock.style.setProperty("--route-viewport-width", `${viewport.clientWidth}px`);
+        if (viewport) viewport.scrollLeft = previousScroll;
+        centerActiveRouteStation(sameRoute ? "smooth" : "instant");
         renderSubDockMap(record, route, mapMode);
       });
       dock.querySelectorAll("[data-route-record]").forEach((button) => button.addEventListener("click", () => transitionDetailRecord(button.dataset.routeRecord, routeRecords, route?.name || "")));
@@ -2885,7 +2947,7 @@
         event.stopPropagation();
         resetSubDockMapView(record, route, mapMode);
       });
-      if (route) bindRouteDockDrag(dock, routeRecords, activeIndex);
+
     }
 
     function clearDockMapLayers() {
@@ -2893,59 +2955,18 @@
       mapState.dockLayers = [];
     }
 
-    function bindDockMapManualInteraction(mapEl) {
-      if (mapEl.dataset.manualDockMapBound) return;
-      mapEl.dataset.manualDockMapBound = "true";
-      let drag = null;
-      mapEl.addEventListener("pointerdown", (event) => {
-        if (!mapState.dockMap || event.button > 0) return;
-        drag = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false };
-        mapEl.setPointerCapture?.(event.pointerId);
-        event.stopPropagation();
-      });
-      mapEl.addEventListener("pointermove", (event) => {
-        if (!drag || drag.id !== event.pointerId || !mapState.dockMap) return;
-        const dx = drag.x - event.clientX;
-        const dy = drag.y - event.clientY;
-        if (Math.abs(dx) + Math.abs(dy) > 1) {
-          drag.moved = true;
-          mapState.dockMap.panBy([dx, dy], { animate: false });
-          drag.x = event.clientX;
-          drag.y = event.clientY;
-        }
-        event.preventDefault();
-        event.stopPropagation();
-      });
-      const endDrag = (event) => {
-        if (!drag || drag.id !== event.pointerId) return;
-        mapEl.releasePointerCapture?.(event.pointerId);
-        drag = null;
-        event.stopPropagation();
-      };
-      mapEl.addEventListener("pointerup", endDrag);
-      mapEl.addEventListener("pointercancel", endDrag);
-      mapEl.addEventListener("wheel", (event) => {
-        if (!mapState.dockMap) return;
-        event.preventDefault();
-        event.stopPropagation();
-        const nextZoom = mapState.dockMap.getZoom() + (event.deltaY < 0 ? 1 : -1);
-        mapState.dockMap.setZoomAround(mapState.dockMap.mouseEventToContainerPoint(event), nextZoom);
-      }, { passive: false });
-    }
-
     function renderSubDockMap(record, route, mode = "point") {
       const mapEl = byId("sub-dock-map");
       if (!mapEl || !window.L || state.dockMode === "route") return;
       if (!mapState.dockMap) {
-        mapState.dockMap = L.map(mapEl, { zoomControl: false, attributionControl: false, dragging: true, scrollWheelZoom: true, touchZoom: true, doubleClickZoom: true, boxZoom: true, keyboard: true, tap: true });
+        mapState.dockMap = L.map(mapEl, { zoomControl: false, attributionControl: true, dragging: true, scrollWheelZoom: true, touchZoom: true, doubleClickZoom: true, boxZoom: true, keyboard: true, tap: true });
+      mapState.dockMap.attributionControl.setPosition("bottomleft");
         L.DomEvent.disableClickPropagation(mapEl);
         L.DomEvent.disableScrollPropagation(mapEl);
-        bindDockMapManualInteraction(mapEl);
         const config = tileConfig();
         mapState.dockTileLayer = L.tileLayer(config.url, tileLayerOptions(config)).addTo(mapState.dockMap);
       } else {
         mapState.dockMap.invalidateSize();
-        bindDockMapManualInteraction(mapEl);
       }
       mapState.dockMap.dragging.enable();
       mapState.dockMap.touchZoom.enable();
@@ -2959,6 +2980,7 @@
       if (mode === "route-map" && routePoints.length) {
         const latLngs = routePoints.map((item) => [item.lat, item.lng]);
         mapState.dockLayers.push(L.polyline(latLngs, { className: "seen-route-core", color: "#7dd3fc", weight: 3, opacity: 0.86, dashArray: "10 14", lineCap: "round", lineJoin: "round" }).addTo(mapState.dockMap));
+        mapState.dockLayers.push(L.polyline(latLngs, { className: 'seen-route-flow', color: '#f5fff9', weight: 2, opacity: .85, interactive: false }).addTo(mapState.dockMap));
         routePoints.forEach((item) => {
           const marker = L.marker([item.lat, item.lng], { icon: item.recordId === record.id ? pointIcon : quietIcon }).addTo(mapState.dockMap);
           if (item.recordId && item.recordId !== record.id) marker.on("click", () => transitionDetailRecord(item.recordId, routePool, route?.name || "", { dockMode: "route-map" }));
@@ -3006,21 +3028,11 @@
       };
     }
 
-    function bindRouteDockDrag(dock, routeRecords, activeIndex) {
-      const viewport = dock.querySelector("[data-route-viewport]");
-      let startX = null;
-      viewport.addEventListener("pointerdown", (event) => {
-        startX = event.clientX;
-      });
-      viewport.addEventListener("pointerup", (event) => {
-        if (startX === null) return;
-        const delta = event.clientX - startX;
-        startX = null;
-        if (Math.abs(delta) < 42) return;
-        const nextIndex = activeIndex + (delta < 0 ? 1 : -1);
-        if (nextIndex < 0 || nextIndex >= routeRecords.length) return;
-        transitionDetailRecord(routeRecords[nextIndex].id, routeRecords, state.detailPoolLabel);
-      });
+    function centerActiveRouteStation(behavior = "instant") {
+      const viewport = byId('route-dock').querySelector('[data-route-viewport]');
+      const active = viewport?.querySelector('[aria-current="step"]');
+      if (!viewport || !active) return;
+      viewport.scrollTo({ left: viewport.scrollLeft + active.getBoundingClientRect().left - viewport.getBoundingClientRect().left - (viewport.clientWidth - active.offsetWidth) / 2, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : behavior });
     }
 
     function clearDetailImageMotion(image, media) {
@@ -3032,6 +3044,7 @@
     }
 
     function animateDetailImageIn(image, direction) {
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       if (!direction) return;
       image.getAnimations?.().forEach((animation) => animation.cancel());
       image.animate([
@@ -3631,6 +3644,10 @@
     function renderSearch() {
       const search = byId("floating-search");
       search.classList.toggle("is-open", state.searchOpen);
+      search.tabIndex = state.searchOpen ? -1 : 0;
+      search.setAttribute("role", state.searchOpen ? "dialog" : "search");
+      if (state.searchOpen) search.setAttribute("aria-modal", "true"); else search.removeAttribute("aria-modal");
+      search.setAttribute("aria-label", "搜索所见");
       document.body.classList.toggle("search-open", state.searchOpen);
       state.searchResults = buildSearchResults();
       if (state.searchIndex >= state.searchResults.length) state.searchIndex = Math.max(0, state.searchResults.length - 1);
@@ -3659,15 +3676,26 @@
       counter.textContent = `${state.searchIndex + 1} / ${state.searchResults.length}`;
     }
 
+    const searchBackgroundState = new Map();
     function openSearch() {
+      if (state.searchOpen) return;
+      document.documentElement.style.setProperty("--seen-visual-height", (window.visualViewport?.height || innerHeight) + "px");
+      document.documentElement.style.setProperty("--seen-visual-top", (window.visualViewport?.offsetTop || 0) + "px");
+      document.querySelectorAll(".seen-shell, footer, #navbar, #floating-buttons-container, #manager-fab, #draft-box").forEach(element => {
+        searchBackgroundState.set(element, element.inert); element.inert = true;
+      });
       state.searchOpen = true;
       renderSearch();
-      setTimeout(() => byId("global-search-input").focus(), 0);
+      setTimeout(() => { if (state.searchOpen) byId("global-search-input").focus({ preventScroll: true }); }, 0);
     }
 
     function closeSearch() {
+      if (!state.searchOpen) return;
+      searchBackgroundState.forEach((wasInert, element) => { element.inert = wasInert; });
+      searchBackgroundState.clear();
       state.searchOpen = false;
       renderSearch();
+      byId("floating-search").focus({ preventScroll: true });
     }
 
     function moveSearchResult(direction) {
@@ -3805,6 +3833,31 @@
       return null;
     }
 
+    let geocodeQueue = Promise.resolve(), lastGeocodeRequest = 0;
+    async function fetchGeocode(request) {
+      const run = async () => {
+        const send = async () => {
+          const remaining = 1100 - (Date.now() - lastGeocodeRequest);
+          if (remaining > 0) await new Promise(resolve => setTimeout(resolve, remaining));
+          lastGeocodeRequest = Date.now();
+          const response = await fetch(request, { signal: AbortSignal.timeout(15000) });
+          if (response.status === 429 || response.status === 503) {
+            const retry = Number(response.headers.get('Retry-After'));
+            lastGeocodeRequest = Date.now() + Math.max(10000, Number.isFinite(retry) ? retry * 1000 : 10000);
+          }
+          return response;
+        };
+        // Share rate limiting across tabs where Web Locks is available.
+        if (navigator.locks) return navigator.locks.request('seen-geocode', async () => {
+          try { lastGeocodeRequest = Math.max(lastGeocodeRequest, Number(localStorage.getItem('seen.geocode.next')) || 0); } catch (_) {}
+          try { return await send(); }
+          finally { try { localStorage.setItem('seen.geocode.next', String(lastGeocodeRequest)); } catch (_) {} }
+        });
+        return send();
+      };
+      const next = geocodeQueue.catch(() => {}).then(run); geocodeQueue = next; return next;
+    }
+
     async function cachedFetchJson(url, cacheName = "seen-json-v1", options = {}) {
       if (fetchJsonPromises.has(url)) return fetchJsonPromises.get(url);
       const promise = (async () => {
@@ -3812,7 +3865,8 @@
         const cache = window.caches ? await caches.open(cacheName).catch(() => null) : null;
         const cached = cache ? await cache.match(request).catch(() => null) : null;
         if (cached) return cached.json();
-        const response = await fetch(request);
+        const response = new URL(url).origin === new URL(NOMINATIM_BASE_URL).origin
+          ? await fetchGeocode(request) : await fetch(request, { signal: AbortSignal.timeout(15000) });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         if (cache) cache.put(request, response.clone()).catch(() => {});
         return response.json();
@@ -3896,7 +3950,7 @@
 
       const urls = [];
       if (area.osmRelationId) urls.push(`https://polygons.openstreetmap.fr/get_geojson.py?id=${area.osmRelationId}&params=0`);
-      if (area.boundaryQuery) urls.push(nominatimUrl("search", { format: "geojson", polygon_geojson: 1, limit: 1, q: area.boundaryQuery }));
+      if (state.managerOpen && area.boundaryQuery) urls.push(nominatimUrl("search", { format: "geojson", polygon_geojson: 1, limit: 1, q: area.boundaryQuery }));
 
       for (const url of urls) {
         try {
@@ -4005,6 +4059,7 @@
         return;
       }
       mapState.map = L.map("seen-map", { zoomControl: true, scrollWheelZoom: true, worldCopyJump: true }).setView([23.4, 113.6], 4);
+      mapState.map.attributionControl.setPosition("bottomleft");
       setMapTileLayer();
       mapState.boundaryLayer = L.layerGroup().addTo(mapState.map);
       mapState.map.on("zoomend", renderMap);
@@ -4017,20 +4072,17 @@
     }
 
     function tileConfig() {
-      return {
-        url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-      };
+      return window.SEEN_MAP_CONFIG;
     }
 
     function tileLayerOptions(config) {
       return {
         maxZoom: 19,
         attribution: config.attribution,
-        keepBuffer: 6,
+        className: config.nightFilter ? "seen-osm-tiles" : "",
+        keepBuffer: 2,
         updateWhenIdle: true,
         updateWhenZooming: false,
-        reuseTiles: true,
         crossOrigin: true
       };
     }
@@ -4390,6 +4442,7 @@
     function initRecordPickerMap() {
       if (typeof L === "undefined" || mapState.pickerMap) return;
       mapState.pickerMap = L.map("record-picker-map", { zoomControl: true, scrollWheelZoom: true }).setView([23.1291, 113.2644], 5);
+      mapState.pickerMap.attributionControl.setPosition("bottomleft");
       setMapTileLayer();
       mapState.pickerMap.on("click", (event) => {
         setPickerLocation(event.latlng.lat, event.latlng.lng, { resolveLocation: true });
@@ -4418,6 +4471,18 @@
         byId("record-id-status").textContent = "Location lookup failed; coordinates are still filled.";
         showToast("Location lookup failed", error.message || "Try again later.", "error");
       });
+    }
+
+    function groupMapRecords(records, map, radius) {
+      if (!radius) return records.map(record => [record]);
+      const groups = new Map();
+      records.forEach(record => {
+        const point = map.project([record.lat, record.lng], map.getZoom());
+        const key = Math.floor(point.x / radius) + ':' + Math.floor(point.y / radius);
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push(record);
+      });
+      return [...groups.values()];
     }
 
     // Map renderer owns only visual interaction. Counts and filtering still come from normalized records above.
@@ -4457,17 +4522,22 @@
         };
         if (latLngs.length > 1) {
           const routeCase = L.polyline(latLngs, { className: "seen-route-case", color: "#06111a", weight: weights.case, opacity: 0.52 }).addTo(mapState.map);
-          const routeCore = L.polyline(latLngs, { className: `seen-route-core ${isActive ? "seen-route-active" : ""}`, color: isActive ? "#e89aa8" : "#7dd3fc", weight: weights.core, opacity: 0.95 }).bindTooltip(`<strong>${route.name}</strong><br>${routeRecords.length} 条路线记录 / ${routePoints.length} 个有效坐标点`, { className: "seen-tooltip" }).addTo(mapState.map);
+          const routeCore = L.polyline(latLngs, { className: `seen-route-core ${isActive ? "seen-route-active" : ""}`, color: isActive ? "#a8e4ff" : "#7dd3fc", weight: weights.core, opacity: 0.95 }).bindTooltip(`<strong>${escapeHtml(route.name)}</strong><br>${routeRecords.length} 条路线记录 / ${routePoints.length} 个有效坐标点`, { className: "seen-tooltip" }).addTo(mapState.map);
           routeCase.on("click", openRoute);
           routeCore.on("click", openRoute);
           routeCase.bringToFront();
           routeCore.bringToFront();
           mapState.routeLayers.push(routeCase, routeCore);
+          routeCore.setStyle({ opacity: isActive ? .95 : state.activeRoute ? .25 : .6 });
+          if (isActive || !state.activeRoute) {
+            const flow = L.polyline(latLngs, { className: 'seen-route-flow' + (isActive ? '' : ' is-quiet'), color: '#f4fbff', weight: Math.max(1.5, weights.core * .45), opacity: .85, interactive: false }).addTo(mapState.map);
+            mapState.routeLayers.push(flow);
+          }
         }
-        if (state.layerFilter === "routes") routePoints.forEach((point) => {
+        if (state.layerFilter === "routes") routePoints.forEach((point, index) => {
           const node = L.marker([point.lat, point.lng], {
-            icon: L.divIcon({ className: "", html: `<span class="waypoint-node ${isActive ? "is-active" : ""}"></span>`, iconSize: [14, 14], iconAnchor: [7, 7] })
-          }).bindTooltip(`<strong>${point.name}</strong><br>${point.at}`, { className: "seen-tooltip" }).addTo(mapState.map);
+            icon: L.divIcon({ className: "", html: `<span class="waypoint-node ${isActive ? "is-active" : ""} ${index === 0 ? "is-start" : index === routePoints.length - 1 ? "is-end" : ""}"></span>`, iconSize: [14, 14], iconAnchor: [7, 7] })
+          }).bindTooltip(`<strong>${escapeHtml(point.name)}</strong><br>${escapeHtml(point.at)}`, { className: "seen-tooltip" }).addTo(mapState.map);
           node.on("click", () => {
             state.activeRoute = state.activeRoute === route.id ? null : route.id;
             state.activeArea = null;
@@ -4478,10 +4548,27 @@
         });
       });
 
-      if (state.layerFilter !== "routes") filteredRecords().filter(hasValidCoords).forEach((record) => {
+      const pointGroups = groupMapRecords(filteredRecords().filter(hasValidCoords), mapState.map, mapZoom < 7 ? 32 : 0);
+      if (state.layerFilter !== "routes") pointGroups.forEach((records) => {
+        const record = records[0];
+        if (records.length > 1) {
+          const lat = records.reduce((sum, item) => sum + item.lat, 0) / records.length;
+          const lng = records.reduce((sum, item) => sum + item.lng, 0) / records.length;
+          const cluster = L.marker([lat, lng], {
+            title: records.length + ' 条记录，点击展开',
+            icon: L.divIcon({ className: 'record-cluster', html: String(records.length), iconSize: [32, 32], iconAnchor: [16, 16] })
+          }).bindTooltip(records.length + ' 条附近记录', { className: 'seen-tooltip' }).addTo(mapState.map);
+          cluster.on('click', () => {
+            const bounds = L.latLngBounds(records.map(item => [item.lat, item.lng]));
+            if (bounds.getNorthEast().equals(bounds.getSouthWest())) openRecordDetail(record.id, records, '同一地点');
+            else mapState.map.fitBounds(bounds, { padding: [32, 32], maxZoom: Math.min(mapZoom + 3, 16) });
+          });
+          mapState.recordMarkers.push(cluster);
+          return;
+        }
         const marker = L.marker([record.lat, record.lng], {
-          icon: L.divIcon({ className: "", html: `<span class="${nodeClass}"></span>`, iconSize: [10, 10], iconAnchor: [5, 5] })
-        }).bindTooltip(`<strong>${record.title}</strong><br>${record.place}`, { className: "seen-tooltip" }).addTo(mapState.map);
+          icon: L.divIcon({ className: "", html: `<span class="${nodeClass} ${record.id === mapState.detailRecordId ? "is-active" : ""}"></span>`, iconSize: [10, 10], iconAnchor: [5, 5] })
+        }).bindTooltip(`<strong>${escapeHtml(record.title)}</strong><br>${escapeHtml(record.place)}`, { className: "seen-tooltip" }).addTo(mapState.map);
         marker.on("click", () => {
           state.featureIndex = activeRecords().findIndex((item) => item.id === record.id);
           renderFeature();
@@ -5071,7 +5158,7 @@
         updated_at: new Date().toISOString()
       };
       recordDrafts = recordDrafts.filter((item) => item.id !== next.id).concat(next);
-      persistRecords();
+      if (!await persistRecords()) return;
       byId("record-editor-dialog").close();
       renderAll();
       renderDraftBox();
@@ -5222,9 +5309,10 @@
       state.featureIndex = 0;
       state.activeArea = record.region?.[state.zoom] || record.region?.province || record.region?.country || null;
       state.activeRoute = null;
-      persistRecords();
+      if (!await persistRecords()) { renderDraftBox(); return; }
       try {
         const written = await persistRecordToArchive(record, state.pendingImages);
+        if (written) { customRecords = customRecords.filter(item => item.id !== record.id); await persistRecords(); }
         showToast(written ? "记录已写入归档" : "记录已保存到浏览器", written ? `${record.id} 已生成文件。` : "连接本地归档目录后可直接生成 record.json / content.md / cover。");
       } catch (error) {
         showToast("记录写入失败", error.message, "error");
@@ -5293,17 +5381,56 @@
       closeCombos();
     }
 
+    function exportDraftBackup() {
+      const blob = new Blob([JSON.stringify({ format: 'seen-drafts', version: 1, savedAt: new Date().toISOString(), data: draftSnapshot() })], { type: 'application/json' });
+      const url = URL.createObjectURL(blob), link = document.createElement('a');
+      link.href = url; link.download = 'seen-drafts-' + new Date().toISOString().slice(0, 10) + '.json';
+      link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+    async function importDraftBackup(file) {
+      if (!file) return;
+      const backup = JSON.parse(await file.text());
+      if (backup.format !== 'seen-drafts' || backup.version !== 1 || !backup.data) throw new Error('不是有效的 Seen 草稿备份');
+      const incoming = backup.data, current = draftSnapshot(), merged = {};
+      for (const key of Object.keys(current)) {
+        if (!Array.isArray(incoming[key])) throw new Error('备份字段无效：' + key);
+        if (['hiddenRecords', 'deletedRecords', 'deletedRoutes', 'pendingDeletes'].includes(key)) {
+          if (incoming[key].some(value => typeof value !== 'string')) throw new Error('备份 ID 无效');
+          merged[key] = [...new Set([...incoming[key], ...current[key]])];
+        } else {
+          if (incoming[key].some(value => !value || typeof value !== 'object' || (key !== 'customLocations' && typeof value.id !== 'string'))) throw new Error('备份记录无效');
+          const identity = value => key === 'customLocations' ? [value.country, value.province, value.city].join('/') : value.id;
+          // Existing local edits win ID conflicts.
+          merged[key] = [...new Map([...incoming[key], ...current[key]].map(value => [identity(value), value])).values()];
+        }
+      }
+      await SeenStorage.save(merged); draftStorageReady = true;
+      applyDraftSnapshot(merged); syncRouteBindings(); renderAll(); populateLocationSelectors();
+      showToast('备份已恢复', '已合并草稿；相同 ID 保留当前页面的版本。');
+    }
+
     function bindStaticEvents() {
-      let lastTouchEnd = 0;
-      document.addEventListener("touchend", (event) => {
-        if (event.target.closest(".leaflet-container, .manager-map, .sub-dock-map, .image-viewer, .detail-dialog, .floating-search, dialog")) {
-          lastTouchEnd = Date.now();
+      byId("close-record-detail").addEventListener("click", () => closeDialog("record-detail-dialog"));
+      byId("close-search").addEventListener("click", event => { event.stopPropagation(); closeSearch(); });
+      byId("floating-search").addEventListener("keydown", event => {
+        if (!state.searchOpen) {
+          if (event.key === "Enter" || event.key === " ") { event.preventDefault(); openSearch(); }
           return;
         }
-        const now = Date.now();
-        if (now - lastTouchEnd < 320) event.preventDefault();
-        lastTouchEnd = now;
-      }, { passive: false });
+        if (event.key === "Escape") { event.preventDefault(); closeSearch(); }
+        if (event.key === "Tab") {
+          const controls = [...byId("floating-search").querySelectorAll("button:not(:disabled), input")].filter(el => el.getClientRects().length);
+          const first = controls[0], last = controls.at(-1);
+          if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+          else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+        }
+      });
+      byId('draft-export').addEventListener('click', exportDraftBackup);
+      byId('draft-import').addEventListener('click', () => byId('draft-import-file').click());
+      byId('draft-import-file').addEventListener('change', event => {
+        importDraftBackup(event.target.files[0]).catch(error => showToast('恢复失败', error.message, 'error'));
+        event.target.value = '';
+      });
       document.addEventListener("error", (event) => {
         const image = event.target;
         if (!(image instanceof HTMLImageElement) || !image.dataset.fullSrc || image.dataset.fallbackTried) return;
@@ -5415,11 +5542,22 @@
       document.addEventListener("click", (event) => {
         if (!event.target.closest(".combo")) closeCombos();
       });
-      window.addEventListener("scroll", maybeAutoLoadRecords, { passive: true });
-      window.addEventListener("resize", () => {
-        const record = allRecords().find((item) => item.id === mapState.detailRecordId);
-        if (record && byId("record-detail-dialog").open) renderRouteDock(record);
-      });
+      let scrollFrame = 0;
+      window.addEventListener("scroll", () => { if (!scrollFrame) scrollFrame = requestAnimationFrame(() => { scrollFrame = 0; maybeAutoLoadRecords(); }); }, { passive: true });
+      let dockResizeFrame = 0;
+      new ResizeObserver(() => {
+        cancelAnimationFrame(dockResizeFrame);
+        dockResizeFrame = requestAnimationFrame(() => { centerActiveRouteStation(); mapState.dockMap?.invalidateSize({ pan: false }); });
+      }).observe(byId('route-dock'));
+      const updateVisualViewport = () => {
+        const viewport = window.visualViewport;
+        document.documentElement.style.setProperty('--seen-visual-height', (viewport?.height || innerHeight) + 'px');
+        document.documentElement.style.setProperty('--seen-visual-top', (viewport?.offsetTop || 0) + 'px');
+      };
+      window.visualViewport?.addEventListener('resize', updateVisualViewport);
+      window.visualViewport?.addEventListener('scroll', updateVisualViewport);
+      window.addEventListener('resize', updateVisualViewport);
+      updateVisualViewport();
       byId("use-map-center").addEventListener("click", () => {
         if (!mapState.map) return;
         const center = mapState.map.getCenter();
@@ -5436,6 +5574,8 @@
         if (event.target === byId("record-detail-dialog")) closeDialog("record-detail-dialog");
       });
       byId("record-detail-dialog").addEventListener("close", () => {
+        clearTimeout(state.detailTransitionTimer);
+        byId("record-detail-dialog").querySelector(".detail-card").classList.remove("is-switching");
         unlockPageScroll("detail-open");
         byId("record-detail-dialog").classList.remove("has-route-dock");
         byId("route-dock").classList.remove("is-visible");
@@ -5522,7 +5662,8 @@
       byId("draft-connect").addEventListener("click", () => connectArchiveDirectory().then(renderDraftBox).catch((error) => showToast("连接失败", error.message, "error")));
       byId("draft-commit").addEventListener("click", () => commitAllDrafts().catch((error) => showToast("提交失败", error.message, "error")));
       byId("floating-search").addEventListener("click", (event) => {
-        if (!state.searchOpen) openSearch();
+        if (state.searchOpen && event.target === byId("floating-search")) closeSearch();
+        else if (!state.searchOpen) openSearch();
         event.stopPropagation();
       });
       document.addEventListener("click", (event) => {
@@ -5580,9 +5721,7 @@
           }
         });
       });
-      new MutationObserver(() => {
-        setMapTileLayer();
-      }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+      // Keep OSM layers when the surrounding theme changes.
     }
 
     function renderAll() {
@@ -5632,6 +5771,7 @@
       .catch((error) => console.error("Error loading floating buttons:", error));
     async function bootSeen() {
       registerSeenImageCache();
+      await restoreDrafts();
       initSeenLocalization();
       await loadArchiveFiles();
       populateLocationSelectors();
@@ -5639,6 +5779,9 @@
       initDatePicker();
       byId("record-id").value = generateRecordId("seen");
       bindStaticEvents();
+      new IntersectionObserver(([entry]) => document.documentElement.classList.toggle("seen-map-idle", !entry.isIntersecting)).observe(byId("seen-map"));
+      document.addEventListener("visibilitychange", () => document.documentElement.classList.toggle("seen-background", document.hidden));
+      window.addEventListener("beforeunload", event => { if (draftSavePending) { event.preventDefault(); event.returnValue = ""; } });
       initHeroParticles();
       const bootRecords = activeRecords();
       if (bootRecords.length) state.featureIndex = Math.floor(Math.random() * bootRecords.length);
