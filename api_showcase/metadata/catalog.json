@@ -2,7 +2,7 @@
   "title": "HuangDapao API Catalog",
   "base_url": "https://api.huangdapao.com",
   "health_endpoint": "/health",
-  "generated_at": "2026-10-07 12:45:41",
+  "generated_at": "2026-10-08 12:57:14",
   "apis": [
     {
       "id": "margin_total_merged",
@@ -15,11 +15,11 @@
       "file": "apis/margin_total_merged.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 7515,
+        "row_count": 7516,
         "min_date": "2010-03-31",
         "max_date": "2026-09-30",
         "options": {},
-        "updated_at": "2026-10-07 12:45:21"
+        "updated_at": "2026-10-08 12:56:53"
       }
     },
     {
@@ -33,11 +33,11 @@
       "file": "apis/szse_margin_total.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 3505,
+        "row_count": 3506,
         "min_date": "2012-05-02",
-        "max_date": "2026-09-29",
+        "max_date": "2026-09-30",
         "options": {},
-        "updated_at": "2026-10-07 12:45:21"
+        "updated_at": "2026-10-08 12:56:54"
       }
     },
     {
@@ -55,7 +55,7 @@
         "min_date": "2010-03-31",
         "max_date": "2026-09-30",
         "options": {},
-        "updated_at": "2026-10-07 12:45:21"
+        "updated_at": "2026-10-08 12:56:54"
       }
     },
     {
@@ -69,11 +69,11 @@
       "file": "apis/szse_margin_detail.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 3189157,
+        "row_count": 3191265,
         "min_date": "2012-05-02",
-        "max_date": "2026-09-29",
+        "max_date": "2026-09-30",
         "options": {},
-        "updated_at": "2026-10-07 12:45:22"
+        "updated_at": "2026-10-08 12:56:54"
       }
     },
     {
@@ -91,7 +91,7 @@
         "min_date": "2010-03-31",
         "max_date": "2026-09-30",
         "options": {},
-        "updated_at": "2026-10-07 12:45:22"
+        "updated_at": "2026-10-08 12:56:54"
       }
     },
     {
@@ -105,9 +105,9 @@
       "file": "apis/global_market_daily.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 198461,
+        "row_count": 198492,
         "min_date": "1999-12-30",
-        "max_date": "2026-10-07",
+        "max_date": "2026-10-08",
         "options": {
           "symbol": [
             {
@@ -236,7 +236,7 @@
             }
           ]
         },
-        "updated_at": "2026-10-07 12:45:40"
+        "updated_at": "2026-10-08 12:57:13"
       }
     },
     {
@@ -357,7 +357,7 @@
             }
           ]
         },
-        "updated_at": "2026-10-07 12:45:40"
+        "updated_at": "2026-10-08 12:57:13"
       }
     },
     {
@@ -375,7 +375,7 @@
         "min_date": "2014-11-18",
         "max_date": "2026-09-30",
         "options": {},
-        "updated_at": "2026-10-07 12:45:41"
+        "updated_at": "2026-10-08 12:57:13"
       }
     },
     {
@@ -393,7 +393,7 @@
         "min_date": "2016-12-05",
         "max_date": "2026-09-30",
         "options": {},
-        "updated_at": "2026-10-07 12:45:41"
+        "updated_at": "2026-10-08 12:57:13"
       }
     },
     {
@@ -407,7 +407,7 @@
       "file": "apis/fund_new_issue.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 9621,
+        "row_count": 9623,
         "min_date": "2013-08-20",
         "max_date": "2026-09-30",
         "options": {
@@ -518,7 +518,7 @@
             }
           ]
         },
-        "updated_at": "2026-10-07 12:45:41"
+        "updated_at": "2026-10-08 12:57:13"
       }
     },
     {
@@ -532,11 +532,11 @@
       "file": "apis/rmb_fx_index.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 610,
+        "row_count": 611,
         "min_date": "2015-11-30",
-        "max_date": "2026-09-24",
+        "max_date": "2026-09-30",
         "options": {},
-        "updated_at": "2026-10-07 12:45:41"
+        "updated_at": "2026-10-08 12:57:14"
       }
     },
     {
@@ -550,11 +550,11 @@
       "file": "apis/shibor_curve.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 835,
+        "row_count": 836,
         "min_date": "2023-05-29",
-        "max_date": "2026-09-30",
+        "max_date": "2026-10-08",
         "options": {},
-        "updated_at": "2026-10-07 12:45:41"
+        "updated_at": "2026-10-08 12:57:14"
       }
     },
     {
@@ -568,11 +568,11 @@
       "file": "apis/erp_hs300_10y.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 769,
+        "row_count": 770,
         "min_date": "2023-05-26",
-        "max_date": "2026-09-30",
+        "max_date": "2026-10-08",
         "options": {},
-        "updated_at": "2026-10-07 12:45:41"
+        "updated_at": "2026-10-08 12:57:14"
       }
     },
     {
@@ -609,7 +609,7 @@
             }
           ]
         },
-        "updated_at": "2026-10-07 12:45:41"
+        "updated_at": "2026-10-08 12:57:14"
       }
     },
     {
@@ -627,7 +627,7 @@
         "min_date": "2025-07-18",
         "max_date": "2026-09-30",
         "options": {},
-        "updated_at": "2026-10-07 12:45:41"
+        "updated_at": "2026-10-08 12:57:14"
       }
     }
   ]
