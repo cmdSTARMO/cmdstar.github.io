@@ -2,7 +2,7 @@
   "title": "HuangDapao API Catalog",
   "base_url": "https://api.huangdapao.com",
   "health_endpoint": "/health",
-  "generated_at": "2026-10-10 13:08:40",
+  "generated_at": "2026-10-11 12:40:31",
   "apis": [
     {
       "id": "margin_total_merged",
@@ -19,7 +19,7 @@
         "min_date": "2010-03-31",
         "max_date": "2026-10-08",
         "options": {},
-        "updated_at": "2026-10-10 13:08:16"
+        "updated_at": "2026-10-11 12:39:59"
       }
     },
     {
@@ -37,7 +37,7 @@
         "min_date": "2012-05-02",
         "max_date": "2026-10-08",
         "options": {},
-        "updated_at": "2026-10-10 13:08:16"
+        "updated_at": "2026-10-11 12:40:00"
       }
     },
     {
@@ -55,7 +55,7 @@
         "min_date": "2010-03-31",
         "max_date": "2026-10-08",
         "options": {},
-        "updated_at": "2026-10-10 13:08:17"
+        "updated_at": "2026-10-11 12:40:00"
       }
     },
     {
@@ -73,7 +73,7 @@
         "min_date": "2012-05-02",
         "max_date": "2026-10-08",
         "options": {},
-        "updated_at": "2026-10-10 13:08:17"
+        "updated_at": "2026-10-11 12:40:01"
       }
     },
     {
@@ -87,11 +87,11 @@
       "file": "apis/sse_margin_detail.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 3466393,
+        "row_count": 3468394,
         "min_date": "2010-03-31",
-        "max_date": "2026-10-08",
+        "max_date": "2026-10-09",
         "options": {},
-        "updated_at": "2026-10-10 13:08:17"
+        "updated_at": "2026-10-11 12:40:01"
       }
     },
     {
@@ -236,7 +236,7 @@
             }
           ]
         },
-        "updated_at": "2026-10-10 13:08:39"
+        "updated_at": "2026-10-11 12:40:30"
       }
     },
     {
@@ -250,9 +250,9 @@
       "file": "apis/ncd_aaa_yield_curve.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 3900,
+        "row_count": 3925,
         "min_date": "2026-02-24",
-        "max_date": "2026-10-09",
+        "max_date": "2026-10-10",
         "options": {
           "term_year": [
             {
@@ -357,7 +357,7 @@
             }
           ]
         },
-        "updated_at": "2026-10-10 13:08:39"
+        "updated_at": "2026-10-11 12:40:30"
       }
     },
     {
@@ -375,7 +375,7 @@
         "min_date": "2014-11-18",
         "max_date": "2026-10-09",
         "options": {},
-        "updated_at": "2026-10-10 13:08:39"
+        "updated_at": "2026-10-11 12:40:30"
       }
     },
     {
@@ -393,7 +393,7 @@
         "min_date": "2016-12-05",
         "max_date": "2026-10-09",
         "options": {},
-        "updated_at": "2026-10-10 13:08:39"
+        "updated_at": "2026-10-11 12:40:30"
       }
     },
     {
@@ -518,7 +518,7 @@
             }
           ]
         },
-        "updated_at": "2026-10-10 13:08:39"
+        "updated_at": "2026-10-11 12:40:30"
       }
     },
     {
@@ -536,7 +536,7 @@
         "min_date": "2015-11-30",
         "max_date": "2026-09-30",
         "options": {},
-        "updated_at": "2026-10-10 13:08:39"
+        "updated_at": "2026-10-11 12:40:31"
       }
     },
     {
@@ -554,7 +554,7 @@
         "min_date": "2023-05-29",
         "max_date": "2026-10-10",
         "options": {},
-        "updated_at": "2026-10-10 13:08:39"
+        "updated_at": "2026-10-11 12:40:31"
       }
     },
     {
@@ -572,7 +572,7 @@
         "min_date": "2023-05-26",
         "max_date": "2026-10-09",
         "options": {},
-        "updated_at": "2026-10-10 13:08:39"
+        "updated_at": "2026-10-11 12:40:31"
       }
     },
     {
@@ -609,7 +609,7 @@
             }
           ]
         },
-        "updated_at": "2026-10-10 13:08:40"
+        "updated_at": "2026-10-11 12:40:31"
       }
     },
     {
@@ -627,7 +627,7 @@
         "min_date": "2025-07-18",
         "max_date": "2026-10-09",
         "options": {},
-        "updated_at": "2026-10-10 13:08:40"
+        "updated_at": "2026-10-11 12:40:31"
       }
     }
   ]
