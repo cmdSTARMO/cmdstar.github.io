@@ -24601,3 +24601,163 @@ page 10: rows=100
 20261014114400,2026-10-14,API showcase metadata,update_api_showcase_metadata.py,success,0,0,2026-10-14 11:53:38,2026-10-14 11:54:10,32.38,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/update_api_showcase_metadata.py,,"[api_showcase] updated 15 API metadata files.
 [api_showcase] catalog: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api_showcase/metadata/catalog.json
 ",
+20261015112415,2026-10-15,SZSE margin total,szse_margintotal_data.py,success,1,0,2026-10-15 11:24:15,2026-10-15 11:25:27,71.9,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/szse_margintotal_data.py,,"Parquet dir: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/margin_szse_tab1_data
+Latest stored date: 2026-10-13; start fetching from 2026-10-14
+Checking 2026-10-14: records found = 1
+[2026-10-14] parquet upserted 1 rows
+Checking 2026-10-15: records found = 0
+All done.
+",
+20261015112415,2026-10-15,SSE margin total,sse_margintotal_data.py,success,1,0,2026-10-15 11:25:27,2026-10-15 11:26:01,34.14,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_margintotal_data.py,,"[WINDOW] 2026-10-14 -> 2026-10-15 fetching...
+  done: fetched 1 rows, parquet upserted 1 rows.
+All done.
+",
+20261015112415,2026-10-15,SZSE margin detail,szse_margindetail_data.py,success,2109,0,2026-10-15 11:26:01,2026-10-15 11:27:06,64.73,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/szse_margindetail_data.py,,"Parquet dir: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/margin_szse_tab2_data
+Latest stored date: 2026-10-13; start fetching from 2026-10-14
+Checking 2026-10-14: records found = 2109
+[2026-10-14] parquet upserted 2109 rows
+Checking 2026-10-15: records found = 0
+All done.
+","/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+"
+20261015112415,2026-10-15,SSE margin detail,sse_margindetail_data.py,success,2001,0,2026-10-15 11:27:06,2026-10-15 11:27:31,24.92,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_margindetail_data.py,,"[2026-10-14] downloading/parsing... OK, 2001 rows
+[2026-10-15] downloading/parsing... no data
+Done. Total parquet upserted 2001 rows.
+",
+20261015112415,2026-10-15,Global market daily,global_market_daily_fetcher.py,success,31,0,2026-10-15 11:27:31,2026-10-15 11:29:27,116.24,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/global_market_daily_fetcher.py,,"[^IXIC] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^IXIC] parquet upserted 1 rows.
+[^DJI] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^DJI] parquet upserted 1 rows.
+[^SPX] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^SPX] parquet upserted 1 rows.
+[^VIX] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^VIX] parquet upserted 1 rows.
+[^GSPTSE] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^GSPTSE] parquet upserted 1 rows.
+[^BVSP] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^BVSP] parquet upserted 1 rows.
+[^MXX] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^MXX] parquet upserted 1 rows.
+[^MERV] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^MERV] parquet upserted 1 rows.
+[^N100] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^N100] parquet upserted 1 rows.
+[^FTSE] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^FTSE] parquet upserted 1 rows.
+[^FTAI] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^FTAI] parquet upserted 1 rows.
+[^FCHI] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^FCHI] parquet upserted 1 rows.
+[^GDAXI] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^GDAXI] parquet upserted 1 rows.
+[^SSMI] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^SSMI] parquet upserted 1 rows.
+[FTSEMIB.MI] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[FTSEMIB.MI] parquet upserted 1 rows.
+[^AEX] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^AEX] parquet upserted 1 rows.
+[^BFX] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^BFX] parquet upserted 1 rows.
+[^STOXX50E] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^STOXX50E] parquet upserted 1 rows.
+[^N225] mode=incremental; latest=2026-10-14; fetch 2026-10-15 -> 2026-10-15
+[^N225] parquet upserted 1 rows.
+[^BSESN] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^BSESN] parquet upserted 1 rows.
+[^SET.BK] mode=incremental; latest=2026-10-14; fetch 2026-10-15 -> 2026-10-15
+[^SET.BK] parquet upserted 1 rows.
+[^KS11] mode=incremental; latest=2026-10-14; fetch 2026-10-15 -> 2026-10-15
+[^KS11] parquet upserted 1 rows.
+[^STI] mode=incremental; latest=2026-10-14; fetch 2026-10-15 -> 2026-10-15
+[^STI] parquet upserted 1 rows.
+[^JKSE] mode=incremental; latest=2026-10-14; fetch 2026-10-15 -> 2026-10-15
+[^JKSE] parquet upserted 1 rows.
+[^KLSE] mode=incremental; latest=2026-10-14; fetch 2026-10-15 -> 2026-10-15
+[^KLSE] parquet upserted 1 rows.
+[^AORD] mode=incremental; latest=2026-10-14; fetch 2026-10-15 -> 2026-10-15
+[^AORD] parquet upserted 1 rows.
+[^NZ50] mode=incremental; latest=2026-10-14; fetch 2026-10-15 -> 2026-10-15
+[^NZ50] parquet upserted 1 rows.
+[^TA125.TA] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^TA125.TA] parquet upserted 1 rows.
+[DFMGI.AE] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[DFMGI.AE] parquet upserted 1 rows.
+[^TASI.SR] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^TASI.SR] parquet upserted 1 rows.
+[^J203.JO] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15
+[^J203.JO] parquet upserted 1 rows.
+All done. Total parquet upserted 31 rows.
+",
+20261015112415,2026-10-15,SW industry daily,sw_industry_daily_fetcher.py,skipped,0,0,2026-10-15 11:29:27,2026-10-15 11:29:27,0.0,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sw_industry_daily_fetcher.py,,disabled by RUN_SW_INDUSTRY_DAILY; set RUN_SW_INDUSTRY_DAILY=1 to enable,
+20261015112415,2026-10-15,SSE ETF shares,sse_etf_shares_fetcher.py,success,1843,0,2026-10-15 11:29:27,2026-10-15 11:29:31,4.12,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_etf_shares_fetcher.py,,"[sse_etf_shares] mode=incremental; latest=2026-10-12; fetch 2026-10-13 -> 2026-10-15
+[2026-10-13] parquet upserted 921 rows.
+[2026-10-14] parquet upserted 922 rows.
+[2026-10-15] no rows.
+[sse_etf_shares] all done. Total parquet upserted 1843 rows.
+",
+20261015112415,2026-10-15,NCD AAA yield curve,ncd_aaa_yield_curve_fetcher.py,success,25,0,2026-10-15 11:29:31,2026-10-15 11:29:33,2.02,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/ncd_aaa_yield_curve_fetcher.py,,"[1] Fetch 2026-10-14 ~ 2026-10-15
+  -> 25 rows
+Done. Parquet upserted 25 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/ncd_aaa_yield_curve_data
+",
+20261015112415,2026-10-15,RMB FX index,rmb_fx_index_fetcher.py,success,0,0,2026-10-15 11:29:33,2026-10-15 11:29:35,2.22,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/rmb_fx_index_fetcher.py,,"[rmb_fx_index] mode=incremental; latest=2026-09-30; fetch 2026-10-01 -> 2026-10-08
+[rmb_fx_index] fetch 2026-10-01 -> 2026-10-08
+[rmb_fx_index] no new rows.
+",
+20261015112415,2026-10-15,Shibor curve,shibor_curve_fetcher.py,success,747,0,2026-10-15 11:29:35,2026-10-15 11:29:38,2.37,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/shibor_curve_fetcher.py,,"[shibor_curve] parquet upserted 747 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/shibor_curve_data
+[shibor_curve] date range: 2023-10-16 -> 2026-10-15
+",
+20261015112415,2026-10-15,Southbound netbuy,southbound_netbuy_fetcher.py,success,1,0,2026-10-15 11:29:38,2026-10-15 11:29:39,1.37,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/southbound_netbuy_fetcher.py,,"[southbound] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15; query_start=2026-10-04
+[southbound] page=1; rows=5; pages=1
+[southbound] parquet upserted 1 rows.
+",
+20261015112415,2026-10-15,Northbound deal amount,northbound_dealamt_fetcher.py,success,1,0,2026-10-15 11:29:39,2026-10-15 11:29:40,1.27,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/northbound_dealamt_fetcher.py,,"[northbound] mode=incremental; latest=2026-10-13; fetch 2026-10-14 -> 2026-10-15; query_start=2026-10-04
+[northbound] page=1; rows=5; pages=1
+[northbound] parquet upserted 1 rows.
+",
+20261015112415,2026-10-15,Fund new issue,fund_new_issue_fetcher.py,success,9689,0,2026-10-15 11:29:40,2026-10-15 11:29:59,18.76,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/fund_new_issue_fetcher.py,,"[fund_new_issue] fast update enabled: latest snapshot=2026-10-14, fetch first 10 pages.
+fetch page 1: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=1%2C100&isbuy=2
+page 1: rows=100
+fetch page 2: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=2%2C100&isbuy=2
+page 2: rows=100
+fetch page 3: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=3%2C100&isbuy=2
+page 3: rows=100
+fetch page 4: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=4%2C100&isbuy=2
+page 4: rows=100
+fetch page 5: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=5%2C100&isbuy=2
+page 5: rows=100
+fetch page 6: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=6%2C100&isbuy=2
+page 6: rows=100
+fetch page 7: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=7%2C100&isbuy=2
+page 7: rows=100
+fetch page 8: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=8%2C100&isbuy=2
+page 8: rows=100
+fetch page 9: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=9%2C100&isbuy=2
+page 9: rows=100
+fetch page 10: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=10%2C100&isbuy=2
+page 10: rows=100
+[fund_new_issue] mode=fast, old_rows=9685, fetched_rows=1000, final_rows=9689, sliced_rows=9689, parquet_dir=/home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/fund_new_issue_data
+[fund_new_issue] established_date range: 2013-08-20 -> 2026-10-14
+",
+20261015112415,2026-10-15,ERP HS300 10Y,erp_hs300_10y_fetcher.py,success,0,0,2026-10-15 11:29:59,2026-10-15 11:30:10,10.74,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/erp_hs300_10y_fetcher.py,,"[erp] fetch gov yield 2023-10-15 -> 2024-01-14
+[erp] fetch gov yield 2024-01-15 -> 2024-04-14
+[erp] fetch gov yield 2024-04-15 -> 2024-07-14
+[erp] fetch gov yield 2024-07-15 -> 2024-10-14
+[erp] fetch gov yield 2024-10-15 -> 2025-01-14
+[erp] fetch gov yield 2025-01-15 -> 2025-04-14
+[erp] fetch gov yield 2025-04-15 -> 2025-07-14
+[erp] fetch gov yield 2025-07-15 -> 2025-10-14
+[erp] fetch gov yield 2025-10-15 -> 2026-01-14
+[erp] fetch gov yield 2026-01-15 -> 2026-04-14
+[erp] fetch gov yield 2026-04-15 -> 2026-07-14
+[erp] fetch gov yield 2026-07-15 -> 2026-10-14
+[erp] fetch gov yield 2026-10-15 -> 2026-10-15
+[erp] gov rows=746
+[erp] hs300 rows=1
+[erp] no rows generated.
+",
+20261015112415,2026-10-15,API showcase metadata,update_api_showcase_metadata.py,success,0,0,2026-10-15 11:30:10,2026-10-15 11:30:31,20.96,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/update_api_showcase_metadata.py,,"[api_showcase] updated 15 API metadata files.
+[api_showcase] catalog: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api_showcase/metadata/catalog.json
+",
