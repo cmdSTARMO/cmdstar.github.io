@@ -21,7 +21,7 @@
       "type": "date",
       "required": true,
       "label": "结束日期",
-      "default": "2026-10-16"
+      "default": "2026-10-19"
     },
     {
       "name": "offset",
@@ -204,9 +204,9 @@
     }
   ],
   "stats": {
-    "row_count": 198692,
+    "row_count": 198701,
     "min_date": "1999-12-30",
-    "max_date": "2026-10-16",
+    "max_date": "2026-10-19",
     "options": {
       "symbol": [
         {
@@ -335,7 +335,7 @@
         }
       ]
     },
-    "updated_at": "2026-10-18 11:23:29"
+    "updated_at": "2026-10-19 11:35:36"
   },
   "hidden_params": []
 }
