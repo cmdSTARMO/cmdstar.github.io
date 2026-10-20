@@ -21,7 +21,7 @@
       "type": "date",
       "required": true,
       "label": "结束日期",
-      "default": "2026-10-16"
+      "default": "2026-10-19"
     },
     {
       "name": "offset",
@@ -75,11 +75,11 @@
     }
   ],
   "stats": {
-    "row_count": 3478399,
+    "row_count": 3480414,
     "min_date": "2010-03-31",
-    "max_date": "2026-10-16",
+    "max_date": "2026-10-19",
     "options": {},
-    "updated_at": "2026-10-19 11:35:08"
+    "updated_at": "2026-10-20 11:48:11"
   },
   "hidden_params": []
 }

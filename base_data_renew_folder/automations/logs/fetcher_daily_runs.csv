@@ -25448,3 +25448,223 @@ page 10: rows=100
 20261019112702,2026-10-19,API showcase metadata,update_api_showcase_metadata.py,success,0,0,2026-10-19 11:35:05,2026-10-19 11:35:38,32.79,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/update_api_showcase_metadata.py,,"[api_showcase] updated 15 API metadata files.
 [api_showcase] catalog: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api_showcase/metadata/catalog.json
 ",
+20261020113626,2026-10-20,SZSE margin total,szse_margintotal_data.py,success,1,0,2026-10-20 11:36:26,2026-10-20 11:38:29,122.97,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/szse_margintotal_data.py,,"Parquet dir: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/margin_szse_tab1_data
+Latest stored date: 2026-10-16; start fetching from 2026-10-17
+Checking 2026-10-17: records found = 0
+Checking 2026-10-18: records found = 0
+Checking 2026-10-19: records found = 1
+[2026-10-19] parquet upserted 1 rows
+Checking 2026-10-20: records found = 0
+All done.
+",
+20261020113626,2026-10-20,SSE margin total,sse_margintotal_data.py,success,1,0,2026-10-20 11:38:29,2026-10-20 11:39:50,80.16,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_margintotal_data.py,,"[WINDOW] 2026-10-17 -> 2026-10-20 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback34372084&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20261017&endDate=20261020&sqlId=RZRQ_HZ_INFO&_=1792467510878; retrying this window
+[WINDOW] 2026-10-17 -> 2026-10-20 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback15849574&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20261017&endDate=20261020&sqlId=RZRQ_HZ_INFO&_=1792467517090; retrying this window
+[WINDOW] 2026-10-17 -> 2026-10-20 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback37433379&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20261017&endDate=20261020&sqlId=RZRQ_HZ_INFO&_=1792467522815; retrying this window
+[WINDOW] 2026-10-17 -> 2026-10-20 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback11789318&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20261017&endDate=20261020&sqlId=RZRQ_HZ_INFO&_=1792467528013; retrying this window
+[WINDOW] 2026-10-17 -> 2026-10-20 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback72084043&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20261017&endDate=20261020&sqlId=RZRQ_HZ_INFO&_=1792467533211; retrying this window
+[WINDOW] 2026-10-17 -> 2026-10-20 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback89353094&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20261017&endDate=20261020&sqlId=RZRQ_HZ_INFO&_=1792467538411; retrying this window
+[WINDOW] 2026-10-17 -> 2026-10-20 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback47155339&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20261017&endDate=20261020&sqlId=RZRQ_HZ_INFO&_=1792467543610; retrying this window
+[WINDOW] 2026-10-17 -> 2026-10-20 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback46793168&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20261017&endDate=20261020&sqlId=RZRQ_HZ_INFO&_=1792467548808; retrying this window
+[WINDOW] 2026-10-17 -> 2026-10-20 fetching...
+  request error: 403 Client Error: Forbidden for url: https://query.sse.com.cn/commonSoaQuery.do?jsonCallBack=jsonpCallback54552875&isPagination=true&pageHelp.pageSize=5000&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.cacheSize=1&pageHelp.endPage=1&stockCode=&beginDate=20261017&endDate=20261020&sqlId=RZRQ_HZ_INFO&_=1792467554007; retrying this window
+[WINDOW] 2026-10-17 -> 2026-10-20 fetching...
+  done: fetched 1 rows, parquet upserted 1 rows.
+All done.
+",
+20261020113626,2026-10-20,SZSE margin detail,szse_margindetail_data.py,success,2114,0,2026-10-20 11:39:50,2026-10-20 11:41:56,126.34,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/szse_margindetail_data.py,,"Parquet dir: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/margin_szse_tab2_data
+Latest stored date: 2026-10-16; start fetching from 2026-10-17
+Checking 2026-10-17: records found = 0
+Checking 2026-10-18: records found = 0
+Checking 2026-10-19: records found = 2114
+[2026-10-19] parquet upserted 2114 rows
+Checking 2026-10-20: records found = 0
+All done.
+","/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages/openpyxl/styles/stylesheet.py:237: UserWarning: Workbook contains no default style, apply openpyxl's default
+  warn(""Workbook contains no default style, apply openpyxl's default"")
+"
+20261020113626,2026-10-20,SSE margin detail,sse_margindetail_data.py,success,2015,0,2026-10-20 11:41:56,2026-10-20 11:42:43,46.76,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_margindetail_data.py,,"[2026-10-17] downloading/parsing... no data
+[2026-10-18] downloading/parsing... no data
+[2026-10-19] downloading/parsing... OK, 2015 rows
+[2026-10-20] downloading/parsing... no data
+Done. Total parquet upserted 2015 rows.
+",
+20261020113626,2026-10-20,Global market daily,global_market_daily_fetcher.py,success,30,0,2026-10-20 11:42:43,2026-10-20 11:44:52,128.92,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/global_market_daily_fetcher.py,,"[^IXIC] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^IXIC] parquet upserted 1 rows.
+[^DJI] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^DJI] parquet upserted 1 rows.
+[^SPX] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^SPX] parquet upserted 1 rows.
+[^VIX] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^VIX] parquet upserted 1 rows.
+[^GSPTSE] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^GSPTSE] parquet upserted 1 rows.
+[^BVSP] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^BVSP] parquet upserted 1 rows.
+[^MXX] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^MXX] parquet upserted 1 rows.
+[^MERV] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^MERV] no new rows.
+[^N100] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^N100] parquet upserted 1 rows.
+[^FTSE] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^FTSE] parquet upserted 1 rows.
+[^FTAI] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^FTAI] parquet upserted 1 rows.
+[^FCHI] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^FCHI] parquet upserted 1 rows.
+[^GDAXI] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^GDAXI] parquet upserted 1 rows.
+[^SSMI] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^SSMI] parquet upserted 1 rows.
+[FTSEMIB.MI] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[FTSEMIB.MI] parquet upserted 1 rows.
+[^AEX] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^AEX] parquet upserted 1 rows.
+[^BFX] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^BFX] parquet upserted 1 rows.
+[^STOXX50E] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^STOXX50E] parquet upserted 1 rows.
+[^N225] mode=incremental; latest=2026-10-19; fetch 2026-10-20 -> 2026-10-20
+[^N225] parquet upserted 1 rows.
+[^BSESN] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^BSESN] parquet upserted 1 rows.
+[^SET.BK] mode=incremental; latest=2026-10-19; fetch 2026-10-20 -> 2026-10-20
+[^SET.BK] parquet upserted 1 rows.
+[^KS11] mode=incremental; latest=2026-10-19; fetch 2026-10-20 -> 2026-10-20
+[^KS11] parquet upserted 1 rows.
+[^STI] mode=incremental; latest=2026-10-19; fetch 2026-10-20 -> 2026-10-20
+[^STI] parquet upserted 1 rows.
+[^JKSE] mode=incremental; latest=2026-10-19; fetch 2026-10-20 -> 2026-10-20
+[^JKSE] parquet upserted 1 rows.
+[^KLSE] mode=incremental; latest=2026-10-19; fetch 2026-10-20 -> 2026-10-20
+[^KLSE] parquet upserted 1 rows.
+[^AORD] mode=incremental; latest=2026-10-19; fetch 2026-10-20 -> 2026-10-20
+[^AORD] parquet upserted 1 rows.
+[^NZ50] mode=incremental; latest=2026-10-19; fetch 2026-10-20 -> 2026-10-20
+[^NZ50] parquet upserted 1 rows.
+[^TA125.TA] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^TA125.TA] parquet upserted 1 rows.
+[DFMGI.AE] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[DFMGI.AE] parquet upserted 1 rows.
+[^TASI.SR] mode=incremental; latest=2026-10-18; fetch 2026-10-19 -> 2026-10-20
+[^TASI.SR] parquet upserted 1 rows.
+[^J203.JO] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[^J203.JO] parquet upserted 1 rows.
+All done. Total parquet upserted 30 rows.
+",
+20261020113626,2026-10-20,SW industry daily,sw_industry_daily_fetcher.py,skipped,0,0,2026-10-20 11:44:52,2026-10-20 11:44:52,0.0,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sw_industry_daily_fetcher.py,,disabled by RUN_SW_INDUSTRY_DAILY; set RUN_SW_INDUSTRY_DAILY=1 to enable,
+20261020113626,2026-10-20,SSE ETF shares,sse_etf_shares_fetcher.py,success,0,0,2026-10-20 11:44:52,2026-10-20 11:47:28,156.41,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/sse_etf_shares_fetcher.py,,"[sse_etf_shares] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20
+[2026-10-17] no rows.
+[2026-10-18] request failed attempt 1/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-18&_=20261020114453
+[2026-10-18] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-18&_=20261020114453
+[2026-10-18] request failed attempt 2/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-18&_=20261020114458
+[2026-10-18] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-18&_=20261020114453
+[2026-10-18] request failed attempt 3/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-18&_=20261020114509
+[2026-10-18] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-18&_=20261020114453
+[2026-10-18] request failed attempt 4/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-18&_=20261020114524
+[2026-10-18] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-18&_=20261020114453
+[2026-10-18] request failed attempt 5/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-18&_=20261020114545
+[2026-10-18] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-18&_=20261020114453
+[2026-10-18] failed after retries; skip. Next run will retry from current latest date.
+[2026-10-19] request failed attempt 1/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-19&_=20261020114545
+[2026-10-19] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-19&_=20261020114545
+[2026-10-19] request failed attempt 2/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-19&_=20261020114550
+[2026-10-19] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-19&_=20261020114545
+[2026-10-19] request failed attempt 3/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-19&_=20261020114601
+[2026-10-19] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-19&_=20261020114545
+[2026-10-19] request failed attempt 4/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-19&_=20261020114616
+[2026-10-19] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-19&_=20261020114545
+[2026-10-19] request failed attempt 5/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-19&_=20261020114636
+[2026-10-19] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-19&_=20261020114545
+[2026-10-19] failed after retries; skip. Next run will retry from current latest date.
+[2026-10-20] request failed attempt 1/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-20&_=20261020114637
+[2026-10-20] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-20&_=20261020114637
+[2026-10-20] request failed attempt 2/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-20&_=20261020114642
+[2026-10-20] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-20&_=20261020114637
+[2026-10-20] request failed attempt 3/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-20&_=20261020114652
+[2026-10-20] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-20&_=20261020114637
+[2026-10-20] request failed attempt 4/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-20&_=20261020114707
+[2026-10-20] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-20&_=20261020114637
+[2026-10-20] request failed attempt 5/5: 403 Client Error: Forbidden for url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-20&_=20261020114727
+[2026-10-20] url: http://query.sse.com.cn/commonQuery.do?jsonCallBack=cb&isPagination=true&pageHelp.pageSize=9999&pageHelp.pageNo=1&pageHelp.beginPage=1&pageHelp.endPage=1&pageHelp.cacheSize=1&sqlId=COMMON_SSE_ZQPZ_ETFZL_XXPL_ETFGM_SEARCH_L&STAT_DATE=2026-10-20&_=20261020114637
+[2026-10-20] failed after retries; skip. Next run will retry from current latest date.
+[sse_etf_shares] all done. Total parquet upserted 0 rows.
+",
+20261020113626,2026-10-20,NCD AAA yield curve,ncd_aaa_yield_curve_fetcher.py,success,25,0,2026-10-20 11:47:28,2026-10-20 11:47:30,1.77,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/ncd_aaa_yield_curve_fetcher.py,,"[1] Fetch 2026-10-17 ~ 2026-10-20
+  -> 25 rows
+Done. Parquet upserted 25 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/ncd_aaa_yield_curve_data
+",
+20261020113626,2026-10-20,RMB FX index,rmb_fx_index_fetcher.py,success,0,0,2026-10-20 11:47:30,2026-10-20 11:47:32,2.22,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/rmb_fx_index_fetcher.py,,"[rmb_fx_index] mode=incremental; latest=2026-10-09; fetch 2026-10-10 -> 2026-10-13
+[rmb_fx_index] fetch 2026-10-10 -> 2026-10-13
+[rmb_fx_index] no new rows.
+",
+20261020113626,2026-10-20,Shibor curve,shibor_curve_fetcher.py,success,746,0,2026-10-20 11:47:32,2026-10-20 11:47:34,2.32,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/shibor_curve_fetcher.py,,"[shibor_curve] parquet upserted 746 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/shibor_curve_data
+[shibor_curve] date range: 2023-10-20 -> 2026-10-20
+",
+20261020113626,2026-10-20,Southbound netbuy,southbound_netbuy_fetcher.py,success,0,0,2026-10-20 11:47:34,2026-10-20 11:47:36,1.72,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/southbound_netbuy_fetcher.py,,"[southbound] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20; query_start=2026-10-07
+[southbound] page=1; rows=7; pages=1
+[southbound] no new rows.
+",
+20261020113626,2026-10-20,Northbound deal amount,northbound_dealamt_fetcher.py,success,0,0,2026-10-20 11:47:36,2026-10-20 11:47:37,1.22,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/northbound_dealamt_fetcher.py,,"[northbound] mode=incremental; latest=2026-10-16; fetch 2026-10-17 -> 2026-10-20; query_start=2026-10-07
+[northbound] page=1; rows=7; pages=1
+[northbound] no new rows.
+",
+20261020113626,2026-10-20,Fund new issue,fund_new_issue_fetcher.py,success,9727,0,2026-10-20 11:47:37,2026-10-20 11:47:59,21.77,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/fund_new_issue_fetcher.py,,"[fund_new_issue] fast update enabled: latest snapshot=2026-10-19, fetch first 10 pages.
+fetch page 1: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=1%2C100&isbuy=2
+page 1: rows=100
+fetch page 2: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=2%2C100&isbuy=2
+page 2: rows=100
+fetch page 3: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=3%2C100&isbuy=2
+page 3: rows=100
+fetch page 4: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=4%2C100&isbuy=2
+page 4: rows=100
+fetch page 5: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=5%2C100&isbuy=2
+page 5: rows=100
+fetch page 6: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=6%2C100&isbuy=2
+page 6: rows=100
+fetch page 7: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=7%2C100&isbuy=2
+page 7: rows=100
+fetch page 8: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=8%2C100&isbuy=2
+page 8: rows=100
+fetch page 9: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=9%2C100&isbuy=2
+page 9: rows=100
+fetch page 10: https://fund.eastmoney.com/data/FundNewIssue.aspx?t=xcln&sort=jzrgq%2Cdesc&y=&page=10%2C100&isbuy=2
+page 10: rows=100
+[fund_new_issue] mode=fast, old_rows=9714, fetched_rows=1000, final_rows=9727, sliced_rows=9727, parquet_dir=/home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/fund_new_issue_data
+[fund_new_issue] established_date range: 2013-08-20 -> 2026-10-15
+",
+20261020113626,2026-10-20,ERP HS300 10Y,erp_hs300_10y_fetcher.py,success,1,0,2026-10-20 11:47:59,2026-10-20 11:48:09,9.74,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/erp_hs300_10y_fetcher.py,,"[erp] fetch gov yield 2023-10-20 -> 2024-01-19
+[erp] fetch gov yield 2024-01-20 -> 2024-04-19
+[erp] fetch gov yield 2024-04-20 -> 2024-07-19
+[erp] fetch gov yield 2024-07-20 -> 2024-10-19
+[erp] fetch gov yield 2024-10-20 -> 2025-01-19
+[erp] fetch gov yield 2025-01-20 -> 2025-04-19
+[erp] fetch gov yield 2025-04-20 -> 2025-07-19
+[erp] fetch gov yield 2025-07-20 -> 2025-10-19
+[erp] fetch gov yield 2025-10-20 -> 2026-01-19
+[erp] fetch gov yield 2026-01-20 -> 2026-04-19
+[erp] fetch gov yield 2026-04-20 -> 2026-07-19
+[erp] fetch gov yield 2026-07-20 -> 2026-10-19
+[erp] fetch gov yield 2026-10-20 -> 2026-10-20
+[erp] gov rows=746
+[erp] hs300 rows=1
+[erp] parquet upserted 1 rows into /home/runner/work/cmdstar.github.io/cmdstar.github.io/api/data/erp_hs300_10y_data
+[erp] date range: 2026-10-20 -> 2026-10-20
+",
+20261020113626,2026-10-20,API showcase metadata,update_api_showcase_metadata.py,success,0,0,2026-10-20 11:48:09,2026-10-20 11:48:41,32.58,/opt/hostedtoolcache/Python/3.12.15/x64/bin/python /home/runner/work/cmdstar.github.io/cmdstar.github.io/base_data_renew_folder/automations/update_api_showcase_metadata.py,,"[api_showcase] updated 15 API metadata files.
+[api_showcase] catalog: /home/runner/work/cmdstar.github.io/cmdstar.github.io/api_showcase/metadata/catalog.json
+",
