@@ -2,7 +2,7 @@
   "title": "HuangDapao API Catalog",
   "base_url": "https://api.huangdapao.com",
   "health_endpoint": "/health",
-  "generated_at": "2026-10-21 11:39:54",
+  "generated_at": "2026-10-22 11:34:52",
   "apis": [
     {
       "id": "margin_total_merged",
@@ -15,11 +15,11 @@
       "file": "apis/margin_total_merged.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 7534,
+        "row_count": 7536,
         "min_date": "2010-03-31",
-        "max_date": "2026-10-20",
+        "max_date": "2026-10-21",
         "options": {},
-        "updated_at": "2026-10-21 11:39:22"
+        "updated_at": "2026-10-22 11:34:32"
       }
     },
     {
@@ -33,11 +33,11 @@
       "file": "apis/szse_margin_total.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 3515,
+        "row_count": 3516,
         "min_date": "2012-05-02",
-        "max_date": "2026-10-20",
+        "max_date": "2026-10-21",
         "options": {},
-        "updated_at": "2026-10-21 11:39:23"
+        "updated_at": "2026-10-22 11:34:32"
       }
     },
     {
@@ -51,11 +51,11 @@
       "file": "apis/sse_margin_total.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 4019,
+        "row_count": 4020,
         "min_date": "2010-03-31",
-        "max_date": "2026-10-20",
+        "max_date": "2026-10-21",
         "options": {},
-        "updated_at": "2026-10-21 11:39:23"
+        "updated_at": "2026-10-22 11:34:33"
       }
     },
     {
@@ -69,11 +69,11 @@
       "file": "apis/szse_margin_detail.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 3210257,
+        "row_count": 3212373,
         "min_date": "2012-05-02",
-        "max_date": "2026-10-20",
+        "max_date": "2026-10-21",
         "options": {},
-        "updated_at": "2026-10-21 11:39:24"
+        "updated_at": "2026-10-22 11:34:33"
       }
     },
     {
@@ -87,11 +87,11 @@
       "file": "apis/sse_margin_detail.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 3482431,
+        "row_count": 3484448,
         "min_date": "2010-03-31",
-        "max_date": "2026-10-20",
+        "max_date": "2026-10-21",
         "options": {},
-        "updated_at": "2026-10-21 11:39:24"
+        "updated_at": "2026-10-22 11:34:33"
       }
     },
     {
@@ -105,9 +105,9 @@
       "file": "apis/global_market_daily.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 198760,
+        "row_count": 198790,
         "min_date": "1999-12-30",
-        "max_date": "2026-10-21",
+        "max_date": "2026-10-22",
         "options": {
           "symbol": [
             {
@@ -236,7 +236,7 @@
             }
           ]
         },
-        "updated_at": "2026-10-21 11:39:53"
+        "updated_at": "2026-10-22 11:34:51"
       }
     },
     {
@@ -250,9 +250,9 @@
       "file": "apis/ncd_aaa_yield_curve.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 4100,
+        "row_count": 4125,
         "min_date": "2026-02-24",
-        "max_date": "2026-10-20",
+        "max_date": "2026-10-21",
         "options": {
           "term_year": [
             {
@@ -357,7 +357,7 @@
             }
           ]
         },
-        "updated_at": "2026-10-21 11:39:53"
+        "updated_at": "2026-10-22 11:34:51"
       }
     },
     {
@@ -371,11 +371,11 @@
       "file": "apis/capital_flow_southbound.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 2731,
+        "row_count": 2732,
         "min_date": "2014-11-18",
-        "max_date": "2026-10-20",
+        "max_date": "2026-10-21",
         "options": {},
-        "updated_at": "2026-10-21 11:39:53"
+        "updated_at": "2026-10-22 11:34:51"
       }
     },
     {
@@ -389,11 +389,11 @@
       "file": "apis/capital_flow_northbound.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 2295,
+        "row_count": 2296,
         "min_date": "2016-12-05",
-        "max_date": "2026-10-20",
+        "max_date": "2026-10-21",
         "options": {},
-        "updated_at": "2026-10-21 11:39:53"
+        "updated_at": "2026-10-22 11:34:51"
       }
     },
     {
@@ -407,9 +407,9 @@
       "file": "apis/fund_new_issue.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 9747,
+        "row_count": 9769,
         "min_date": "2013-08-20",
-        "max_date": "2026-10-20",
+        "max_date": "2026-10-21",
         "options": {
           "fund_type": [
             {
@@ -518,7 +518,7 @@
             }
           ]
         },
-        "updated_at": "2026-10-21 11:39:53"
+        "updated_at": "2026-10-22 11:34:51"
       }
     },
     {
@@ -536,7 +536,7 @@
         "min_date": "2015-11-30",
         "max_date": "2026-10-09",
         "options": {},
-        "updated_at": "2026-10-21 11:39:53"
+        "updated_at": "2026-10-22 11:34:51"
       }
     },
     {
@@ -550,11 +550,11 @@
       "file": "apis/shibor_curve.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 846,
+        "row_count": 847,
         "min_date": "2023-05-29",
-        "max_date": "2026-10-21",
+        "max_date": "2026-10-22",
         "options": {},
-        "updated_at": "2026-10-21 11:39:53"
+        "updated_at": "2026-10-22 11:34:51"
       }
     },
     {
@@ -568,11 +568,11 @@
       "file": "apis/erp_hs300_10y.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 778,
+        "row_count": 779,
         "min_date": "2023-05-26",
-        "max_date": "2026-10-21",
+        "max_date": "2026-10-22",
         "options": {},
-        "updated_at": "2026-10-21 11:39:54"
+        "updated_at": "2026-10-22 11:34:51"
       }
     },
     {
@@ -586,9 +586,9 @@
       "file": "apis/sse_etf_shares.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 942757,
+        "row_count": 944605,
         "min_date": "2012-01-04",
-        "max_date": "2026-10-19",
+        "max_date": "2026-10-21",
         "options": {
           "etf_type": [
             {
@@ -609,7 +609,7 @@
             }
           ]
         },
-        "updated_at": "2026-10-21 11:39:54"
+        "updated_at": "2026-10-22 11:34:52"
       }
     },
     {
@@ -623,11 +623,11 @@
       "file": "apis/szse_etf_shares.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 187242,
+        "row_count": 188007,
         "min_date": "2025-07-18",
-        "max_date": "2026-10-20",
+        "max_date": "2026-10-21",
         "options": {},
-        "updated_at": "2026-10-21 11:39:54"
+        "updated_at": "2026-10-22 11:34:52"
       }
     }
   ]
