@@ -2,7 +2,7 @@
   "title": "HuangDapao API Catalog",
   "base_url": "https://api.huangdapao.com",
   "health_endpoint": "/health",
-  "generated_at": "2026-10-25 11:31:11",
+  "generated_at": "2026-10-26 11:33:48",
   "apis": [
     {
       "id": "margin_total_merged",
@@ -15,11 +15,11 @@
       "file": "apis/margin_total_merged.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 7539,
+        "row_count": 7540,
         "min_date": "2010-03-31",
         "max_date": "2026-10-23",
         "options": {},
-        "updated_at": "2026-10-25 11:30:40"
+        "updated_at": "2026-10-26 11:33:30"
       }
     },
     {
@@ -33,11 +33,11 @@
       "file": "apis/szse_margin_total.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 3517,
+        "row_count": 3518,
         "min_date": "2012-05-02",
-        "max_date": "2026-10-22",
+        "max_date": "2026-10-23",
         "options": {},
-        "updated_at": "2026-10-25 11:30:41"
+        "updated_at": "2026-10-26 11:33:31"
       }
     },
     {
@@ -55,7 +55,7 @@
         "min_date": "2010-03-31",
         "max_date": "2026-10-23",
         "options": {},
-        "updated_at": "2026-10-25 11:30:41"
+        "updated_at": "2026-10-26 11:33:31"
       }
     },
     {
@@ -69,11 +69,11 @@
       "file": "apis/szse_margin_detail.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 3214491,
+        "row_count": 3216609,
         "min_date": "2012-05-02",
-        "max_date": "2026-10-22",
+        "max_date": "2026-10-23",
         "options": {},
-        "updated_at": "2026-10-25 11:30:42"
+        "updated_at": "2026-10-26 11:33:31"
       }
     },
     {
@@ -91,7 +91,7 @@
         "min_date": "2010-03-31",
         "max_date": "2026-10-23",
         "options": {},
-        "updated_at": "2026-10-25 11:30:42"
+        "updated_at": "2026-10-26 11:33:31"
       }
     },
     {
@@ -105,9 +105,9 @@
       "file": "apis/global_market_daily.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 198840,
+        "row_count": 198848,
         "min_date": "1999-12-30",
-        "max_date": "2026-10-23",
+        "max_date": "2026-10-26",
         "options": {
           "symbol": [
             {
@@ -236,7 +236,7 @@
             }
           ]
         },
-        "updated_at": "2026-10-25 11:31:10"
+        "updated_at": "2026-10-26 11:33:47"
       }
     },
     {
@@ -357,7 +357,7 @@
             }
           ]
         },
-        "updated_at": "2026-10-25 11:31:10"
+        "updated_at": "2026-10-26 11:33:47"
       }
     },
     {
@@ -375,7 +375,7 @@
         "min_date": "2014-11-18",
         "max_date": "2026-10-23",
         "options": {},
-        "updated_at": "2026-10-25 11:31:10"
+        "updated_at": "2026-10-26 11:33:47"
       }
     },
     {
@@ -393,7 +393,7 @@
         "min_date": "2016-12-05",
         "max_date": "2026-10-23",
         "options": {},
-        "updated_at": "2026-10-25 11:31:10"
+        "updated_at": "2026-10-26 11:33:47"
       }
     },
     {
@@ -518,7 +518,7 @@
             }
           ]
         },
-        "updated_at": "2026-10-25 11:31:10"
+        "updated_at": "2026-10-26 11:33:47"
       }
     },
     {
@@ -536,7 +536,7 @@
         "min_date": "2015-11-30",
         "max_date": "2026-10-16",
         "options": {},
-        "updated_at": "2026-10-25 11:31:11"
+        "updated_at": "2026-10-26 11:33:48"
       }
     },
     {
@@ -550,11 +550,11 @@
       "file": "apis/shibor_curve.json",
       "show_in_catalog": true,
       "stats": {
-        "row_count": 848,
+        "row_count": 849,
         "min_date": "2023-05-29",
-        "max_date": "2026-10-23",
+        "max_date": "2026-10-26",
         "options": {},
-        "updated_at": "2026-10-25 11:31:11"
+        "updated_at": "2026-10-26 11:33:48"
       }
     },
     {
@@ -572,7 +572,7 @@
         "min_date": "2023-05-26",
         "max_date": "2026-10-23",
         "options": {},
-        "updated_at": "2026-10-25 11:31:11"
+        "updated_at": "2026-10-26 11:33:48"
       }
     },
     {
@@ -609,7 +609,7 @@
             }
           ]
         },
-        "updated_at": "2026-10-25 11:31:11"
+        "updated_at": "2026-10-26 11:33:48"
       }
     },
     {
@@ -627,7 +627,7 @@
         "min_date": "2025-07-18",
         "max_date": "2026-10-23",
         "options": {},
-        "updated_at": "2026-10-25 11:31:11"
+        "updated_at": "2026-10-26 11:33:48"
       }
     }
   ]
