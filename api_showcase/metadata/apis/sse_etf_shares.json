@@ -21,7 +21,7 @@
       "type": "date",
       "required": true,
       "label": "结束日期",
-      "default": "2026-11-24"
+      "default": "2026-11-25"
     },
     {
       "name": "offset",
@@ -80,9 +80,9 @@
     }
   ],
   "stats": {
-    "row_count": 966803,
+    "row_count": 967741,
     "min_date": "2012-01-04",
-    "max_date": "2026-11-24",
+    "max_date": "2026-11-25",
     "options": {
       "etf_type": [
         {
@@ -103,7 +103,7 @@
         }
       ]
     },
-    "updated_at": "2026-11-25 15:18:53"
+    "updated_at": "2026-11-26 15:07:44"
   },
   "hidden_params": []
 }
